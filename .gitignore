@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+check
+dataset.py
+main.py
+environment.yml
+project/main.py
+project/phoneix_dataset.py

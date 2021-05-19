@@ -1,0 +1,4 @@
+{
+    "code_dir": "/home/nlp/dorink/project/bsl1k",
+    "activate_env": "conda activate bsl1k_env"
+}
