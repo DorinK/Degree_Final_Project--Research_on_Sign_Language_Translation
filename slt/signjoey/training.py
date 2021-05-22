@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import itertools
+import sys
 
 import torch
 from torchtext.data import Dataset
@@ -13,9 +14,9 @@ import shutil
 import time
 import queue
 
-from signjoey.model import build_model
-from signjoey.batch import Batch
-from signjoey.helpers import (
+from slt.signjoey.model import build_model
+from slt.signjoey.batch import Batch
+from slt.signjoey.helpers import (
     log_data_info,
     load_config,
     log_cfg,
@@ -25,14 +26,14 @@ from signjoey.helpers import (
     set_seed,
     symlink_update,
 )
-from signjoey.model import SignModel
-from signjoey.prediction import validate_on_data
-from signjoey.loss import XentLoss
-from signjoey.data import load_data, make_data_iter
-from signjoey.builders import build_optimizer, build_scheduler, build_gradient_clipper
-from signjoey.prediction import test
-from signjoey.metrics import wer_single
-from signjoey.vocabulary import SIL_TOKEN, TextVocabulary
+from slt.signjoey.model import SignModel
+from slt.signjoey.prediction import validate_on_data
+from slt.signjoey.loss import XentLoss
+from slt.signjoey.data import load_data, make_data_iter
+from slt.signjoey.builders import build_optimizer, build_scheduler, build_gradient_clipper
+from slt.signjoey.prediction import test
+from slt.signjoey.metrics import wer_single
+from slt.signjoey.vocabulary import SIL_TOKEN, TextVocabulary, build_vocab
 from torch import Tensor
 from torch.utils.tensorboard import SummaryWriter
 # from torchtext.data import Dataset
@@ -41,6 +42,7 @@ from typing import List, Dict
 import tensorflow_datasets as tfds
 from sign_language_datasets.datasets.config import SignDatasetConfig
 
+# TODO: Update. XXX
 # pylint: disable=too-many-instance-attributes
 class TrainManager:
     """ Manages training loop, validations, learning rate scheduling
@@ -124,7 +126,7 @@ class TrainManager:
             self.minimize_metric = True
         elif self.early_stopping_metric == "eval_metric":
             if self.eval_metric in ["bleu", "chrf", "rouge"]:
-                assert self.do_translation
+                assert self.do_translation  # TODO: issue here. XXX
                 self.minimize_metric = False
             else:  # eval metric that has to get minimized (not yet implemented)
                 self.minimize_metric = True
@@ -1005,7 +1007,7 @@ def train(cfg_file: str) -> None:
     # set the random seed
     set_seed(seed=cfg["training"].get("random_seed", 42))
 
-    # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check the data.py to check I've not missed anything)
+    # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check in data.py that I didn't miss anything)
     if cfg["data"]["version"] == 'phoenix_2014_trans':
         train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(
             data_cfg=cfg["data"]
@@ -1013,8 +1015,29 @@ def train(cfg_file: str) -> None:
     else:
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
-        train_data, dev_data, test_data, gls_vocab, txt_vocab = autsl['train'], autsl['validation'], autsl[
-            'test'], _, TextVocabulary()  # TODO: create vocabularies using the classes.    XXX
+        train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
+        # for datum in itertools.islice(autsl["train"], 0, 20):
+        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'), datum['gloss_id'].numpy())
+
+        gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
+        gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
+        # txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
+        # txt_min_freq = cfg["data"].get("txt_voc_min_freq", 1)
+
+        gls_vocab_file = cfg["data"].get("gls_vocab", None)
+        txt_vocab_file = cfg["data"].get("txt_vocab", None)
+
+        # gls_vocab = build_vocab(
+        #     version=cfg["data"]["version"],
+        #     field="gls",
+        #     min_freq=gls_min_freq,
+        #     max_size=gls_max_size,
+        #     dataset=train_data,
+        #     vocab_file=gls_vocab_file,
+        # )
+
+        txt_vocab = TextVocabulary(tokens=txt_vocab_file)   # TODO: Remove parameter?   V
+        # TODO: Create vocabularies using the classes.  V
 
     # TODO: Update translation_loss_weight to 0.0 and recognition_loss_weight to 1.0.   V
     # build model and load parameters into it
@@ -1022,6 +1045,8 @@ def train(cfg_file: str) -> None:
     # if cfg["data"]["version"] == 'phoenix_2014_trans':
     do_translation = cfg["training"].get("translation_loss_weight", 1.0) > 0.0
 
+    # TODO: Should update the features size, in phoenix it was frames and here it's a video, so the tensor has 4
+    #  dimensions. for example, (58,512,512,3). XXX
     if cfg["data"]["version"] == 'phoenix_2014_trans':
         model = build_model(
             cfg=cfg["model"],
@@ -1038,7 +1063,7 @@ def train(cfg_file: str) -> None:
             cfg=cfg["model"],
             gls_vocab=gls_vocab,
             txt_vocab=txt_vocab,
-            sgn_dim=sum(cfg["data"]["feature_size"])            # TODO: size of video?  XXX
+            sgn_dim=sum(cfg["data"]["feature_size"])            # TODO: Should update the feature size. XXX
             if isinstance(cfg["data"]["feature_size"], list)
             else cfg["data"]["feature_size"],
             do_recognition=do_recognition,

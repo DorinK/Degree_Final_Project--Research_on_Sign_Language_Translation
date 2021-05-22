@@ -8,20 +8,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from itertools import groupby
-from signjoey.initialization import initialize_model
-from signjoey.embeddings import Embeddings, SpatialEmbeddings
-from signjoey.encoders import Encoder, RecurrentEncoder, TransformerEncoder
-from signjoey.decoders import Decoder, RecurrentDecoder, TransformerDecoder
-from signjoey.search import beam_search, greedy
-from signjoey.vocabulary import (
+from slt.signjoey.initialization import initialize_model
+from slt.signjoey.embeddings import Embeddings, SpatialEmbeddings
+from slt.signjoey.encoders import Encoder, RecurrentEncoder, TransformerEncoder
+from slt.signjoey.decoders import Decoder, RecurrentDecoder, TransformerDecoder
+from slt.signjoey.search import beam_search, greedy
+from slt.signjoey.vocabulary import (
     TextVocabulary,
     GlossVocabulary,
     PAD_TOKEN,
     EOS_TOKEN,
     BOS_TOKEN,
 )
-from signjoey.batch import Batch
-from signjoey.helpers import freeze_params
+from slt.signjoey.batch import Batch
+from slt.signjoey.helpers import freeze_params
 from torch import Tensor
 from typing import Union
 
@@ -400,14 +400,14 @@ def build_model(    # TODO: Update in process.
             emb_dropout=enc_emb_dropout,
         )
 
-    if do_recognition:  # TODO: Update according to yaml and gls_vocab.  XXX
+    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay VVX
         gloss_output_layer = nn.Linear(encoder.output_size, len(gls_vocab))
         if cfg["encoder"].get("freeze", False):
             freeze_params(gloss_output_layer)
     else:
         gloss_output_layer = None
 
-    # TODO: Should be okay  XXX
+    # TODO: Should be okay. V
     # build decoder and word embeddings
     if do_translation:
         txt_embed: Union[Embeddings, None] = Embeddings(
@@ -438,7 +438,7 @@ def build_model(    # TODO: Update in process.
         txt_embed = None
         decoder = None
 
-    # TODO: Update if neede. XXX
+    # TODO: Update if needed.   Update: seams good. XXX
     model: SignModel = SignModel(
         encoder=encoder,
         gloss_output_layer=gloss_output_layer,

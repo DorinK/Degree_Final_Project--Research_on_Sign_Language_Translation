@@ -5,8 +5,8 @@ import torch.nn as nn
 from torch import Tensor
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
-from signjoey.helpers import freeze_params
-from signjoey.transformer_layers import TransformerEncoderLayer, PositionalEncoding
+from slt.signjoey.helpers import freeze_params
+from slt.signjoey.transformer_layers import TransformerEncoderLayer, PositionalEncoding
 
 
 # pylint: disable=abstract-method

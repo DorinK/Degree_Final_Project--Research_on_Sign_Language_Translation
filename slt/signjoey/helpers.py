@@ -22,7 +22,7 @@ from torch import nn, Tensor
 import yaml
 from torchtext.data import Dataset
 
-from signjoey.vocabulary import GlossVocabulary, TextVocabulary
+from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
 
 
 def make_model_dir(model_dir: str, overwrite: bool = False) -> str:

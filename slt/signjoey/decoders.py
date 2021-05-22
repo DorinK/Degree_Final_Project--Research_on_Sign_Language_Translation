@@ -8,10 +8,10 @@ from typing import Optional
 import torch
 import torch.nn as nn
 from torch import Tensor
-from signjoey.attention import BahdanauAttention, LuongAttention
-from signjoey.encoders import Encoder
-from signjoey.helpers import freeze_params, subsequent_mask
-from signjoey.transformer_layers import PositionalEncoding, TransformerDecoderLayer
+from slt.signjoey.attention import BahdanauAttention, LuongAttention
+from slt.signjoey.encoders import Encoder
+from slt.signjoey.helpers import freeze_params, subsequent_mask
+from slt.signjoey.transformer_layers import PositionalEncoding, TransformerDecoderLayer
 
 
 # pylint: disable=abstract-method

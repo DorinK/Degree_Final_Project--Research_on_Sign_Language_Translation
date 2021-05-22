@@ -3,8 +3,8 @@
 This module holds various MT evaluation metrics.
 """
 
-from signjoey.external_metrics import sacrebleu
-from signjoey.external_metrics import mscoco_rouge
+from slt.signjoey.external_metrics import sacrebleu
+from slt.signjoey.external_metrics import mscoco_rouge
 import numpy as np
 
 WER_COST_DEL = 3

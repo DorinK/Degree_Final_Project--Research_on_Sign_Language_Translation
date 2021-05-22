@@ -27,6 +27,7 @@ class Vocabulary:
         self.stoi = None
         self.DEFAULT_UNK_ID = None
 
+    # TODO: Change if it is the way.    XXX
     def _from_list(self, tokens: List[str] = None):
         """
         Make vocabulary from list of tokens.
@@ -38,6 +39,7 @@ class Vocabulary:
         self.add_tokens(tokens=self.specials + tokens)
         assert len(self.stoi) == len(self.itos)
 
+    # TODO: Should check it.    XXX
     def _from_file(self, file: str):
         """
         Make vocabulary from contents of file.
@@ -54,6 +56,7 @@ class Vocabulary:
     def __str__(self) -> str:
         return self.stoi.__str__()
 
+    # TODO: Should check it.    XXX
     def to_file(self, file: str):
         """
         Save the vocabulary to a file, by writing token with index i in line i.
@@ -64,6 +67,8 @@ class Vocabulary:
             for t in self.itos:
                 open_file.write("{}\n".format(t))
 
+    # TODO: Should check it.    XXX
+    #  Update: This func gives a number to each label. Should not be used.
     def add_tokens(self, tokens: List[str]):
         """
         Add list of tokens to vocabulary
@@ -77,6 +82,7 @@ class Vocabulary:
                 self.itos.append(t)
                 self.stoi[t] = new_index
 
+    # TODO: Should check it.    XXX
     def is_unk(self, token: str) -> bool:
         """
         Check whether a token is covered by the vocabulary
@@ -143,7 +149,7 @@ class TextVocabulary(Vocabulary):
         return sentences
 
 
-# TODO: Update according to a list of numbers.  XXX
+# TODO: Update to suite to a gloss ids format.  XXX
 class GlossVocabulary(Vocabulary):
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
@@ -179,13 +185,13 @@ class GlossVocabulary(Vocabulary):
             gloss_sequences.append(sequence)
         return gloss_sequences
 
-
+# TODO: Okay.
 def filter_min(counter: Counter, minimum_freq: int):
     """ Filter counter by min frequency """
     filtered_counter = Counter({t: c for t, c in counter.items() if c >= minimum_freq})
     return filtered_counter
 
-
+# TODO: Okay.
 def sort_and_cut(counter: Counter, limit: int):
     """ Cut counter to most frequent,
     sorted numerically and alphabetically"""
@@ -197,7 +203,7 @@ def sort_and_cut(counter: Counter, limit: int):
 
 
 def build_vocab(
-    field: str, max_size: int, min_freq: int, dataset: Dataset, vocab_file: str = None
+    version: str,field: str, max_size: int, min_freq: int, dataset, vocab_file: str = None
 ) -> Vocabulary:
     """
     Builds vocabulary for a torchtext `field` from given`dataset` or
@@ -212,7 +218,7 @@ def build_vocab(
     :return: Vocabulary created from either `dataset` or `vocab_file`
     """
 
-    if vocab_file is not None:
+    if vocab_file is not None:  # TODO: Okay.
         # load it from file
         if field == "gls":
             vocab = GlossVocabulary(file=vocab_file)
@@ -222,33 +228,45 @@ def build_vocab(
             raise ValueError("Unknown vocabulary type")
     else:
         tokens = []
-        for i in dataset.examples:
-        # for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
-            if field == "gls":
-                tokens.extend(i.gls)
-                # tokens.extend(i["gloss"].numpy().decode('utf-8').strip().rstrip('\n').split())
-            elif field == "txt":
-                tokens.extend(i.txt)
-                # tokens.extend(i["text"].numpy().decode('utf-8').strip().rstrip('\n').split())
-            else:
-                raise ValueError("Unknown field type")
+        if version == 'phoenix_2014_trans': # TODO: Match to the asynchronous loader.    V
+            for i in dataset.examples:
+            # for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
+                if field == "gls":
+                    tokens.extend(i.gls)
+                    # tokens.extend(i["gloss"].numpy().decode('utf-8').strip().rstrip('\n').split())
+                elif field == "txt":
+                    tokens.extend(i.txt)
+                    # tokens.extend(i["text"].numpy().decode('utf-8').strip().rstrip('\n').split())
+                else:
+                    raise ValueError("Unknown field type")
+
+        else:   # TODO: Check it is working.    XXX
+            for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
+                if field == "gls":
+                    tokens.append(int(i['gloss_id'].numpy()))
+                elif field == "txt":
+                    tokens.append(int(i['text'].numpy()))
+                else:
+                    raise ValueError("Unknown field type")
 
         counter = Counter(tokens)
         if min_freq > -1:
             counter = filter_min(counter, min_freq)
-        vocab_tokens = sort_and_cut(counter, max_size)
+        vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if needed.   XXX
         assert len(vocab_tokens) <= max_size
 
-        if field == "gls":
+        if field == "gls":  # TODO: Okay.
             vocab = GlossVocabulary(tokens=vocab_tokens)
         elif field == "txt":
             vocab = TextVocabulary(tokens=vocab_tokens)
         else:
             raise ValueError("Unknown vocabulary type")
 
+        # TODO: Change if needed.   XXX
         assert len(vocab) <= max_size + len(vocab.specials)
         assert vocab.itos[vocab.DEFAULT_UNK_ID()] == UNK_TOKEN
 
+    # TODO: Change if needed. Upsate: I think it's harmless.    XXX
     for i, s in enumerate(vocab.specials):
         if i != vocab.DEFAULT_UNK_ID():
             assert not vocab.is_unk(s)

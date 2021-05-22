@@ -2,8 +2,8 @@ import argparse
 import os
 
 import sys
-from signjoey.training import train
-from signjoey.prediction import test
+from slt.signjoey.training import train
+from slt.signjoey.prediction import test
 
 # sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"

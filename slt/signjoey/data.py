@@ -20,8 +20,8 @@ import socket
 
 from torchtext.data import RawField, Field, BucketIterator, Dataset, Iterator
 from torchtext.data.iterator import batch,pool
-from signjoey.dataset import SignTranslationDataset
-from signjoey.vocabulary import (
+from slt.signjoey.dataset import SignTranslationDataset
+from slt.signjoey.vocabulary import (
     build_vocab,
     Vocabulary,
     UNK_TOKEN,
