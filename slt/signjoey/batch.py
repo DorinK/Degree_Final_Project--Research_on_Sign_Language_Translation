@@ -11,15 +11,16 @@ class Batch:
     """
 
     def __init__(
-        self,
-        torch_batch,
-        txt_pad_index,
-        sgn_dim,
-        is_train: bool = False,
-        use_cuda: bool = False,
-        frame_subsampling_ratio: int = None,
-        random_frame_subsampling: bool = None,
-        random_frame_masking_ratio: float = None,
+            self,
+            dataset_type,
+            torch_batch,
+            txt_pad_index,
+            sgn_dim,
+            is_train: bool = False,
+            use_cuda: bool = False,
+            frame_subsampling_ratio: int = None,
+            random_frame_subsampling: bool = None,
+            random_frame_masking_ratio: float = None,
     ):
         """
         Create a new joey batch from a torch batch.
@@ -36,11 +37,24 @@ class Batch:
         """
 
         # Sequence Information
-        self.sequence = torch_batch.sequence #[sample['id'] for sample in torch_batch]#
-        self.signer = torch_batch.signer #[sample['signer'] for sample in torch_batch]
-        # Sign
-        self.sgn, self.sgn_lengths = torch_batch.sgn #[sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
+        if dataset_type == 'phoenix_2014_trans':
+            self.sequence = torch_batch.sequence  # [sample['id'] for sample in torch_batch]#
+            self.signer = torch_batch.signer  # [sample['signer'] for sample in torch_batch]
+            # Sign
+            self.sgn, self.sgn_lengths = torch_batch.sgn  # [sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
 
+        else:
+            self.sequence = torch_batch[
+                "sequence"]  # ["id"].numpy().tolist() #[sample['id'] for sample in torch_batch]#
+            self.signer = torch_batch["signer"]  # .numpy().tolist() #[sample['signer'] for sample in torch_batch]
+            # Sign
+            # TODO: Check with the phoenix dataset to which dimension the sgn_lengts are referring to.  V
+            #  Ans: sgn_lengts is a tensor containing the number of frames in each video of the batch.
+            #  and how sgn and sgn_lengths should look like.    V
+            #  Ans: sgn is a padded batch of videos
+            self.sgn, self.sgn_lengths = torch_batch["sgn"]  # .sgn #[sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
+
+        # TODO: Conditional expression: False.  V
         # Here be dragons
         if frame_subsampling_ratio:
             tmp_sgn = torch.zeros_like(self.sgn)
@@ -54,12 +68,13 @@ class Batch:
 
                 tmp_data = features[: length.long(), :]
                 tmp_data = tmp_data[init_frame::frame_subsampling_ratio]
-                tmp_sgn[idx, 0 : tmp_data.shape[0]] = tmp_data
+                tmp_sgn[idx, 0: tmp_data.shape[0]] = tmp_data
                 tmp_sgn_lengths[idx] = tmp_data.shape[0]
 
             self.sgn = tmp_sgn[:, : tmp_sgn_lengths.max().long(), :]
             self.sgn_lengths = tmp_sgn_lengths
 
+        # TODO: Conditional expression: False.  V
         if random_frame_masking_ratio and is_train:
             tmp_sgn = torch.zeros_like(self.sgn)
             num_mask_frames = (
@@ -93,7 +108,10 @@ class Batch:
         self.use_cuda = use_cuda
         self.num_seqs = self.sgn.size(0)
 
-        if hasattr(torch_batch, "txt"):
+        # TODO: Conditional expression: False.  V   ~ should be True
+        #  to match it to the AUTSL attribute name.    XXX
+        # hasattr returns whether the object has an attribute with the given name.
+        if hasattr(torch_batch, "txt") or "txt" in torch_batch:
             txt, txt_lengths = torch_batch.txt
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
@@ -104,8 +122,14 @@ class Batch:
             self.txt_mask = (self.txt_input != txt_pad_index).unsqueeze(1)
             self.num_txt_tokens = (self.txt != txt_pad_index).data.sum().item()
 
-        if hasattr(torch_batch, "gls"):
-            self.gls, self.gls_lengths = torch_batch.gls
+        # TODO: Conditional expression: False.  V   ~ should be True
+        #  to match it to the AUTSL attribute name.    XXX
+        # hasattr returns whether the object has an attribute with the given name.
+        if hasattr(torch_batch, "gls") or "gls" in torch_batch:
+            if dataset_type == 'phoenix_2014_trans':
+                self.gls, self.gls_lengths = torch_batch.gls
+            else:
+                self.gls, self.gls_lengths = torch_batch["gls"]  # torch_batch.gls
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
 
         if use_cuda:
@@ -125,7 +149,7 @@ class Batch:
             self.txt_mask = self.txt_mask.cuda()
             self.txt_input = self.txt_input.cuda()
 
-    def sort_by_sgn_lengths(self):
+    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. XXX
         """
         Sort by sgn length (descending) and return index to revert sort
 

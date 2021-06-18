@@ -2,6 +2,7 @@
 """
 Data module
 """
+import torchvision
 from tensorflow.python.ops.gen_dataset_ops import PrefetchDataset
 from torchtext import data
 # from torchtext.data import Field, RawField
@@ -9,6 +10,7 @@ from typing import List, Tuple
 import pickle
 import gzip
 import torch
+from torch import Tensor
 
 import itertools
 
@@ -64,6 +66,9 @@ class SignTranslationDataset(Dataset):
                     ("gls", fields[3]),
                 ]
 
+        image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+        image_encoder.eval()
+
         if dataset_type == 'phoenix_2014_trans':
             if not isinstance(path, list):
                 path = [path]
@@ -90,7 +95,9 @@ class SignTranslationDataset(Dataset):
                             "sign": s["sign"],
                         }
         else:
-            samples = [] #{}
+            samples = {}
+            examples = []
+
             for i, s in enumerate(itertools.islice(path, 0, len(path))):
                 # seq_id = s["id"].numpy().decode('utf-8')
                 # if seq_id in samples:
@@ -99,22 +106,35 @@ class SignTranslationDataset(Dataset):
                 #     assert samples[seq_id]["gloss"] == s["gloss_id"].numpy()
                 #     samples[seq_id]["sign"] = torch.cat([samples[seq_id]["sign"], s["video"]], axis=1)
                 # # else:
-                samples.append((s["id"].numpy().decode('utf-8'),s["signer"].numpy(),s["gloss_id"].numpy(),torch.from_numpy(s["video"].numpy())))
+                seq_id = s["id"].numpy().decode('utf-8')
+                samples[seq_id]=s
+                # samples[s["id"].numpy().decode('utf-8')]={
+                #                                              "name":s["id"].numpy().decode('utf-8'),"signer":s["signer"].numpy(),
+                #                 "sign":image_encoder(Tensor(s["video"].numpy()).view(-1, s['video'].shape[3],
+                #                                                                   s['video'].shape[1],
+                #                                                                   s['video'].shape[2])),"gloss":s["gloss_id"].numpy()}
+
+                # samples.append((s["id"].numpy().decode('utf-8'),s["signer"].numpy(),
+                #                 image_encoder(Tensor(s["video"].numpy()).view(-1, s['video'].shape[3],
+                #                                                                   s['video'].shape[1],
+                #                                                                   s['video'].shape[2])),s["gloss_id"].numpy()))
+                                # torch.from_numpy(s["video"].numpy())))
                 # samples[seq_id] = {
                 #     "name": s["id"].numpy().decode('utf-8'),
                 #     "signer": s["signer"].numpy(),
                 #     "gloss": s["gloss_id"].numpy(),
                 #     "sign": torch.from_numpy(s["video"].numpy())#s["video"],
                 # }
-                if (i+1)%1000==0:
-                    print(i+1)
                 # examples.append(
                 #     Example.fromlist(
                 #     [
-                #             s["id"].numpy().decode('utf-8').rstrip('\n'),
-                #             s["signer"].numpy().decode('utf-8').rstrip('\n'),
-                #             s["gloss_id"].numpy().decode('utf-8'),
-                #             torch.from_numpy(s["video"].numpy()), #s["video"], #+ 1e-8,
+                #             s["id"].numpy().decode('utf-8',),#.rstrip('\n'),
+                #             s["signer"].numpy(),#.decode('utf-8').rstrip('\n'),
+                #             image_encoder(Tensor(s["video"].numpy()).view(-1, s['video'].shape[3],
+                #                                                                  s['video'].shape[1],
+                #                                                                  s['video'].shape[2])),
+                #             # torch.from_numpy(s["video"].numpy()), #s["video"], #+ 1e-8,
+                #             s["gloss_id"].numpy(),  # .decode('utf-8'),
                 #             # s["gloss"].numpy().decode('utf-8').strip().rstrip('\n'),
                 #             # s["text"].numpy().decode('utf-8').strip().rstrip('\n'),
                 #             # samples[seq_id]["id"],
@@ -127,6 +147,8 @@ class SignTranslationDataset(Dataset):
                 #     fields,
                 #     )
                 # )
+                if (i+1)%1000==0:
+                    print(i+1)
 
         if dataset_type == 'phoenix_2014_trans':
             examples = []

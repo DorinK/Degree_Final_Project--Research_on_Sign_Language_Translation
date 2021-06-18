@@ -67,6 +67,7 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
     if data_cfg["version"] == 'phoenix_2014_trans':
         data_path = "/home/nlp/dorink/project/slt/data" #data_cfg.get("data_path", "./data")
 
+        # Get the datasets path.(?)
         if isinstance(data_cfg["train"], list):
             train_paths = [os.path.join(data_path, x) for x in data_cfg["train"]]
             dev_paths = [os.path.join(data_path, x) for x in data_cfg["dev"]]
@@ -157,8 +158,10 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
             include_lengths=True,
         )
 
+    # Get the preprocessed training set.
     if data_cfg["version"] == 'phoenix_2014_trans':
         train_data = SignTranslationDataset(
+            dataset_type=data_cfg["version"],
             path= train_paths,#rwth_phoenix2014_t["train"],
             fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
             filter_pred=lambda x: len(vars(x)["sgn"]) <= max_sent_length
@@ -173,16 +176,19 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
                                   and len(vars(x)["txt"]) <= max_sent_length,
         )
 
+    # Set the maximal vocab size and minimum items frequency of the gloss and text vocabs.
     gls_max_size = data_cfg.get("gls_voc_limit", sys.maxsize)
     gls_min_freq = data_cfg.get("gls_voc_min_freq", 1)
     txt_max_size = data_cfg.get("txt_voc_limit", sys.maxsize)
     txt_min_freq = data_cfg.get("txt_voc_min_freq", 1)
 
+    # Get the vocabs if already exists, otherwise set them to None.
     gls_vocab_file = data_cfg.get("gls_vocab", None)
     txt_vocab_file = data_cfg.get("txt_vocab", None)
 
-    # train_data =rwth_phoenix2014_t["train"]
+    # Build the gloss and text vocabs based on the training set.
     gls_vocab = build_vocab(
+        version=data_cfg["version"],
         field="gls",
         min_freq=gls_min_freq,
         max_size=gls_max_size,
@@ -190,6 +196,7 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
         vocab_file=gls_vocab_file,
     )
     txt_vocab = build_vocab(
+        version=data_cfg["version"],
         field="txt",
         min_freq=txt_min_freq,
         max_size=txt_max_size,
@@ -205,7 +212,9 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
         )
         train_data = keep
 
+    # Get the preprocessed validation set.
     dev_data = SignTranslationDataset(
+        dataset_type=data_cfg["version"],
         path= dev_paths,#rwth_phoenix2014_t["validation"],
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
     )
@@ -220,8 +229,10 @@ def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocab
         )
         dev_data = keep
 
+    # Get the preprocessed test set.
     # check if target exists
     test_data = SignTranslationDataset(
+        dataset_type=data_cfg["version"],
         path= test_paths,#rwth_phoenix2014_t["test"],
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
     )

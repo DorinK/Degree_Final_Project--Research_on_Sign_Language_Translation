@@ -7,7 +7,7 @@ data:
 #    train: phoenix14t.pami0.train
 #    dev: phoenix14t.pami0.dev
 #    test: phoenix14t.pami0.test
-    feature_size: 1024
+    feature_size: 1000
     level: char
 #    txt_lowercase: true
     max_sent_length: 400
@@ -52,7 +52,7 @@ training:
     model_dir: "./autsl_model"
     recognition_loss_weight: 1.0
     translation_loss_weight: 0.0
-    eval_metric: bleu
+    eval_metric: wer
     optimizer: adam
     learning_rate: 0.001
     batch_size: 32

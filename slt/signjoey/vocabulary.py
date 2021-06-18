@@ -241,6 +241,10 @@ def build_vocab(
                     raise ValueError("Unknown field type")
 
         else:   # TODO: Check it is working.    XXX
+            # for i in range(226):
+            #     tokens.append(i)
+            #     tokens.append(i)
+
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     tokens.append(int(i['gloss_id'].numpy()))

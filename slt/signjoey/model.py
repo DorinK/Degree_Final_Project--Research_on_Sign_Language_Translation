@@ -1,5 +1,6 @@
 # coding: utf-8
 import tensorflow as tf
+import torchvision
 
 tf.config.set_visible_devices([], "GPU")
 
@@ -56,6 +57,8 @@ class SignModel(nn.Module):
         :param do_translation: flag to build the model with translation decoder.
         """
         super().__init__()
+
+        # self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
 
         self.encoder = encoder
         self.decoder = decoder

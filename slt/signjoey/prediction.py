@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 import itertools
+import sys
 
 import torch
+import torchvision
+from sign_language_datasets.datasets import SignDatasetConfig
+from torch.nn.utils.rnn import pad_sequence
 from torchtext.data import Dataset
 
 torch.backends.cudnn.deterministic = True
@@ -25,11 +29,13 @@ from slt.signjoey.metrics import bleu, chrf, rouge, wer_list
 from slt.signjoey.model import build_model, SignModel
 from slt.signjoey.batch import Batch
 from slt.signjoey.data import load_data, make_data_iter
-from slt.signjoey.vocabulary import PAD_TOKEN, SIL_TOKEN
+from slt.signjoey.vocabulary import PAD_TOKEN, SIL_TOKEN, build_vocab, TextVocabulary
 from slt.signjoey.phoenix_utils.phoenix_cleanup import (
     clean_phoenix_2014,
     clean_phoenix_2014_trans,
 )
+from torch import Tensor
+import tensorflow_datasets as tfds
 
 
 # def get_element(dataset, num):
@@ -44,36 +50,37 @@ from slt.signjoey.phoenix_utils.phoenix_cleanup import (
 
 # pylint: disable=too-many-arguments,too-many-locals,no-member
 def validate_on_data(
-    model: SignModel,
-    data: Dataset,
-    batch_size: int,
-    use_cuda: bool,
-    sgn_dim: int,
-    do_recognition: bool,
-    recognition_loss_function: torch.nn.Module,
-    recognition_loss_weight: int,
-    do_translation: bool,
-    translation_loss_function: torch.nn.Module,
-    translation_loss_weight: int,
-    translation_max_output_length: int,
-    level: str,
-    txt_pad_index: int,
-    recognition_beam_size: int = 1,
-    translation_beam_size: int = 1,
-    translation_beam_alpha: int = -1,
-    batch_type: str = "sentence",
-    dataset_version: str = "phoenix_2014_trans",
-    frame_subsampling_ratio: int = None,
+        model: SignModel,
+        data: Dataset,
+        image_encoder: torchvision.models.mobilenet_v3_small,
+        batch_size: int,
+        use_cuda: bool,
+        sgn_dim: int,
+        do_recognition: bool,
+        recognition_loss_function: torch.nn.Module,
+        recognition_loss_weight: int,
+        do_translation: bool,
+        translation_loss_function: torch.nn.Module,
+        translation_loss_weight: int,
+        translation_max_output_length: int,
+        level: str,
+        txt_pad_index: int,
+        recognition_beam_size: int = 1,
+        translation_beam_size: int = 1,
+        translation_beam_alpha: int = -1,
+        batch_type: str = "sentence",
+        dataset_version: str = "phoenix_2014_trans",
+        frame_subsampling_ratio: int = None,
 ) -> (
-    float,
-    float,
-    float,
-    List[str],
-    List[List[str]],
-    List[str],
-    List[str],
-    List[List[str]],
-    List[np.array],
+        float,
+        float,
+        float,
+        List[str],
+        List[List[str]],
+        List[str],
+        List[str],
+        List[List[str]],
+        List[np.array],
 ):
     """
     Generate translations for the given data.
@@ -115,15 +122,17 @@ def validate_on_data(
         - decoded_valid: raw validation hypotheses (before post-processing),
         - valid_attention_scores: attention scores for validation hypotheses
     """
-    valid_iter = make_data_iter(
-        dataset=data,
-        batch_size=batch_size,
-        batch_type=batch_type,
-        shuffle=False,
-        train=False,
-    )
+    # TODO: To update accordingly to AUTSL. XXX
+    if dataset_version == 'phoenix_2014_trans':
+        valid_iter = make_data_iter(
+            dataset=data,
+            batch_size=batch_size,
+            batch_type=batch_type,
+            shuffle=False,
+            train=False,
+        )
 
-    # disable dropout
+        # disable dropout
     model.eval()
     # don't track gradients during validation
     with torch.no_grad():
@@ -143,75 +152,172 @@ def validate_on_data(
         #     valid_batch = [get_element(data, i) for i in chosen]
         #     whole_idx = [x for x in whole_idx if x not in chosen]
 
-        for valid_batch in iter(valid_iter):
-            batch = Batch(
-                is_train=False,
-                torch_batch=valid_batch,
-                txt_pad_index=txt_pad_index,
-                sgn_dim=sgn_dim,
-                use_cuda=use_cuda,
-                frame_subsampling_ratio=frame_subsampling_ratio,
-            )
-            sort_reverse_index = batch.sort_by_sgn_lengths()
-
-            batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
-                batch=batch,
-                recognition_loss_function=recognition_loss_function
-                if do_recognition
-                else None,
-                translation_loss_function=translation_loss_function
-                if do_translation
-                else None,
-                recognition_loss_weight=recognition_loss_weight
-                if do_recognition
-                else None,
-                translation_loss_weight=translation_loss_weight
-                if do_translation
-                else None,
-            )
-            if do_recognition:
-                total_recognition_loss += batch_recognition_loss
-                total_num_gls_tokens += batch.num_gls_tokens
-            if do_translation:
-                total_translation_loss += batch_translation_loss
-                total_num_txt_tokens += batch.num_txt_tokens
-            total_num_seqs += batch.num_seqs
-
-            (
-                batch_gls_predictions,
-                batch_txt_predictions,
-                batch_attention_scores,
-            ) = model.run_batch(
-                batch=batch,
-                recognition_beam_size=recognition_beam_size if do_recognition else None,
-                translation_beam_size=translation_beam_size if do_translation else None,
-                translation_beam_alpha=translation_beam_alpha
-                if do_translation
-                else None,
-                translation_max_output_length=translation_max_output_length
-                if do_translation
-                else None,
-            )
-
-            # sort outputs back to original order
-            if do_recognition:
-                all_gls_outputs.extend(
-                    [batch_gls_predictions[sri] for sri in sort_reverse_index]
+        if dataset_version == 'phoenix_2014_trans':
+            for valid_batch in iter(valid_iter):
+                batch = Batch(
+                    dataset_type=dataset_version,
+                    is_train=False,
+                    torch_batch=valid_batch,
+                    txt_pad_index=txt_pad_index,
+                    sgn_dim=sgn_dim,
+                    use_cuda=use_cuda,
+                    frame_subsampling_ratio=frame_subsampling_ratio,
                 )
-            if do_translation:
-                all_txt_outputs.extend(batch_txt_predictions[sort_reverse_index])
-            all_attention_scores.extend(
-                batch_attention_scores[sort_reverse_index]
-                if batch_attention_scores is not None
-                else []
-            )
+                sort_reverse_index = batch.sort_by_sgn_lengths()
+
+                batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
+                    batch=batch,
+                    recognition_loss_function=recognition_loss_function
+                    if do_recognition
+                    else None,
+                    translation_loss_function=translation_loss_function
+                    if do_translation
+                    else None,
+                    recognition_loss_weight=recognition_loss_weight
+                    if do_recognition
+                    else None,
+                    translation_loss_weight=translation_loss_weight
+                    if do_translation
+                    else None,
+                )
+                if do_recognition:
+                    total_recognition_loss += batch_recognition_loss
+                    total_num_gls_tokens += batch.num_gls_tokens
+                if do_translation:
+                    total_translation_loss += batch_translation_loss
+                    total_num_txt_tokens += batch.num_txt_tokens
+                total_num_seqs += batch.num_seqs
+
+                (
+                    batch_gls_predictions,
+                    batch_txt_predictions,
+                    batch_attention_scores,
+                ) = model.run_batch(
+                    batch=batch,
+                    recognition_beam_size=recognition_beam_size if do_recognition else None,
+                    translation_beam_size=translation_beam_size if do_translation else None,
+                    translation_beam_alpha=translation_beam_alpha
+                    if do_translation
+                    else None,
+                    translation_max_output_length=translation_max_output_length
+                    if do_translation
+                    else None,
+                )
+
+                # sort outputs back to original order
+                if do_recognition:
+                    all_gls_outputs.extend(
+                        [batch_gls_predictions[sri] for sri in sort_reverse_index]
+                    )
+                if do_translation:
+                    all_txt_outputs.extend(batch_txt_predictions[sort_reverse_index])
+                all_attention_scores.extend(
+                    batch_attention_scores[sort_reverse_index]
+                    if batch_attention_scores is not None
+                    else []
+                )
+        else:
+            index = 0
+
+            # For each batch in the training set
+            while (index < len(data)):
+            # while (index < batch_size):
+                sequence = []
+                signer = []
+                samples = []
+                sgn_lengths = []
+                gls = []
+                gls_lengths = [1] * batch_size
+                for i, datum in enumerate(itertools.islice(data, index, index + batch_size)):
+                    sequence.append(datum['id'].numpy().decode('utf-8'))
+                    signer.append(datum["signer"].numpy())
+                    samples.append(
+                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                            datum['video'].shape[2]))
+                    sgn_lengths.append(datum['video'].shape[0])
+                    gls.append(datum['gloss_id'].numpy())
+
+                sgn = []
+                for sample in samples:
+                    out = image_encoder(sample)
+                    # sgn.append(out)
+                    sgn.append(out.detach())
+
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                valid_batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
+                               'gls': (Tensor(gls), Tensor(gls_lengths))}
+
+                index += batch_size
+                batch = Batch(
+                    dataset_type=dataset_version,
+                    is_train=False,
+                    torch_batch=valid_batch,
+                    txt_pad_index=txt_pad_index,
+                    sgn_dim=sgn_dim,
+                    use_cuda=use_cuda,
+                    frame_subsampling_ratio=frame_subsampling_ratio,
+                )
+
+                sort_reverse_index = batch.sort_by_sgn_lengths()
+
+                batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
+                    batch=batch,
+                    recognition_loss_function=recognition_loss_function
+                    if do_recognition
+                    else None,
+                    translation_loss_function=translation_loss_function
+                    if do_translation
+                    else None,
+                    recognition_loss_weight=recognition_loss_weight
+                    if do_recognition
+                    else None,
+                    translation_loss_weight=translation_loss_weight
+                    if do_translation
+                    else None,
+                )
+                if do_recognition:
+                    total_recognition_loss += batch_recognition_loss
+                    total_num_gls_tokens += batch.num_gls_tokens
+                if do_translation:
+                    total_translation_loss += batch_translation_loss
+                    total_num_txt_tokens += batch.num_txt_tokens
+                total_num_seqs += batch.num_seqs
+
+                (
+                    batch_gls_predictions,
+                    batch_txt_predictions,
+                    batch_attention_scores,
+                ) = model.run_batch(
+                    batch=batch,
+                    recognition_beam_size=recognition_beam_size if do_recognition else None,
+                    translation_beam_size=translation_beam_size if do_translation else None,
+                    translation_beam_alpha=translation_beam_alpha
+                    if do_translation
+                    else None,
+                    translation_max_output_length=translation_max_output_length
+                    if do_translation
+                    else None,
+                )
+
+                # sort outputs back to original order
+                if do_recognition:
+                    all_gls_outputs.extend(
+                        [batch_gls_predictions[sri] for sri in sort_reverse_index]
+                    )
+                if do_translation:
+                    all_txt_outputs.extend(batch_txt_predictions[sort_reverse_index])
+                all_attention_scores.extend(
+                    batch_attention_scores[sort_reverse_index]
+                    if batch_attention_scores is not None
+                    else []
+                )
 
         if do_recognition:
-            assert len(all_gls_outputs) == len(data)
+            assert len(all_gls_outputs) == len(data)    # TODO: commented out because it disturbed the testings.    V
             if (
-                recognition_loss_function is not None
-                and recognition_loss_weight != 0
-                and total_num_gls_tokens > 0
+                    recognition_loss_function is not None
+                    and recognition_loss_weight != 0
+                    and total_num_gls_tokens > 0
             ):
                 valid_recognition_loss = total_recognition_loss
             else:
@@ -224,12 +330,21 @@ def validate_on_data(
                 gls_cln_fn = clean_phoenix_2014_trans
             elif dataset_version == "phoenix_2014":
                 gls_cln_fn = clean_phoenix_2014
+            elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
+                pass
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
 
+            # TODO: Problem here.   fixed   V
             # Construct gloss sequences for metrics
-            gls_ref = [gls_cln_fn(" ".join(t)) for t in data.gls]
-            gls_hyp = [gls_cln_fn(" ".join(t)) for t in decoded_gls]
+            if dataset_version == "phoenix_2014_trans":
+                gls_ref = [gls_cln_fn(" ".join(t)) for t in data.gls]
+                gls_hyp = [gls_cln_fn(" ".join(t)) for t in decoded_gls]
+
+            else:
+                # TODO: changed here from len(data) to 32, for testing. changed back.   V
+                gls_ref = [" ".join([str(t['gloss_id'].numpy())]) for t in itertools.islice(data, len(data))]
+                gls_hyp = [" ".join(t) for t in decoded_gls]
             assert len(gls_ref) == len(gls_hyp)
 
             # GLS Metrics
@@ -238,9 +353,9 @@ def validate_on_data(
         if do_translation:
             assert len(all_txt_outputs) == len(data)
             if (
-                translation_loss_function is not None
-                and translation_loss_weight != 0
-                and total_num_txt_tokens > 0
+                    translation_loss_function is not None
+                    and translation_loss_weight != 0
+                    and total_num_txt_tokens > 0
             ):
                 # total validation translation loss
                 valid_translation_loss = total_translation_loss
@@ -299,7 +414,7 @@ def validate_on_data(
 
 # pylint: disable-msg=logging-too-many-args
 def test(
-    cfg_file, ckpt: str, output_path: str = None, logger: logging.Logger = None
+        cfg_file, ckpt: str, output_path: str = None, logger: logging.Logger = None
 ) -> None:
     """
     Main test function. Handles loading a model from checkpoint, generating
@@ -342,7 +457,34 @@ def test(
     )
 
     # load the data
-    _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
+    if cfg["data"]["version"] == 'phoenix_2014_trans':
+        # Load the dataset and create the corresponding vocabs
+        _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
+    else:
+        config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
+        train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
+
+        gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
+        gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
+
+        gls_vocab_file = cfg["data"].get("gls_vocab", None)
+        txt_vocab_file = cfg["data"].get("txt_vocab", None)
+
+        # Build the gloss vocab based on the training set.
+        gls_vocab = build_vocab(
+            version=cfg["data"]["version"],
+            field="gls",
+            min_freq=gls_min_freq,
+            max_size=gls_max_size,
+            dataset=train_data,
+            vocab_file=gls_vocab_file,
+        )
+        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)   # TODO: Remove parameter?   V
+
+        # Next, build the text vocab based on the training set.
+        txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
+        # TODO: Create vocabularies using the classes.  V
 
     # load model state from disk
     model_checkpoint = load_checkpoint(ckpt, use_cuda=use_cuda)
@@ -403,6 +545,8 @@ def test(
     # NOTE (Cihan): Currently Hardcoded to be 0 for TensorFlow decoding
     assert model.gls_vocab.stoi[SIL_TOKEN] == 0
 
+    image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+
     if do_recognition:
         # Dev Recognition CTC Beam Search Results
         dev_recognition_results = {}
@@ -415,6 +559,7 @@ def test(
             dev_recognition_results[rbw] = validate_on_data(
                 model=model,
                 data=dev_data,
+                image_encoder= image_encoder,
                 batch_size=batch_size,
                 use_cuda=use_cuda,
                 batch_type=batch_type,
@@ -503,8 +648,8 @@ def test(
                 )
 
                 if (
-                    dev_translation_results[tbw][ta]["valid_scores"]["bleu"]
-                    > dev_best_bleu_score
+                        dev_translation_results[tbw][ta]["valid_scores"]["bleu"]
+                        > dev_best_bleu_score
                 ):
                     dev_best_bleu_score = dev_translation_results[tbw][ta][
                         "valid_scores"
@@ -581,6 +726,7 @@ def test(
     test_best_result = validate_on_data(
         model=model,
         data=test_data,
+        image_encoder= image_encoder,
         batch_size=batch_size,
         use_cuda=use_cuda,
         batch_type=batch_type,
@@ -660,7 +806,9 @@ def test(
             )
             _write_to_file(
                 dev_gls_output_path_set,
-                [s for s in dev_data.sequence],
+                [s for s in dev_data.sequence]
+                if dataset_version == "phoenix_2014_trans"
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))], # TODO: adjust
                 dev_best_recognition_result["gls_hyp"],
             )
             test_gls_output_path_set = "{}.BW_{:03d}.{}.gls".format(
@@ -668,7 +816,9 @@ def test(
             )
             _write_to_file(
                 test_gls_output_path_set,
-                [s for s in test_data.sequence],
+                [s for s in test_data.sequence]
+                if dataset_version == "phoenix_2014_trans"
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))], # TODO: adjust                ,    # TODO: adjust
                 test_best_result["gls_hyp"],
             )
 
