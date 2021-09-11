@@ -115,16 +115,18 @@ def save_wer_to_json(wer_result, result_file):
         f.write("\n")
 
 
-def evaluate(args, plog):
-    if "PHOENIX-2014-T" in args.phoenix_path or True:
+def evaluate(args, dataloader_val, plog):
+    # if "PHOENIX-2014-T" in args.phoenix_path or True:
+    if "phoenix2014t" in args.phoenix_path or True:     # TODO: fix.    V
         phoenix2014T = True
     with_scores = True
     with_features = args.save_features
-    dataloader_val = get_dataloader(args)
+    # dataloader_val = get_dataloader(args) # TODO: Remove this line, the dataloader_val is being received as parameter.    V
     exp_root = args.checkpoint
     scores = None
     if with_scores:
-        scores_file = f"{exp_root}/preds_valid.mat"
+        # scores_file = f"{exp_root}/preds_valid.mat"   # TODO: Name is inconsistent - should be 'preds.mat'.   V
+        scores_file = f"{exp_root}/preds.mat"
         plog.info(f"Loading from {scores_file}")
         scores = sio.loadmat(scores_file)["preds"]
         plog.info(scores.shape)  # e.g. [32558, 60]
@@ -132,7 +134,8 @@ def evaluate(args, plog):
     features = None
     if with_features:
         plog.info("Loading features_valid.mat")
-        features_file = f"{exp_root}/features_valid.mat"
+        # features_file = f"{exp_root}/features_valid.mat"  # TODO: Name is inconsistent - should be 'features_valid.mat'.  V
+        features_file = f"{exp_root}/features.mat"
         features = sio.loadmat(features_file)["preds"]
 
     # Aggregate the clips of each video, compute the GT/Pred/Feature for each video.
@@ -176,7 +179,9 @@ def evaluate(args, plog):
         output_file = "demo.ctm"
         phoenix_make_ctm(pred_glosses, names, output_file=f"{eval_path}/{output_file}")
         print("==> Official eval script results:")
-        cmd = f"cd {eval_path} && PATH=$PATH:/users/gul/tools/sctk-2.4.10/bin ./{eval_script} {output_file} test"
+        # TODO: The Official script is not working at the moment, don't think it's crucial. X
+        # cmd = f"cd {eval_path} && PATH=$PATH:/users/gul/tools/sctk-2.4.10/bin ./{eval_script} {output_file} test"
+        cmd = f"cd {eval_path} PATH=$PATH:home/nlp/dorink/project/bsl1k/checkpoint/phoenix2014t_i3d_pkinetics_new_Sep1/{eval_script} {output_file} test"
         # out = os.system(cmd)
         out = os.popen(cmd).read()
         print(out)

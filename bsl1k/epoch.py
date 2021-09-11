@@ -51,7 +51,7 @@ def do_epoch(
     save_feature_dir="",
     save_fig_dir="",
 ):
-    assert setname == "train" or setname == "val"
+    assert setname == "train" or setname == "val" or setname == "test"  # TODO: Adjusting.  V
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = [AverageMeter()]
@@ -67,6 +67,8 @@ def do_epoch(
     if setname == "train":
         model.train()
     elif setname == "val":
+        model.eval()
+    elif setname == "test": # TODO: Adjusting.  V
         model.eval()
 
     end = time.time()

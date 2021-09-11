@@ -251,7 +251,8 @@ def build_parser():
         "--word_data_pkl", type=str, default="misc/bsl1k/bsl1k_vocab.pkl", help="Path to the list of words."
     )
     parser.add_argument(
-        "--phoenix_assign_labels", type=str, default="auto", help="uniform | auto"
+        # "--phoenix_assign_labels", type=str, default="auto", help="uniform | auto"    # TODO: We decided to work with uniform labels. V
+        "--phoenix_assign_labels", type=str, default="uniform", help="uniform | auto"
     )
     parser.add_argument(
         "--phoenix_path",

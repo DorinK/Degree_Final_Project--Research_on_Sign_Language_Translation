@@ -23,8 +23,9 @@ class PHOENIX2014(VideoDataset):
         hflip=0.5,
         stride=0.5,
         gpu_collation=False,
-        assign_labels="auto",
+        assign_labels="uniform",    # TODO: We decided to work with uniform labels. V
     ):
+        print("SETNAME is:", setname)   # TODO: Check.  V
         self.root_path = root_path
         self.setname = setname  # train, val or test
         self.gpu_collation = gpu_collation
