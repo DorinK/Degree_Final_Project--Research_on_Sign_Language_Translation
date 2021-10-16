@@ -149,6 +149,15 @@ class Batch:
             self.txt_mask = self.txt_mask.cuda()
             self.txt_input = self.txt_input.cuda()
 
+    def make_cpu(self):
+        self.sgn = self.sgn.detach().cpu()
+        self.sgn_mask = self.sgn_mask.detach().cpu()
+
+        if self.txt_input is not None:
+            self.txt = self.txt.detach().cpu()
+            self.txt_mask = self.txt_mask.detach().cpu()
+            self.txt_input = self.txt_input.detach().cpu()
+
     def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. XXX
         """
         Sort by sgn length (descending) and return index to revert sort

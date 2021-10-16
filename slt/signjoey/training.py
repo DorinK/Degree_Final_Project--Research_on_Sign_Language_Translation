@@ -85,7 +85,7 @@ class TrainManager:
 
         # model
         self.model = model
-        self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+        # self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # Adding the image encoder.
         self.txt_pad_index = self.model.txt_pad_index
         self.txt_bos_index = self.model.txt_bos_index
         self._log_parameters_list()
@@ -436,8 +436,8 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             if self.dataset_version == 'autsl':
-                if self.shuffle:
-                    train_iter = train_data
+                # if self.shuffle:
+                #     train_iter = train_data
                     # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
                     # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
                     #                                 reshuffle_each_iteration=False)
@@ -468,7 +468,7 @@ class TrainManager:
                     sgn_lengths = []
                     gls = []
                     gls_lengths = [1] * self.batch_size
-                    for i, datum in enumerate(itertools.islice(train_iter, index, index + self.batch_size)):
+                    for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
                         sequence.append(datum['id'].numpy().decode('utf-8'))
                         signer.append(datum["signer"].numpy())
                         samples.append(
@@ -479,22 +479,33 @@ class TrainManager:
 
                     sgn = []
                     for sample in samples:
-                        out = self.image_encoder(sample)
+                        # sample.cuda()
+                        out = self.model.image_encoder(sample.cuda())
                         # out = self.model.image_encoder(sample)
                         # sgn.append(out)
-                        sgn.append(out.detach())
-
+                        # out.detach().cpu()
+                        sgn.append(out.detach().cpu())
+                        sample.detach().cpu()
+                        del sample,out
+                        gc.collect()
+                    # print("1")
                     pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
-                    batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
+                    batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                              'gls': (Tensor(gls), Tensor(gls_lengths))}
 
                     index += self.batch_size
+                    print(index)
+                    print(sequence)
+                    print(sgn_lengths)
+                    del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
+                    gc.collect()
                 # reactivate training
                 # create a Batch object from torchtext batch
+                # print(2)
                 batch = Batch(
                     dataset_type=self.dataset_version,
                     is_train=True,
-                    torch_batch=batch,
+                    torch_batch=batch_prep,
                     txt_pad_index=self.txt_pad_index,
                     sgn_dim=self.feature_size,
                     use_cuda=self.use_cuda,
@@ -502,7 +513,7 @@ class TrainManager:
                     random_frame_subsampling=self.random_frame_subsampling,
                     random_frame_masking_ratio=self.random_frame_masking_ratio,
                 )
-
+                # print(3)
                 # only update every batch_multiplier batches
                 # see https://medium.com/@davidlmorton/
                 # increasing-mini-batch-size-without-increasing-
@@ -581,7 +592,7 @@ class TrainManager:
                     val_res = validate_on_data(
                         model=self.model,
                         data=valid_data,
-                        image_encoder=self.image_encoder,
+                        # image_encoder=self.image_encoder,
                         batch_size=self.eval_batch_size,
                         use_cuda=self.use_cuda,
                         batch_type=self.eval_batch_type,
@@ -813,7 +824,9 @@ class TrainManager:
                         )
 
                 if self.dataset_version == 'autsl':
-                    del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, batch, pad_sgn
+                    # batch.cpu()
+                    batch.make_cpu()
+                    del batch
                     gc.collect()
 
                 if self.stop:
@@ -1111,12 +1124,21 @@ def train(cfg_file: str) -> None:
         )
     else:
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
+        # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
+        # check = tfds.load(name='autsl', builder_kwargs=dict(config=config))
+        # check_dev=check['validation']
 
         # # samples = []
-        # # for i, datum in enumerate(itertools.islice(autsl["test"], 0, 5)):
-        # #     samples.append((datum))
+        # for i, datum in enumerate(itertools.islice(dev_data, 0, 7)):
+        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
+
+        # for i, datum in enumerate(itertools.islice(check_dev, 0, 7)):
+        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
+        # print()
+        # for i, datum in enumerate(itertools.islice(check_dev, 0, 7)):
+        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
         #
         # image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
         # image_encoder.eval()

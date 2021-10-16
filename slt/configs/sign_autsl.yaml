@@ -8,7 +8,7 @@ data:
 #    dev: phoenix14t.pami0.dev
 #    test: phoenix14t.pami0.test
     feature_size: 1000
-    level: char
+    level: word
 #    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
@@ -49,7 +49,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./autsl_model"
+    model_dir: "./autsl_model1"
     recognition_loss_weight: 1.0
     translation_loss_weight: 0.0
     eval_metric: wer
@@ -70,7 +70,7 @@ training:
     translation_max_output_length: 30
     keep_last_ckpts: 1
     batch_multiplier: 1
-    logging_freq: 100
+    logging_freq: 1
     validation_freq: 100
     betas:
     - 0.9

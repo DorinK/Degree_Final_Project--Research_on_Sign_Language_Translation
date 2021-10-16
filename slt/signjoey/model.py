@@ -77,6 +77,8 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
+        self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # TODO: Adding the image encoder.
+
     # pylint: disable=arguments-differ
     def forward(
         self,

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import gc
 import itertools
 import sys
 
@@ -52,7 +53,7 @@ import tensorflow_datasets as tfds
 def validate_on_data(
         model: SignModel,
         data: Dataset,
-        image_encoder: torchvision.models.mobilenet_v3_small,
+        # image_encoder: torchvision.models.mobilenet_v3_small,
         batch_size: int,
         use_cuda: bool,
         sgn_dim: int,
@@ -132,7 +133,7 @@ def validate_on_data(
             train=False,
         )
 
-        # disable dropout
+    # disable dropout
     model.eval()
     # don't track gradients during validation
     with torch.no_grad():
@@ -239,15 +240,22 @@ def validate_on_data(
 
                 sgn = []
                 for sample in samples:
-                    out = image_encoder(sample)
+                    out = model.image_encoder(sample.cuda())
                     # sgn.append(out)
-                    sgn.append(out.detach())
+                    # sgn.append(out.detach())
+                    sgn.append(out.detach().cpu())
+                    sample.detach().cpu()
+                    del sample, out
+                    gc.collect()
 
                 pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
                 valid_batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                                'gls': (Tensor(gls), Tensor(gls_lengths))}
 
                 index += batch_size
+                del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
+                gc.collect()
+
                 batch = Batch(
                     dataset_type=dataset_version,
                     is_train=False,
@@ -311,6 +319,10 @@ def validate_on_data(
                     if batch_attention_scores is not None
                     else []
                 )
+
+                batch.make_cpu()
+                del batch
+                gc.collect()
 
         if do_recognition:
             assert len(all_gls_outputs) == len(data)    # TODO: commented out because it disturbed the testings.    V
@@ -462,7 +474,9 @@ def test(
         _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
     else:
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
+        # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
+
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
@@ -545,7 +559,7 @@ def test(
     # NOTE (Cihan): Currently Hardcoded to be 0 for TensorFlow decoding
     assert model.gls_vocab.stoi[SIL_TOKEN] == 0
 
-    image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+    # image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
 
     if do_recognition:
         # Dev Recognition CTC Beam Search Results
@@ -559,7 +573,7 @@ def test(
             dev_recognition_results[rbw] = validate_on_data(
                 model=model,
                 data=dev_data,
-                image_encoder= image_encoder,
+                # image_encoder= image_encoder,
                 batch_size=batch_size,
                 use_cuda=use_cuda,
                 batch_type=batch_type,
@@ -726,7 +740,7 @@ def test(
     test_best_result = validate_on_data(
         model=model,
         data=test_data,
-        image_encoder= image_encoder,
+        # image_encoder= image_encoder,
         batch_size=batch_size,
         use_cuda=use_cuda,
         batch_type=batch_type,

@@ -7,7 +7,7 @@ from slt.signjoey.prediction import test
 
 # sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"#"0,1,2,3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
     ap.add_argument(
         "--output_path", type=str, help="path for saving translation output"
     )
-    ap.add_argument("--gpu_id", type=str, default="1", help="gpu to run your job on")
+    ap.add_argument("--gpu_id", type=str, default="0,1,2,3", help="gpu to run your job on")
     args = ap.parse_args()
 
     # os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
