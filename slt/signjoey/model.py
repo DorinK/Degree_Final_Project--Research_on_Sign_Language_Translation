@@ -1,6 +1,6 @@
 # coding: utf-8
 import tensorflow as tf
-import torchvision
+import torchvision  #TODO: Mine.
 
 tf.config.set_visible_devices([], "GPU")
 
@@ -34,6 +34,7 @@ class SignModel(nn.Module):
 
     def __init__(
         self,
+        dataset:str,
         encoder: Encoder,
         gloss_output_layer: nn.Module,
         decoder: Decoder,
@@ -58,8 +59,6 @@ class SignModel(nn.Module):
         """
         super().__init__()
 
-        # self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
-
         self.encoder = encoder
         self.decoder = decoder
 
@@ -77,7 +76,8 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # TODO: Adding the image encoder.
+        if dataset == 'autsl':
+            self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # TODO: Adding the image encoder for AUTSL.
 
     # pylint: disable=arguments-differ
     def forward(
@@ -445,6 +445,7 @@ def build_model(    # TODO: Update in process.
 
     # TODO: Update if needed.   Update: seams good. XXX
     model: SignModel = SignModel(
+        dataset=cfg["data"]["version"],
         encoder=encoder,
         gloss_output_layer=gloss_output_layer,
         decoder=decoder,

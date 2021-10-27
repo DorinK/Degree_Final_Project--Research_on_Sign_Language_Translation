@@ -3,10 +3,8 @@ import numpy as np
 
 from collections import defaultdict, Counter
 from typing import List
-# from torchtext.data import Dataset
-# from torchtext import data
 from torchtext.data import Dataset
-import itertools
+import itertools    # TODO: Mine.
 
 SIL_TOKEN = "<si>"
 UNK_TOKEN = "<unk>"
@@ -230,13 +228,10 @@ def build_vocab(
         tokens = []
         if version == 'phoenix_2014_trans': # TODO: Match to the asynchronous loader.    V
             for i in dataset.examples:
-            # for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     tokens.extend(i.gls)
-                    # tokens.extend(i["gloss"].numpy().decode('utf-8').strip().rstrip('\n').split())
                 elif field == "txt":
                     tokens.extend(i.txt)
-                    # tokens.extend(i["text"].numpy().decode('utf-8').strip().rstrip('\n').split())
                 else:
                     raise ValueError("Unknown field type")
 

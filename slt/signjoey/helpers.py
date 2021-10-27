@@ -20,7 +20,7 @@ import torch
 from torch import nn, Tensor
 # from torchtext.data import Dataset
 import yaml
-from torchtext.data import Dataset
+from torchtext.data import Dataset  #TODO: Mine.
 
 from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
 

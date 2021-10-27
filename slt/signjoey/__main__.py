@@ -6,8 +6,8 @@ from slt.signjoey.training import train
 from slt.signjoey.prediction import test
 
 # sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
-os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"    #TODO: Mine.
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"  #TODO: Mine.
 
 
 def main():
@@ -36,8 +36,8 @@ def main():
 
 
 if __name__ == "__main__":
-    # train(cfg_file='/home/nlp/dorink/project/slt/configs/sign.yaml')
+    # train(cfg_file='/home/nlp/dorink/project/slt/configs/sign.yaml')  TODO: Mine.
     main()
 
 
-#--output_path ./output_slt train /home/nlp/dorink/project/slt/configs/sign.yaml
+#--output_path ./output_slt train /home/nlp/dorink/project/slt/configs/sign.yaml    TODO: Mine.

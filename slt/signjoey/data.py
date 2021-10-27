@@ -31,7 +31,7 @@ from slt.signjoey.vocabulary import (
 )
 
 
-def load_data(data_cfg: dict):# -> (Dataset, Dataset, Dataset, Vocabulary, Vocabulary):
+def load_data(data_cfg: dict): # -> (Dataset, Dataset, Dataset, Vocabulary, Vocabulary):
     """
     Load train, dev and optionally test data as specified in configuration.
     Vocabularies are created from the training set with a limit of `voc_limit`

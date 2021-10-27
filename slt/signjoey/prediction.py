@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-import gc
-import itertools
-import sys
+import gc   #TODO: Mine.
+import itertools    #TODO: Mine.
+import sys  #TODO: Mine.
 
 import torch
-import torchvision
-from sign_language_datasets.datasets import SignDatasetConfig
-from torch.nn.utils.rnn import pad_sequence
-from torchtext.data import Dataset
+import torchvision  #TODO: Mine.
+from sign_language_datasets.datasets import SignDatasetConfig   #TODO: Mine.
+from torch.nn.utils.rnn import pad_sequence #TODO: Mine.
+from torchtext.data import Dataset  #TODO: Mine.
 
 torch.backends.cudnn.deterministic = True
 
@@ -35,8 +35,8 @@ from slt.signjoey.phoenix_utils.phoenix_cleanup import (
     clean_phoenix_2014,
     clean_phoenix_2014_trans,
 )
-from torch import Tensor
-import tensorflow_datasets as tfds
+from torch import Tensor    #TODO: Mine.
+import tensorflow_datasets as tfds  #TODO: Mine.
 
 
 # def get_element(dataset, num):
@@ -558,8 +558,6 @@ def test(
 
     # NOTE (Cihan): Currently Hardcoded to be 0 for TensorFlow decoding
     assert model.gls_vocab.stoi[SIL_TOKEN] == 0
-
-    # image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
 
     if do_recognition:
         # Dev Recognition CTC Beam Search Results

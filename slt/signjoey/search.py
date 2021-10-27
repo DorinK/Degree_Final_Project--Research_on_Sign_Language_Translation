@@ -425,16 +425,18 @@ def beam_search(
         if select_indices.dtype!=torch.float32:
             # print("wasn't float2")
             encoder_output = encoder_output.index_select(0, select_indices)
+            src_mask = src_mask.index_select(0, select_indices)
         else:
             # print("was float2")
             encoder_output = encoder_output.index_select(0, select_indices.to(torch.int))
-
-        if select_indices.dtype!=torch.float32:
-            # print("wasn't float3")
-            src_mask = src_mask.index_select(0, select_indices)
-        else:
-            # print("was float3")
             src_mask = src_mask.index_select(0, select_indices.to(torch.int))
+
+        # if select_indices.dtype!=torch.float32:
+        #     # print("wasn't float3")
+        #     src_mask = src_mask.index_select(0, select_indices)
+        # else:
+        #     # print("was float3")
+        #     src_mask = src_mask.index_select(0, select_indices.to(torch.int))
 
         if hidden is not None and not transformer:
             if isinstance(hidden, tuple):
@@ -452,7 +454,7 @@ def beam_search(
             else:
                 # if select_indices.dtype != torch.float32:
                     # print("wasn't float5")
-                    # for GRUs, states are single tensors
+                # for GRUs, states are single tensors
                 hidden = hidden.index_select(1, select_indices)
                 # else:
                     # print("was float5")

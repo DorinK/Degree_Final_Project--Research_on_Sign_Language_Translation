@@ -66,8 +66,8 @@ class SignTranslationDataset(Dataset):
                     ("gls", fields[3]),
                 ]
 
-        image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
-        image_encoder.eval()
+        # image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+        # image_encoder.eval()
 
         if dataset_type == 'phoenix_2014_trans':
             if not isinstance(path, list):
