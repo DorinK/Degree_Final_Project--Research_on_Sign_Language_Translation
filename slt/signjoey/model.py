@@ -76,7 +76,7 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        if dataset == 'autsl':
+        if dataset != 'phoenix_2014_trans':
             self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # TODO: Adding the image encoder for AUTSL.
 
     # pylint: disable=arguments-differ
@@ -355,6 +355,7 @@ class SignModel(nn.Module):
 
 
 def build_model(    # TODO: Update in process.
+    dataset: str,
     cfg: dict,
     sgn_dim: int,
     gls_vocab: GlossVocabulary,
@@ -380,7 +381,7 @@ def build_model(    # TODO: Update in process.
     sgn_embed: SpatialEmbeddings = SpatialEmbeddings(
         **cfg["encoder"]["embeddings"],
         num_heads=cfg["encoder"]["num_heads"],
-        input_size=sgn_dim, # TODO: update sgn_dim. XXX
+        input_size=sgn_dim, # TODO: update sgn_dim. V
     )
 
     # TODO: Don't think it should change, but check the yaml to be sure.    XXX
@@ -443,9 +444,9 @@ def build_model(    # TODO: Update in process.
         txt_embed = None
         decoder = None
 
-    # TODO: Update if needed.   Update: seams good. XXX
+    # TODO: Update if needed.   Update: seams good. V
     model: SignModel = SignModel(
-        dataset=cfg["data"]["version"],
+        dataset=dataset,
         encoder=encoder,
         gloss_output_layer=gloss_output_layer,
         decoder=decoder,

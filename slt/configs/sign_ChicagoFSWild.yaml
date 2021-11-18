@@ -1,14 +1,14 @@
 name: sign_experiment
 data:
     data_path: ./data/
-    version: autsl
+    version: ChicagoFSWild
     sgn: sign
     gls: gloss
 #    train: phoenix14t.pami0.train
 #    dev: phoenix14t.pami0.dev
 #    test: phoenix14t.pami0.test
     feature_size: 1000
-    level: word
+    level: char
 #    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
@@ -49,9 +49,9 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./autsl_model2"
-    recognition_loss_weight: 1.0
-    translation_loss_weight: 0.0
+    model_dir: "./ChicagoFSWild/oct"
+    recognition_loss_weight: 0.0
+    translation_loss_weight: 1.0
     eval_metric: wer
     optimizer: adam
     learning_rate: 0.001
@@ -59,7 +59,7 @@ training:
     num_valid_log: 5
     epochs: 5000000
     early_stopping_metric: eval_metric
-    batch_type: sentence
+    batch_type: token
     translation_normalization: batch
     eval_recognition_beam_size: 10
     eval_translation_beam_size: 9

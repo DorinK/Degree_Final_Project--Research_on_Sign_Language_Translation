@@ -30,7 +30,7 @@ from slt.signjoey.metrics import bleu, chrf, rouge, wer_list
 from slt.signjoey.model import build_model, SignModel
 from slt.signjoey.batch import Batch
 from slt.signjoey.data import load_data, make_data_iter
-from slt.signjoey.vocabulary import PAD_TOKEN, SIL_TOKEN, build_vocab, TextVocabulary
+from slt.signjoey.vocabulary import PAD_TOKEN, SIL_TOKEN, build_vocab, TextVocabulary, GlossVocabulary
 from slt.signjoey.phoenix_utils.phoenix_cleanup import (
     clean_phoenix_2014,
     clean_phoenix_2014_trans,
@@ -217,7 +217,7 @@ def validate_on_data(
                     if batch_attention_scores is not None
                     else []
                 )
-        else:
+        elif dataset_version == 'autsl':
             index = 0
 
             # For each batch in the training set
@@ -323,6 +323,112 @@ def validate_on_data(
                 batch.make_cpu()
                 del batch
                 gc.collect()
+        else:
+            index = 0
+
+            # For each batch in the training set
+            while (index < len(data)):
+            # while (index < batch_size):
+                sequence = []
+                signer = []
+                samples = []
+                sgn_lengths = []
+                txt = []
+                txt_lengths = [int(1)] * batch_size
+                for i, datum in enumerate(itertools.islice(data, index, index + batch_size)):
+                    sequence.append(datum['id'].numpy().decode('utf-8'))
+                    signer.append(datum["signer"].numpy().decode('utf-8'))
+                    samples.append(
+                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                                datum['video'].shape[2]))
+                    sgn_lengths.append(datum['video'].shape[0])
+                    txt.append([2,int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+
+                sgn = []
+                for sample in samples:
+                    out = model.image_encoder(sample.cuda())
+                    # sgn.append(out)
+                    # sgn.append(out.detach())
+                    sgn.append(out.detach().cpu())
+                    sample.detach().cpu()
+                    del sample, out
+                    gc.collect()
+
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                valid_batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
+                               'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
+
+                index += batch_size
+                del sequence, signer, samples, sgn_lengths, txt, txt_lengths, sgn, pad_sgn
+                gc.collect()
+
+                batch = Batch(
+                    dataset_type=dataset_version,
+                    is_train=False,
+                    torch_batch=valid_batch,
+                    txt_pad_index=txt_pad_index,
+                    sgn_dim=sgn_dim,
+                    use_cuda=use_cuda,
+                    frame_subsampling_ratio=frame_subsampling_ratio,
+                )
+
+                sort_reverse_index = batch.sort_by_sgn_lengths()
+
+                batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
+                    batch=batch,
+                    recognition_loss_function=recognition_loss_function
+                    if do_recognition
+                    else None,
+                    translation_loss_function=translation_loss_function
+                    if do_translation
+                    else None,
+                    recognition_loss_weight=recognition_loss_weight
+                    if do_recognition
+                    else None,
+                    translation_loss_weight=translation_loss_weight
+                    if do_translation
+                    else None,
+                )
+                if do_recognition:
+                    total_recognition_loss += batch_recognition_loss
+                    total_num_gls_tokens += batch.num_gls_tokens
+                if do_translation:
+                    total_translation_loss += batch_translation_loss
+                    total_num_txt_tokens += batch.num_txt_tokens
+                total_num_seqs += batch.num_seqs
+
+                (
+                    batch_gls_predictions,
+                    batch_txt_predictions,
+                    batch_attention_scores,
+                ) = model.run_batch(
+                    batch=batch,
+                    recognition_beam_size=recognition_beam_size if do_recognition else None,
+                    translation_beam_size=translation_beam_size if do_translation else None,
+                    translation_beam_alpha=translation_beam_alpha
+                    if do_translation
+                    else None,
+                    translation_max_output_length=translation_max_output_length
+                    if do_translation
+                    else None,
+                )
+
+                # sort outputs back to original order
+                if do_recognition:
+                    all_gls_outputs.extend(
+                        [batch_gls_predictions[sri] for sri in sort_reverse_index]
+                    )
+                if do_translation:
+                    all_txt_outputs.extend(batch_txt_predictions[sort_reverse_index])
+                all_attention_scores.extend(
+                    batch_attention_scores[sort_reverse_index]
+                    if batch_attention_scores is not None
+                    else []
+                )
+
+                batch.make_cpu()
+                del batch
+                gc.collect()
 
         if do_recognition:
             assert len(all_gls_outputs) == len(data)    # TODO: commented out because it disturbed the testings.    V
@@ -344,6 +450,8 @@ def validate_on_data(
                 gls_cln_fn = clean_phoenix_2014
             elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
                 pass
+            elif dataset_version == "ChicagoFSWild":
+                pass
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
 
@@ -362,7 +470,7 @@ def validate_on_data(
             # GLS Metrics
             gls_wer_score = wer_list(hypotheses=gls_hyp, references=gls_ref)
 
-        if do_translation:
+        if do_translation:  # TODO: Check it for ChicagoFSWild dataset.  XXX
             assert len(all_txt_outputs) == len(data)
             if (
                     translation_loss_function is not None
@@ -380,9 +488,15 @@ def validate_on_data(
             decoded_txt = model.txt_vocab.arrays_to_sentences(arrays=all_txt_outputs)
             # evaluate with metric on full dataset
             join_char = " " if level in ["word", "bpe"] else ""
+
             # Construct text sequences for metrics
-            txt_ref = [join_char.join(t) for t in data.txt]
-            txt_hyp = [join_char.join(t) for t in decoded_txt]
+            if dataset_version == "phoenix_2014_trans":
+                txt_ref = [join_char.join(t) for t in data.txt]
+                txt_hyp = [join_char.join(t) for t in decoded_txt]
+            else:
+                txt_ref = [" ".join([t['text'].numpy().decode('utf-8')]) for t in itertools.islice(data, len(data))]
+                txt_hyp = [" ".join(t) for t in decoded_txt]
+
             # post-process
             if level == "bpe":
                 txt_ref = [bpe_postprocess(v) for v in txt_ref]
@@ -472,7 +586,7 @@ def test(
     if cfg["data"]["version"] == 'phoenix_2014_trans':
         # Load the dataset and create the corresponding vocabs
         _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
-    else:
+    elif cfg["data"]["version"] == 'autsl':
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
         # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
@@ -499,6 +613,39 @@ def test(
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
+    else:
+        config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config))#,shuffle_files=True
+        train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
+
+        gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
+        gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
+        txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
+        txt_min_freq = cfg["data"].get("txt_voc_min_freq", 1)
+
+        # Get the vocabs if already exists, otherwise set them to None.
+        gls_vocab_file = cfg["data"].get("gls_vocab", None)
+        txt_vocab_file = cfg["data"].get("txt_vocab", None)
+
+        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)
+        # Build the gloss vocab based on the training set.
+        gls_vocab = build_vocab(
+            version=cfg["data"]["version"],
+            field="gls",
+            min_freq=gls_min_freq,
+            max_size=gls_max_size,
+            dataset=train_data,
+            vocab_file=gls_vocab_file,
+        )
+        # Build the txt vocab based on the training set.
+        txt_vocab = build_vocab(
+            version=cfg["data"]["version"],
+            field="txt",
+            min_freq=txt_min_freq,
+            max_size=txt_max_size,
+            dataset=train_data,
+            vocab_file=txt_vocab_file,
+        )
 
     # load model state from disk
     model_checkpoint = load_checkpoint(ckpt, use_cuda=use_cuda)
@@ -507,6 +654,7 @@ def test(
     do_recognition = cfg["training"].get("recognition_loss_weight", 1.0) > 0.0
     do_translation = cfg["training"].get("translation_loss_weight", 1.0) > 0.0
     model = build_model(
+        dataset=cfg["data"]["version"],
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -858,12 +1006,16 @@ def test(
 
             _write_to_file(
                 dev_txt_output_path_set,
-                [s for s in dev_data.sequence],
+                [s for s in dev_data.sequence]
+                if dataset_version == "phoenix_2014_trans"
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))], # TODO: adjust
                 dev_best_translation_result["txt_hyp"],
             )
             _write_to_file(
                 test_txt_output_path_set,
-                [s for s in test_data.sequence],
+                [s for s in test_data.sequence]
+                if dataset_version == "phoenix_2014_trans"
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))], # TODO: adjust
                 test_best_result["txt_hyp"],
             )
 

@@ -44,8 +44,7 @@ class Batch:
             self.sgn, self.sgn_lengths = torch_batch.sgn  # [sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
 
         else:   #TODO: Mine.
-            self.sequence = torch_batch[
-                "sequence"]  # ["id"].numpy().tolist() #[sample['id'] for sample in torch_batch]#
+            self.sequence = torch_batch["sequence"]  # ["id"].numpy().tolist() #[sample['id'] for sample in torch_batch]#
             self.signer = torch_batch["signer"]  # .numpy().tolist() #[sample['signer'] for sample in torch_batch]
             # Sign
             # TODO: Check with the phoenix dataset to which dimension the sgn_lengts are referring to.  V
@@ -112,7 +111,10 @@ class Batch:
         #  to match it to the AUTSL attribute name.    XXX
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "txt") or "txt" in torch_batch: #TODO: Addintion for asynchroneous dataset. V
-            txt, txt_lengths = torch_batch.txt
+            if dataset_type == 'phoenix_2014_trans':
+                txt, txt_lengths = torch_batch.txt
+            else:   # TODO: Mine.
+                txt, txt_lengths = torch_batch["txt"]
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
             self.txt_lengths = txt_lengths
@@ -129,7 +131,7 @@ class Batch:
             if dataset_type == 'phoenix_2014_trans':
                 self.gls, self.gls_lengths = torch_batch.gls
             else:   # TODO: Mine.
-                self.gls, self.gls_lengths = torch_batch["gls"]  # torch_batch.gls
+                self.gls, self.gls_lengths = torch_batch["gls"]
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
 
         if use_cuda:

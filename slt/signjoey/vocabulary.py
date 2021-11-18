@@ -235,7 +235,7 @@ def build_vocab(
                 else:
                     raise ValueError("Unknown field type")
 
-        else:   # TODO: Check it is working.    XXX
+        elif version == 'autsl':   # TODO: Check it is working.    XXX
             # for i in range(226):
             #     tokens.append(i)
             #     tokens.append(i)
@@ -245,6 +245,14 @@ def build_vocab(
                     tokens.append(int(i['gloss_id'].numpy()))
                 elif field == "txt":
                     tokens.append(int(i['text'].numpy()))
+                else:
+                    raise ValueError("Unknown field type")
+        else:
+            for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
+                if field == "gls":
+                    break
+                elif field == "txt":
+                    tokens.append(i['text'].numpy().decode('utf-8'))
                 else:
                     raise ValueError("Unknown field type")
 
@@ -265,7 +273,7 @@ def build_vocab(
         assert len(vocab) <= max_size + len(vocab.specials)
         assert vocab.itos[vocab.DEFAULT_UNK_ID()] == UNK_TOKEN
 
-    # TODO: Change if needed. Upsate: I think it's harmless.    XXX
+    # TODO: Change if needed. Update: I think it's harmless.    XXX
     for i, s in enumerate(vocab.specials):
         if i != vocab.DEFAULT_UNK_ID():
             assert not vocab.is_unk(s)

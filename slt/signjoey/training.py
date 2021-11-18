@@ -103,6 +103,7 @@ class TrainManager:
 
         # optimization
         self.last_best_lr = train_config.get("learning_rate", -1)
+        # self.last_best_lr = train_config.get("learning_rate", -1) * 4 # TODO: Tried to run on multiple JPUs - Failed.
         self.learning_rate_min = train_config.get("learning_rate_min", 1.0e-8)
         self.clip_grad_fun = build_gradient_clipper(config=train_config)
         self.optimizer = build_optimizer(
@@ -175,6 +176,7 @@ class TrainManager:
         self.shuffle = train_config.get("shuffle", True)
         self.epochs = train_config["epochs"]
         self.batch_size = train_config["batch_size"]
+        # self.batch_size = train_config["batch_size"] * 4  # TODO: Tried to run on multiple JPUs - Failed.
         self.batch_type = train_config.get("batch_type", "sentence")
         self.eval_batch_size = train_config.get("eval_batch_size", self.batch_size)
         self.eval_batch_type = train_config.get("eval_batch_type", self.batch_type)
@@ -182,6 +184,12 @@ class TrainManager:
         # Using GPU
         self.use_cuda = train_config["use_cuda"]
         if self.use_cuda:
+            # TODO: Tried to run on multiple JPUs - Failed.
+            # num_gpus = torch.cuda.device_count()
+            # device_ids = list(range(4))
+            # device = "cuda" if torch.cuda.is_available() else "cpu"
+            # self.model = torch.nn.DataParallel(model, device_ids=device_ids)
+            # self.model = self.model.to(device)
             self.model.cuda()
             if self.do_translation:
                 self.translation_loss_function.cuda()
@@ -825,13 +833,13 @@ class TrainManager:
                 processed_txt_tokens = self.total_txt_tokens
                 epoch_translation_loss = 0
 
-            if self.dataset_version == 'autsl':
+            # if self.dataset_version == 'autsl':
                 # if self.shuffle:
                 #     train_iter = train_data
                     # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
                     # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
                     #                                 reshuffle_each_iteration=False)
-                index = 0
+            index = 0
             # import random
             #
             # whole_idx = [i for i in range(len(train_data))]
@@ -851,44 +859,46 @@ class TrainManager:
                 # batch = [self.get_element(train_data,i) for i in chosen]
                 # whole_idx = [x for x in whole_idx if x not in chosen]
 
-                if self.dataset_version == 'autsl':
-                    sequence = []
-                    signer = []
-                    samples = []
-                    sgn_lengths = []
-                    gls = []
-                    gls_lengths = [1] * self.batch_size
-                    for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
-                        sequence.append(datum['id'].numpy().decode('utf-8'))
-                        signer.append(datum["signer"].numpy())
-                        samples.append(
-                            Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                                datum['video'].shape[2]))
-                        sgn_lengths.append(datum['video'].shape[0])
-                        gls.append(datum['gloss_id'].numpy())
+                # if self.dataset_version == 'autsl':
+                sequence = []
+                signer = []
+                samples = []
+                sgn_lengths = []
+                gls = []
+                gls_lengths = [1] * self.batch_size
+                for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
+                    sequence.append(datum['id'].numpy().decode('utf-8'))
+                    signer.append(datum["signer"].numpy())
+                    samples.append(
+                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                            datum['video'].shape[2]))
+                    sgn_lengths.append(datum['video'].shape[0])
+                    gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
-                    sgn = []
-                    for sample in samples:
-                        # sample.cuda()
-                        out = self.model.image_encoder(sample.cuda())
-                        # out = self.model.image_encoder(sample)
-                        # sgn.append(out)
-                        # out.detach().cpu()
-                        sgn.append(out.detach().cpu())
-                        sample.detach().cpu()
-                        del sample,out
-                        gc.collect()
-                    # print("1")
-                    pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
-                    batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
-                             'gls': (Tensor(gls), Tensor(gls_lengths))}
 
-                    index += self.batch_size
-                    print(index)
-                    print(sequence)
-                    print(sgn_lengths)
-                    del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
+                sgn = []
+                for sample in samples:
+                    # sample.cuda()
+                    out = self.model.image_encoder(sample.cuda())
+                    # out = self.model.image_encoder(sample)
+                    # sgn.append(out)
+                    # out.detach().cpu()
+                    sgn.append(out.detach().cpu())
+                    sample.detach().cpu()
+                    del sample,out
                     gc.collect()
+                # print("1")
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
+                            'gls': (Tensor(gls), Tensor(gls_lengths))}
+
+                index += self.batch_size
+                print(index)
+                print(sequence)
+                print(sgn_lengths)
+                del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
+                gc.collect()
 
                 # reactivate training
                 # create a Batch object from torchtext batch
@@ -1257,6 +1267,492 @@ class TrainManager:
 
         self.tb_writer.close()  # close Tensorboard writer
 
+    def train_and_validate_chicago(self, cfg, train_data, valid_data) -> None:
+        # def train_and_validate(self, train_data, valid_data) -> None:
+
+        """
+        Train the model and validate it from time to time on the validation set.
+
+        :param train_data: training data
+        :param valid_data: validation data
+        """
+
+        # Create iterator for the training set.
+        # # train_iter = iter(train_data)
+        # if self.shuffle:
+        #     train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000, seed=cfg["training"].get("random_seed", 42)))
+        #     # # train_iter=shuffle_train.padded_batch(self.batch_size)
+        #     # train_iter=shuffle_train.apply(tf.data.experimental.bucket_by_sequence_length(
+        #     #     lambda x: tf.shape(x["video"])[0], [25,50,75,100,125,150,175,200,225,250,275,300], [self.batch_size]*13, padded_shapes=None,
+        #     #     padding_values=None, pad_to_bucket_boundary=False, no_padding=False,
+        #     #     drop_remainder=False
+        #     # ))
+        #     # # train_iter = make_data_iter(
+        #     # #     train_data,
+        #     # #     batch_size=self.batch_size,
+        #     # #     batch_type=self.batch_type,
+        #     # #     train=True,
+        #     # #     shuffle=False,
+        #     # # )
+        # # train_iter=train_data
+        # import torchtext
+        # check=torchtext.data.batch(train_iter,5)
+        # check2 = [i for i in check]
+        # del check, check2
+        # gc.collect()
+
+        epoch_no = None
+        for epoch_no in range(self.epochs):
+            self.logger.info("EPOCH %d", epoch_no + 1)
+
+            if self.scheduler is not None and self.scheduler_step_at == "epoch":
+                self.scheduler.step(epoch=epoch_no)
+
+            # Set the model to training mode.
+            self.model.train()
+            start = time.time()
+            total_valid_duration = 0
+            count = self.batch_multiplier - 1
+
+            if self.do_recognition:
+                processed_gls_tokens = self.total_gls_tokens
+                epoch_recognition_loss = 0
+            if self.do_translation:
+                processed_txt_tokens = self.total_txt_tokens
+                epoch_translation_loss = 0
+
+            # if self.dataset_version == 'ChicagoFSWild':
+                # if self.shuffle:
+                #     train_iter = train_data
+                    # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
+                    # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
+                    #                                 reshuffle_each_iteration=False)
+            index = 0
+            # import random
+            #
+            # whole_idx = [i for i in range(len(train_data))]
+            #
+            # while len(whole_idx)>0:
+
+            # For each batch in the training set
+            while (index < len(train_data)):
+                # for batch in iter(train_iter):
+
+                # if self.shuffle:
+
+                #     chosen=random.sample(whole_idx, self.batch_size)
+                # else:
+                #     chosen=whole_idx[:,self.batch_size]
+                #
+                # batch = [self.get_element(train_data,i) for i in chosen]
+                # whole_idx = [x for x in whole_idx if x not in chosen]
+
+                # if self.dataset_version == 'ChicagoFSWild':
+                sequence = []
+                signer = []
+                samples = []
+                sgn_lengths = []
+                txt = []
+                txt_lengths = [int(1)] * self.batch_size
+                for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
+                    sequence.append(datum['id'].numpy().decode('utf-8'))
+                    signer.append(datum["signer"].numpy().decode('utf-8'))
+                    samples.append(
+                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                            datum['video'].shape[2]))
+                    sgn_lengths.append(datum['video'].shape[0])
+                    txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+
+                sgn = []
+                for sample in samples:
+                    # sample.cuda()
+                    out = self.model.image_encoder(sample.cuda())
+                    # out = self.model.image_encoder(sample)
+                    # sgn.append(out)
+                    # out.detach().cpu()
+                    sgn.append(out.detach().cpu())
+                    sample.detach().cpu()
+                    del sample,out
+                    gc.collect()
+                # print("1")
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
+                                'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
+
+                index += self.batch_size
+                print(index)
+                print(sequence)
+                print(sgn_lengths)
+                del sequence, signer, samples, sgn_lengths, txt, txt_lengths, sgn, pad_sgn
+                gc.collect()
+
+                # reactivate training
+                # create a Batch object from torchtext batch
+                # print(2)
+                batch = Batch(
+                    dataset_type=self.dataset_version,
+                    is_train=True,
+                    torch_batch=batch_prep,
+                    txt_pad_index=self.txt_pad_index,
+                    sgn_dim=self.feature_size,
+                    use_cuda=self.use_cuda,
+                    frame_subsampling_ratio=self.frame_subsampling_ratio,
+                    random_frame_subsampling=self.random_frame_subsampling,
+                    random_frame_masking_ratio=self.random_frame_masking_ratio,
+                )
+                # print(3)
+                # only update every batch_multiplier batches
+                # see https://medium.com/@davidlmorton/
+                # increasing-mini-batch-size-without-increasing-
+                # memory-6794e10db672
+                update = count == 0
+
+                recognition_loss, translation_loss = self._train_batch(
+                    batch, update=update
+                )
+
+                if self.do_recognition:
+                    self.tb_writer.add_scalar(
+                        "train/train_recognition_loss", recognition_loss, self.steps
+                    )
+                    epoch_recognition_loss += recognition_loss.detach().cpu().numpy()
+
+                if self.do_translation:
+                    self.tb_writer.add_scalar(
+                        "train/train_translation_loss", translation_loss, self.steps
+                    )
+                    epoch_translation_loss += translation_loss.detach().cpu().numpy()
+
+                count = self.batch_multiplier if update else count
+                count -= 1
+
+                if (
+                        self.scheduler is not None
+                        and self.scheduler_step_at == "step"
+                        and update
+                ):
+                    self.scheduler.step()
+
+                # log learning progress
+                if self.steps % self.logging_freq == 0 and update:
+                    elapsed = time.time() - start - total_valid_duration
+
+                    log_out = "[Epoch: {:03d} Step: {:08d}] ".format(
+                        epoch_no + 1, self.steps,
+                    )
+
+                    if self.do_recognition:
+                        elapsed_gls_tokens = (
+                                self.total_gls_tokens - processed_gls_tokens
+                        )
+                        processed_gls_tokens = self.total_gls_tokens
+                        log_out += "Batch Recognition Loss: {:10.6f} => ".format(
+                            recognition_loss
+                        )
+                        log_out += "Gls Tokens per Sec: {:8.0f} || ".format(
+                            elapsed_gls_tokens / elapsed
+                        )
+                    if self.do_translation:
+                        elapsed_txt_tokens = (
+                                self.total_txt_tokens - processed_txt_tokens
+                        )
+                        processed_txt_tokens = self.total_txt_tokens
+                        log_out += "Batch Translation Loss: {:10.6f} => ".format(
+                            translation_loss
+                        )
+                        log_out += "Txt Tokens per Sec: {:8.0f} || ".format(
+                            elapsed_txt_tokens / elapsed
+                        )
+                    log_out += "Lr: {:.6f}".format(self.optimizer.param_groups[0]["lr"])
+                    self.logger.info(log_out)
+                    start = time.time()
+                    total_valid_duration = 0
+
+                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back when done.  V
+                # validate on the entire dev set
+                if self.steps % self.validation_freq == 0 and update:
+                    valid_start_time = time.time()
+                    # TODO (Cihan): There must be a better way of passing
+                    #   these recognition only and translation only parameters!
+                    #   Maybe have a NamedTuple with optional fields?
+                    #   Hmm... Future Cihan's problem.
+                    val_res = validate_on_data(
+                        model=self.model,
+                        data=valid_data,
+                        # image_encoder=self.image_encoder,
+                        batch_size=self.eval_batch_size,
+                        use_cuda=self.use_cuda,
+                        batch_type=self.eval_batch_type,
+                        dataset_version=self.dataset_version,
+                        sgn_dim=self.feature_size,
+                        txt_pad_index=self.txt_pad_index,
+                        # Recognition Parameters
+                        do_recognition=self.do_recognition,
+                        recognition_loss_function=self.recognition_loss_function
+                        if self.do_recognition
+                        else None,
+                        recognition_loss_weight=self.recognition_loss_weight
+                        if self.do_recognition
+                        else None,
+                        recognition_beam_size=self.eval_recognition_beam_size
+                        if self.do_recognition
+                        else None,
+                        # Translation Parameters
+                        do_translation=self.do_translation,
+                        translation_loss_function=self.translation_loss_function
+                        if self.do_translation
+                        else None,
+                        translation_max_output_length=self.translation_max_output_length
+                        if self.do_translation
+                        else None,
+                        level=self.level if self.do_translation else None,
+                        translation_loss_weight=self.translation_loss_weight
+                        if self.do_translation
+                        else None,
+                        translation_beam_size=self.eval_translation_beam_size
+                        if self.do_translation
+                        else None,
+                        translation_beam_alpha=self.eval_translation_beam_alpha
+                        if self.do_translation
+                        else None,
+                        frame_subsampling_ratio=self.frame_subsampling_ratio,
+                    )
+                    self.model.train()
+
+                    if self.do_recognition:
+                        # Log Losses and ppl
+                        self.tb_writer.add_scalar(
+                            "valid/valid_recognition_loss",
+                            val_res["valid_recognition_loss"],
+                            self.steps,
+                        )
+                        self.tb_writer.add_scalar(
+                            "valid/wer", val_res["valid_scores"]["wer"], self.steps
+                        )
+                        self.tb_writer.add_scalars(
+                            "valid/wer_scores",
+                            val_res["valid_scores"]["wer_scores"],
+                            self.steps,
+                        )
+
+                    if self.do_translation:
+                        self.tb_writer.add_scalar(
+                            "valid/valid_translation_loss",
+                            val_res["valid_translation_loss"],
+                            self.steps,
+                        )
+                        self.tb_writer.add_scalar(
+                            "valid/valid_ppl", val_res["valid_ppl"], self.steps
+                        )
+
+                        # Log Scores
+                        self.tb_writer.add_scalar(
+                            "valid/chrf", val_res["valid_scores"]["chrf"], self.steps
+                        )
+                        self.tb_writer.add_scalar(
+                            "valid/rouge", val_res["valid_scores"]["rouge"], self.steps
+                        )
+                        self.tb_writer.add_scalar(
+                            "valid/bleu", val_res["valid_scores"]["bleu"], self.steps
+                        )
+                        self.tb_writer.add_scalars(
+                            "valid/bleu_scores",
+                            val_res["valid_scores"]["bleu_scores"],
+                            self.steps,
+                        )
+
+                    if self.early_stopping_metric == "recognition_loss":
+                        assert self.do_recognition
+                        ckpt_score = val_res["valid_recognition_loss"]
+                    elif self.early_stopping_metric == "translation_loss":
+                        assert self.do_translation
+                        ckpt_score = val_res["valid_translation_loss"]
+                    elif self.early_stopping_metric in ["ppl", "perplexity"]:
+                        assert self.do_translation
+                        ckpt_score = val_res["valid_ppl"]
+                    else:
+                        ckpt_score = val_res["valid_scores"][self.eval_metric]
+
+                    new_best = False
+                    if self.is_best(ckpt_score):
+                        self.best_ckpt_score = ckpt_score
+                        self.best_all_ckpt_scores = val_res["valid_scores"]
+                        self.best_ckpt_iteration = self.steps
+                        self.logger.info(
+                            "Hooray! New best validation result [%s]!",
+                            self.early_stopping_metric,
+                        )
+                        if self.ckpt_queue.maxsize > 0:
+                            self.logger.info("Saving new checkpoint.")
+                            new_best = True
+                            self._save_checkpoint()
+
+                    if (
+                            self.scheduler is not None
+                            and self.scheduler_step_at == "validation"
+                    ):
+                        prev_lr = self.scheduler.optimizer.param_groups[0]["lr"]
+                        self.scheduler.step(ckpt_score)
+                        now_lr = self.scheduler.optimizer.param_groups[0]["lr"]
+
+                        if prev_lr != now_lr:
+                            if self.last_best_lr != prev_lr:
+                                self.stop = True
+
+                    # append to validation report
+                    self._add_report(
+                        valid_scores=val_res["valid_scores"],
+                        valid_recognition_loss=val_res["valid_recognition_loss"]
+                        if self.do_recognition
+                        else None,
+                        valid_translation_loss=val_res["valid_translation_loss"]
+                        if self.do_translation
+                        else None,
+                        valid_ppl=val_res["valid_ppl"] if self.do_translation else None,
+                        eval_metric=self.eval_metric,
+                        new_best=new_best,
+                    )
+                    valid_duration = time.time() - valid_start_time
+                    total_valid_duration += valid_duration
+                    self.logger.info(
+                        "Validation result at epoch %3d, step %8d: duration: %.4fs\n\t"
+                        "Recognition Beam Size: %d\t"
+                        "Translation Beam Size: %d\t"
+                        "Translation Beam Alpha: %d\n\t"
+                        "Recognition Loss: %4.5f\t"
+                        "Translation Loss: %4.5f\t"
+                        "PPL: %4.5f\n\t"
+                        "Eval Metric: %s\n\t"
+                        "WER %3.2f\t(DEL: %3.2f,\tINS: %3.2f,\tSUB: %3.2f)\n\t"
+                        "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
+                        "CHRF %.2f\t"
+                        "ROUGE %.2f",
+                        epoch_no + 1,
+                        self.steps,
+                        valid_duration,
+                        self.eval_recognition_beam_size if self.do_recognition else -1,
+                        self.eval_translation_beam_size if self.do_translation else -1,
+                        self.eval_translation_beam_alpha if self.do_translation else -1,
+                        val_res["valid_recognition_loss"]
+                        if self.do_recognition
+                        else -1,
+                        val_res["valid_translation_loss"]
+                        if self.do_translation
+                        else -1,
+                        val_res["valid_ppl"] if self.do_translation else -1,
+                        self.eval_metric.upper(),
+                        # WER
+                        val_res["valid_scores"]["wer"] if self.do_recognition else -1,
+                        val_res["valid_scores"]["wer_scores"]["del_rate"]
+                        if self.do_recognition
+                        else -1,
+                        val_res["valid_scores"]["wer_scores"]["ins_rate"]
+                        if self.do_recognition
+                        else -1,
+                        val_res["valid_scores"]["wer_scores"]["sub_rate"]
+                        if self.do_recognition
+                        else -1,
+                        # BLEU
+                        val_res["valid_scores"]["bleu"] if self.do_translation else -1,
+                        val_res["valid_scores"]["bleu_scores"]["bleu1"]
+                        if self.do_translation
+                        else -1,
+                        val_res["valid_scores"]["bleu_scores"]["bleu2"]
+                        if self.do_translation
+                        else -1,
+                        val_res["valid_scores"]["bleu_scores"]["bleu3"]
+                        if self.do_translation
+                        else -1,
+                        val_res["valid_scores"]["bleu_scores"]["bleu4"]
+                        if self.do_translation
+                        else -1,
+                        # Other
+                        val_res["valid_scores"]["chrf"] if self.do_translation else -1,
+                        val_res["valid_scores"]["rouge"] if self.do_translation else -1,
+                    )
+
+                    valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
+                                 itertools.islice(valid_data, len(valid_data))]
+
+                    self._log_examples(
+                        sequences=valid_seq,    # TODO: Problem here.  fixed.  V
+                        gls_references=val_res["gls_ref"]
+                        if self.do_recognition
+                        else None,
+                        gls_hypotheses=val_res["gls_hyp"]
+                        if self.do_recognition
+                        else None,
+                        txt_references=val_res["txt_ref"]
+                        if self.do_translation
+                        else None,
+                        txt_hypotheses=val_res["txt_hyp"]
+                        if self.do_translation
+                        else None,
+                    )
+
+                    # valid_seq = [s for s in valid_data.sequence]  # moved up
+
+                    # store validation set outputs and references
+                    if self.do_recognition:
+                        self._store_outputs(
+                            "dev.hyp.gls", valid_seq, val_res["gls_hyp"], "gls"
+                        )
+                        self._store_outputs(
+                            "references.dev.gls", valid_seq, val_res["gls_ref"]
+                        )
+
+                    if self.do_translation:
+                        self._store_outputs(
+                            "dev.hyp.txt", valid_seq, val_res["txt_hyp"], "txt"
+                        )
+                        self._store_outputs(
+                            "references.dev.txt", valid_seq, val_res["txt_ref"]
+                        )
+
+                # batch.cpu()
+                batch.make_cpu()  # TODO: Mine.
+                del batch  # TODO: Mine.
+                gc.collect()  # TODO: Mine.
+
+                if self.stop:
+                    break
+
+            if self.stop:
+                if (
+                        self.scheduler is not None
+                        and self.scheduler_step_at == "validation"
+                        and self.last_best_lr != prev_lr
+                ):
+                    self.logger.info(
+                        "Training ended since there were no improvements in"
+                        "the last learning rate step: %f",
+                        prev_lr,
+                    )
+                else:
+                    self.logger.info(
+                        "Training ended since minimum lr %f was reached.",
+                        self.learning_rate_min,
+                    )
+                break
+
+            self.logger.info(
+                "Epoch %3d: Total Training Recognition Loss %.2f "
+                " Total Training Translation Loss %.2f ",
+                epoch_no + 1,
+                epoch_recognition_loss if self.do_recognition else -1,
+                epoch_translation_loss if self.do_translation else -1,
+            )
+        else:
+            self.logger.info("Training ended after %3d epochs.", epoch_no + 1)
+        self.logger.info(
+            "Best validation result at step %8d: %6.2f %s.",
+            self.best_ckpt_iteration,
+            self.best_ckpt_score,
+            self.early_stopping_metric,
+        )
+
+        self.tb_writer.close()  # close Tensorboard writer
+
     def _train_batch(self, batch: Batch, update: bool = True) -> (Tensor, Tensor):
         """
         Train the model on one batch: Compute the loss, make a gradient step.
@@ -1495,6 +1991,7 @@ class TrainManager:
 
 
 def train(cfg_file: str) -> None:
+
     """
     Main training function. After training, also test on test data if given.
 
@@ -1506,14 +2003,20 @@ def train(cfg_file: str) -> None:
     # set the random seed
     set_seed(seed=cfg["training"].get("random_seed", 42))
 
+    # Seed
+    # torch.manual_seed(args.seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+    # np.random.seed(args.seed)
+
     # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check in data.py that I didn't miss anything)
     if cfg["data"]["version"] == 'phoenix_2014_trans':
         # Load the dataset and create the corresponding vocabs
         train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(
             data_cfg=cfg["data"]
         )
-    else:
-        config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
+    elif cfg["data"]["version"] == 'autsl':
+        config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True,fps=30)
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
         # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
@@ -1596,6 +2099,41 @@ def train(cfg_file: str) -> None:
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
+    else:
+        # config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True,resolution=(640, 360))
+        # chicago = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),shuffle_files=True)
+        config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),shuffle_files=True)#,shuffle_files=True
+        train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
+
+        gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
+        gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
+        txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
+        txt_min_freq = cfg["data"].get("txt_voc_min_freq", 1)
+
+        # Get the vocabs if already exists, otherwise set them to None.
+        gls_vocab_file = cfg["data"].get("gls_vocab", None)
+        txt_vocab_file = cfg["data"].get("txt_vocab", None)
+
+        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)
+        # Build the gloss vocab based on the training set.
+        gls_vocab = build_vocab(
+            version=cfg["data"]["version"],
+            field="gls",
+            min_freq=gls_min_freq,
+            max_size=gls_max_size,
+            dataset=train_data,
+            vocab_file=gls_vocab_file,
+        )
+        # Build the txt vocab based on the training set.
+        txt_vocab = build_vocab(
+            version=cfg["data"]["version"],
+            field="txt",
+            min_freq=txt_min_freq,
+            max_size=txt_max_size,
+            dataset=train_data,
+            vocab_file=txt_vocab_file,
+        )
 
     # TODO: Update translation_loss_weight to 0.0 and recognition_loss_weight to 1.0.   V
     # Get from the configuration file the loss weights.
@@ -1608,6 +2146,7 @@ def train(cfg_file: str) -> None:
     # build model and load parameters into it
     # if cfg["data"]["version"] == 'phoenix_2014_trans':
     model = build_model(
+        dataset=cfg["data"]["version"],
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -1658,16 +2197,19 @@ def train(cfg_file: str) -> None:
     txt_vocab_file = "{}/txt.vocab".format(cfg["training"]["model_dir"])
     txt_vocab.to_file(txt_vocab_file)
 
-    # TODO: Update the train_and_validate function. XXX
+    # TODO: Update the train_and_validate function. V
     # train the model
     if cfg["data"]["version"] == 'phoenix_2014_trans':
         trainer.train_and_validate_phoenix(cfg=cfg, train_data=train_data, valid_data=dev_data)
-    else:
+    elif cfg["data"]["version"] == 'autsl':
         trainer.train_and_validate_autsl(cfg=cfg, train_data=train_data, valid_data=dev_data)
+    else:
+        trainer.train_and_validate_chicago(cfg=cfg, train_data=train_data, valid_data=dev_data)
+
     # Delete to speed things up as we don't need training data anymore
     del train_data, dev_data, test_data
 
-    # TODO: Maybe should be updated according to the changes in trainer.    XXX
+    # TODO: Maybe should be updated according to the changes in trainer.    V
     # predict with the best model on validation and test
     # (if test data is available)
     ckpt = "{}/{}.ckpt".format(trainer.model_dir, trainer.best_ckpt_iteration)
@@ -1675,7 +2217,7 @@ def train(cfg_file: str) -> None:
     output_path = os.path.join(trainer.model_dir, output_name)
     logger = trainer.logger
     del trainer
-    test(cfg_file, ckpt=ckpt, output_path=output_path, logger=logger)  # TODO: To update!   VVX
+    test(cfg_file, ckpt=ckpt, output_path=output_path, logger=logger)  # TODO: To update!   VVV
 
 
 if __name__ == "__main__":
