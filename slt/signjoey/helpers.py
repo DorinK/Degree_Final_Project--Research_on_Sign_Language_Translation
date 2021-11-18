@@ -4,7 +4,6 @@ Collection of helper functions
 """
 import copy
 import glob
-import itertools
 import os
 import os.path
 import errno
@@ -18,10 +17,10 @@ import numpy as np
 
 import torch
 from torch import nn, Tensor
+import itertools  # TODO: Mine.
 # from torchtext.data import Dataset
+from torchtext.data import Dataset  # TODO: Mine.
 import yaml
-from torchtext.data import Dataset  #TODO: Mine.
-
 from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
 
 
@@ -119,12 +118,12 @@ def set_seed(seed: int):
 
 
 def log_data_info(
-    train_data: Dataset,
-    valid_data: Dataset,
-    test_data: Dataset,
-    gls_vocab: GlossVocabulary,
-    txt_vocab: TextVocabulary,
-    logging_function: Callable[[str], None],
+        train_data: Dataset,
+        valid_data: Dataset,
+        test_data: Dataset,
+        gls_vocab: GlossVocabulary,
+        txt_vocab: TextVocabulary,
+        logging_function: Callable[[str], None],
 ):
     """
     Log statistics of data and vocabulary.
@@ -238,11 +237,11 @@ def tile(x: Tensor, count: int, dim=0) -> Tensor:
     batch = x.size(0)
     x = (
         x.view(batch, -1)
-        .transpose(0, 1)
-        .repeat(count, 1)
-        .transpose(0, 1)
-        .contiguous()
-        .view(*out_size)
+            .transpose(0, 1)
+            .repeat(count, 1)
+            .transpose(0, 1)
+            .contiguous()
+            .view(*out_size)
     )
     if dim != 0:
         x = x.permute(perm).contiguous()

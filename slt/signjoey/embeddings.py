@@ -75,24 +75,23 @@ class MaskedNorm(nn.Module):
 #       We might as well convert them into a single module class.
 #       Only difference is the lut vs linear layers.
 class Embeddings(nn.Module):
-
     """
     Simple embeddings class
     """
 
     # pylint: disable=unused-argument
     def __init__(
-        self,
-        embedding_dim: int = 64,
-        num_heads: int = 8,
-        scale: bool = False,
-        scale_factor: float = None,
-        norm_type: str = None,
-        activation_type: str = None,
-        vocab_size: int = 0,
-        padding_idx: int = 1,
-        freeze: bool = False,
-        **kwargs
+            self,
+            embedding_dim: int = 64,
+            num_heads: int = 8,
+            scale: bool = False,
+            scale_factor: float = None,
+            norm_type: str = None,
+            activation_type: str = None,
+            vocab_size: int = 0,
+            padding_idx: int = 1,
+            freeze: bool = False,
+            **kwargs
     ):
         """
         Create new embeddings for the vocabulary.
@@ -162,7 +161,6 @@ class Embeddings(nn.Module):
 
 
 class SpatialEmbeddings(nn.Module):
-
     """
     Simple Linear Projection Layer
     (For encoder outputs to predict glosses)
@@ -170,16 +168,16 @@ class SpatialEmbeddings(nn.Module):
 
     # pylint: disable=unused-argument
     def __init__(
-        self,
-        embedding_dim: int,
-        input_size: int,
-        num_heads: int,
-        freeze: bool = False,
-        norm_type: str = None,
-        activation_type: str = None,
-        scale: bool = False,
-        scale_factor: float = None,
-        **kwargs
+            self,
+            embedding_dim: int,
+            input_size: int,
+            num_heads: int,
+            freeze: bool = False,
+            norm_type: str = None,
+            activation_type: str = None,
+            scale: bool = False,
+            scale_factor: float = None,
+            **kwargs
     ):
         """
         Create new embeddings for the vocabulary.

@@ -8,19 +8,18 @@ from slt.signjoey.decoders import Decoder, TransformerDecoder
 from slt.signjoey.embeddings import Embeddings
 from slt.signjoey.helpers import tile
 
-
 __all__ = ["greedy", "transformer_greedy", "beam_search"]
 
 
 def greedy(
-    src_mask: Tensor,
-    embed: Embeddings,
-    bos_index: int,
-    eos_index: int,
-    max_output_length: int,
-    decoder: Decoder,
-    encoder_output: Tensor,
-    encoder_hidden: Tensor,
+        src_mask: Tensor,
+        embed: Embeddings,
+        bos_index: int,
+        eos_index: int,
+        max_output_length: int,
+        decoder: Decoder,
+        encoder_output: Tensor,
+        encoder_hidden: Tensor,
 ) -> (np.array, np.array):
     """
     Greedy decoding. Select the token word highest probability at each time
@@ -58,14 +57,14 @@ def greedy(
 
 
 def recurrent_greedy(
-    src_mask: Tensor,
-    embed: Embeddings,
-    bos_index: int,
-    eos_index: int,
-    max_output_length: int,
-    decoder: Decoder,
-    encoder_output: Tensor,
-    encoder_hidden: Tensor,
+        src_mask: Tensor,
+        embed: Embeddings,
+        bos_index: int,
+        eos_index: int,
+        max_output_length: int,
+        decoder: Decoder,
+        encoder_output: Tensor,
+        encoder_hidden: Tensor,
 ) -> (np.array, np.array):
     """
     Greedy decoding: in each step, choose the word that gets highest score.
@@ -127,14 +126,14 @@ def recurrent_greedy(
 
 # pylint: disable=unused-argument
 def transformer_greedy(
-    src_mask: Tensor,
-    embed: Embeddings,
-    bos_index: int,
-    eos_index: int,
-    max_output_length: int,
-    decoder: Decoder,
-    encoder_output: Tensor,
-    encoder_hidden: Tensor,
+        src_mask: Tensor,
+        embed: Embeddings,
+        bos_index: int,
+        eos_index: int,
+        max_output_length: int,
+        decoder: Decoder,
+        encoder_output: Tensor,
+        encoder_hidden: Tensor,
 ) -> (np.array, None):
     """
     Special greedy function for transformer, since it works differently.
@@ -196,18 +195,18 @@ def transformer_greedy(
 
 # pylint: disable=too-many-statements,too-many-branches
 def beam_search(
-    decoder: Decoder,
-    size: int,
-    bos_index: int,
-    eos_index: int,
-    pad_index: int,
-    encoder_output: Tensor,
-    encoder_hidden: Tensor,
-    src_mask: Tensor,
-    max_output_length: int,
-    alpha: float,
-    embed: Embeddings,
-    n_best: int = 1,
+        decoder: Decoder,
+        size: int,
+        bos_index: int,
+        eos_index: int,
+        pad_index: int,
+        encoder_output: Tensor,
+        encoder_hidden: Tensor,
+        src_mask: Tensor,
+        max_output_length: int,
+        alpha: float,
+        embed: Embeddings,
+        n_best: int = 1,
 ) -> (np.array, np.array):
     """
     Beam search with size k.
@@ -357,17 +356,17 @@ def beam_search(
 
         # map beam_index to batch_index in the flat representation
         batch_index = topk_beam_index + beam_offset[
-            : topk_beam_index.size(0)
-        ].unsqueeze(1)
+                                        : topk_beam_index.size(0)
+                                        ].unsqueeze(1)
         select_indices = batch_index.view(-1)
 
         # append latest prediction
-        if select_indices.dtype!=torch.float32:
+        if select_indices.dtype != torch.float32:  # TODO: Mine.
             # print("wasn't float")
             alive_seq = torch.cat(
                 [alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1
             )  # batch_size*k x hyp_len
-        else:
+        else:  # TODO: Mine.
             # print("was float")
             alive_seq = torch.cat(
                 [alive_seq.index_select(0, select_indices.to(torch.int)), topk_ids.view(-1, 1)], -1
@@ -422,15 +421,16 @@ def beam_search(
 
         # reorder indices, outputs and masks
         select_indices = batch_index.view(-1)
-        if select_indices.dtype!=torch.float32:
+        if select_indices.dtype != torch.float32:  # TODO: Mine.
             # print("wasn't float2")
             encoder_output = encoder_output.index_select(0, select_indices)
             src_mask = src_mask.index_select(0, select_indices)
-        else:
+        else:  # TODO: Mine.
             # print("was float2")
             encoder_output = encoder_output.index_select(0, select_indices.to(torch.int))
             src_mask = src_mask.index_select(0, select_indices.to(torch.int))
 
+        # TODO: Mine.
         # if select_indices.dtype!=torch.float32:
         #     # print("wasn't float3")
         #     src_mask = src_mask.index_select(0, select_indices)
@@ -442,36 +442,36 @@ def beam_search(
             if isinstance(hidden, tuple):
                 # for LSTMs, states are tuples of tensors
                 h, c = hidden
-                # if select_indices.dtype != torch.float32:
-                #     print("wasn't float4")
+                # if select_indices.dtype != torch.float32: # TODO: Mine.
+                #     print("wasn't float4")    # TODO: Mine.
                 h = h.index_select(1, select_indices)
                 c = c.index_select(1, select_indices)
-                # else:
+                # else: # TODO: Mine.
                 #     print("was float4")
                 #     h = h.index_select(1, select_indices.to(torch.int))
                 #     c = c.index_select(1, select_indices.to(torch.int))
                 hidden = (h, c)
             else:
-                # if select_indices.dtype != torch.float32:
-                    # print("wasn't float5")
+                # if select_indices.dtype != torch.float32: # TODO: Mine.
+                # print("wasn't float5")
                 # for GRUs, states are single tensors
                 hidden = hidden.index_select(1, select_indices)
-                # else:
-                    # print("was float5")
-                    # for GRUs, states are single tensors
-                    # hidden = hidden.index_select(1, select_indices.to(torch.int))
+                # else: # TODO: Mine.
+                # print("was float5")
+                # for GRUs, states are single tensors
+                # hidden = hidden.index_select(1, select_indices.to(torch.int))
 
         if att_vectors is not None:
-            # if select_indices.dtype != torch.float32:
+            # if select_indices.dtype != torch.float32: # TODO: Mine.
             #     print("wasn't float6")
             att_vectors = att_vectors.index_select(0, select_indices)
-            # else:
+            # else: # TODO: Mine.
             #     print("was float6")
             #     att_vectors = att_vectors.index_select(0, select_indices.to(torch.int))
 
     def pad_and_stack_hyps(hyps, pad_value):
         filled = (
-            np.ones((len(hyps), max([h.shape[0] for h in hyps])), dtype=int) * pad_value
+                np.ones((len(hyps), max([h.shape[0] for h in hyps])), dtype=int) * pad_value
         )
         for j, h in enumerate(hyps):
             for k, i in enumerate(h):

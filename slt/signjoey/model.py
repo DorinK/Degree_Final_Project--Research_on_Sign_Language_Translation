@@ -1,6 +1,6 @@
 # coding: utf-8
 import tensorflow as tf
-import torchvision  #TODO: Mine.
+import torchvision  # TODO: Mine.
 
 tf.config.set_visible_devices([], "GPU")
 
@@ -33,17 +33,17 @@ class SignModel(nn.Module):
     """
 
     def __init__(
-        self,
-        dataset:str,
-        encoder: Encoder,
-        gloss_output_layer: nn.Module,
-        decoder: Decoder,
-        sgn_embed: SpatialEmbeddings,
-        txt_embed: Embeddings,
-        gls_vocab: GlossVocabulary,
-        txt_vocab: TextVocabulary,
-        do_recognition: bool = True,
-        do_translation: bool = True,
+            self,
+            dataset: str,
+            encoder: Encoder,
+            gloss_output_layer: nn.Module,
+            decoder: Decoder,
+            sgn_embed: SpatialEmbeddings,
+            txt_embed: Embeddings,
+            gls_vocab: GlossVocabulary,
+            txt_vocab: TextVocabulary,
+            do_recognition: bool = True,
+            do_translation: bool = True,
     ):
         """
         Create a new encoder-decoder model
@@ -76,17 +76,18 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        if dataset != 'phoenix_2014_trans':
-            self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # TODO: Adding the image encoder for AUTSL.
+        if dataset != 'phoenix_2014_trans':  # TODO: Mine.
+            self.image_encoder = torchvision.models.mobilenet_v3_small(
+                pretrained=True)  # TODO: Adding the image encoder for AUTSL.
 
     # pylint: disable=arguments-differ
     def forward(
-        self,
-        sgn: Tensor,
-        sgn_mask: Tensor,
-        sgn_lengths: Tensor,
-        txt_input: Tensor,
-        txt_mask: Tensor = None,
+            self,
+            sgn: Tensor,
+            sgn_mask: Tensor,
+            sgn_lengths: Tensor,
+            txt_input: Tensor,
+            txt_mask: Tensor = None,
     ) -> (Tensor, Tensor, Tensor, Tensor):
         """
         First encodes the source sentence.
@@ -130,7 +131,7 @@ class SignModel(nn.Module):
         return decoder_outputs, gloss_probabilities
 
     def encode(
-        self, sgn: Tensor, sgn_mask: Tensor, sgn_length: Tensor
+            self, sgn: Tensor, sgn_mask: Tensor, sgn_length: Tensor
     ) -> (Tensor, Tensor):
         """
         Encodes the source sentence.
@@ -147,14 +148,14 @@ class SignModel(nn.Module):
         )
 
     def decode(
-        self,
-        encoder_output: Tensor,
-        encoder_hidden: Tensor,
-        sgn_mask: Tensor,
-        txt_input: Tensor,
-        unroll_steps: int,
-        decoder_hidden: Tensor = None,
-        txt_mask: Tensor = None,
+            self,
+            encoder_output: Tensor,
+            encoder_hidden: Tensor,
+            sgn_mask: Tensor,
+            txt_input: Tensor,
+            unroll_steps: int,
+            decoder_hidden: Tensor = None,
+            txt_mask: Tensor = None,
     ) -> (Tensor, Tensor, Tensor, Tensor):
         """
         Decode, given an encoded source sentence.
@@ -179,12 +180,12 @@ class SignModel(nn.Module):
         )
 
     def get_loss_for_batch(
-        self,
-        batch: Batch,
-        recognition_loss_function: nn.Module,
-        translation_loss_function: nn.Module,
-        recognition_loss_weight: float,
-        translation_loss_weight: float,
+            self,
+            batch: Batch,
+            recognition_loss_function: nn.Module,
+            translation_loss_function: nn.Module,
+            recognition_loss_weight: float,
+            translation_loss_weight: float,
     ) -> (Tensor, Tensor):
         """
         Compute non-normalized loss and number of tokens for a batch
@@ -212,13 +213,13 @@ class SignModel(nn.Module):
             assert gloss_probabilities is not None
             # Calculate Recognition Loss
             recognition_loss = (
-                recognition_loss_function(
-                    gloss_probabilities,
-                    batch.gls,
-                    batch.sgn_lengths.long(),
-                    batch.gls_lengths.long(),
-                )
-                * recognition_loss_weight
+                    recognition_loss_function(
+                        gloss_probabilities,
+                        batch.gls,
+                        batch.sgn_lengths.long(),
+                        batch.gls_lengths.long(),
+                    )
+                    * recognition_loss_weight
             )
         else:
             recognition_loss = None
@@ -229,8 +230,8 @@ class SignModel(nn.Module):
             # Calculate Translation Loss
             txt_log_probs = F.log_softmax(word_outputs, dim=-1)
             translation_loss = (
-                translation_loss_function(txt_log_probs, batch.txt)
-                * translation_loss_weight
+                    translation_loss_function(txt_log_probs, batch.txt)
+                    * translation_loss_weight
             )
         else:
             translation_loss = None
@@ -238,12 +239,12 @@ class SignModel(nn.Module):
         return recognition_loss, translation_loss
 
     def run_batch(
-        self,
-        batch: Batch,
-        recognition_beam_size: int = 1,
-        translation_beam_size: int = 1,
-        translation_beam_alpha: float = -1,
-        translation_max_output_length: int = 100,
+            self,
+            batch: Batch,
+            recognition_beam_size: int = 1,
+            translation_beam_size: int = 1,
+            translation_beam_alpha: float = -1,
+            translation_max_output_length: int = 100,
     ) -> (np.array, np.array, np.array):
         """
         Get outputs and attentions scores for a given batch
@@ -339,29 +340,29 @@ class SignModel(nn.Module):
         :return: string representation
         """
         return (
-            "%s(\n"
-            "\tencoder=%s,\n"
-            "\tdecoder=%s,\n"
-            "\tsgn_embed=%s,\n"
-            "\ttxt_embed=%s)"
-            % (
-                self.__class__.__name__,
-                self.encoder,
-                self.decoder,
-                self.sgn_embed,
-                self.txt_embed,
-            )
+                "%s(\n"
+                "\tencoder=%s,\n"
+                "\tdecoder=%s,\n"
+                "\tsgn_embed=%s,\n"
+                "\ttxt_embed=%s)"
+                % (
+                    self.__class__.__name__,
+                    self.encoder,
+                    self.decoder,
+                    self.sgn_embed,
+                    self.txt_embed,
+                )
         )
 
 
-def build_model(    # TODO: Update in process.
-    dataset: str,
-    cfg: dict,
-    sgn_dim: int,
-    gls_vocab: GlossVocabulary,
-    txt_vocab: TextVocabulary,
-    do_recognition: bool = True,
-    do_translation: bool = True,
+def build_model(  # TODO: Update in process.
+        dataset: str,  # TODO: Mine.
+        cfg: dict,
+        sgn_dim: int,
+        gls_vocab: GlossVocabulary,
+        txt_vocab: TextVocabulary,
+        do_recognition: bool = True,
+        do_translation: bool = True,
 ) -> SignModel:
     """
     Build and initialize the model according to the configuration.
@@ -381,7 +382,7 @@ def build_model(    # TODO: Update in process.
     sgn_embed: SpatialEmbeddings = SpatialEmbeddings(
         **cfg["encoder"]["embeddings"],
         num_heads=cfg["encoder"]["num_heads"],
-        input_size=sgn_dim, # TODO: update sgn_dim. V
+        input_size=sgn_dim,  # TODO: update sgn_dim. V
     )
 
     # TODO: Don't think it should change, but check the yaml to be sure.    XXX
@@ -390,8 +391,8 @@ def build_model(    # TODO: Update in process.
     enc_emb_dropout = cfg["encoder"]["embeddings"].get("dropout", enc_dropout)
     if cfg["encoder"].get("type", "recurrent") == "transformer":
         assert (
-            cfg["encoder"]["embeddings"]["embedding_dim"]
-            == cfg["encoder"]["hidden_size"]
+                cfg["encoder"]["embeddings"]["embedding_dim"]
+                == cfg["encoder"]["hidden_size"]
         ), "for transformer, emb_size must be hidden_size"
 
         encoder = TransformerEncoder(

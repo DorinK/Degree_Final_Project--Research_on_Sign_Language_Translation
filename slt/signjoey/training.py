@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-import itertools    #TODO: Mine.
-import sys  #TODO: Mine.
-
 import torch
-import torchvision  #TODO: Mine.
-from torch.nn.utils.rnn import pad_sequence #TODO: Mine.
-from torchtext.data import Dataset  #TODO: Mine.
 
 torch.backends.cudnn.deterministic = True
+
+import itertools  # TODO: Mine.
+import sys  # TODO: Mine.
+import torchvision  # TODO: Mine.
+from torch.nn.utils.rnn import pad_sequence  # TODO: Mine.
+from torchtext.data import Dataset  # TODO: Mine.
 
 import argparse
 import numpy as np
@@ -41,10 +41,11 @@ from torch.utils.tensorboard import SummaryWriter
 # from torchtext.data import Dataset
 from typing import List, Dict
 
-import tensorflow_datasets as tfds  #TODO: Mine.
-import tensorflow as tf #TODO: Mine.
-from sign_language_datasets.datasets.config import SignDatasetConfig    #TODO: Mine.
-import gc   #TODO: Mine.
+import tensorflow_datasets as tfds  # TODO: Mine.
+import tensorflow as tf  # TODO: Mine.
+from sign_language_datasets.datasets.config import SignDatasetConfig  # TODO: Mine.
+import gc  # TODO: Mine.
+
 
 # TODO: To Update. VVX
 # pylint: disable=too-many-instance-attributes
@@ -137,7 +138,7 @@ class TrainManager:
             self.minimize_metric = True
         elif self.early_stopping_metric == "eval_metric":
             if self.eval_metric in ["bleu", "chrf", "rouge"]:
-                # assert self.do_translation  # TODO: issue here. XXX   commented out.
+                # assert self.do_translation  # TODO: issue here. XXX   commented out.  # TODO: Check this again.
                 self.minimize_metric = False
             else:  # eval metric that has to get minimized (not yet implemented)
                 self.minimize_metric = True
@@ -172,7 +173,7 @@ class TrainManager:
         if self.level not in ["word", "bpe", "char"]:
             raise ValueError("Invalid segmentation level': {}".format(self.level))
 
-        # configurations of shuffling, epochs and batches
+        # Configurations of shuffling, epochs and batches
         self.shuffle = train_config.get("shuffle", True)
         self.epochs = train_config["epochs"]
         self.batch_size = train_config["batch_size"]
@@ -368,6 +369,7 @@ class TrainManager:
         if self.use_cuda:
             self.model.cuda()
 
+    # TODO: Mine.
     # def get_element(self,dataset,num):
     #     for s in itertools.islice(dataset, num, num + 1):
     #         return {
@@ -379,7 +381,7 @@ class TrainManager:
     #             }
 
     # def train_and_validate(self, train_data: Dataset, valid_data: Dataset) -> None:
-    def train_and_validate_phoenix(self, cfg, train_data, valid_data) -> None:
+    def train_and_validate_phoenix(self, cfg, train_data: Dataset, valid_data: Dataset) -> None:
         # def train_and_validate(self, train_data, valid_data) -> None:
 
         """
@@ -391,12 +393,12 @@ class TrainManager:
 
         # Create iterator for the training set.
         train_iter = make_data_iter(
-                train_data,
-                batch_size=self.batch_size,
-                batch_type=self.batch_type,
-                train=True,
-                shuffle=self.shuffle,
-            )
+            train_data,
+            batch_size=self.batch_size,
+            batch_type=self.batch_type,
+            train=True,
+            shuffle=self.shuffle,
+        )
 
         epoch_no = None
         for epoch_no in range(self.epochs):
@@ -707,7 +709,7 @@ class TrainManager:
                     valid_seq = [s for s in valid_data.sequence]
 
                     self._log_examples(
-                        sequences=valid_seq,    # TODO: Problem here.  fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here.  fixed.  V
                         gls_references=val_res["gls_ref"]
                         if self.do_recognition
                         else None,
@@ -779,6 +781,7 @@ class TrainManager:
 
         self.tb_writer.close()  # close Tensorboard writer
 
+    # TODO: Mine.
     def train_and_validate_autsl(self, cfg, train_data, valid_data) -> None:
         # def train_and_validate(self, train_data, valid_data) -> None:
 
@@ -789,6 +792,7 @@ class TrainManager:
         :param valid_data: validation data
         """
 
+        # TODO: Mine.
         # Create iterator for the training set.
         # # train_iter = iter(train_data)
         # if self.shuffle:
@@ -834,11 +838,11 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             # if self.dataset_version == 'autsl':
-                # if self.shuffle:
-                #     train_iter = train_data
-                    # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
-                    # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
-                    #                                 reshuffle_each_iteration=False)
+            # if self.shuffle:
+            #     train_iter = train_data
+            # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
+            # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
+            #                                 reshuffle_each_iteration=False)
             index = 0
             # import random
             #
@@ -876,7 +880,6 @@ class TrainManager:
                     gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                     # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
-
                 sgn = []
                 for sample in samples:
                     # sample.cuda()
@@ -886,12 +889,12 @@ class TrainManager:
                     # out.detach().cpu()
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
-                    del sample,out
+                    del sample, out
                     gc.collect()
                 # print("1")
                 pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
-                            'gls': (Tensor(gls), Tensor(gls_lengths))}
+                              'gls': (Tensor(gls), Tensor(gls_lengths))}
 
                 index += self.batch_size
                 print(index)
@@ -993,7 +996,6 @@ class TrainManager:
                     val_res = validate_on_data(
                         model=self.model,
                         data=valid_data,
-                        # image_encoder=self.image_encoder,
                         batch_size=self.eval_batch_size,
                         use_cuda=self.use_cuda,
                         batch_type=self.eval_batch_type,
@@ -1185,11 +1187,12 @@ class TrainManager:
                         val_res["valid_scores"]["rouge"] if self.do_translation else -1,
                     )
 
+                    # TODO: Adjusted.
                     valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
                                  itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
-                        sequences=valid_seq,    # TODO: Problem here.  fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here.  fixed.  V
                         gls_references=val_res["gls_ref"]
                         if self.do_recognition
                         else None,
@@ -1224,9 +1227,9 @@ class TrainManager:
                         )
 
                 # batch.cpu()
-                batch.make_cpu()    #TODO: Mine.
-                del batch   #TODO: Mine.
-                gc.collect()    #TODO: Mine.
+                batch.make_cpu()  # TODO: Mine.
+                del batch  # TODO: Mine.
+                gc.collect()  # TODO: Mine.
 
                 if self.stop:
                     break
@@ -1322,11 +1325,11 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             # if self.dataset_version == 'ChicagoFSWild':
-                # if self.shuffle:
-                #     train_iter = train_data
-                    # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
-                    # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
-                    #                                 reshuffle_each_iteration=False)
+            # if self.shuffle:
+            #     train_iter = train_data
+            # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
+            # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
+            #                                 reshuffle_each_iteration=False)
             index = 0
             # import random
             #
@@ -1361,7 +1364,8 @@ class TrainManager:
                         Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                             datum['video'].shape[2]))
                     sgn_lengths.append(datum['video'].shape[0])
-                    txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+                    txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
+                                1])  # ???.decode('utf-8')
 
                 sgn = []
                 for sample in samples:
@@ -1372,12 +1376,12 @@ class TrainManager:
                     # out.detach().cpu()
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
-                    del sample,out
+                    del sample, out
                     gc.collect()
                 # print("1")
                 pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
-                                'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
+                              'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
 
                 index += self.batch_size
                 print(index)
@@ -1675,7 +1679,7 @@ class TrainManager:
                                  itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
-                        sequences=valid_seq,    # TODO: Problem here.  fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here.  fixed.  V
                         gls_references=val_res["gls_ref"]
                         if self.do_recognition
                         else None,
@@ -1991,7 +1995,6 @@ class TrainManager:
 
 
 def train(cfg_file: str) -> None:
-
     """
     Main training function. After training, also test on test data if given.
 
@@ -2003,21 +2006,20 @@ def train(cfg_file: str) -> None:
     # set the random seed
     set_seed(seed=cfg["training"].get("random_seed", 42))
 
-    # Seed
-    # torch.manual_seed(args.seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = True
-    # np.random.seed(args.seed)
+    # TODO: Tried to run on multiple JPUs - Failed.
+    # torch.backends.cudnn.deterministic = True
+    # torch.backends.cudnn.benchmark = True
 
     # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check in data.py that I didn't miss anything)
-    if cfg["data"]["version"] == 'phoenix_2014_trans':
+    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         # Load the dataset and create the corresponding vocabs
         train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(
             data_cfg=cfg["data"]
         )
-    elif cfg["data"]["version"] == 'autsl':
-        config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True,fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
+    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
+        config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
+                          shuffle_files=True)  # TODO: Check shuffle! 7/9
         # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
         # check = tfds.load(name='autsl', builder_kwargs=dict(config=config))
@@ -2099,11 +2101,12 @@ def train(cfg_file: str) -> None:
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
-    else:
+    else:  # TODO: Mine.
         # config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True,resolution=(640, 360))
         # chicago = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),shuffle_files=True)
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
-        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),shuffle_files=True)#,shuffle_files=True
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),
+                                  shuffle_files=True)  # ,shuffle_files=True
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
 
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
@@ -2146,7 +2149,7 @@ def train(cfg_file: str) -> None:
     # build model and load parameters into it
     # if cfg["data"]["version"] == 'phoenix_2014_trans':
     model = build_model(
-        dataset=cfg["data"]["version"],
+        dataset=cfg["data"]["version"],  # TODO: Mine.
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -2170,7 +2173,7 @@ def train(cfg_file: str) -> None:
     log_cfg(cfg, trainer.logger)
 
     # TODO: Update according to the asynchronous data loader.  XXX
-    if cfg["data"]["version"] == 'phoenix_2014_trans':
+    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         log_data_info(
             train_data=train_data,
             valid_data=dev_data,
@@ -2199,11 +2202,11 @@ def train(cfg_file: str) -> None:
 
     # TODO: Update the train_and_validate function. V
     # train the model
-    if cfg["data"]["version"] == 'phoenix_2014_trans':
+    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         trainer.train_and_validate_phoenix(cfg=cfg, train_data=train_data, valid_data=dev_data)
-    elif cfg["data"]["version"] == 'autsl':
+    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         trainer.train_and_validate_autsl(cfg=cfg, train_data=train_data, valid_data=dev_data)
-    else:
+    else:  # TODO: Mine.
         trainer.train_and_validate_chicago(cfg=cfg, train_data=train_data, valid_data=dev_data)
 
     # Delete to speed things up as we don't need training data anymore
@@ -2229,7 +2232,7 @@ if __name__ == "__main__":
         help="Training configuration file (yaml).",
     )
     parser.add_argument(
-        "--gpu_id", type=str, default="3", help="gpu to run your job on"
+        "--gpu_id", type=str, default="0", help="gpu to run your job on"
     )
     args = parser.parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id

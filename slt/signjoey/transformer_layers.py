@@ -81,8 +81,8 @@ class MultiHeadedAttention(nn.Module):
         context = torch.matmul(attention, v)
         context = (
             context.transpose(1, 2)
-            .contiguous()
-            .view(batch_size, -1, num_heads * self.head_size)
+                .contiguous()
+                .view(batch_size, -1, num_heads * self.head_size)
         )
 
         output = self.output_layer(context)
@@ -171,7 +171,7 @@ class TransformerEncoderLayer(nn.Module):
     """
 
     def __init__(
-        self, size: int = 0, ff_size: int = 0, num_heads: int = 0, dropout: float = 0.1
+            self, size: int = 0, ff_size: int = 0, num_heads: int = 0, dropout: float = 0.1
     ):
         """
         A single Transformer layer.
@@ -217,7 +217,7 @@ class TransformerDecoderLayer(nn.Module):
     """
 
     def __init__(
-        self, size: int = 0, ff_size: int = 0, num_heads: int = 0, dropout: float = 0.1
+            self, size: int = 0, ff_size: int = 0, num_heads: int = 0, dropout: float = 0.1
     ):
         """
         Represents a single Transformer decoder layer.
@@ -246,11 +246,11 @@ class TransformerDecoderLayer(nn.Module):
 
     # pylint: disable=arguments-differ
     def forward(
-        self,
-        x: Tensor = None,
-        memory: Tensor = None,
-        src_mask: Tensor = None,
-        trg_mask: Tensor = None,
+            self,
+            x: Tensor = None,
+            memory: Tensor = None,
+            src_mask: Tensor = None,
+            trg_mask: Tensor = None,
     ) -> Tensor:
         """
         Forward pass of a single Transformer decoder layer.

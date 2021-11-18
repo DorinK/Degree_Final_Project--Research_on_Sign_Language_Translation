@@ -106,7 +106,7 @@ class BahdanauAttention(AttentionMechanism):
         self.proj_query = self.query_layer(query)
 
     def _check_input_shapes_forward(
-        self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor
+            self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor
     ):
         """
         Make sure that inputs to `self.forward` are of correct shape.
@@ -151,10 +151,10 @@ class LuongAttention(AttentionMechanism):
 
     # pylint: disable=arguments-differ
     def forward(
-        self,
-        query: torch.Tensor = None,
-        mask: torch.Tensor = None,
-        values: torch.Tensor = None,
+            self,
+            query: torch.Tensor = None,
+            mask: torch.Tensor = None,
+            values: torch.Tensor = None,
     ):
         """
         Luong (multiplicative / bilinear) attention forward pass.
@@ -201,7 +201,7 @@ class LuongAttention(AttentionMechanism):
         self.proj_keys = self.key_layer(keys)
 
     def _check_input_shapes_forward(
-        self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor
+            self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor
     ):
         """
         Make sure that inputs to `self.forward` are of correct shape.

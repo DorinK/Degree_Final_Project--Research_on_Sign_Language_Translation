@@ -30,16 +30,16 @@ class RecurrentEncoder(Encoder):
 
     # pylint: disable=unused-argument
     def __init__(
-        self,
-        rnn_type: str = "gru",
-        hidden_size: int = 1,
-        emb_size: int = 1,
-        num_layers: int = 1,
-        dropout: float = 0.0,
-        emb_dropout: float = 0.0,
-        bidirectional: bool = True,
-        freeze: bool = False,
-        **kwargs
+            self,
+            rnn_type: str = "gru",
+            hidden_size: int = 1,
+            emb_size: int = 1,
+            num_layers: int = 1,
+            dropout: float = 0.0,
+            emb_dropout: float = 0.0,
+            bidirectional: bool = True,
+            freeze: bool = False,
+            **kwargs
     ) -> None:
         """
         Create a new recurrent encoder.
@@ -79,7 +79,7 @@ class RecurrentEncoder(Encoder):
 
     # pylint: disable=invalid-name, unused-argument
     def _check_shapes_input_forward(
-        self, embed_src: Tensor, src_length: Tensor, mask: Tensor
+            self, embed_src: Tensor, src_length: Tensor, mask: Tensor
     ) -> None:
         """
         Make sure the shape of the inputs to `self.forward` are correct.
@@ -96,7 +96,7 @@ class RecurrentEncoder(Encoder):
 
     # pylint: disable=arguments-differ
     def forward(
-        self, embed_src: Tensor, src_length: Tensor, mask: Tensor
+            self, embed_src: Tensor, src_length: Tensor, mask: Tensor
     ) -> (Tensor, Tensor):
         """
         Applies a bidirectional RNN to sequence of embeddings x.
@@ -164,15 +164,15 @@ class TransformerEncoder(Encoder):
 
     # pylint: disable=unused-argument
     def __init__(
-        self,
-        hidden_size: int = 512,
-        ff_size: int = 2048,
-        num_layers: int = 8,
-        num_heads: int = 4,
-        dropout: float = 0.1,
-        emb_dropout: float = 0.1,
-        freeze: bool = False,
-        **kwargs
+            self,
+            hidden_size: int = 512,
+            ff_size: int = 2048,
+            num_layers: int = 8,
+            num_heads: int = 4,
+            dropout: float = 0.1,
+            emb_dropout: float = 0.1,
+            freeze: bool = False,
+            **kwargs
     ):
         """
         Initializes the Transformer.
@@ -212,7 +212,7 @@ class TransformerEncoder(Encoder):
 
     # pylint: disable=arguments-differ
     def forward(
-        self, embed_src: Tensor, src_length: Tensor, mask: Tensor
+            self, embed_src: Tensor, src_length: Tensor, mask: Tensor
     ) -> (Tensor, Tensor):
         """
         Pass the input (and mask) through each layer in turn.

@@ -4,7 +4,7 @@ import numpy as np
 from collections import defaultdict, Counter
 from typing import List
 from torchtext.data import Dataset
-import itertools    # TODO: Mine.
+import itertools  # TODO: Mine.
 
 SIL_TOKEN = "<si>"
 UNK_TOKEN = "<unk>"
@@ -183,11 +183,13 @@ class GlossVocabulary(Vocabulary):
             gloss_sequences.append(sequence)
         return gloss_sequences
 
+
 # TODO: Okay.
 def filter_min(counter: Counter, minimum_freq: int):
     """ Filter counter by min frequency """
     filtered_counter = Counter({t: c for t, c in counter.items() if c >= minimum_freq})
     return filtered_counter
+
 
 # TODO: Okay.
 def sort_and_cut(counter: Counter, limit: int):
@@ -201,7 +203,7 @@ def sort_and_cut(counter: Counter, limit: int):
 
 
 def build_vocab(
-    version: str,field: str, max_size: int, min_freq: int, dataset, vocab_file: str = None
+        version: str, field: str, max_size: int, min_freq: int, dataset, vocab_file: str = None
 ) -> Vocabulary:
     """
     Builds vocabulary for a torchtext `field` from given`dataset` or
@@ -226,7 +228,7 @@ def build_vocab(
             raise ValueError("Unknown vocabulary type")
     else:
         tokens = []
-        if version == 'phoenix_2014_trans': # TODO: Match to the asynchronous loader.    V
+        if version == 'phoenix_2014_trans':  # TODO: Match to the asynchronous loader.    V  # TODO: Mine.
             for i in dataset.examples:
                 if field == "gls":
                     tokens.extend(i.gls)
@@ -235,7 +237,7 @@ def build_vocab(
                 else:
                     raise ValueError("Unknown field type")
 
-        elif version == 'autsl':   # TODO: Check it is working.    XXX
+        elif version == 'autsl':  # TODO: Check it is working.    XXX  # TODO: Mine.
             # for i in range(226):
             #     tokens.append(i)
             #     tokens.append(i)
@@ -247,7 +249,7 @@ def build_vocab(
                     tokens.append(int(i['text'].numpy()))
                 else:
                     raise ValueError("Unknown field type")
-        else:
+        else:  # TODO: Mine.
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     break

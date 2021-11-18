@@ -12,7 +12,7 @@ class Batch:
 
     def __init__(
             self,
-            dataset_type,   # TODO: Mine.
+            dataset_type,  # TODO: Mine.
             torch_batch,
             txt_pad_index,
             sgn_dim,
@@ -37,21 +37,23 @@ class Batch:
         """
 
         # Sequence Information
-        if dataset_type == 'phoenix_2014_trans':    #TODO: Mine.
+        if dataset_type == 'phoenix_2014_trans':  # TODO: Mine.
             self.sequence = torch_batch.sequence  # [sample['id'] for sample in torch_batch]#
             self.signer = torch_batch.signer  # [sample['signer'] for sample in torch_batch]
             # Sign
             self.sgn, self.sgn_lengths = torch_batch.sgn  # [sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
 
-        else:   #TODO: Mine.
-            self.sequence = torch_batch["sequence"]  # ["id"].numpy().tolist() #[sample['id'] for sample in torch_batch]#
+        else:  # TODO: Mine.
+            self.sequence = torch_batch[
+                "sequence"]  # ["id"].numpy().tolist() #[sample['id'] for sample in torch_batch]#
             self.signer = torch_batch["signer"]  # .numpy().tolist() #[sample['signer'] for sample in torch_batch]
             # Sign
             # TODO: Check with the phoenix dataset to which dimension the sgn_lengts are referring to.  V
             #  Ans: sgn_lengts is a tensor containing the number of frames in each video of the batch.
             #  and how sgn and sgn_lengths should look like.    V
             #  Ans: sgn is a padded batch of videos
-            self.sgn, self.sgn_lengths = torch_batch["sgn"]  # .sgn #[sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
+            self.sgn, self.sgn_lengths = torch_batch[
+                "sgn"]  # .sgn #[sample['video'] for sample in torch_batch],[sample['video'].shape for sample in torch_batch]#
 
         # TODO: Conditional expression: False.  V
         # Here be dragons
@@ -110,10 +112,10 @@ class Batch:
         # TODO: Conditional expression: False.  V   ~ should be True
         #  to match it to the AUTSL attribute name.    XXX
         # hasattr returns whether the object has an attribute with the given name.
-        if hasattr(torch_batch, "txt") or "txt" in torch_batch: #TODO: Addintion for asynchroneous dataset. V
+        if hasattr(torch_batch, "txt") or "txt" in torch_batch:  # TODO: Addintion for asynchroneous dataset. V
             if dataset_type == 'phoenix_2014_trans':
                 txt, txt_lengths = torch_batch.txt
-            else:   # TODO: Mine.
+            else:  # TODO: Mine.
                 txt, txt_lengths = torch_batch["txt"]
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
@@ -127,10 +129,10 @@ class Batch:
         # TODO: Conditional expression: False.  V   ~ should be True
         #  to match it to the AUTSL attribute name.    XXX
         # hasattr returns whether the object has an attribute with the given name.
-        if hasattr(torch_batch, "gls") or "gls" in torch_batch: #TODO: Addintion for asynchroneous dataset. V
+        if hasattr(torch_batch, "gls") or "gls" in torch_batch:  # TODO: Addintion for asynchroneous dataset. V
             if dataset_type == 'phoenix_2014_trans':
                 self.gls, self.gls_lengths = torch_batch.gls
-            else:   # TODO: Mine.
+            else:  # TODO: Mine.
                 self.gls, self.gls_lengths = torch_batch["gls"]
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
 
@@ -151,7 +153,7 @@ class Batch:
             self.txt_mask = self.txt_mask.cuda()
             self.txt_input = self.txt_input.cuda()
 
-    def make_cpu(self): #TODO: Mine.
+    def make_cpu(self):  # TODO: Mine.
         self.sgn = self.sgn.detach().cpu()
         self.sgn_mask = self.sgn_mask.detach().cpu()
 

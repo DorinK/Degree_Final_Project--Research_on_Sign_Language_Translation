@@ -36,21 +36,21 @@ class RecurrentDecoder(Decoder):
     """A conditional RNN decoder with attention."""
 
     def __init__(
-        self,
-        rnn_type: str = "gru",
-        emb_size: int = 0,
-        hidden_size: int = 0,
-        encoder: Encoder = None,
-        attention: str = "bahdanau",
-        num_layers: int = 1,
-        vocab_size: int = 0,
-        dropout: float = 0.0,
-        emb_dropout: float = 0.0,
-        hidden_dropout: float = 0.0,
-        init_hidden: str = "bridge",
-        input_feeding: bool = True,
-        freeze: bool = False,
-        **kwargs
+            self,
+            rnn_type: str = "gru",
+            emb_size: int = 0,
+            hidden_size: int = 0,
+            encoder: Encoder = None,
+            attention: str = "bahdanau",
+            num_layers: int = 1,
+            vocab_size: int = 0,
+            dropout: float = 0.0,
+            emb_dropout: float = 0.0,
+            hidden_dropout: float = 0.0,
+            init_hidden: str = "bridge",
+            input_feeding: bool = True,
+            freeze: bool = False,
+            **kwargs
     ) -> None:
         """
         Create a recurrent decoder with attention.
@@ -147,12 +147,12 @@ class RecurrentDecoder(Decoder):
             freeze_params(self)
 
     def _check_shapes_input_forward_step(
-        self,
-        prev_embed: Tensor,
-        prev_att_vector: Tensor,
-        encoder_output: Tensor,
-        src_mask: Tensor,
-        hidden: Tensor,
+            self,
+            prev_embed: Tensor,
+            prev_att_vector: Tensor,
+            encoder_output: Tensor,
+            src_mask: Tensor,
+            hidden: Tensor,
     ) -> None:
         """
         Make sure the input shapes to `self._forward_step` are correct.
@@ -179,13 +179,13 @@ class RecurrentDecoder(Decoder):
         assert hidden.shape[2] == self.hidden_size
 
     def _check_shapes_input_forward(
-        self,
-        trg_embed: Tensor,
-        encoder_output: Tensor,
-        encoder_hidden: Tensor,
-        src_mask: Tensor,
-        hidden: Tensor = None,
-        prev_att_vector: Tensor = None,
+            self,
+            trg_embed: Tensor,
+            encoder_output: Tensor,
+            encoder_hidden: Tensor,
+            src_mask: Tensor,
+            hidden: Tensor = None,
+            prev_att_vector: Tensor = None,
     ) -> None:
         """
         Make sure that inputs to `self.forward` are of correct shape.
@@ -217,12 +217,12 @@ class RecurrentDecoder(Decoder):
             assert prev_att_vector.shape[1] == 1
 
     def _forward_step(
-        self,
-        prev_embed: Tensor,
-        prev_att_vector: Tensor,  # context or att vector
-        encoder_output: Tensor,
-        src_mask: Tensor,
-        hidden: Tensor,
+            self,
+            prev_embed: Tensor,
+            prev_att_vector: Tensor,  # context or att vector
+            encoder_output: Tensor,
+            src_mask: Tensor,
+            hidden: Tensor,
     ) -> (Tensor, Tensor, Tensor):
         """
         Perform a single decoder step (1 token).
@@ -292,15 +292,15 @@ class RecurrentDecoder(Decoder):
         return att_vector, hidden, att_probs
 
     def forward(
-        self,
-        trg_embed: Tensor,
-        encoder_output: Tensor,
-        encoder_hidden: Tensor,
-        src_mask: Tensor,
-        unroll_steps: int,
-        hidden: Tensor = None,
-        prev_att_vector: Tensor = None,
-        **kwargs
+            self,
+            trg_embed: Tensor,
+            encoder_output: Tensor,
+            encoder_hidden: Tensor,
+            src_mask: Tensor,
+            unroll_steps: int,
+            hidden: Tensor = None,
+            prev_att_vector: Tensor = None,
+            **kwargs
     ) -> (Tensor, Tensor, Tensor, Tensor):
         """
          Unroll the decoder one step at a time for `unroll_steps` steps.
@@ -436,8 +436,8 @@ class RecurrentDecoder(Decoder):
             # num_layers x batch_size x hidden_size
             hidden = (
                 torch.tanh(self.bridge_layer(encoder_final))
-                .unsqueeze(0)
-                .repeat(self.num_layers, 1, 1)
+                    .unsqueeze(0)
+                    .repeat(self.num_layers, 1, 1)
             )
         elif self.init_hidden_option == "last" and encoder_final is not None:
             # special case: encoder is bidirectional: use only forward state
@@ -465,16 +465,16 @@ class TransformerDecoder(Decoder):
     """
 
     def __init__(
-        self,
-        num_layers: int = 4,
-        num_heads: int = 8,
-        hidden_size: int = 512,
-        ff_size: int = 2048,
-        dropout: float = 0.1,
-        emb_dropout: float = 0.1,
-        vocab_size: int = 1,
-        freeze: bool = False,
-        **kwargs
+            self,
+            num_layers: int = 4,
+            num_heads: int = 8,
+            hidden_size: int = 512,
+            ff_size: int = 2048,
+            dropout: float = 0.1,
+            emb_dropout: float = 0.1,
+            vocab_size: int = 1,
+            freeze: bool = False,
+            **kwargs
     ):
         """
         Initialize a Transformer decoder.
@@ -517,15 +517,15 @@ class TransformerDecoder(Decoder):
             freeze_params(self)
 
     def forward(
-        self,
-        trg_embed: Tensor = None,
-        encoder_output: Tensor = None,
-        encoder_hidden: Tensor = None,
-        src_mask: Tensor = None,
-        unroll_steps: int = None,
-        hidden: Tensor = None,
-        trg_mask: Tensor = None,
-        **kwargs
+            self,
+            trg_embed: Tensor = None,
+            encoder_output: Tensor = None,
+            encoder_hidden: Tensor = None,
+            src_mask: Tensor = None,
+            unroll_steps: int = None,
+            hidden: Tensor = None,
+            trg_mask: Tensor = None,
+            **kwargs
     ):
         """
         Transformer decoder forward pass.

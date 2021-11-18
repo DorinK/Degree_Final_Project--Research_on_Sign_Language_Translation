@@ -1156,37 +1156,37 @@ DATASETS = {
 # when applied on large data (TODO: annotate all documents from recent WMT years, at least for origlang=en, consider renaming "world" to "other").
 SUBSETS = {
     "wmt18": "rt.com.68098=US-crime guardian.181611=US-politics bbc.310963=GB-sport washpost.116881=US-politics scotsman.104228=GB-sport timemagazine.75207=OTHER-world-ID "
-    "euronews-en.117981=OTHER-crime-AE smh.com.au.242810=US-crime msnbc.53726=US-politics euronews-en.117983=US-politics msnbc.53894=US-crime theglobeandmail.com.62700=US-business "
-    "bbc.310870=OTHER-world-AF reuters.196698=US-politics latimes.231739=US-sport thelocal.51929=OTHER-world-SE cbsnews.198694=US-politics reuters.196718=OTHER-sport-RU "
-    "abcnews.255599=EU-sport nytimes.127256=US-entertainment scotsman.104225=GB-politics dailymail.co.uk.233026=GB-scitech independent.181088=GB-entertainment "
-    "brisbanetimes.com.au.181614=OTHER-business-AU washpost.116837=US-politics dailymail.co.uk.232928=GB-world thelocal.51916=OTHER-politics-IT bbc.310871=US-crime "
-    "nytimes.127392=EU-business-DE euronews-en.118001=EU-scitech-FR washpost.116866=OTHER-crime-MX dailymail.co.uk.233025=OTHER-scitech-CA latimes.231829=US-crime "
-    "guardian.181662=US-entertainment msnbc.53731=US-crime rt.com.68127=OTHER-sport-RU latimes.231782=US-business latimes.231840=US-sport reuters.196711=OTHER-scitech "
-    "guardian.181666=GB-entertainment novinite.com.24019=US-politics smh.com.au.242750=OTHER-scitech guardian.181610=US-politics telegraph.364393=OTHER-crime-ZA "
-    "novinite.com.23995=EU-world dailymail.co.uk.233028=GB-scitech independent.181071=GB-sport telegraph.364538=GB-scitech timemagazine.75193=US-politics "
-    "independent.181096=US-entertainment upi.140602=OTHER-world-AF bbc.310946=GB-business independent.181052=EU-sport ",
+             "euronews-en.117981=OTHER-crime-AE smh.com.au.242810=US-crime msnbc.53726=US-politics euronews-en.117983=US-politics msnbc.53894=US-crime theglobeandmail.com.62700=US-business "
+             "bbc.310870=OTHER-world-AF reuters.196698=US-politics latimes.231739=US-sport thelocal.51929=OTHER-world-SE cbsnews.198694=US-politics reuters.196718=OTHER-sport-RU "
+             "abcnews.255599=EU-sport nytimes.127256=US-entertainment scotsman.104225=GB-politics dailymail.co.uk.233026=GB-scitech independent.181088=GB-entertainment "
+             "brisbanetimes.com.au.181614=OTHER-business-AU washpost.116837=US-politics dailymail.co.uk.232928=GB-world thelocal.51916=OTHER-politics-IT bbc.310871=US-crime "
+             "nytimes.127392=EU-business-DE euronews-en.118001=EU-scitech-FR washpost.116866=OTHER-crime-MX dailymail.co.uk.233025=OTHER-scitech-CA latimes.231829=US-crime "
+             "guardian.181662=US-entertainment msnbc.53731=US-crime rt.com.68127=OTHER-sport-RU latimes.231782=US-business latimes.231840=US-sport reuters.196711=OTHER-scitech "
+             "guardian.181666=GB-entertainment novinite.com.24019=US-politics smh.com.au.242750=OTHER-scitech guardian.181610=US-politics telegraph.364393=OTHER-crime-ZA "
+             "novinite.com.23995=EU-world dailymail.co.uk.233028=GB-scitech independent.181071=GB-sport telegraph.364538=GB-scitech timemagazine.75193=US-politics "
+             "independent.181096=US-entertainment upi.140602=OTHER-world-AF bbc.310946=GB-business independent.181052=EU-sport ",
     "wmt19": "bbc.381790=GB-politics rt.com.91337=OTHER-politics-MK nytimes.184853=US-world upi.176266=US-crime guardian.221754=GB-business dailymail.co.uk.298595=GB-business "
-    "cnbc.com.6790=US-politics nytimes.184837=OTHER-world-ID upi.176249=GB-sport euronews-en.153835=OTHER-world-ID dailymail.co.uk.298732=GB-crime telegraph.405401=GB-politics "
-    "newsweek.51331=OTHER-crime-CN abcnews.306815=US-world cbsnews.248384=US-politics reuters.218882=GB-politics cbsnews.248387=US-crime abcnews.306764=OTHER-world-MX "
-    "reuters.218888=EU-politics bbc.381780=GB-crime bbc.381746=GB-sport euronews-en.153800=EU-politics bbc.381679=GB-crime bbc.381735=GB-crime newsweek.51338=US-world "
-    "bbc.381765=GB-crime cnn.304489=US-politics reuters.218863=OTHER-world-ID nytimes.184860=OTHER-world-ID cnn.304404=US-crime bbc.381647=US-entertainment "
-    "abcnews.306758=OTHER-politics-MX cnbc.com.6772=US-business reuters.218932=OTHER-politics-MK upi.176251=GB-sport reuters.218921=US-sport cnn.304447=US-politics "
-    "guardian.221679=GB-politics scotsman.133765=GB-sport scotsman.133804=GB-entertainment guardian.221762=OTHER-politics-BO cnbc.com.6769=US-politics "
-    "dailymail.co.uk.298692=EU-entertainment scotsman.133744=GB-world reuters.218911=US-sport newsweek.51310=US-politics independent.226301=US-sport reuters.218923=EU-sport "
-    "reuters.218861=US-politics dailymail.co.uk.298759=US-world scotsman.133791=GB-sport cbsnews.248484=EU-scitech dailymail.co.uk.298630=US-scitech "
-    "newsweek.51329=US-entertainment bbc.381701=GB-crime dailymail.co.uk.298738=GB-entertainment bbc.381669=OTHER-world-CN foxnews.94512=US-politics "
-    "guardian.221718=GB-entertainment dailymail.co.uk.298686=GB-politics cbsnews.248471=US-politics newsweek.51318=US-entertainment rt.com.91335=US-politics "
-    "newsweek.51300=US-politics cnn.304478=US-politics upi.176275=US-politics telegraph.405422=OTHER-world-ID reuters.218933=US-politics newsweek.51328=US-politics "
-    "newsweek.51307=US-business bbc.381692=GB-world independent.226346=GB-entertainment bbc.381646=GB-sport reuters.218914=US-sport scotsman.133758=EU-sport "
-    "rt.com.91350=EU-world scotsman.133773=GB-scitech rt.com.91334=EU-crime bbc.381680=GB-politics guardian.221756=US-politics scotsman.133783=GB-politics cnn.304521=US-sport "
-    "dailymail.co.uk.298622=GB-politics bbc.381789=GB-sport dailymail.co.uk.298644=GB-business dailymail.co.uk.298602=GB-world scotsman.133753=GB-sport "
-    "independent.226317=GB-entertainment nytimes.184862=US-politics thelocal.65969=OTHER-world-SY nytimes.184825=US-politics cnbc.com.6784=US-politics nytimes.184804=US-politics "
-    "nytimes.184830=US-politics scotsman.133801=GB-sport cnbc.com.6770=US-business bbc.381760=GB-crime reuters.218865=OTHER-world-ID newsweek.51339=US-crime "
-    "euronews-en.153797=OTHER-world-ID abcnews.306774=US-crime dailymail.co.uk.298696=GB-politics abcnews.306755=US-politics reuters.218909=US-crime "
-    "independent.226349=OTHER-sport-RU newsweek.51330=US-politics bbc.381705=GB-sport newsweek.51340=OTHER-world-ID cbsnews.248411=OTHER-world-FM abcnews.306776=US-crime "
-    "bbc.381694=GB-entertainment rt.com.91356=US-world telegraph.405430=GB-entertainment telegraph.405404=EU-world bbc.381749=GB-world telegraph.405413=US-politics "
-    "bbc.381736=OTHER-politics-KP cbsnews.248394=US-politics nytimes.184822=US-world telegraph.405408=US-politics euronews-en.153799=OTHER-politics-SY "
-    "euronews-en.153826=EU-sport cnn.304400=US-world",
+             "cnbc.com.6790=US-politics nytimes.184837=OTHER-world-ID upi.176249=GB-sport euronews-en.153835=OTHER-world-ID dailymail.co.uk.298732=GB-crime telegraph.405401=GB-politics "
+             "newsweek.51331=OTHER-crime-CN abcnews.306815=US-world cbsnews.248384=US-politics reuters.218882=GB-politics cbsnews.248387=US-crime abcnews.306764=OTHER-world-MX "
+             "reuters.218888=EU-politics bbc.381780=GB-crime bbc.381746=GB-sport euronews-en.153800=EU-politics bbc.381679=GB-crime bbc.381735=GB-crime newsweek.51338=US-world "
+             "bbc.381765=GB-crime cnn.304489=US-politics reuters.218863=OTHER-world-ID nytimes.184860=OTHER-world-ID cnn.304404=US-crime bbc.381647=US-entertainment "
+             "abcnews.306758=OTHER-politics-MX cnbc.com.6772=US-business reuters.218932=OTHER-politics-MK upi.176251=GB-sport reuters.218921=US-sport cnn.304447=US-politics "
+             "guardian.221679=GB-politics scotsman.133765=GB-sport scotsman.133804=GB-entertainment guardian.221762=OTHER-politics-BO cnbc.com.6769=US-politics "
+             "dailymail.co.uk.298692=EU-entertainment scotsman.133744=GB-world reuters.218911=US-sport newsweek.51310=US-politics independent.226301=US-sport reuters.218923=EU-sport "
+             "reuters.218861=US-politics dailymail.co.uk.298759=US-world scotsman.133791=GB-sport cbsnews.248484=EU-scitech dailymail.co.uk.298630=US-scitech "
+             "newsweek.51329=US-entertainment bbc.381701=GB-crime dailymail.co.uk.298738=GB-entertainment bbc.381669=OTHER-world-CN foxnews.94512=US-politics "
+             "guardian.221718=GB-entertainment dailymail.co.uk.298686=GB-politics cbsnews.248471=US-politics newsweek.51318=US-entertainment rt.com.91335=US-politics "
+             "newsweek.51300=US-politics cnn.304478=US-politics upi.176275=US-politics telegraph.405422=OTHER-world-ID reuters.218933=US-politics newsweek.51328=US-politics "
+             "newsweek.51307=US-business bbc.381692=GB-world independent.226346=GB-entertainment bbc.381646=GB-sport reuters.218914=US-sport scotsman.133758=EU-sport "
+             "rt.com.91350=EU-world scotsman.133773=GB-scitech rt.com.91334=EU-crime bbc.381680=GB-politics guardian.221756=US-politics scotsman.133783=GB-politics cnn.304521=US-sport "
+             "dailymail.co.uk.298622=GB-politics bbc.381789=GB-sport dailymail.co.uk.298644=GB-business dailymail.co.uk.298602=GB-world scotsman.133753=GB-sport "
+             "independent.226317=GB-entertainment nytimes.184862=US-politics thelocal.65969=OTHER-world-SY nytimes.184825=US-politics cnbc.com.6784=US-politics nytimes.184804=US-politics "
+             "nytimes.184830=US-politics scotsman.133801=GB-sport cnbc.com.6770=US-business bbc.381760=GB-crime reuters.218865=OTHER-world-ID newsweek.51339=US-crime "
+             "euronews-en.153797=OTHER-world-ID abcnews.306774=US-crime dailymail.co.uk.298696=GB-politics abcnews.306755=US-politics reuters.218909=US-crime "
+             "independent.226349=OTHER-sport-RU newsweek.51330=US-politics bbc.381705=GB-sport newsweek.51340=OTHER-world-ID cbsnews.248411=OTHER-world-FM abcnews.306776=US-crime "
+             "bbc.381694=GB-entertainment rt.com.91356=US-world telegraph.405430=GB-entertainment telegraph.405404=EU-world bbc.381749=GB-world telegraph.405413=US-politics "
+             "bbc.381736=OTHER-politics-KP cbsnews.248394=US-politics nytimes.184822=US-world telegraph.405408=US-politics euronews-en.153799=OTHER-politics-SY "
+             "euronews-en.153826=EU-sport cnn.304400=US-world",
 }
 SUBSETS = {
     k: {d.split("=")[0]: d.split("=")[1] for d in v.split()}
@@ -1331,39 +1331,39 @@ def tokenize_zh(sentence):
         :return: whether the input char is a Chinese character.
         """
         if (
-            uchar >= u"\u3400" and uchar <= u"\u4db5"
+                uchar >= u"\u3400" and uchar <= u"\u4db5"
         ):  # CJK Unified Ideographs Extension A, release 3.0
             return True
         elif (
-            uchar >= u"\u4e00" and uchar <= u"\u9fa5"
+                uchar >= u"\u4e00" and uchar <= u"\u9fa5"
         ):  # CJK Unified Ideographs, release 1.1
             return True
         elif (
-            uchar >= u"\u9fa6" and uchar <= u"\u9fbb"
+                uchar >= u"\u9fa6" and uchar <= u"\u9fbb"
         ):  # CJK Unified Ideographs, release 4.1
             return True
         elif (
-            uchar >= u"\uf900" and uchar <= u"\ufa2d"
+                uchar >= u"\uf900" and uchar <= u"\ufa2d"
         ):  # CJK Compatibility Ideographs, release 1.1
             return True
         elif (
-            uchar >= u"\ufa30" and uchar <= u"\ufa6a"
+                uchar >= u"\ufa30" and uchar <= u"\ufa6a"
         ):  # CJK Compatibility Ideographs, release 3.2
             return True
         elif (
-            uchar >= u"\ufa70" and uchar <= u"\ufad9"
+                uchar >= u"\ufa70" and uchar <= u"\ufad9"
         ):  # CJK Compatibility Ideographs, release 4.1
             return True
         elif (
-            uchar >= u"\u20000" and uchar <= u"\u2a6d6"
+                uchar >= u"\u20000" and uchar <= u"\u2a6d6"
         ):  # CJK Unified Ideographs Extension B, release 3.1
             return True
         elif (
-            uchar >= u"\u2f800" and uchar <= u"\u2fa1d"
+                uchar >= u"\u2f800" and uchar <= u"\u2fa1d"
         ):  # CJK Compatibility Supplement, release 3.1
             return True
         elif (
-            uchar >= u"\uff00" and uchar <= u"\uffef"
+                uchar >= u"\uff00" and uchar <= u"\uffef"
         ):  # Full width ASCII, full width of English punctuation, half width Katakana, half wide half width kana, Korean alphabet
             return True
         elif uchar >= u"\u2e80" and uchar <= u"\u2eff":  # CJK Radicals Supplement
@@ -1379,7 +1379,7 @@ def tokenize_zh(sentence):
         elif uchar >= u"\u3100" and uchar <= u"\u312f":  # Phonetic symbols
             return True
         elif (
-            uchar >= u"\u31a0" and uchar <= u"\u31bf"
+                uchar >= u"\u31a0" and uchar <= u"\u31bf"
         ):  # Phonetic symbols (Taiwanese and Hakka expansion)
             return True
         elif uchar >= u"\ufe10" and uchar <= u"\ufe1f":
@@ -1577,7 +1577,7 @@ def extract_ngrams(line, min_order=1, max_order=NGRAM_ORDER) -> Counter:
     tokens = line.split()
     for n in range(min_order, max_order + 1):
         for i in range(0, len(tokens) - n + 1):
-            ngram = " ".join(tokens[i : i + n])
+            ngram = " ".join(tokens[i: i + n])
             ngrams[ngram] += 1
 
     return ngrams
@@ -1587,7 +1587,7 @@ def extract_char_ngrams(s: str, n: int) -> Counter:
     """
     Yields counts of character n-grams from string s of order n.
     """
-    return Counter([s[i : i + n] for i in range(len(s) - n + 1)])
+    return Counter([s[i: i + n] for i in range(len(s) - n + 1)])
 
 
 def ref_stats(output, refs):
@@ -1700,7 +1700,7 @@ def download_test_set(test_set, langpair=None):
                 logging.info("Downloading %s to %s", dataset, tarball)
                 try:
                     with urllib.request.urlopen(dataset) as f, open(
-                        tarball, "wb"
+                            tarball, "wb"
                     ) as out:
                         out.write(f.read())
                 except ssl.SSLError:
@@ -1794,7 +1794,6 @@ class Result:
 
 class BLEU:
     def __init__(self, scores, counts, totals, precisions, bp, sys_len, ref_len):
-
         self.scores = scores
         self.counts = counts
         self.totals = totals
@@ -1825,13 +1824,13 @@ class CHRF(Result):
 
 
 def compute_bleu(
-    correct: List[int],
-    total: List[int],
-    sys_len: int,
-    ref_len: int,
-    smooth_method="none",
-    smooth_value=SMOOTH_VALUE_DEFAULT,
-    use_effective_order=False,
+        correct: List[int],
+        total: List[int],
+        sys_len: int,
+        ref_len: int,
+        smooth_method="none",
+        smooth_value=SMOOTH_VALUE_DEFAULT,
+        use_effective_order=False,
 ) -> BLEU:
     """Computes BLEU score from its sufficient statistics. Adds smoothing.
 
@@ -1896,11 +1895,11 @@ def compute_bleu(
 
 
 def sentence_bleu(
-    hypothesis: str,
-    references: List[str],
-    smooth_method: str = "floor",
-    smooth_value: float = SMOOTH_VALUE_DEFAULT,
-    use_effective_order: bool = True,
+        hypothesis: str,
+        references: List[str],
+        smooth_method: str = "floor",
+        smooth_value: float = SMOOTH_VALUE_DEFAULT,
+        use_effective_order: bool = True,
 ) -> BLEU:
     """
     Computes BLEU on a single sentence pair.
@@ -1925,14 +1924,14 @@ def sentence_bleu(
 
 
 def corpus_bleu(
-    sys_stream: Union[str, Iterable[str]],
-    ref_streams: Union[str, List[Iterable[str]]],
-    smooth_method="exp",
-    smooth_value=SMOOTH_VALUE_DEFAULT,
-    force=False,
-    lowercase=False,
-    tokenize=DEFAULT_TOKENIZER,
-    use_effective_order=False,
+        sys_stream: Union[str, Iterable[str]],
+        ref_streams: Union[str, List[Iterable[str]]],
+        smooth_method="exp",
+        smooth_value=SMOOTH_VALUE_DEFAULT,
+        force=False,
+        lowercase=False,
+        tokenize=DEFAULT_TOKENIZER,
+        use_effective_order=False,
 ) -> BLEU:
     """Produces BLEU scores along with its sufficient statistics from a source against one or more references.
 
@@ -2032,10 +2031,10 @@ def delete_whitespace(text: str) -> str:
 
 
 def get_sentence_statistics(
-    hypothesis: str,
-    reference: str,
-    order: int = CHRF_ORDER,
-    remove_whitespace: bool = True,
+        hypothesis: str,
+        reference: str,
+        order: int = CHRF_ORDER,
+        remove_whitespace: bool = True,
 ) -> List[float]:
     hypothesis = delete_whitespace(hypothesis) if remove_whitespace else hypothesis
     reference = delete_whitespace(reference) if remove_whitespace else reference
@@ -2052,10 +2051,10 @@ def get_sentence_statistics(
 
 
 def get_corpus_statistics(
-    hypotheses: Iterable[str],
-    references: Iterable[str],
-    order: int = CHRF_ORDER,
-    remove_whitespace: bool = True,
+        hypotheses: Iterable[str],
+        references: Iterable[str],
+        order: int = CHRF_ORDER,
+        remove_whitespace: bool = True,
 ) -> List[float]:
     corpus_statistics = [0] * (order * 3)
     for hypothesis, reference in zip(hypotheses, references):
@@ -2068,7 +2067,7 @@ def get_corpus_statistics(
 
 
 def _avg_precision_and_recall(
-    statistics: List[float], order: int
+        statistics: List[float], order: int
 ) -> Tuple[float, float]:
     avg_precision = 0.0
     avg_recall = 0.0
@@ -2093,19 +2092,19 @@ def _chrf(avg_precision, avg_recall, beta: int = CHRF_BETA) -> float:
         return 0.0
     beta_square = beta ** 2
     score = (
-        (1 + beta_square)
-        * (avg_precision * avg_recall)
-        / ((beta_square * avg_precision) + avg_recall)
+            (1 + beta_square)
+            * (avg_precision * avg_recall)
+            / ((beta_square * avg_precision) + avg_recall)
     )
     return score
 
 
 def corpus_chrf(
-    hypotheses: Iterable[str],
-    references: Iterable[str],
-    order: int = CHRF_ORDER,
-    beta: float = CHRF_BETA,
-    remove_whitespace: bool = True,
+        hypotheses: Iterable[str],
+        references: Iterable[str],
+        order: int = CHRF_ORDER,
+        beta: float = CHRF_BETA,
+        remove_whitespace: bool = True,
 ) -> CHRF:
     """
     Computes Chrf on a corpus.
@@ -2125,11 +2124,11 @@ def corpus_chrf(
 
 
 def sentence_chrf(
-    hypothesis: str,
-    reference: str,
-    order: int = CHRF_ORDER,
-    beta: float = CHRF_BETA,
-    remove_whitespace: bool = True,
+        hypothesis: str,
+        reference: str,
+        order: int = CHRF_ORDER,
+        beta: float = CHRF_BETA,
+        remove_whitespace: bool = True,
 ) -> CHRF:
     """
     Computes ChrF on a single sentence pair.
@@ -2225,8 +2224,8 @@ def _filter_subset(systems, test_sets, langpair, origlang, subset=None):
 def main():
     arg_parser = argparse.ArgumentParser(
         description="sacreBLEU: Hassle-free computation of shareable BLEU scores.\n"
-        "Quick usage: score your detokenized output against WMT'14 EN-DE:\n"
-        "    cat output.detok.de | sacrebleu -t wmt14 -l en-de",
+                    "Quick usage: score your detokenized output against WMT'14 EN-DE:\n"
+                    "    cat output.detok.de | sacrebleu -t wmt14 -l en-de",
         # epilog = 'Available test sets: ' + ','.join(sorted(DATASETS.keys(), reverse=True)),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -2512,10 +2511,10 @@ def main():
             args.tokenize = DEFAULT_TOKENIZER
 
     if (
-        args.langpair is not None
-        and args.langpair.split("-")[1] == "zh"
-        and "bleu" in args.metrics
-        and args.tokenize != "zh"
+            args.langpair is not None
+            and args.langpair.split("-")[1] == "zh"
+            and "bleu" in args.metrics
+            and args.tokenize != "zh"
     ):
         logging.warning('You should also pass "--tok zh" when scoring Chinese...')
 
@@ -2547,7 +2546,7 @@ def main():
     for ref_files in concat_ref_files:
         for refno, ref_file in enumerate(ref_files):
             for lineno, line in enumerate(
-                smart_open(ref_file, encoding=args.encoding), 1
+                    smart_open(ref_file, encoding=args.encoding), 1
             ):
                 if args.num_refs != 1:
                     splits = line.rstrip().split(sep="\t", maxsplit=args.num_refs - 1)

@@ -136,7 +136,7 @@ def build_optimizer(config: dict, parameters) -> Optimizer:
 
 
 def build_scheduler(
-    config: dict, optimizer: Optimizer, scheduler_mode: str, hidden_size: int = 0
+        config: dict, optimizer: Optimizer, scheduler_mode: str, hidden_size: int = 0
 ) -> (Optional[lr_scheduler._LRScheduler], Optional[str]):
     """
     Create a learning rate scheduler if specified in config and
@@ -249,11 +249,11 @@ class NoamScheduler:
     """
 
     def __init__(
-        self,
-        hidden_size: int,
-        optimizer: torch.optim.Optimizer,
-        factor: float = 1,
-        warmup: int = 4000,
+            self,
+            hidden_size: int,
+            optimizer: torch.optim.Optimizer,
+            factor: float = 1,
+            warmup: int = 4000,
     ):
         """
         Warm-up, followed by learning rate decay.
@@ -281,8 +281,8 @@ class NoamScheduler:
         """Implement `lrate` above"""
         step = self._step
         return self.factor * (
-            self.hidden_size ** (-0.5)
-            * min(step ** (-0.5), step * self.warmup ** (-1.5))
+                self.hidden_size ** (-0.5)
+                * min(step ** (-0.5), step * self.warmup ** (-1.5))
         )
 
     # pylint: disable=no-self-use
@@ -298,13 +298,13 @@ class WarmupExponentialDecayScheduler:
     """
 
     def __init__(
-        self,
-        optimizer: torch.optim.Optimizer,
-        peak_rate: float = 1.0e-3,
-        decay_length: int = 10000,
-        warmup: int = 4000,
-        decay_rate: float = 0.5,
-        min_rate: float = 1.0e-5,
+            self,
+            optimizer: torch.optim.Optimizer,
+            peak_rate: float = 1.0e-3,
+            decay_length: int = 10000,
+            warmup: int = 4000,
+            decay_rate: float = 0.5,
+            min_rate: float = 1.0e-5,
     ):
         """
         Warm-up, followed by exponential learning rate decay.

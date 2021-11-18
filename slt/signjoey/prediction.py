@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-import gc   #TODO: Mine.
-import itertools    #TODO: Mine.
-import sys  #TODO: Mine.
-
 import torch
-import torchvision  #TODO: Mine.
-from sign_language_datasets.datasets import SignDatasetConfig   #TODO: Mine.
-from torch.nn.utils.rnn import pad_sequence #TODO: Mine.
-from torchtext.data import Dataset  #TODO: Mine.
 
 torch.backends.cudnn.deterministic = True
+
+import gc  # TODO: Mine.
+import itertools  # TODO: Mine.
+import sys  # TODO: Mine.
+import torchvision  # TODO: Mine.
+from sign_language_datasets.datasets import SignDatasetConfig  # TODO: Mine.
+from torch.nn.utils.rnn import pad_sequence  # TODO: Mine.
+from torchtext.data import Dataset  # TODO: Mine.
 
 import logging
 import numpy as np
@@ -35,11 +35,12 @@ from slt.signjoey.phoenix_utils.phoenix_cleanup import (
     clean_phoenix_2014,
     clean_phoenix_2014_trans,
 )
-from torch import Tensor    #TODO: Mine.
-import tensorflow_datasets as tfds  #TODO: Mine.
+
+from torch import Tensor  # TODO: Mine.
+import tensorflow_datasets as tfds  # TODO: Mine.
 
 
-# def get_element(dataset, num):
+# def get_element(dataset, num):    # TODO: Mine.
 #     for s in itertools.islice(dataset, num, num + 1):
 #         return {
 #             "id": s["id"].numpy().decode('utf-8').rstrip('\n'),
@@ -53,7 +54,6 @@ import tensorflow_datasets as tfds  #TODO: Mine.
 def validate_on_data(
         model: SignModel,
         data: Dataset,
-        # image_encoder: torchvision.models.mobilenet_v3_small,
         batch_size: int,
         use_cuda: bool,
         sgn_dim: int,
@@ -124,7 +124,7 @@ def validate_on_data(
         - valid_attention_scores: attention scores for validation hypotheses
     """
     # TODO: To update accordingly to AUTSL. XXX
-    if dataset_version == 'phoenix_2014_trans':
+    if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
         valid_iter = make_data_iter(
             dataset=data,
             batch_size=batch_size,
@@ -146,6 +146,7 @@ def validate_on_data(
         total_num_gls_tokens = 0
         total_num_seqs = 0
 
+        # TODO: Mine.
         # whole_idx = [i for i in range(len(data))]
         #
         # while len(whole_idx) > 0:
@@ -153,10 +154,10 @@ def validate_on_data(
         #     valid_batch = [get_element(data, i) for i in chosen]
         #     whole_idx = [x for x in whole_idx if x not in chosen]
 
-        if dataset_version == 'phoenix_2014_trans':
+        if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
             for valid_batch in iter(valid_iter):
                 batch = Batch(
-                    dataset_type=dataset_version,
+                    dataset_type=dataset_version,  # TODO: Mine.
                     is_train=False,
                     torch_batch=valid_batch,
                     txt_pad_index=txt_pad_index,
@@ -217,12 +218,12 @@ def validate_on_data(
                     if batch_attention_scores is not None
                     else []
                 )
-        elif dataset_version == 'autsl':
+        elif dataset_version == 'autsl':  # TODO: Mine.
             index = 0
 
             # For each batch in the training set
             while (index < len(data)):
-            # while (index < batch_size):
+                # while (index < batch_size):
                 sequence = []
                 signer = []
                 samples = []
@@ -323,12 +324,12 @@ def validate_on_data(
                 batch.make_cpu()
                 del batch
                 gc.collect()
-        else:
+        else:  # TODO: Mine.
             index = 0
 
             # For each batch in the training set
             while (index < len(data)):
-            # while (index < batch_size):
+                # while (index < batch_size):
                 sequence = []
                 signer = []
                 samples = []
@@ -340,9 +341,10 @@ def validate_on_data(
                     signer.append(datum["signer"].numpy().decode('utf-8'))
                     samples.append(
                         Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                                datum['video'].shape[2]))
+                                                            datum['video'].shape[2]))
                     sgn_lengths.append(datum['video'].shape[0])
-                    txt.append([2,int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+                    txt.append(
+                        [2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])  # ???.decode('utf-8')
 
                 sgn = []
                 for sample in samples:
@@ -426,12 +428,12 @@ def validate_on_data(
                     else []
                 )
 
-                batch.make_cpu()
-                del batch
-                gc.collect()
+                batch.make_cpu()  # TODO: Mine.
+                del batch  # TODO: Mine.
+                gc.collect()  # TODO: Mine.
 
         if do_recognition:
-            assert len(all_gls_outputs) == len(data)    # TODO: commented out because it disturbed the testings.    V
+            assert len(all_gls_outputs) == len(data)  # TODO: commented out because it disturbed the testings.    V
             if (
                     recognition_loss_function is not None
                     and recognition_loss_weight != 0
@@ -449,19 +451,19 @@ def validate_on_data(
             elif dataset_version == "phoenix_2014":
                 gls_cln_fn = clean_phoenix_2014
             elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
-                pass
+                pass  # TODO: Mine.
             elif dataset_version == "ChicagoFSWild":
-                pass
+                pass  # TODO: Mine.
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
 
             # TODO: Problem here.   fixed   V
             # Construct gloss sequences for metrics
-            if dataset_version == "phoenix_2014_trans":
+            if dataset_version == "phoenix_2014_trans":  # TODO: Mine.
                 gls_ref = [gls_cln_fn(" ".join(t)) for t in data.gls]
                 gls_hyp = [gls_cln_fn(" ".join(t)) for t in decoded_gls]
 
-            else:
+            else:  # TODO: Mine.
                 # TODO: changed here from len(data) to 32, for testing. changed back.   V
                 gls_ref = [" ".join([str(t['gloss_id'].numpy())]) for t in itertools.islice(data, len(data))]
                 gls_hyp = [" ".join(t) for t in decoded_gls]
@@ -488,12 +490,11 @@ def validate_on_data(
             decoded_txt = model.txt_vocab.arrays_to_sentences(arrays=all_txt_outputs)
             # evaluate with metric on full dataset
             join_char = " " if level in ["word", "bpe"] else ""
-
             # Construct text sequences for metrics
-            if dataset_version == "phoenix_2014_trans":
+            if dataset_version == "phoenix_2014_trans":  # TODO: Mine.
                 txt_ref = [join_char.join(t) for t in data.txt]
                 txt_hyp = [join_char.join(t) for t in decoded_txt]
-            else:
+            else:  # TODO: Mine.
                 txt_ref = [" ".join([t['text'].numpy().decode('utf-8')]) for t in itertools.islice(data, len(data))]
                 txt_hyp = [" ".join(t) for t in decoded_txt]
 
@@ -583,13 +584,14 @@ def test(
     )
 
     # load the data
-    if cfg["data"]["version"] == 'phoenix_2014_trans':
+    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         # Load the dataset and create the corresponding vocabs
         _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
-    elif cfg["data"]["version"] == 'autsl':
+    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
         # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),shuffle_files=True) # TODO: Check shuffle! 7/9
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
+                          shuffle_files=True)  # TODO: Check shuffle! 7/9
 
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
@@ -613,9 +615,9 @@ def test(
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
-    else:
+    else:  # TODO: Mine.
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
-        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config))#,shuffle_files=True
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config))  # ,shuffle_files=True
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
 
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
@@ -654,7 +656,7 @@ def test(
     do_recognition = cfg["training"].get("recognition_loss_weight", 1.0) > 0.0
     do_translation = cfg["training"].get("translation_loss_weight", 1.0) > 0.0
     model = build_model(
-        dataset=cfg["data"]["version"],
+        dataset=cfg["data"]["version"],  # TODO: Mine.
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -719,7 +721,6 @@ def test(
             dev_recognition_results[rbw] = validate_on_data(
                 model=model,
                 data=dev_data,
-                # image_encoder= image_encoder,
                 batch_size=batch_size,
                 use_cuda=use_cuda,
                 batch_type=batch_type,
@@ -886,7 +887,6 @@ def test(
     test_best_result = validate_on_data(
         model=model,
         data=test_data,
-        # image_encoder= image_encoder,
         batch_size=batch_size,
         use_cuda=use_cuda,
         batch_type=batch_type,
@@ -968,7 +968,8 @@ def test(
                 dev_gls_output_path_set,
                 [s for s in dev_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
-                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))], # TODO: adjust
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))],
+                # TODO: adjust   V
                 dev_best_recognition_result["gls_hyp"],
             )
             test_gls_output_path_set = "{}.BW_{:03d}.{}.gls".format(
@@ -978,7 +979,8 @@ def test(
                 test_gls_output_path_set,
                 [s for s in test_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
-                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))], # TODO: adjust                ,    # TODO: adjust
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))],
+                # TODO: adjust V           ,    # TODO: adjust
                 test_best_result["gls_hyp"],
             )
 
@@ -1008,14 +1010,16 @@ def test(
                 dev_txt_output_path_set,
                 [s for s in dev_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
-                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))], # TODO: adjust
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(dev_data, len(dev_data))],
+                # TODO: adjust   V
                 dev_best_translation_result["txt_hyp"],
             )
             _write_to_file(
                 test_txt_output_path_set,
                 [s for s in test_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
-                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))], # TODO: adjust
+                else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))],
+                # TODO: adjust V
                 test_best_result["txt_hyp"],
             )
 

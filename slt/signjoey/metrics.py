@@ -21,7 +21,7 @@ def chrf(references, hypotheses):
     :return:
     """
     return (
-        sacrebleu.corpus_chrf(hypotheses=hypotheses, references=references).score * 100
+            sacrebleu.corpus_chrf(hypotheses=hypotheses, references=references).score * 100
     )
 
 

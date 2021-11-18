@@ -20,7 +20,7 @@ def orthogonal_rnn_init_(cell: nn.RNNBase, gain: float = 1.0):
     with torch.no_grad():
         for _, hh, _, _ in cell.all_weights:
             for i in range(0, hh.size(0), cell.hidden_size):
-                nn.init.orthogonal_(hh.data[i : i + cell.hidden_size], gain=gain)
+                nn.init.orthogonal_(hh.data[i: i + cell.hidden_size], gain=gain)
 
 
 def lstm_forget_gate_init_(cell: nn.RNNBase, value: float = 1.0) -> None:
@@ -33,8 +33,8 @@ def lstm_forget_gate_init_(cell: nn.RNNBase, value: float = 1.0) -> None:
     with torch.no_grad():
         for _, _, ih_b, hh_b in cell.all_weights:
             l = len(ih_b)
-            ih_b.data[l // 4 : l // 2].fill_(value)
-            hh_b.data[l // 4 : l // 2].fill_(value)
+            ih_b.data[l // 4: l // 2].fill_(value)
+            hh_b.data[l // 4: l // 2].fill_(value)
 
 
 def xavier_uniform_n_(w: Tensor, gain: float = 1.0, n: int = 4) -> None:
