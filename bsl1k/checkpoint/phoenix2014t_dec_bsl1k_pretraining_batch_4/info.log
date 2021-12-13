@@ -1,0 +1,341 @@
+2021-12-03 23:58:57,580 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-03 23:59:02,809 - train - INFO - => loading checkpoint 'misc/pretrained_models/model-bsl1k-pretraining.pth.tar'
+2021-12-03 23:59:02,897 - train - INFO - Unused from pretrain module.logits.conv3d.weight
+2021-12-03 23:59:02,897 - train - INFO - Unused from pretrain module.logits.conv3d.bias
+2021-12-03 23:59:02,897 - train - INFO - Removing or not initializing some layers...
+2021-12-03 23:59:02,927 - train - INFO -     Total params: 13.6 million
+2021-12-03 23:59:02,928 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-03 23:59:03,106 - train - INFO - 
+Epoch: 1 | LR: 0.04000000
+2021-12-04 00:20:34,211 - train - INFO - 
+Epoch: 2 | LR: 0.04000000
+2021-12-04 00:41:56,904 - train - INFO - 
+Epoch: 3 | LR: 0.04000000
+2021-12-04 01:03:28,730 - train - INFO - 
+Epoch: 4 | LR: 0.04000000
+2021-12-04 01:24:53,613 - train - INFO - 
+Epoch: 5 | LR: 0.04000000
+2021-12-04 01:46:23,914 - train - INFO - 
+Epoch: 6 | LR: 0.00400000
+2021-12-04 02:07:57,945 - train - INFO - 
+Epoch: 7 | LR: 0.00400000
+2021-12-04 02:29:27,807 - train - INFO - 
+Epoch: 8 | LR: 0.00400000
+2021-12-04 02:51:09,459 - train - INFO - 
+Epoch: 9 | LR: 0.00400000
+2021-12-04 03:12:36,831 - train - INFO - 
+Epoch: 10 | LR: 0.00400000
+2021-12-04 03:34:20,807 - train - INFO - 
+Epoch: 11 | LR: 0.00040000
+2021-12-04 03:55:56,475 - train - INFO - 
+Epoch: 12 | LR: 0.00040000
+2021-12-04 04:17:41,851 - train - INFO - 
+Epoch: 13 | LR: 0.00004000
+2021-12-04 04:39:18,489 - train - INFO - 
+Epoch: 14 | LR: 0.00004000
+2021-12-04 05:01:06,885 - train - INFO - 
+Epoch: 15 | LR: 0.00004000
+2021-12-04 05:22:29,900 - train - INFO - 
+Epoch: 16 | LR: 0.00004000
+2021-12-04 05:44:03,690 - train - INFO - 
+Epoch: 17 | LR: 0.00004000
+2021-12-04 06:05:43,148 - train - INFO - 
+Epoch: 18 | LR: 0.00004000
+2021-12-04 06:27:24,759 - train - INFO - 
+Epoch: 19 | LR: 0.00004000
+2021-12-04 06:49:03,915 - train - INFO - 
+Epoch: 20 | LR: 0.00004000
+2021-12-04 07:10:31,785 - train - INFO - 
+Epoch: 21 | LR: 0.00004000
+2021-12-04 07:32:16,387 - train - INFO - 
+Epoch: 22 | LR: 0.00004000
+2021-12-04 07:54:01,087 - train - INFO - 
+Epoch: 23 | LR: 0.00004000
+2021-12-04 08:15:42,901 - train - INFO - 
+Epoch: 24 | LR: 0.00004000
+2021-12-04 08:37:32,046 - train - INFO - 
+Epoch: 25 | LR: 0.00004000
+2021-12-04 09:00:06,969 - train - INFO - 
+Epoch: 26 | LR: 0.00004000
+2021-12-04 09:21:56,761 - train - INFO - 
+Epoch: 27 | LR: 0.00004000
+2021-12-04 09:43:27,638 - train - INFO - 
+Epoch: 28 | LR: 0.00004000
+2021-12-04 10:05:14,291 - train - INFO - 
+Epoch: 29 | LR: 0.00004000
+2021-12-04 10:27:36,325 - train - INFO - 
+Epoch: 30 | LR: 0.00004000
+2021-12-04 10:49:42,709 - train - INFO - 
+Epoch: 31 | LR: 0.00004000
+2021-12-04 11:12:19,603 - train - INFO - 
+Epoch: 32 | LR: 0.00004000
+2021-12-04 11:35:04,842 - train - INFO - 
+Epoch: 33 | LR: 0.00004000
+2021-12-04 11:57:48,616 - train - INFO - 
+Epoch: 34 | LR: 0.00004000
+2021-12-04 12:20:19,425 - train - INFO - 
+Epoch: 35 | LR: 0.00004000
+2021-12-04 12:43:29,106 - train - INFO - 
+Epoch: 36 | LR: 0.00004000
+2021-12-04 13:06:04,992 - train - INFO - 
+Epoch: 37 | LR: 0.00004000
+2021-12-04 13:28:34,822 - train - INFO - 
+Epoch: 38 | LR: 0.00004000
+2021-12-04 13:51:02,723 - train - INFO - 
+Epoch: 39 | LR: 0.00004000
+2021-12-04 14:13:43,230 - train - INFO - 
+Epoch: 40 | LR: 0.00004000
+2021-12-04 14:36:21,164 - train - INFO - 
+Epoch: 41 | LR: 0.00004000
+2021-12-04 14:59:47,931 - train - INFO - 
+Epoch: 42 | LR: 0.00004000
+2021-12-04 15:22:43,798 - train - INFO - 
+Epoch: 43 | LR: 0.00004000
+2021-12-04 15:45:13,753 - train - INFO - 
+Epoch: 44 | LR: 0.00004000
+2021-12-04 16:07:06,139 - train - INFO - 
+Epoch: 45 | LR: 0.00004000
+2021-12-04 16:29:27,773 - train - INFO - 
+Epoch: 46 | LR: 0.00004000
+2021-12-04 16:55:09,589 - train - INFO - 
+Epoch: 47 | LR: 0.00004000
+2021-12-04 17:26:58,522 - train - INFO - 
+Epoch: 48 | LR: 0.00004000
+2021-12-04 17:54:21,154 - train - INFO - 
+Epoch: 49 | LR: 0.00004000
+2021-12-04 18:21:50,890 - train - INFO - 
+Epoch: 50 | LR: 0.00004000
+2021-12-08 22:05:33,391 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 22:05:35,788 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_037.pth.tar'
+2021-12-08 22:05:36,240 - train - INFO - Loading state dict.
+2021-12-08 22:05:36,312 - train - INFO - Loading optimizer.
+2021-12-08 22:05:36,396 - train - INFO -     Total params: 13.6 million
+2021-12-08 22:05:36,397 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 22:05:36,626 - train - INFO - 
+Evaluation only
+2021-12-08 22:07:05,520 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 22:07:08,396 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_041.pth.tar'
+2021-12-08 22:07:08,719 - train - INFO - Loading state dict.
+2021-12-08 22:07:08,793 - train - INFO - Loading optimizer.
+2021-12-08 22:07:08,924 - train - INFO -     Total params: 13.6 million
+2021-12-08 22:07:08,932 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 22:07:09,336 - train - INFO - 
+Evaluation only
+2021-12-08 22:31:05,390 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:31:05,486 - train - INFO - (7723, 1233)
+2021-12-08 22:31:05,486 - train - INFO - Loading features.mat
+2021-12-08 22:31:05,673 - train - INFO - Saving vid_features.mat.
+2021-12-08 22:31:05,936 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:31:05,996 - train - INFO - (7723, 1233)
+2021-12-08 22:31:05,996 - train - INFO - Loading features_valid.mat
+2021-12-08 22:33:48,763 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 22:33:54,272 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_041.pth.tar'
+2021-12-08 22:33:54,332 - train - INFO - Loading state dict.
+2021-12-08 22:33:54,358 - train - INFO - Loading optimizer.
+2021-12-08 22:33:54,401 - train - INFO -     Total params: 13.6 million
+2021-12-08 22:33:54,401 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 22:33:54,537 - train - INFO - 
+Evaluation only
+2021-12-08 22:34:34,440 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 22:34:36,068 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_045.pth.tar'
+2021-12-08 22:34:36,462 - train - INFO - Loading state dict.
+2021-12-08 22:34:36,498 - train - INFO - Loading optimizer.
+2021-12-08 22:34:36,560 - train - INFO -     Total params: 13.6 million
+2021-12-08 22:34:36,560 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 22:34:36,737 - train - INFO - 
+Evaluation only
+2021-12-08 22:35:22,414 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 22:35:24,698 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_046.pth.tar'
+2021-12-08 22:35:25,036 - train - INFO - Loading state dict.
+2021-12-08 22:35:25,072 - train - INFO - Loading optimizer.
+2021-12-08 22:35:25,148 - train - INFO -     Total params: 13.6 million
+2021-12-08 22:35:25,148 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 22:35:25,372 - train - INFO - 
+Evaluation only
+2021-12-08 22:56:31,177 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:56:31,250 - train - INFO - (7723, 1233)
+2021-12-08 22:56:31,250 - train - INFO - Loading features.mat
+2021-12-08 22:56:31,447 - train - INFO - Saving vid_features.mat.
+2021-12-08 22:56:31,765 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:56:31,827 - train - INFO - (7723, 1233)
+2021-12-08 22:56:31,827 - train - INFO - Loading features_valid.mat
+2021-12-08 22:57:16,787 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:57:16,828 - train - INFO - (7723, 1233)
+2021-12-08 22:57:16,828 - train - INFO - Loading features.mat
+2021-12-08 22:57:17,102 - train - INFO - Saving vid_features.mat.
+2021-12-08 22:57:17,551 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-08 22:57:17,615 - train - INFO - (7723, 1233)
+2021-12-08 22:57:17,616 - train - INFO - Loading features_valid.mat
+2021-12-08 23:43:43,702 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 23:43:49,238 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_046.pth.tar'
+2021-12-08 23:43:49,304 - train - INFO - Loading state dict.
+2021-12-08 23:43:49,330 - train - INFO - Loading optimizer.
+2021-12-08 23:43:49,375 - train - INFO -     Total params: 13.6 million
+2021-12-08 23:43:49,375 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 23:43:49,511 - train - INFO - 
+Evaluation only
+2021-12-08 23:44:28,267 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-08 23:44:30,089 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_049.pth.tar'
+2021-12-08 23:44:30,430 - train - INFO - Loading state dict.
+2021-12-08 23:44:30,462 - train - INFO - Loading optimizer.
+2021-12-08 23:44:30,538 - train - INFO -     Total params: 13.6 million
+2021-12-08 23:44:30,538 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-08 23:44:30,742 - train - INFO - 
+Evaluation only
+2021-12-09 00:06:48,978 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:06:49,016 - train - INFO - (7723, 1233)
+2021-12-09 00:06:49,017 - train - INFO - Loading features.mat
+2021-12-09 00:06:49,188 - train - INFO - Saving vid_features.mat.
+2021-12-09 00:06:49,525 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:06:49,606 - train - INFO - (7723, 1233)
+2021-12-09 00:06:49,606 - train - INFO - Loading features_valid.mat
+2021-12-09 00:07:31,358 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:07:31,411 - train - INFO - (7723, 1233)
+2021-12-09 00:07:31,411 - train - INFO - Loading features.mat
+2021-12-09 00:07:31,653 - train - INFO - Saving vid_features.mat.
+2021-12-09 00:07:32,069 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:07:32,130 - train - INFO - (7723, 1233)
+2021-12-09 00:07:32,130 - train - INFO - Loading features_valid.mat
+2021-12-09 00:13:36,520 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 00:13:38,816 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_040.pth.tar'
+2021-12-09 00:13:39,078 - train - INFO - Loading state dict.
+2021-12-09 00:13:39,116 - train - INFO - Loading optimizer.
+2021-12-09 00:13:39,172 - train - INFO -     Total params: 13.6 million
+2021-12-09 00:13:39,172 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 00:13:39,304 - train - INFO - 
+Evaluation only
+2021-12-09 00:46:45,776 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:46:45,884 - train - INFO - (7723, 1233)
+2021-12-09 00:46:45,884 - train - INFO - Loading features.mat
+2021-12-09 00:46:46,192 - train - INFO - Saving vid_features.mat.
+2021-12-09 00:46:46,835 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-09 00:46:46,909 - train - INFO - (7723, 1233)
+2021-12-09 00:46:46,910 - train - INFO - Loading features_valid.mat
+2021-12-10 17:21:53,494 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 17:21:55,239 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_009.pth.tar'
+2021-12-10 17:21:56,246 - train - INFO - Loading state dict.
+2021-12-10 17:21:56,280 - train - INFO - Loading optimizer.
+2021-12-10 17:21:56,339 - train - INFO -     Total params: 13.6 million
+2021-12-10 17:21:56,339 - train - INFO - Loaded parameters for model in 00h00m01s
+2021-12-10 17:21:56,531 - train - INFO - 
+Evaluation only
+2021-12-10 17:42:25,287 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 17:42:25,355 - train - INFO - (7723, 1233)
+2021-12-10 17:42:25,355 - train - INFO - Loading features.mat
+2021-12-10 17:42:25,521 - train - INFO - Saving vid_features.mat.
+2021-12-10 17:42:25,785 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 17:42:25,836 - train - INFO - (7723, 1233)
+2021-12-10 17:42:25,836 - train - INFO - Loading features_valid.mat
+2021-12-10 17:45:17,710 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 17:45:23,009 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_021.pth.tar'
+2021-12-10 17:45:23,311 - train - INFO - Loading state dict.
+2021-12-10 17:45:23,350 - train - INFO - Loading optimizer.
+2021-12-10 17:45:23,409 - train - INFO -     Total params: 13.6 million
+2021-12-10 17:45:23,409 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 17:45:23,599 - train - INFO - 
+Evaluation only
+2021-12-10 17:46:21,257 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 17:46:22,996 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_027.pth.tar'
+2021-12-10 17:46:23,249 - train - INFO - Loading state dict.
+2021-12-10 17:46:23,279 - train - INFO - Loading optimizer.
+2021-12-10 17:46:23,334 - train - INFO -     Total params: 13.6 million
+2021-12-10 17:46:23,334 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 17:46:23,478 - train - INFO - 
+Evaluation only
+2021-12-10 18:07:01,720 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:07:01,766 - train - INFO - (7723, 1233)
+2021-12-10 18:07:01,767 - train - INFO - Loading features.mat
+2021-12-10 18:07:01,913 - train - INFO - Saving vid_features.mat.
+2021-12-10 18:07:02,176 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:07:02,222 - train - INFO - (7723, 1233)
+2021-12-10 18:07:02,223 - train - INFO - Loading features_valid.mat
+2021-12-10 18:11:49,040 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 18:11:54,908 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_021.pth.tar'
+2021-12-10 18:11:54,987 - train - INFO - Loading state dict.
+2021-12-10 18:11:55,007 - train - INFO - Loading optimizer.
+2021-12-10 18:11:55,051 - train - INFO -     Total params: 13.6 million
+2021-12-10 18:11:55,051 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 18:11:55,178 - train - INFO - 
+Evaluation only
+2021-12-10 18:30:59,525 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:30:59,562 - train - INFO - (7723, 1233)
+2021-12-10 18:30:59,563 - train - INFO - Loading features.mat
+2021-12-10 18:30:59,708 - train - INFO - Saving vid_features.mat.
+2021-12-10 18:30:59,961 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:31:00,012 - train - INFO - (7723, 1233)
+2021-12-10 18:31:00,013 - train - INFO - Loading features_valid.mat
+2021-12-10 18:31:20,650 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 18:31:25,965 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_044.pth.tar'
+2021-12-10 18:31:26,258 - train - INFO - Loading state dict.
+2021-12-10 18:31:26,296 - train - INFO - Loading optimizer.
+2021-12-10 18:31:26,354 - train - INFO -     Total params: 13.6 million
+2021-12-10 18:31:26,354 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 18:31:26,518 - train - INFO - 
+Evaluation only
+2021-12-10 18:34:25,608 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 18:34:27,394 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_034.pth.tar'
+2021-12-10 18:34:27,896 - train - INFO - Loading state dict.
+2021-12-10 18:34:27,928 - train - INFO - Loading optimizer.
+2021-12-10 18:34:27,986 - train - INFO -     Total params: 13.6 million
+2021-12-10 18:34:27,986 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 18:34:28,160 - train - INFO - 
+Evaluation only
+2021-12-10 18:51:56,735 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:51:56,777 - train - INFO - (7723, 1233)
+2021-12-10 18:51:56,777 - train - INFO - Loading features.mat
+2021-12-10 18:51:56,962 - train - INFO - Saving vid_features.mat.
+2021-12-10 18:51:57,393 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:51:57,459 - train - INFO - (7723, 1233)
+2021-12-10 18:51:57,459 - train - INFO - Loading features_valid.mat
+2021-12-10 18:55:01,732 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:55:01,779 - train - INFO - (7723, 1233)
+2021-12-10 18:55:01,779 - train - INFO - Loading features.mat
+2021-12-10 18:55:01,926 - train - INFO - Saving vid_features.mat.
+2021-12-10 18:55:02,179 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 18:55:02,227 - train - INFO - (7723, 1233)
+2021-12-10 18:55:02,227 - train - INFO - Loading features_valid.mat
+2021-12-10 18:55:27,500 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 18:55:32,705 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_047.pth.tar'
+2021-12-10 18:55:33,019 - train - INFO - Loading state dict.
+2021-12-10 18:55:33,049 - train - INFO - Loading optimizer.
+2021-12-10 18:55:33,101 - train - INFO -     Total params: 13.6 million
+2021-12-10 18:55:33,101 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 18:55:33,287 - train - INFO - 
+Evaluation only
+2021-12-10 18:56:35,722 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-10 18:56:37,449 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_050.pth.tar'
+2021-12-10 18:56:37,777 - train - INFO - Loading state dict.
+2021-12-10 18:56:37,806 - train - INFO - Loading optimizer.
+2021-12-10 18:56:37,862 - train - INFO -     Total params: 13.6 million
+2021-12-10 18:56:37,862 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-10 18:56:38,053 - train - INFO - 
+Evaluation only
+2021-12-10 19:16:07,009 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 19:16:07,078 - train - INFO - (7723, 1233)
+2021-12-10 19:16:07,078 - train - INFO - Loading features.mat
+2021-12-10 19:16:07,306 - train - INFO - Saving vid_features.mat.
+2021-12-10 19:16:07,622 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 19:16:07,675 - train - INFO - (7723, 1233)
+2021-12-10 19:16:07,676 - train - INFO - Loading features_valid.mat
+2021-12-10 19:17:08,852 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 19:17:08,885 - train - INFO - (7723, 1233)
+2021-12-10 19:17:08,885 - train - INFO - Loading features.mat
+2021-12-10 19:17:09,029 - train - INFO - Saving vid_features.mat.
+2021-12-10 19:17:09,279 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-10 19:17:09,323 - train - INFO - (7723, 1233)
+2021-12-10 19:17:09,323 - train - INFO - Loading features_valid.mat
+2021-12-11 20:11:23,128 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-11 20:11:24,888 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/checkpoint_044.pth.tar'
+2021-12-11 20:11:24,965 - train - INFO - Loading state dict.
+2021-12-11 20:11:24,994 - train - INFO - Loading optimizer.
+2021-12-11 20:11:25,049 - train - INFO -     Total params: 13.6 million
+2021-12-11 20:11:25,049 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-11 20:11:25,257 - train - INFO - 
+Evaluation only
+2021-12-11 20:32:14,430 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-11 20:32:14,482 - train - INFO - (7723, 1233)
+2021-12-11 20:32:14,483 - train - INFO - Loading features.mat
+2021-12-11 20:32:14,622 - train - INFO - Saving vid_features.mat.
+2021-12-11 20:32:14,874 - train - INFO - Loading from checkpoint/phoenix2014t_dec_bsl1k_pretraining_batch_4/preds.mat
+2021-12-11 20:32:14,918 - train - INFO - (7723, 1233)
+2021-12-11 20:32:14,918 - train - INFO - Loading features_valid.mat
