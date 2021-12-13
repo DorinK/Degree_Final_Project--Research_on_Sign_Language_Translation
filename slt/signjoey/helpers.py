@@ -17,7 +17,6 @@ import numpy as np
 
 import torch
 from torch import nn, Tensor
-import itertools  # TODO: Mine.
 # from torchtext.data import Dataset
 from torchtext.data import Dataset  # TODO: Mine.
 import yaml

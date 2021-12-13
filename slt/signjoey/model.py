@@ -78,7 +78,7 @@ class SignModel(nn.Module):
 
         if dataset != 'phoenix_2014_trans':  # TODO: Mine.
             self.image_encoder = torchvision.models.mobilenet_v3_small(
-                pretrained=True)  # TODO: Adding the image encoder for AUTSL.
+                pretrained=True)  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets.
 
     # pylint: disable=arguments-differ
     def forward(
@@ -211,6 +211,11 @@ class SignModel(nn.Module):
 
         if self.do_recognition:
             assert gloss_probabilities is not None
+
+            print(gloss_probabilities)
+            print(batch.gls)
+            print(batch.sgn_lengths.long())
+            print(batch.gls_lengths.long())
             # Calculate Recognition Loss
             recognition_loss = (
                     recognition_loss_function(

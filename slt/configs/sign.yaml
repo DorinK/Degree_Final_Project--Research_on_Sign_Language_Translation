@@ -50,7 +50,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./sign_sample_model8"
+    model_dir: "./check_phoenix"
     recognition_loss_weight: 5.0
     translation_loss_weight: 1.0
     eval_metric: bleu

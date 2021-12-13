@@ -3,7 +3,7 @@ import numpy as np
 
 from collections import defaultdict, Counter
 from typing import List
-from torchtext.data import Dataset
+# from torchtext.data import Dataset
 import itertools  # TODO: Mine.
 
 SIL_TOKEN = "<si>"
@@ -238,9 +238,6 @@ def build_vocab(
                     raise ValueError("Unknown field type")
 
         elif version == 'autsl':  # TODO: Check it is working.    XXX  # TODO: Mine.
-            # for i in range(226):
-            #     tokens.append(i)
-            #     tokens.append(i)
 
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":

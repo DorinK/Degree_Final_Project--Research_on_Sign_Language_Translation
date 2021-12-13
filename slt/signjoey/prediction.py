@@ -40,16 +40,6 @@ from torch import Tensor  # TODO: Mine.
 import tensorflow_datasets as tfds  # TODO: Mine.
 
 
-# def get_element(dataset, num):    # TODO: Mine.
-#     for s in itertools.islice(dataset, num, num + 1):
-#         return {
-#             "id": s["id"].numpy().decode('utf-8').rstrip('\n'),
-#             "signer": s["signer"].numpy().decode('utf-8').rstrip('\n'),
-#             "gloss": s["gloss"].numpy().decode('utf-8').strip().rstrip('\n'),
-#             "text": s["text"].numpy().decode('utf-8').strip().rstrip('\n'),
-#             "video": torch.from_numpy(s["video"].numpy()),
-#         }
-
 # pylint: disable=too-many-arguments,too-many-locals,no-member
 def validate_on_data(
         model: SignModel,
@@ -123,6 +113,7 @@ def validate_on_data(
         - decoded_valid: raw validation hypotheses (before post-processing),
         - valid_attention_scores: attention scores for validation hypotheses
     """
+
     # TODO: To update accordingly to AUTSL. XXX
     if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
         valid_iter = make_data_iter(
@@ -145,14 +136,6 @@ def validate_on_data(
         total_num_txt_tokens = 0
         total_num_gls_tokens = 0
         total_num_seqs = 0
-
-        # TODO: Mine.
-        # whole_idx = [i for i in range(len(data))]
-        #
-        # while len(whole_idx) > 0:
-        #     chosen = whole_idx[:, batch_size]
-        #     valid_batch = [get_element(data, i) for i in chosen]
-        #     whole_idx = [x for x in whole_idx if x not in chosen]
 
         if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
             for valid_batch in iter(valid_iter):
@@ -221,8 +204,7 @@ def validate_on_data(
         elif dataset_version == 'autsl':  # TODO: Mine.
             index = 0
 
-            # For each batch in the training set
-            while (index < len(data)):
+            while (index < len(data)):  # TODO: Handle last chunk of train_data.    X
                 # while (index < batch_size):
                 sequence = []
                 signer = []
@@ -237,7 +219,7 @@ def validate_on_data(
                         Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                             datum['video'].shape[2]))
                     sgn_lengths.append(datum['video'].shape[0])
-                    gls.append(datum['gloss_id'].numpy())
+                    gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
 
                 sgn = []
                 for sample in samples:
@@ -321,15 +303,16 @@ def validate_on_data(
                     else []
                 )
 
-                batch.make_cpu()
-                del batch
-                gc.collect()
+                batch.make_cpu()  # TODO: Mine.
+                del batch  # TODO: Mine.
+                gc.collect()  # TODO: Mine.
+
         else:  # TODO: Mine.
+
             index = 0
 
-            # For each batch in the training set
             while (index < len(data)):
-                # while (index < batch_size):
+
                 sequence = []
                 signer = []
                 samples = []
@@ -452,7 +435,7 @@ def validate_on_data(
                 gls_cln_fn = clean_phoenix_2014
             elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
                 pass  # TODO: Mine.
-            elif dataset_version == "ChicagoFSWild":
+            elif dataset_version == "ChicagoFSWild":    # TODO: No glosses in this dataset.
                 pass  # TODO: Mine.
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
@@ -587,17 +570,18 @@ def test(
     if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         # Load the dataset and create the corresponding vocabs
         _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
+
     elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
                           shuffle_files=True)  # TODO: Check shuffle! 7/9
-
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
+        # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
         gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
 
+        # Get the vocabs if already exists, otherwise set them to None.
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
         txt_vocab_file = cfg["data"].get("txt_vocab", None)
 
@@ -615,11 +599,13 @@ def test(
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
+
     else:  # TODO: Mine.
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
-        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config))  # ,shuffle_files=True
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=True)
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
 
+        # Set the maximal size of the gloss vocab and text vocab and the minimum frequency to each item in them.
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
         gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
         txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
@@ -629,7 +615,6 @@ def test(
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
         txt_vocab_file = cfg["data"].get("txt_vocab", None)
 
-        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)
         # Build the gloss vocab based on the training set.
         gls_vocab = build_vocab(
             version=cfg["data"]["version"],

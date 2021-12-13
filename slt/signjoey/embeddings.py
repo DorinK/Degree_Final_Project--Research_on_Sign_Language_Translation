@@ -2,7 +2,7 @@ import math
 import torch
 
 from torch import nn, Tensor
-import torch.nn.functional as F
+# import torch.nn.functional as F
 from slt.signjoey.helpers import freeze_params
 
 

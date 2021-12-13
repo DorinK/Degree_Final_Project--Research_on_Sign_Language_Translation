@@ -5,7 +5,6 @@ torch.backends.cudnn.deterministic = True
 
 import itertools  # TODO: Mine.
 import sys  # TODO: Mine.
-import torchvision  # TODO: Mine.
 from torch.nn.utils.rnn import pad_sequence  # TODO: Mine.
 from torchtext.data import Dataset  # TODO: Mine.
 
@@ -42,7 +41,6 @@ from torch.utils.tensorboard import SummaryWriter
 from typing import List, Dict
 
 import tensorflow_datasets as tfds  # TODO: Mine.
-import tensorflow as tf  # TODO: Mine.
 from sign_language_datasets.datasets.config import SignDatasetConfig  # TODO: Mine.
 import gc  # TODO: Mine.
 
@@ -247,8 +245,7 @@ class TrainManager:
 
     def _get_translation_params(self, train_config) -> None:
         self.label_smoothing = train_config.get("label_smoothing", 0.0)
-        # Set the translation loss function.
-        self.translation_loss_function = XentLoss(
+        self.translation_loss_function = XentLoss(  # Set the translation loss function.
             pad_index=self.txt_pad_index, smoothing=self.label_smoothing
         )
         self.translation_normalization_mode = train_config.get(
@@ -369,20 +366,8 @@ class TrainManager:
         if self.use_cuda:
             self.model.cuda()
 
-    # TODO: Mine.
-    # def get_element(self,dataset,num):
-    #     for s in itertools.islice(dataset, num, num + 1):
-    #         return {
-    #                 "id": s["id"].numpy().decode('utf-8').rstrip('\n'),
-    #                 "signer": s["signer"].numpy().decode('utf-8').rstrip('\n'),
-    #                 "gloss": s["gloss"].numpy().decode('utf-8').strip().rstrip('\n'),
-    #                 "text": s["text"].numpy().decode('utf-8').strip().rstrip('\n'),
-    #                 "video": torch.from_numpy(s["video"].numpy()),
-    #             }
-
     # def train_and_validate(self, train_data: Dataset, valid_data: Dataset) -> None:
-    def train_and_validate_phoenix(self, cfg, train_data: Dataset, valid_data: Dataset) -> None:
-        # def train_and_validate(self, train_data, valid_data) -> None:
+    def train_and_validate_phoenix(self, train_data: Dataset, valid_data: Dataset) -> None:
 
         """
         Train the model and validate it from time to time on the validation set.
@@ -503,7 +488,8 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back when done.  V
+                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
+                #  when done.  V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -745,6 +731,7 @@ class TrainManager:
 
                 if self.stop:
                     break
+
             if self.stop:
                 if (
                         self.scheduler is not None
@@ -782,7 +769,7 @@ class TrainManager:
         self.tb_writer.close()  # close Tensorboard writer
 
     # TODO: Mine.
-    def train_and_validate_autsl(self, cfg, train_data, valid_data) -> None:
+    def train_and_validate_autsl(self, train_data, valid_data) -> None:
         # def train_and_validate(self, train_data, valid_data) -> None:
 
         """
@@ -791,31 +778,6 @@ class TrainManager:
         :param train_data: training data
         :param valid_data: validation data
         """
-
-        # TODO: Mine.
-        # Create iterator for the training set.
-        # # train_iter = iter(train_data)
-        # if self.shuffle:
-        #     train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000, seed=cfg["training"].get("random_seed", 42)))
-        #     # # train_iter=shuffle_train.padded_batch(self.batch_size)
-        #     # train_iter=shuffle_train.apply(tf.data.experimental.bucket_by_sequence_length(
-        #     #     lambda x: tf.shape(x["video"])[0], [25,50,75,100,125,150,175,200,225,250,275,300], [self.batch_size]*13, padded_shapes=None,
-        #     #     padding_values=None, pad_to_bucket_boundary=False, no_padding=False,
-        #     #     drop_remainder=False
-        #     # ))
-        #     # # train_iter = make_data_iter(
-        #     # #     train_data,
-        #     # #     batch_size=self.batch_size,
-        #     # #     batch_type=self.batch_type,
-        #     # #     train=True,
-        #     # #     shuffle=False,
-        #     # # )
-        # # train_iter=train_data
-        # import torchtext
-        # check=torchtext.data.batch(train_iter,5)
-        # check2 = [i for i in check]
-        # del check, check2
-        # gc.collect()
 
         epoch_no = None
         for epoch_no in range(self.epochs):
@@ -837,39 +799,16 @@ class TrainManager:
                 processed_txt_tokens = self.total_txt_tokens
                 epoch_translation_loss = 0
 
-            # if self.dataset_version == 'autsl':
-            # if self.shuffle:
-            #     train_iter = train_data
-            # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
-            # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
-            #                                 reshuffle_each_iteration=False)
             index = 0
-            # import random
-            #
-            # whole_idx = [i for i in range(len(train_data))]
-            #
-            # while len(whole_idx)>0:
 
-            # For each batch in the training set
-            while (index < len(train_data)):
-                # for batch in iter(train_iter):
+            while (index < len(train_data)):  # TODO: Handle last chunk of train_data.    X
 
-                # if self.shuffle:
-
-                #     chosen=random.sample(whole_idx, self.batch_size)
-                # else:
-                #     chosen=whole_idx[:,self.batch_size]
-                #
-                # batch = [self.get_element(train_data,i) for i in chosen]
-                # whole_idx = [x for x in whole_idx if x not in chosen]
-
-                # if self.dataset_version == 'autsl':
                 sequence = []
                 signer = []
                 samples = []
                 sgn_lengths = []
                 gls = []
-                gls_lengths = [1] * self.batch_size
+                gls_lengths = [int(1)] * self.batch_size
                 for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
                     sequence.append(datum['id'].numpy().decode('utf-8'))
                     signer.append(datum["signer"].numpy())
@@ -891,7 +830,7 @@ class TrainManager:
                     sample.detach().cpu()
                     del sample, out
                     gc.collect()
-                # print("1")
+
                 pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                               'gls': (Tensor(gls), Tensor(gls_lengths))}
@@ -899,13 +838,13 @@ class TrainManager:
                 index += self.batch_size
                 print(index)
                 print(sequence)
+                print(gls)
                 print(sgn_lengths)
                 del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
                 gc.collect()
 
                 # reactivate training
                 # create a Batch object from torchtext batch
-                # print(2)
                 batch = Batch(
                     dataset_type=self.dataset_version,
                     is_train=True,
@@ -917,7 +856,7 @@ class TrainManager:
                     random_frame_subsampling=self.random_frame_subsampling,
                     random_frame_masking_ratio=self.random_frame_masking_ratio,
                 )
-                # print(3)
+
                 # only update every batch_multiplier batches
                 # see https://medium.com/@davidlmorton/
                 # increasing-mini-batch-size-without-increasing-
@@ -969,6 +908,9 @@ class TrainManager:
                         log_out += "Gls Tokens per Sec: {:8.0f} || ".format(
                             elapsed_gls_tokens / elapsed
                         )
+                        log_out += "elapsed_gls_tokens: {:10.6f}, {}, {} => ".format(
+                            self.total_gls_tokens - processed_gls_tokens,self.total_gls_tokens,processed_gls_tokens
+                        )
                     if self.do_translation:
                         elapsed_txt_tokens = (
                                 self.total_txt_tokens - processed_txt_tokens
@@ -985,7 +927,8 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back when done.  V
+                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
+                #  when done.  V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -1226,7 +1169,6 @@ class TrainManager:
                             "references.dev.txt", valid_seq, val_res["txt_ref"]
                         )
 
-                # batch.cpu()
                 batch.make_cpu()  # TODO: Mine.
                 del batch  # TODO: Mine.
                 gc.collect()  # TODO: Mine.
@@ -1270,7 +1212,7 @@ class TrainManager:
 
         self.tb_writer.close()  # close Tensorboard writer
 
-    def train_and_validate_chicago(self, cfg, train_data, valid_data) -> None:
+    def train_and_validate_chicago(self, train_data, valid_data) -> None:
         # def train_and_validate(self, train_data, valid_data) -> None:
 
         """
@@ -1279,30 +1221,6 @@ class TrainManager:
         :param train_data: training data
         :param valid_data: validation data
         """
-
-        # Create iterator for the training set.
-        # # train_iter = iter(train_data)
-        # if self.shuffle:
-        #     train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000, seed=cfg["training"].get("random_seed", 42)))
-        #     # # train_iter=shuffle_train.padded_batch(self.batch_size)
-        #     # train_iter=shuffle_train.apply(tf.data.experimental.bucket_by_sequence_length(
-        #     #     lambda x: tf.shape(x["video"])[0], [25,50,75,100,125,150,175,200,225,250,275,300], [self.batch_size]*13, padded_shapes=None,
-        #     #     padding_values=None, pad_to_bucket_boundary=False, no_padding=False,
-        #     #     drop_remainder=False
-        #     # ))
-        #     # # train_iter = make_data_iter(
-        #     # #     train_data,
-        #     # #     batch_size=self.batch_size,
-        #     # #     batch_type=self.batch_type,
-        #     # #     train=True,
-        #     # #     shuffle=False,
-        #     # # )
-        # # train_iter=train_data
-        # import torchtext
-        # check=torchtext.data.batch(train_iter,5)
-        # check2 = [i for i in check]
-        # del check, check2
-        # gc.collect()
 
         epoch_no = None
         for epoch_no in range(self.epochs):
@@ -1324,33 +1242,10 @@ class TrainManager:
                 processed_txt_tokens = self.total_txt_tokens
                 epoch_translation_loss = 0
 
-            # if self.dataset_version == 'ChicagoFSWild':
-            # if self.shuffle:
-            #     train_iter = train_data
-            # train_iter = train_data.apply(tf.data.experimental.shuffle_and_repeat(buffer_size=1000,count=1, seed=cfg["training"].get("random_seed", 42)))
-            # train_iter = train_data.shuffle(buffer_size=1000, seed=cfg["training"].get("random_seed", 42),
-            #                                 reshuffle_each_iteration=False)
             index = 0
-            # import random
-            #
-            # whole_idx = [i for i in range(len(train_data))]
-            #
-            # while len(whole_idx)>0:
 
-            # For each batch in the training set
             while (index < len(train_data)):
-                # for batch in iter(train_iter):
 
-                # if self.shuffle:
-
-                #     chosen=random.sample(whole_idx, self.batch_size)
-                # else:
-                #     chosen=whole_idx[:,self.batch_size]
-                #
-                # batch = [self.get_element(train_data,i) for i in chosen]
-                # whole_idx = [x for x in whole_idx if x not in chosen]
-
-                # if self.dataset_version == 'ChicagoFSWild':
                 sequence = []
                 signer = []
                 samples = []
@@ -1378,7 +1273,7 @@ class TrainManager:
                     sample.detach().cpu()
                     del sample, out
                     gc.collect()
-                # print("1")
+
                 pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                               'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
@@ -1392,7 +1287,6 @@ class TrainManager:
 
                 # reactivate training
                 # create a Batch object from torchtext batch
-                # print(2)
                 batch = Batch(
                     dataset_type=self.dataset_version,
                     is_train=True,
@@ -1404,7 +1298,7 @@ class TrainManager:
                     random_frame_subsampling=self.random_frame_subsampling,
                     random_frame_masking_ratio=self.random_frame_masking_ratio,
                 )
-                # print(3)
+
                 # only update every batch_multiplier batches
                 # see https://medium.com/@davidlmorton/
                 # increasing-mini-batch-size-without-increasing-
@@ -1472,7 +1366,8 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back when done.  V
+                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
+                #  when done.  V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -1675,6 +1570,7 @@ class TrainManager:
                         val_res["valid_scores"]["rouge"] if self.do_translation else -1,
                     )
 
+                    # TODO: Adjusted.
                     valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
                                  itertools.islice(valid_data, len(valid_data))]
 
@@ -1713,7 +1609,6 @@ class TrainManager:
                             "references.dev.txt", valid_seq, val_res["txt_ref"]
                         )
 
-                # batch.cpu()
                 batch.make_cpu()  # TODO: Mine.
                 del batch  # TODO: Mine.
                 gc.collect()  # TODO: Mine.
@@ -2013,75 +1908,17 @@ def train(cfg_file: str) -> None:
     # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check in data.py that I didn't miss anything)
     if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
         # Load the dataset and create the corresponding vocabs
-        train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(
-            data_cfg=cfg["data"]
-        )
+        train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
+
     elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
                           shuffle_files=True)  # TODO: Check shuffle! 7/9
-        # autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config))
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
-        # check = tfds.load(name='autsl', builder_kwargs=dict(config=config))
-        # check_dev=check['validation']
-
-        # # samples = []
-        # for i, datum in enumerate(itertools.islice(dev_data, 0, 7)):
-        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
-
-        # for i, datum in enumerate(itertools.islice(check_dev, 0, 7)):
-        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
-        # print()
-        # for i, datum in enumerate(itertools.islice(check_dev, 0, 7)):
-        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'))
-        #
-        # image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
-        # image_encoder.eval()
-        #
-        # # samples=[]
-        # # for i, datum in enumerate(itertools.islice(autsl["test"], 0, 5)):
-        # #     a = image_encoder(Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-        # #                                                           datum['video'].shape[2]))
-        # #     samples[i]['video']=a
-        # # autsl['test'][i]['video']=a
-        # # datum['video']=a
-        # # print(a)
-        #
-        # # a = iter(test_data)
-        # # for i in dev_data.as_numpy_iterator():
-        # #     print(i)
-        # samples=[]
-        # import resource
-        # for i in range(32):
-        #     aa=torch.zeros([100,3,512,512],dtype=torch.float32)
-        #     out=image_encoder(aa)
-        #     # a = image_encoder(Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],datum['video'].shape[2]))
-        #     samples.append(out.detach())
-        #     print(out.shape)
-        #     print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
-        #
-        # # xx_pad = pad_sequence([samp['video'] for samp in samples], batch_first=True, padding_value=0)
-        # pad = pad_sequence([image_encoder(
-        #     Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-        #                                         datum['video'].shape[2])) for i, datum in
-        #                     enumerate(itertools.islice(autsl["test"], 0, 32))], batch_first=True, padding_value=0)
-        #
-        # # del samples
-        # # gc.collect()
-        # # a=2
-        # gc.collect()
-        # del image_encoder
-        # gc.collect()
-        # b=dev_data.shuffle(3, reshuffle_each_iteration=True)
-        # for datum in itertools.islice(b, 0, 10):
-        #     print(datum['sample'].numpy(), datum['id'].numpy().decode('utf-8'), datum['gloss_id'].numpy())
-        # a=tf.data.Dataset.from_tensor_slices(list(test_data))
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
         gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
-        # txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
-        # txt_min_freq = cfg["data"].get("txt_voc_min_freq", 1)
 
         # Get the vocabs if already exists, otherwise set them to None.
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
@@ -2101,14 +1938,13 @@ def train(cfg_file: str) -> None:
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?   V
         # TODO: Create vocabularies using the classes.  V
+
     else:  # TODO: Mine.
-        # config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True,resolution=(640, 360))
-        # chicago = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),shuffle_files=True)
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
-        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config),
-                                  shuffle_files=True)  # ,shuffle_files=True
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=True)
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
 
+        # Set the maximal size of the gloss vocab and text vocab and the minimum frequency to each item in them.
         gls_max_size = cfg["data"].get("gls_voc_limit", sys.maxsize)
         gls_min_freq = cfg["data"].get("gls_voc_min_freq", 1)
         txt_max_size = cfg["data"].get("txt_voc_limit", sys.maxsize)
@@ -2118,7 +1954,6 @@ def train(cfg_file: str) -> None:
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
         txt_vocab_file = cfg["data"].get("txt_vocab", None)
 
-        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)
         # Build the gloss vocab based on the training set.
         gls_vocab = build_vocab(
             version=cfg["data"]["version"],
@@ -2139,15 +1974,13 @@ def train(cfg_file: str) -> None:
         )
 
     # TODO: Update translation_loss_weight to 0.0 and recognition_loss_weight to 1.0.   V
-    # Get from the configuration file the loss weights.
+    # Get from the configuration file the losses weights.
     do_recognition = cfg["training"].get("recognition_loss_weight", 1.0) > 0.0
-    # if cfg["data"]["version"] == 'phoenix_2014_trans':
     do_translation = cfg["training"].get("translation_loss_weight", 1.0) > 0.0
 
     # TODO: Should update the features size, in phoenix it was (frames,features) and here it's a video rep, so the
     #  tensor has 4 dimensions. For example, (58,512,512,3). V
     # build model and load parameters into it
-    # if cfg["data"]["version"] == 'phoenix_2014_trans':
     model = build_model(
         dataset=cfg["data"]["version"],  # TODO: Mine.
         cfg=cfg["model"],
@@ -2200,14 +2033,19 @@ def train(cfg_file: str) -> None:
     txt_vocab_file = "{}/txt.vocab".format(cfg["training"]["model_dir"])
     txt_vocab.to_file(txt_vocab_file)
 
+    pytorch_total_params = sum(p.numel() for p in model.parameters())
+    pytorch_total_trained_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print('SLT_total_params:',pytorch_total_params)
+    print('SLT_total_trained_params:',pytorch_total_trained_params)
+
     # TODO: Update the train_and_validate function. V
     # train the model
     if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
-        trainer.train_and_validate_phoenix(cfg=cfg, train_data=train_data, valid_data=dev_data)
+        trainer.train_and_validate_phoenix(train_data=train_data, valid_data=dev_data)
     elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
-        trainer.train_and_validate_autsl(cfg=cfg, train_data=train_data, valid_data=dev_data)
+        trainer.train_and_validate_autsl(train_data=train_data, valid_data=dev_data)
     else:  # TODO: Mine.
-        trainer.train_and_validate_chicago(cfg=cfg, train_data=train_data, valid_data=dev_data)
+        trainer.train_and_validate_chicago(train_data=train_data, valid_data=dev_data)
 
     # Delete to speed things up as we don't need training data anymore
     del train_data, dev_data, test_data

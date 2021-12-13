@@ -49,7 +49,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./autsl_model2"
+    model_dir: "./autsl_check"
     recognition_loss_weight: 1.0
     translation_loss_weight: 0.0
     eval_metric: wer
@@ -59,7 +59,7 @@ training:
     num_valid_log: 5
     epochs: 5000000
     early_stopping_metric: eval_metric
-    batch_type: sentence
+    batch_type: token
     translation_normalization: batch
     eval_recognition_beam_size: 10
     eval_translation_beam_size: 9

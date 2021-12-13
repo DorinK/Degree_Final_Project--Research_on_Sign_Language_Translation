@@ -49,10 +49,10 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./ChicagoFSWild/oct"
+    model_dir: "./ChicagoFSWild/check"
     recognition_loss_weight: 0.0
     translation_loss_weight: 1.0
-    eval_metric: wer
+    eval_metric: bleu
     optimizer: adam
     learning_rate: 0.001
     batch_size: 32
@@ -71,7 +71,7 @@ training:
     keep_last_ckpts: 1
     batch_multiplier: 1
     logging_freq: 1
-    validation_freq: 100
+    validation_freq: 1
     betas:
     - 0.9
     - 0.998
