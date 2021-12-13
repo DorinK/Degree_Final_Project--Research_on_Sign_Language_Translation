@@ -1,0 +1,543 @@
+2021-12-04 16:44:37,544 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-04 16:44:39,841 - train - INFO - => loading checkpoint 'misc/pretrained_models/kinetics_.pth'
+2021-12-04 16:44:39,937 - train - INFO - State_dict key not found, attempting to use the checkpoint:
+2021-12-04 16:44:39,937 - train - INFO - Appending "module." to pretrained keys.
+2021-12-04 16:44:39,939 - train - INFO - Unused from pretrain module.logits.conv3d.weight
+2021-12-04 16:44:39,939 - train - INFO - Unused from pretrain module.logits.conv3d.bias
+2021-12-04 16:44:39,940 - train - INFO - Missing in pretrain module.Conv3d_1a_7x7.bn.num_batches_tracked
+2021-12-04 16:44:39,940 - train - INFO - Missing in pretrain module.Conv3d_2b_1x1.bn.num_batches_tracked
+2021-12-04 16:44:39,940 - train - INFO - Missing in pretrain module.Conv3d_2c_3x3.bn.num_batches_tracked
+2021-12-04 16:44:39,940 - train - INFO - Missing in pretrain module.Mixed_3b.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,940 - train - INFO - Missing in pretrain module.Mixed_3b.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3b.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3b.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3b.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3b.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3c.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,941 - train - INFO - Missing in pretrain module.Mixed_3c.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_3c.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_3c.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_3c.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_3c.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_4b.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,942 - train - INFO - Missing in pretrain module.Mixed_4b.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4b.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4b.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4b.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4b.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4c.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,943 - train - INFO - Missing in pretrain module.Mixed_4c.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4c.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4c.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4c.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4c.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4d.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,944 - train - INFO - Missing in pretrain module.Mixed_4d.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,945 - train - INFO - Missing in pretrain module.Mixed_4d.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,945 - train - INFO - Missing in pretrain module.Mixed_4d.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,945 - train - INFO - Missing in pretrain module.Mixed_4d.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,945 - train - INFO - Missing in pretrain module.Mixed_4d.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,945 - train - INFO - Missing in pretrain module.Mixed_4e.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4e.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4e.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4e.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4e.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4e.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,946 - train - INFO - Missing in pretrain module.Mixed_4f.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_4f.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_4f.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_4f.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_4f.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_4f.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,947 - train - INFO - Missing in pretrain module.Mixed_5b.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,948 - train - INFO - Missing in pretrain module.Mixed_5b.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,948 - train - INFO - Missing in pretrain module.Mixed_5b.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,948 - train - INFO - Missing in pretrain module.Mixed_5b.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,948 - train - INFO - Missing in pretrain module.Mixed_5b.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,949 - train - INFO - Missing in pretrain module.Mixed_5b.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,949 - train - INFO - Missing in pretrain module.Mixed_5c.b0.bn.num_batches_tracked
+2021-12-04 16:44:39,949 - train - INFO - Missing in pretrain module.Mixed_5c.b1a.bn.num_batches_tracked
+2021-12-04 16:44:39,949 - train - INFO - Missing in pretrain module.Mixed_5c.b1b.bn.num_batches_tracked
+2021-12-04 16:44:39,949 - train - INFO - Missing in pretrain module.Mixed_5c.b2a.bn.num_batches_tracked
+2021-12-04 16:44:39,950 - train - INFO - Missing in pretrain module.Mixed_5c.b2b.bn.num_batches_tracked
+2021-12-04 16:44:39,950 - train - INFO - Missing in pretrain module.Mixed_5c.b3b.bn.num_batches_tracked
+2021-12-04 16:44:39,950 - train - INFO - Removing or not initializing some layers...
+2021-12-04 16:44:39,984 - train - INFO -     Total params: 13.6 million
+2021-12-04 16:44:39,985 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-04 16:44:40,238 - train - INFO - 
+Epoch: 1 | LR: 0.04000000
+2021-12-04 17:22:48,682 - train - INFO - 
+Epoch: 2 | LR: 0.04000000
+2021-12-04 17:54:24,345 - train - INFO - 
+Epoch: 3 | LR: 0.04000000
+2021-12-04 18:26:22,587 - train - INFO - 
+Epoch: 4 | LR: 0.04000000
+2021-12-04 18:56:00,932 - train - INFO - 
+Epoch: 5 | LR: 0.04000000
+2021-12-04 19:24:41,620 - train - INFO - 
+Epoch: 6 | LR: 0.00400000
+2021-12-04 20:04:29,214 - train - INFO - 
+Epoch: 7 | LR: 0.00400000
+2021-12-04 20:44:33,278 - train - INFO - 
+Epoch: 8 | LR: 0.00400000
+2021-12-04 21:24:26,919 - train - INFO - 
+Epoch: 9 | LR: 0.00400000
+2021-12-04 22:04:09,350 - train - INFO - 
+Epoch: 10 | LR: 0.00400000
+2021-12-04 22:44:27,853 - train - INFO - 
+Epoch: 11 | LR: 0.00040000
+2021-12-04 23:15:17,287 - train - INFO - 
+Epoch: 12 | LR: 0.00040000
+2021-12-04 23:47:13,060 - train - INFO - 
+Epoch: 13 | LR: 0.00004000
+2021-12-05 00:19:01,621 - train - INFO - 
+Epoch: 14 | LR: 0.00004000
+2021-12-05 00:50:59,432 - train - INFO - 
+Epoch: 15 | LR: 0.00004000
+2021-12-05 01:22:56,490 - train - INFO - 
+Epoch: 16 | LR: 0.00004000
+2021-12-05 01:55:00,646 - train - INFO - 
+Epoch: 17 | LR: 0.00004000
+2021-12-05 02:27:08,453 - train - INFO - 
+Epoch: 18 | LR: 0.00004000
+2021-12-05 02:59:10,845 - train - INFO - 
+Epoch: 19 | LR: 0.00004000
+2021-12-05 03:30:41,131 - train - INFO - 
+Epoch: 20 | LR: 0.00004000
+2021-12-05 04:02:29,647 - train - INFO - 
+Epoch: 21 | LR: 0.00004000
+2021-12-05 04:34:25,262 - train - INFO - 
+Epoch: 22 | LR: 0.00004000
+2021-12-05 05:05:44,712 - train - INFO - 
+Epoch: 23 | LR: 0.00004000
+2021-12-05 05:37:24,094 - train - INFO - 
+Epoch: 24 | LR: 0.00004000
+2021-12-05 14:47:58,452 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-05 14:48:04,899 - train - INFO - => loading checkpoint 'misc/pretrained_models/kinetics_.pth'
+2021-12-05 14:48:05,028 - train - INFO - State_dict key not found, attempting to use the checkpoint:
+2021-12-05 14:48:05,029 - train - INFO - Appending "module." to pretrained keys.
+2021-12-05 14:48:05,031 - train - INFO - Unused from pretrain module.logits.conv3d.weight
+2021-12-05 14:48:05,031 - train - INFO - Unused from pretrain module.logits.conv3d.bias
+2021-12-05 14:48:05,031 - train - INFO - Missing in pretrain module.Conv3d_1a_7x7.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Conv3d_2b_1x1.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Conv3d_2c_3x3.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3b.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3c.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3c.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,032 - train - INFO - Missing in pretrain module.Mixed_3c.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_3c.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_3c.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_3c.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4b.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,033 - train - INFO - Missing in pretrain module.Mixed_4c.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4c.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4c.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4c.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4c.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4c.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4d.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4d.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4d.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4d.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,034 - train - INFO - Missing in pretrain module.Mixed_4d.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4d.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4e.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4f.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4f.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4f.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,035 - train - INFO - Missing in pretrain module.Mixed_4f.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_4f.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_4f.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5b.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5c.b0.bn.num_batches_tracked
+2021-12-05 14:48:05,036 - train - INFO - Missing in pretrain module.Mixed_5c.b1a.bn.num_batches_tracked
+2021-12-05 14:48:05,037 - train - INFO - Missing in pretrain module.Mixed_5c.b1b.bn.num_batches_tracked
+2021-12-05 14:48:05,037 - train - INFO - Missing in pretrain module.Mixed_5c.b2a.bn.num_batches_tracked
+2021-12-05 14:48:05,037 - train - INFO - Missing in pretrain module.Mixed_5c.b2b.bn.num_batches_tracked
+2021-12-05 14:48:05,037 - train - INFO - Missing in pretrain module.Mixed_5c.b3b.bn.num_batches_tracked
+2021-12-05 14:48:05,037 - train - INFO - Removing or not initializing some layers...
+2021-12-05 14:48:05,085 - train - INFO -     Total params: 13.6 million
+2021-12-05 14:48:05,085 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-05 14:48:05,336 - train - INFO - 
+Epoch: 1 | LR: 0.04000000
+2021-12-05 15:30:54,410 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-05 15:30:56,446 - train - INFO - => loading checkpoint 'misc/pretrained_models/kinetics_.pth'
+2021-12-05 15:30:56,493 - train - INFO - State_dict key not found, attempting to use the checkpoint:
+2021-12-05 15:30:56,494 - train - INFO - Appending "module." to pretrained keys.
+2021-12-05 15:30:56,495 - train - INFO - Unused from pretrain module.logits.conv3d.weight
+2021-12-05 15:30:56,495 - train - INFO - Unused from pretrain module.logits.conv3d.bias
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Conv3d_1a_7x7.bn.num_batches_tracked
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Conv3d_2b_1x1.bn.num_batches_tracked
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Conv3d_2c_3x3.bn.num_batches_tracked
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Mixed_3b.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Mixed_3b.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,495 - train - INFO - Missing in pretrain module.Mixed_3b.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3b.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3b.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3b.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_3c.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4b.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4c.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4c.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4c.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4c.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,496 - train - INFO - Missing in pretrain module.Mixed_4c.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4c.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4d.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4e.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_4f.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_5b.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,497 - train - INFO - Missing in pretrain module.Mixed_5b.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5b.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5b.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5b.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5b.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b0.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b1a.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b1b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b2a.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b2b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Missing in pretrain module.Mixed_5c.b3b.bn.num_batches_tracked
+2021-12-05 15:30:56,498 - train - INFO - Removing or not initializing some layers...
+2021-12-05 15:30:56,525 - train - INFO -     Total params: 13.6 million
+2021-12-05 15:30:56,525 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-05 15:30:56,693 - train - INFO - 
+Epoch: 1 | LR: 0.04000000
+2021-12-05 16:04:23,284 - train - INFO - 
+Epoch: 2 | LR: 0.04000000
+2021-12-05 16:37:52,697 - train - INFO - 
+Epoch: 3 | LR: 0.04000000
+2021-12-05 17:11:22,217 - train - INFO - 
+Epoch: 4 | LR: 0.04000000
+2021-12-05 17:44:53,230 - train - INFO - 
+Epoch: 5 | LR: 0.04000000
+2021-12-05 18:18:27,786 - train - INFO - 
+Epoch: 6 | LR: 0.00400000
+2021-12-05 18:52:06,469 - train - INFO - 
+Epoch: 7 | LR: 0.00400000
+2021-12-05 19:25:34,472 - train - INFO - 
+Epoch: 8 | LR: 0.00400000
+2021-12-05 19:59:10,825 - train - INFO - 
+Epoch: 9 | LR: 0.00400000
+2021-12-05 20:32:54,610 - train - INFO - 
+Epoch: 10 | LR: 0.00400000
+2021-12-05 21:06:30,020 - train - INFO - 
+Epoch: 11 | LR: 0.00040000
+2021-12-05 21:40:11,977 - train - INFO - 
+Epoch: 12 | LR: 0.00040000
+2021-12-05 22:13:51,190 - train - INFO - 
+Epoch: 13 | LR: 0.00004000
+2021-12-05 22:47:27,322 - train - INFO - 
+Epoch: 14 | LR: 0.00004000
+2021-12-05 23:21:05,331 - train - INFO - 
+Epoch: 15 | LR: 0.00004000
+2021-12-05 23:54:54,264 - train - INFO - 
+Epoch: 16 | LR: 0.00004000
+2021-12-06 00:28:34,734 - train - INFO - 
+Epoch: 17 | LR: 0.00004000
+2021-12-06 01:02:09,438 - train - INFO - 
+Epoch: 18 | LR: 0.00004000
+2021-12-06 01:35:47,483 - train - INFO - 
+Epoch: 19 | LR: 0.00004000
+2021-12-06 02:09:13,303 - train - INFO - 
+Epoch: 20 | LR: 0.00004000
+2021-12-06 02:43:01,954 - train - INFO - 
+Epoch: 21 | LR: 0.00004000
+2021-12-06 03:16:45,498 - train - INFO - 
+Epoch: 22 | LR: 0.00004000
+2021-12-06 03:50:26,443 - train - INFO - 
+Epoch: 23 | LR: 0.00004000
+2021-12-06 04:24:16,695 - train - INFO - 
+Epoch: 24 | LR: 0.00004000
+2021-12-06 04:57:59,816 - train - INFO - 
+Epoch: 25 | LR: 0.00004000
+2021-12-06 05:31:47,114 - train - INFO - 
+Epoch: 26 | LR: 0.00004000
+2021-12-06 06:05:25,312 - train - INFO - 
+Epoch: 27 | LR: 0.00004000
+2021-12-06 06:39:11,692 - train - INFO - 
+Epoch: 28 | LR: 0.00004000
+2021-12-06 07:12:52,966 - train - INFO - 
+Epoch: 29 | LR: 0.00004000
+2021-12-06 07:46:36,538 - train - INFO - 
+Epoch: 30 | LR: 0.00004000
+2021-12-06 08:20:23,318 - train - INFO - 
+Epoch: 31 | LR: 0.00004000
+2021-12-06 08:54:16,883 - train - INFO - 
+Epoch: 32 | LR: 0.00004000
+2021-12-06 09:27:52,889 - train - INFO - 
+Epoch: 33 | LR: 0.00004000
+2021-12-06 10:01:30,912 - train - INFO - 
+Epoch: 34 | LR: 0.00004000
+2021-12-06 10:35:14,694 - train - INFO - 
+Epoch: 35 | LR: 0.00004000
+2021-12-06 11:09:09,549 - train - INFO - 
+Epoch: 36 | LR: 0.00004000
+2021-12-06 11:42:53,271 - train - INFO - 
+Epoch: 37 | LR: 0.00004000
+2021-12-06 12:16:35,479 - train - INFO - 
+Epoch: 38 | LR: 0.00004000
+2021-12-06 12:50:13,848 - train - INFO - 
+Epoch: 39 | LR: 0.00004000
+2021-12-06 13:24:03,698 - train - INFO - 
+Epoch: 40 | LR: 0.00004000
+2021-12-06 13:57:54,256 - train - INFO - 
+Epoch: 41 | LR: 0.00004000
+2021-12-06 14:31:52,825 - train - INFO - 
+Epoch: 42 | LR: 0.00004000
+2021-12-06 15:05:42,510 - train - INFO - 
+Epoch: 43 | LR: 0.00004000
+2021-12-06 15:38:26,465 - train - INFO - 
+Epoch: 44 | LR: 0.00004000
+2021-12-06 16:05:14,117 - train - INFO - 
+Epoch: 45 | LR: 0.00004000
+2021-12-06 16:30:13,292 - train - INFO - 
+Epoch: 46 | LR: 0.00004000
+2021-12-06 16:52:16,979 - train - INFO - 
+Epoch: 47 | LR: 0.00004000
+2021-12-06 17:14:21,207 - train - INFO - 
+Epoch: 48 | LR: 0.00004000
+2021-12-06 17:36:18,970 - train - INFO - 
+Epoch: 49 | LR: 0.00004000
+2021-12-06 17:58:17,173 - train - INFO - 
+Epoch: 50 | LR: 0.00004000
+2021-12-09 00:54:00,487 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 00:54:04,593 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_007.pth.tar'
+2021-12-09 00:54:04,777 - train - INFO - Loading state dict.
+2021-12-09 00:54:04,852 - train - INFO - Loading optimizer.
+2021-12-09 00:54:04,983 - train - INFO -     Total params: 13.6 million
+2021-12-09 00:54:04,984 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 00:54:05,297 - train - INFO - 
+Evaluation only
+2021-12-09 01:35:41,883 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 01:35:41,918 - train - INFO - (7723, 1233)
+2021-12-09 01:35:41,918 - train - INFO - Loading features.mat
+2021-12-09 01:35:42,061 - train - INFO - Saving vid_features.mat.
+2021-12-09 01:35:42,323 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 01:35:42,369 - train - INFO - (7723, 1233)
+2021-12-09 01:35:42,369 - train - INFO - Loading features_valid.mat
+2021-12-09 01:36:30,213 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 01:36:35,182 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_008.pth.tar'
+2021-12-09 01:36:35,245 - train - INFO - Loading state dict.
+2021-12-09 01:36:35,270 - train - INFO - Loading optimizer.
+2021-12-09 01:36:35,314 - train - INFO -     Total params: 13.6 million
+2021-12-09 01:36:35,314 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 01:36:35,460 - train - INFO - 
+Evaluation only
+2021-12-09 01:36:59,199 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 01:37:00,970 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_020.pth.tar'
+2021-12-09 01:37:01,093 - train - INFO - Loading state dict.
+2021-12-09 01:37:01,126 - train - INFO - Loading optimizer.
+2021-12-09 01:37:01,203 - train - INFO -     Total params: 13.6 million
+2021-12-09 01:37:01,203 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 01:37:01,387 - train - INFO - 
+Evaluation only
+2021-12-09 01:37:34,207 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 01:37:36,637 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_001.pth.tar'
+2021-12-09 01:37:36,758 - train - INFO - Loading state dict.
+2021-12-09 01:37:36,806 - train - INFO - Loading optimizer.
+2021-12-09 01:37:36,880 - train - INFO -     Total params: 13.6 million
+2021-12-09 01:37:36,880 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 01:37:37,098 - train - INFO - 
+Evaluation only
+2021-12-09 01:38:12,511 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 01:38:15,754 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_002.pth.tar'
+2021-12-09 01:38:15,900 - train - INFO - Loading state dict.
+2021-12-09 01:38:15,942 - train - INFO - Loading optimizer.
+2021-12-09 01:38:16,022 - train - INFO -     Total params: 13.6 million
+2021-12-09 01:38:16,022 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 01:38:16,272 - train - INFO - 
+Evaluation only
+2021-12-09 01:39:00,845 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 01:39:05,374 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_003.pth.tar'
+2021-12-09 01:39:05,635 - train - INFO - Loading state dict.
+2021-12-09 01:39:05,715 - train - INFO - Loading optimizer.
+2021-12-09 01:39:05,946 - train - INFO -     Total params: 13.6 million
+2021-12-09 01:39:05,946 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 01:39:06,471 - train - INFO - 
+Evaluation only
+2021-12-09 02:20:23,885 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:20:23,943 - train - INFO - (7723, 1233)
+2021-12-09 02:20:23,944 - train - INFO - Loading features.mat
+2021-12-09 02:20:24,289 - train - INFO - Saving vid_features.mat.
+2021-12-09 02:20:24,902 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:20:24,975 - train - INFO - (7723, 1233)
+2021-12-09 02:20:24,975 - train - INFO - Loading features_valid.mat
+2021-12-09 02:21:01,544 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:21:01,643 - train - INFO - (7723, 1233)
+2021-12-09 02:21:01,644 - train - INFO - Loading features.mat
+2021-12-09 02:21:02,016 - train - INFO - Saving vid_features.mat.
+2021-12-09 02:21:02,610 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:21:02,734 - train - INFO - (7723, 1233)
+2021-12-09 02:21:02,738 - train - INFO - Loading features_valid.mat
+2021-12-09 02:21:49,341 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:21:49,427 - train - INFO - (7723, 1233)
+2021-12-09 02:21:49,427 - train - INFO - Loading features.mat
+2021-12-09 02:21:49,681 - train - INFO - Saving vid_features.mat.
+2021-12-09 02:21:50,161 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:21:50,234 - train - INFO - (7723, 1233)
+2021-12-09 02:21:50,234 - train - INFO - Loading features_valid.mat
+2021-12-09 02:22:24,896 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:22:24,948 - train - INFO - (7723, 1233)
+2021-12-09 02:22:24,948 - train - INFO - Loading features.mat
+2021-12-09 02:22:25,124 - train - INFO - Saving vid_features.mat.
+2021-12-09 02:22:25,481 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:22:25,523 - train - INFO - (7723, 1233)
+2021-12-09 02:22:25,523 - train - INFO - Loading features_valid.mat
+2021-12-09 02:22:50,984 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:22:51,020 - train - INFO - (7723, 1233)
+2021-12-09 02:22:51,020 - train - INFO - Loading features.mat
+2021-12-09 02:22:51,154 - train - INFO - Saving vid_features.mat.
+2021-12-09 02:22:51,398 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 02:22:51,436 - train - INFO - (7723, 1233)
+2021-12-09 02:22:51,436 - train - INFO - Loading features_valid.mat
+2021-12-09 12:38:51,836 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 12:38:53,798 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_004.pth.tar'
+2021-12-09 12:38:54,079 - train - INFO - Loading state dict.
+2021-12-09 12:38:54,110 - train - INFO - Loading optimizer.
+2021-12-09 12:38:54,168 - train - INFO -     Total params: 13.6 million
+2021-12-09 12:38:54,168 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 12:38:54,355 - train - INFO - 
+Evaluation only
+2021-12-09 12:39:25,347 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 12:39:27,071 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_005.pth.tar'
+2021-12-09 12:39:27,290 - train - INFO - Loading state dict.
+2021-12-09 12:39:27,315 - train - INFO - Loading optimizer.
+2021-12-09 12:39:27,380 - train - INFO -     Total params: 13.6 million
+2021-12-09 12:39:27,380 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 12:39:27,557 - train - INFO - 
+Evaluation only
+2021-12-09 12:40:01,069 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 12:40:03,150 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_006.pth.tar'
+2021-12-09 12:40:03,467 - train - INFO - Loading state dict.
+2021-12-09 12:40:03,505 - train - INFO - Loading optimizer.
+2021-12-09 12:40:03,580 - train - INFO -     Total params: 13.6 million
+2021-12-09 12:40:03,581 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 12:40:03,826 - train - INFO - 
+Evaluation only
+2021-12-09 12:41:13,914 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 12:41:16,292 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_010.pth.tar'
+2021-12-09 12:41:16,637 - train - INFO - Loading state dict.
+2021-12-09 12:41:16,672 - train - INFO - Loading optimizer.
+2021-12-09 12:41:16,750 - train - INFO -     Total params: 13.6 million
+2021-12-09 12:41:16,750 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 12:41:17,057 - train - INFO - 
+Evaluation only
+2021-12-09 12:42:16,075 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 12:42:19,079 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_017.pth.tar'
+2021-12-09 12:42:19,444 - train - INFO - Loading state dict.
+2021-12-09 12:42:19,539 - train - INFO - Loading optimizer.
+2021-12-09 12:42:19,681 - train - INFO -     Total params: 13.6 million
+2021-12-09 12:42:19,687 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 12:42:20,211 - train - INFO - 
+Evaluation only
+2021-12-09 13:18:43,851 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:18:43,974 - train - INFO - (7723, 1233)
+2021-12-09 13:18:43,974 - train - INFO - Loading features.mat
+2021-12-09 13:18:44,271 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:18:44,870 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:18:45,024 - train - INFO - (7723, 1233)
+2021-12-09 13:18:45,025 - train - INFO - Loading features_valid.mat
+2021-12-09 13:19:58,616 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:19:58,675 - train - INFO - (7723, 1233)
+2021-12-09 13:19:58,676 - train - INFO - Loading features.mat
+2021-12-09 13:19:58,941 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:19:59,716 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:19:59,815 - train - INFO - (7723, 1233)
+2021-12-09 13:19:59,816 - train - INFO - Loading features_valid.mat
+2021-12-09 13:20:34,630 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:20:34,701 - train - INFO - (7723, 1233)
+2021-12-09 13:20:34,701 - train - INFO - Loading features.mat
+2021-12-09 13:20:34,885 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:20:35,369 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:20:35,444 - train - INFO - (7723, 1233)
+2021-12-09 13:20:35,445 - train - INFO - Loading features_valid.mat
+2021-12-09 13:21:26,910 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:21:26,953 - train - INFO - (7723, 1233)
+2021-12-09 13:21:26,953 - train - INFO - Loading features.mat
+2021-12-09 13:21:27,134 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:21:27,580 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:21:27,649 - train - INFO - (7723, 1233)
+2021-12-09 13:21:27,649 - train - INFO - Loading features_valid.mat
+2021-12-09 13:22:12,209 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:22:12,256 - train - INFO - (7723, 1233)
+2021-12-09 13:22:12,256 - train - INFO - Loading features.mat
+2021-12-09 13:22:12,474 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:22:12,769 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:22:12,814 - train - INFO - (7723, 1233)
+2021-12-09 13:22:12,814 - train - INFO - Loading features_valid.mat
+2021-12-09 13:22:41,484 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-09 13:22:43,171 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_044.pth.tar'
+2021-12-09 13:22:43,241 - train - INFO - Loading state dict.
+2021-12-09 13:22:43,267 - train - INFO - Loading optimizer.
+2021-12-09 13:22:43,316 - train - INFO -     Total params: 13.6 million
+2021-12-09 13:22:43,316 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-09 13:22:43,461 - train - INFO - 
+Evaluation only
+2021-12-09 13:56:42,733 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:56:42,836 - train - INFO - (7723, 1233)
+2021-12-09 13:56:42,837 - train - INFO - Loading features.mat
+2021-12-09 13:56:43,186 - train - INFO - Saving vid_features.mat.
+2021-12-09 13:56:43,694 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-09 13:56:43,761 - train - INFO - (7723, 1233)
+2021-12-09 13:56:43,762 - train - INFO - Loading features_valid.mat
+2021-12-11 19:27:57,355 - train - INFO - ==> creating model 'InceptionI3d', out_dim=1233
+2021-12-11 19:27:59,945 - train - INFO - => loading checkpoint 'checkpoint/phoenix2014t_dec_kinetics_pretraining/checkpoint_003.pth.tar'
+2021-12-11 19:28:00,119 - train - INFO - Loading state dict.
+2021-12-11 19:28:00,163 - train - INFO - Loading optimizer.
+2021-12-11 19:28:00,237 - train - INFO -     Total params: 13.6 million
+2021-12-11 19:28:00,237 - train - INFO - Loaded parameters for model in 00h00m00s
+2021-12-11 19:28:00,461 - train - INFO - 
+Evaluation only
+2021-12-11 20:08:27,330 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-11 20:08:27,378 - train - INFO - (7723, 1233)
+2021-12-11 20:08:27,379 - train - INFO - Loading features.mat
+2021-12-11 20:08:27,563 - train - INFO - Saving vid_features.mat.
+2021-12-11 20:08:27,886 - train - INFO - Loading from checkpoint/phoenix2014t_dec_kinetics_pretraining/preds.mat
+2021-12-11 20:08:27,938 - train - INFO - (7723, 1233)
+2021-12-11 20:08:27,939 - train - INFO - Loading features_valid.mat
