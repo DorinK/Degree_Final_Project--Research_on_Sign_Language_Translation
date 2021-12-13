@@ -1,0 +1,2 @@
+Epoch	LR	train_loss	val_loss	train_perf0	val_perf0	train_perf1	val_perf1	
+0.000	0.000	6.632	6.632	0.040	0.040	0.126	0.126	

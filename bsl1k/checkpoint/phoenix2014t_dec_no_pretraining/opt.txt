@@ -1,0 +1,432 @@
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 0
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: 
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: val
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-02 16:54:21.069053
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_006.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-08 18:03:27.820054
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_011.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-08 18:11:46.488631
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_024.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-08 18:13:25.903908
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_005.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-09 14:03:06.885990
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_044.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-09 14:04:04.699237
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_043.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-09 15:05:32.894692
+====== Options ======
+arch: InceptionI3d
+asl_dataset: None
+bsl1k_anno_key: original-mouthings
+bsl1k_mouthing_prob_thres: 0.5
+bsl1k_num_last_frames: 20
+bsl1k_pose_subset: 0
+checkpoint: checkpoint/phoenix2014t_dec_no_pretraining
+datasetname: phoenix2014
+debug: False
+epochs: 50
+evaluate: False
+evaluate_video: 1
+feature_dim: 1024
+featurize_mask: 
+featurize_mode: 0
+gamma: 0.1
+gpu_collation: 0
+include_embds: 1
+init_cross_language: 
+inp_res: 224
+input_type: rgb
+lr: 0.01
+mask_rgb: None
+mask_type: None
+momentum: 0.9
+nloss: 1
+nperf: 2
+num_classes: 1233
+num_figs: 0
+num_gpus: 4
+num_in_frames: 16
+phoenix_assign_labels: uniform
+phoenix_path: /home/nlp/dorink/project/bsl1k/data_phoenix
+pose_keys: ['body', 'face', 'lhnd', 'rhnd']
+pretrained: checkpoint/phoenix2014t_dec_no_pretraining/checkpoint_006.pth.tar
+ram_data: 0
+resize_res: 256
+resume: 
+save_features: 1
+schedule: [5, 10, 12]
+seed: 0
+snapshot: 1
+start_epoch: 0
+stride: 0.5
+test_batch: 1
+test_set: test
+topk: [1, 5]
+train_batch: 1
+weight_decay: 0
+word_data_pkl: misc/bsl1k/bsl1k_vocab.pkl
+workers: 0
+=====================
+launched at 2021-12-11 19:24:11.099083
