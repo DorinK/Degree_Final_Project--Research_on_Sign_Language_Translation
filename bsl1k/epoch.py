@@ -57,7 +57,7 @@ def do_epoch(
     losses = [AverageMeter()]
     perfs = []
     for k in topk:
-        perfs.append(AverageMeter())
+        perfs.append(AverageMeter())    # TODO: AverageMeter() - Computes and stores the average and current value
 
     if save_logits:
         all_logits = torch.Tensor(loader.dataset.__len__(), num_classes)
@@ -108,7 +108,7 @@ def do_epoch(
         # compute the loss
         logits = outputs_cuda["logits"].data.cpu()
         loss = criterion(outputs_cuda["logits"], targets_cuda)
-        topk_acc = performance(logits, targets, topk=topk)
+        topk_acc = performance(logits, targets, topk=topk)  # TODO: performance - Returns the accuracy at top-k over a batch
 
         for ki, acc in enumerate(topk_acc):
             perfs[ki].update(acc, inputs.size(0))

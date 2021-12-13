@@ -24,6 +24,10 @@ from utils.logger import Logger, savefig, setup_verbose_logging
 from utils.misc import (adjust_learning_rate, load_checkpoint,
                         load_checkpoint_flexible, mkdir_p, save_checkpoint)
 
+# import tensorflow_datasets as tfds
+# import tensorflow as tf
+# from sign_language_datasets.datasets.config import SignDatasetConfig
+
 def main(args):
     # Seed
     torch.manual_seed(args.seed)
@@ -128,7 +132,7 @@ def main(args):
         for p in range(0, args.nloss - 1):
             logger_names.append("train_loss%d" % p)
             logger_names.append("val_loss%d" % p)
-        for p in range(args.nperf):
+        for p in range(args.nperf):  # TODO: nperf = number of performance metrics.
             logger_names.append("train_perf%d" % p)
             logger_names.append("val_perf%d" % p)
 
@@ -142,6 +146,7 @@ def main(args):
     duration = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - tic))
     plog.info(f"Loaded parameters for model in {duration}")
 
+    # if args.dataset_name == "phoenix2014":
     mdl = MultiDataLoader(
         train_datasets=args.datasetname, val_datasets=args.datasetname,
     )
@@ -151,6 +156,21 @@ def main(args):
     train_std = meanstd[1]
     val_mean = meanstd[2]
     val_std = meanstd[3]
+
+    # else:
+    #     config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
+    #     autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
+    #                       shuffle_files=True)  # TODO: Check shuffle! 7/9
+    #     train_loader, val_loader, test_loader = autsl['train'], autsl['validation'], autsl['test']
+
+        # meanstd = [
+        #     train_loader.mean,
+        #     train_loader.std,
+        #     val_loader.mean,
+        #     val_loader.std,
+        #     test_loader.mean,
+        #     test_loader.std
+        # ]
 
     save_feature_dir = args.checkpoint
     save_fig_dir = Path(args.checkpoint) / "figs"
@@ -167,7 +187,7 @@ def main(args):
     if args.evaluate or args.evaluate_video:
         plog.info("\nEvaluation only")
         loss, acc = do_epoch(
-            # "val",
+            # "val",    # TODO: Adjusting.  V
             "test",
             val_loader,
             model,
@@ -191,10 +211,10 @@ def main(args):
 
         try:
             # Summarize/save results
-            evaluate.evaluate(args, val_loader.dataset, plog)
-        except:
+            evaluate.evaluate(args, val_loader.dataset, plog)  # TODO: Can be removed.   V
+        except:  # TODO: Redirecting - evaluate.py doesn't match to phoenix2014t, but evaluate_seq.py.   V
             print('IN EXCEPTION')
-            evaluate_seq.evaluate(args,val_loader.dataset, plog)
+            evaluate_seq.evaluate(args, val_loader.dataset, plog)
 
 
         logger_epoch = [0, 0]
@@ -251,8 +271,8 @@ def main(args):
             mean=val_mean,
             std=val_std,
             feature_dim=args.feature_dim,
-            save_logits=True, #save_logits=False
-            save_features=True, #save_features=False
+            save_logits=False,
+            save_features=False,
             num_figs=args.num_figs,
             topk=args.topk,
             save_feature_dir=save_feature_dir,
