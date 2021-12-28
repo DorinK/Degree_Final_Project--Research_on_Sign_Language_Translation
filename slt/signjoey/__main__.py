@@ -7,7 +7,7 @@ from slt.signjoey.prediction import test
 
 # sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # TODO: Mine.
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,2,3"  # TODO: Mine.
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # TODO: Mine.
 
 
 def main():

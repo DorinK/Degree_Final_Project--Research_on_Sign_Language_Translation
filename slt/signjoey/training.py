@@ -44,8 +44,10 @@ import tensorflow_datasets as tfds  # TODO: Mine.
 from sign_language_datasets.datasets.config import SignDatasetConfig  # TODO: Mine.
 import gc  # TODO: Mine.
 
+DEVICE = 0
 
-# TODO: To Update. VVX
+
+# TODO: To Update. VVV
 # pylint: disable=too-many-instance-attributes
 class TrainManager:
     """ Manages training loop, validations, learning rate scheduling
@@ -115,7 +117,7 @@ class TrainManager:
         self.num_valid_log = train_config.get("num_valid_log", 5)
         self.ckpt_queue = queue.Queue(maxsize=train_config.get("keep_last_ckpts", 5))
         # TODO: Change the eval_metric in the autsl config file from bleu to wer, because bleu seams to be for
-        #  translation task and not recognition task.
+        #  translation task and not recognition task.   V
         self.eval_metric = train_config.get("eval_metric", "bleu")  # Get the evaluation metric.
         if self.eval_metric not in ["bleu", "chrf", "wer", "rouge"]:
             raise ValueError(
@@ -175,7 +177,7 @@ class TrainManager:
         self.shuffle = train_config.get("shuffle", True)
         self.epochs = train_config["epochs"]
         self.batch_size = train_config["batch_size"]
-        # self.batch_size = train_config["batch_size"] * 4  # TODO: Tried to run on multiple JPUs - Failed.
+        # self.batch_size = train_config["batch_size"] * 4  # TODO: Tried to run on multiple GPUs - Failed.
         self.batch_type = train_config.get("batch_type", "sentence")
         self.eval_batch_size = train_config.get("eval_batch_size", self.batch_size)
         self.eval_batch_type = train_config.get("eval_batch_type", self.batch_type)
@@ -183,17 +185,17 @@ class TrainManager:
         # Using GPU
         self.use_cuda = train_config["use_cuda"]
         if self.use_cuda:
-            # TODO: Tried to run on multiple JPUs - Failed.
+            # TODO: Tried to run on multiple GPUs - Failed.
             # num_gpus = torch.cuda.device_count()
             # device_ids = list(range(4))
             # device = "cuda" if torch.cuda.is_available() else "cpu"
             # self.model = torch.nn.DataParallel(model, device_ids=device_ids)
             # self.model = self.model.to(device)
-            self.model.cuda()
+            self.model.cuda(DEVICE)
             if self.do_translation:
-                self.translation_loss_function.cuda()
+                self.translation_loss_function.cuda(DEVICE)
             if self.do_recognition:
-                self.recognition_loss_function.cuda()
+                self.recognition_loss_function.cuda(DEVICE)
 
         # initialize training statistics
         self.steps = 0
@@ -364,7 +366,7 @@ class TrainManager:
 
         # move parameters to cuda
         if self.use_cuda:
-            self.model.cuda()
+            self.model.cuda(DEVICE)
 
     # def train_and_validate(self, train_data: Dataset, valid_data: Dataset) -> None:
     def train_and_validate_phoenix(self, train_data: Dataset, valid_data: Dataset) -> None:
@@ -801,28 +803,68 @@ class TrainManager:
 
             index = 0
 
-            while (index < len(train_data)):  # TODO: Handle last chunk of train_data.    X
+            while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
 
+                batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
+
+                valid = 0
+                total = 0
                 sequence = []
                 signer = []
                 samples = []
                 sgn_lengths = []
                 gls = []
-                gls_lengths = [int(1)] * self.batch_size
-                for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
-                    sequence.append(datum['id'].numpy().decode('utf-8'))
-                    signer.append(datum["signer"].numpy())
-                    samples.append(
-                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                            datum['video'].shape[2]))
-                    sgn_lengths.append(datum['video'].shape[0])
-                    gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                gls_lengths = [int(1)] * batch_size
+
+                for i, datum in enumerate(itertools.islice(train_data, index, index + batch_size)):
+                    if datum['video'].shape[0] <= 116:
+                        sequence.append(datum['id'].numpy().decode('utf-8'))
+                        signer.append(datum["signer"].numpy())
+                        samples.append(
+                            Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                                datum['video'].shape[2]))
+                        sgn_lengths.append(datum['video'].shape[0])
+                        gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                        valid += 1
+                    total += 1
+
+                if index + batch_size >= len(
+                        train_data):  # TODO: handle no more examples and or valid examples to complete batch size
+                    if valid < batch_size:
+                        gls_lengths = [int(1)] * valid
+
+                while valid < batch_size:
+                    for i, datum in enumerate(
+                            itertools.islice(train_data, index + total, index + total + (batch_size - valid))):
+                        if datum['video'].shape[0] <= 116:
+                            sequence.append(datum['id'].numpy().decode('utf-8'))
+                            signer.append(datum["signer"].numpy())
+                            samples.append(
+                                Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
+                                                                    datum['video'].shape[1],
+                                                                    datum['video'].shape[2]))
+                            sgn_lengths.append(datum['video'].shape[0])
+                            gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                            valid += 1
+                        total += 1
                     # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
+                    if index + total + (batch_size - valid) >= len(train_data):
+                        if valid < batch_size:
+                            gls_lengths = [int(1)] * valid
+                            break
+
                 sgn = []
-                for sample in samples:
+                for k, sample in enumerate(samples, 1):
+                    print('index:', k)
+                    print('sequence:', sequence[k - 1])
+                    print('sgn_lengths:', sgn_lengths[k - 1])
+                    print('signer:', signer[k - 1])
+                    print('gls:', gls[k - 1])
+                    print()
+
                     # sample.cuda()
-                    out = self.model.image_encoder(sample.cuda())
+                    out = self.model.image_encoder(sample.cuda(DEVICE))
                     # out = self.model.image_encoder(sample)
                     # sgn.append(out)
                     # out.detach().cpu()
@@ -835,11 +877,13 @@ class TrainManager:
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                               'gls': (Tensor(gls), Tensor(gls_lengths))}
 
-                index += self.batch_size
-                print(index)
-                print(sequence)
-                print(gls)
-                print(sgn_lengths)
+                index += total
+                print('so far:', index)
+                # print('index:',index)
+                # print('sequence:',sequence)
+                # print('sgn_lengths:',sgn_lengths)
+                # print('signer:',signer)
+                # print('gls:',gls)
                 del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
                 gc.collect()
 
@@ -908,9 +952,9 @@ class TrainManager:
                         log_out += "Gls Tokens per Sec: {:8.0f} || ".format(
                             elapsed_gls_tokens / elapsed
                         )
-                        log_out += "elapsed_gls_tokens: {:10.6f}, {}, {} => ".format(
-                            self.total_gls_tokens - processed_gls_tokens,self.total_gls_tokens,processed_gls_tokens
-                        )
+                        # log_out += "elapsed_gls_tokens: {:10.6f}, {}, {} => ".format(
+                        #     self.total_gls_tokens - processed_gls_tokens, self.total_gls_tokens, processed_gls_tokens
+                        # )
                     if self.do_translation:
                         elapsed_txt_tokens = (
                                 self.total_txt_tokens - processed_txt_tokens
@@ -1130,7 +1174,7 @@ class TrainManager:
                         val_res["valid_scores"]["rouge"] if self.do_translation else -1,
                     )
 
-                    # TODO: Adjusted.
+                    # TODO: Adjust. V
                     valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
                                  itertools.islice(valid_data, len(valid_data))]
 
@@ -1244,28 +1288,86 @@ class TrainManager:
 
             index = 0
 
-            while (index < len(train_data)):
+            while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
 
+                batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
+
+                valid = 0
+                total = 0
                 sequence = []
                 signer = []
                 samples = []
                 sgn_lengths = []
                 txt = []
-                txt_lengths = [int(1)] * self.batch_size
-                for i, datum in enumerate(itertools.islice(train_data, index, index + self.batch_size)):
-                    sequence.append(datum['id'].numpy().decode('utf-8'))
-                    signer.append(datum["signer"].numpy().decode('utf-8'))
-                    samples.append(
-                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                            datum['video'].shape[2]))
-                    sgn_lengths.append(datum['video'].shape[0])
-                    txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
-                                1])  # ???.decode('utf-8')
+                txt_lengths = [int(1)] * batch_size
+
+                for i, datum in enumerate(itertools.islice(train_data, index, index + batch_size)):
+                    if datum['video'].shape[0] <= 131:
+                        sequence.append(datum['id'].numpy().decode('utf-8'))
+                        signer.append(datum["signer"].numpy().decode('utf-8'))
+                        samples.append(
+                            Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                                datum['video'].shape[2]))
+                        sgn_lengths.append(datum['video'].shape[0])
+                        txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
+                                    1])  # ???.decode('utf-8')
+                        valid += 1
+                    total += 1
+
+                # if index + batch_size >= len(
+                #         train_data):  # TODO: handle no more examples and or valid examples to complete batch size
+                #     if valid < batch_size:
+                #         txt_lengths = [int(1)] * valid
+
+                while valid < batch_size:
+                    for i, datum in enumerate(
+                            itertools.islice(train_data, index + total, index + total + (batch_size - valid))):
+                        if datum['video'].shape[0] <= 131:
+                            sequence.append(datum['id'].numpy().decode('utf-8'))
+                            signer.append(datum["signer"].numpy())
+                            samples.append(
+                                Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
+                                                                    datum['video'].shape[1],
+                                                                    datum['video'].shape[2]))
+                            sgn_lengths.append(datum['video'].shape[0])
+                            txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])
+                            valid += 1
+                        total += 1
+                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+
+                    if index + total + (batch_size - valid) >= len(train_data):
+                        if valid < batch_size:
+                            print("index: ", index)
+                            print("batch_size: ", batch_size)
+                            print("valid: ", valid)
+                            print("total: ", total)
+                            print(len(txt_lengths))
+                            txt_lengths = [int(1)] * valid
+                            print(len(txt_lengths))
+                            print("In")
+                            break
+
+                # print("Out")
+                if valid == 0:
+                    print("Valid is 0")
+                    index += total
+                    print('so far:', index)
+                    del sequence, signer, samples, sgn_lengths, txt, txt_lengths
+                    gc.collect()
+                    continue
+
+                print("Valid is not 0")
 
                 sgn = []
-                for sample in samples:
+                for k, sample in enumerate(samples, 1):
+                    print('index:', k)
+                    print('sequence:', sequence[k - 1])
+                    print('sgn_lengths:', sgn_lengths[k - 1])
+                    print('signer:', signer[k - 1])
+                    print('txt:', txt[k - 1])
+                    print()
                     # sample.cuda()
-                    out = self.model.image_encoder(sample.cuda())
+                    out = self.model.image_encoder(sample.cuda(DEVICE))
                     # out = self.model.image_encoder(sample)
                     # sgn.append(out)
                     # out.detach().cpu()
@@ -1274,14 +1376,15 @@ class TrainManager:
                     del sample, out
                     gc.collect()
 
-                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=1)
                 batch_prep = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                               'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
 
-                index += self.batch_size
-                print(index)
-                print(sequence)
-                print(sgn_lengths)
+                index += total
+                print('so far:', index)
+                # print(index)
+                # print(sequence)
+                # print(sgn_lengths)
                 del sequence, signer, samples, sgn_lengths, txt, txt_lengths, sgn, pad_sgn
                 gc.collect()
 
@@ -1726,7 +1829,7 @@ class TrainManager:
 
         return normalized_recognition_loss, normalized_translation_loss
 
-    def _add_report(  # TODO: Check this function.    XXX
+    def _add_report(  # TODO: Check this function.    V
             self,
             valid_scores: Dict,
             valid_recognition_loss: float,
@@ -1811,7 +1914,7 @@ class TrainManager:
         self.logger.info("Trainable parameters: %s", sorted(trainable_params))
         assert trainable_params
 
-    def _log_examples(  # TODO: Check this function.    XXX
+    def _log_examples(  # TODO: Check this function.    V
             self,
             sequences: List[str],
             gls_references: List[str],
@@ -1830,10 +1933,10 @@ class TrainManager:
         """
 
         if self.do_recognition:
-            assert len(gls_references) == len(gls_hypotheses)
+            # assert len(gls_references) == len(gls_hypotheses) #TODO: Uncomment
             num_sequences = len(gls_hypotheses)
         if self.do_translation:
-            assert len(txt_references) == len(txt_hypotheses)
+            # assert len(txt_references) == len(txt_hypotheses) #TODO: Uncomment
             num_sequences = len(txt_hypotheses)
 
         rand_idx = np.sort(np.random.permutation(num_sequences)[: self.num_valid_log])
@@ -1912,8 +2015,8 @@ def train(cfg_file: str) -> None:
 
     elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
-                          shuffle_files=True)  # TODO: Check shuffle! 7/9
+        autsl = tfds.load(name='autsl',
+                          builder_kwargs=dict(config=config), shuffle_files=True)  # TODO: Check shuffle! 7/9
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
@@ -1993,15 +2096,15 @@ def train(cfg_file: str) -> None:
         do_translation=do_translation,
     )
 
-    # TODO: Update as needed.   VVX
+    # TODO: Update as needed.   VVV
     # for training management, e.g. early stopping and model selection
     trainer = TrainManager(model=model, config=cfg)
 
-    # TODO: Maybe should be updated according to the changes in trainer.    XXX
+    # TODO: Maybe should be updated according to the changes in trainer.    Not needed. V
     # store copy of original training config in model dir
     shutil.copy2(cfg_file, trainer.model_dir + "/config.yaml")
 
-    # TODO: Maybe should be updated according to the changes in trainer.    XXX
+    # TODO: Maybe should be updated according to the changes in trainer.    Not needed. V
     # log all entries of config
     log_cfg(cfg, trainer.logger)
 
@@ -2035,8 +2138,8 @@ def train(cfg_file: str) -> None:
 
     pytorch_total_params = sum(p.numel() for p in model.parameters())
     pytorch_total_trained_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print('SLT_total_params:',pytorch_total_params)
-    print('SLT_total_trained_params:',pytorch_total_trained_params)
+    print('SLT_total_params:', pytorch_total_params)
+    print('SLT_total_trained_params:', pytorch_total_trained_params)
 
     # TODO: Update the train_and_validate function. V
     # train the model

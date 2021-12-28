@@ -1963,6 +1963,8 @@ def corpus_bleu(
     fhs = [sys_stream] + ref_streams
     for lines in zip_longest(*fhs):
         if None in lines:
+            print(len(sys_stream))
+            print(len(ref_streams))
             raise EOFError("Source and reference streams have different lengths!")
 
         if lowercase:

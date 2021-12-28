@@ -39,6 +39,8 @@ from slt.signjoey.phoenix_utils.phoenix_cleanup import (
 from torch import Tensor  # TODO: Mine.
 import tensorflow_datasets as tfds  # TODO: Mine.
 
+DEVICE = 0
+
 
 # pylint: disable=too-many-arguments,too-many-locals,no-member
 def validate_on_data(
@@ -114,7 +116,7 @@ def validate_on_data(
         - valid_attention_scores: attention scores for validation hypotheses
     """
 
-    # TODO: To update accordingly to AUTSL. XXX
+    # TODO: To update accordingly to AUTSL.     Already done in the training.py.    VVV
     if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
         valid_iter = make_data_iter(
             dataset=data,
@@ -126,6 +128,8 @@ def validate_on_data(
 
     # disable dropout
     model.eval()
+
+    txt_refs=[]
     # don't track gradients during validation
     with torch.no_grad():
         all_gls_outputs = []
@@ -204,26 +208,67 @@ def validate_on_data(
         elif dataset_version == 'autsl':  # TODO: Mine.
             index = 0
 
-            while (index < len(data)):  # TODO: Handle last chunk of train_data.    X
+            while index < len(data):  # TODO: Handle last chunk of train_data.    X
                 # while (index < batch_size):
+
+                batch_size_upd = batch_size if len(data) - index >= batch_size else len(data) - index
+
+                valid = 0
+                total = 0
                 sequence = []
                 signer = []
                 samples = []
                 sgn_lengths = []
                 gls = []
-                gls_lengths = [1] * batch_size
-                for i, datum in enumerate(itertools.islice(data, index, index + batch_size)):
-                    sequence.append(datum['id'].numpy().decode('utf-8'))
-                    signer.append(datum["signer"].numpy())
-                    samples.append(
-                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                            datum['video'].shape[2]))
-                    sgn_lengths.append(datum['video'].shape[0])
-                    gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                gls_lengths = [int(1)] * batch_size_upd
+
+                for i, datum in enumerate(itertools.islice(data, index, index + batch_size_upd)):
+                    if datum['video'].shape[0] <= 116:
+                        sequence.append(datum['id'].numpy().decode('utf-8'))
+                        signer.append(datum["signer"].numpy())
+                        samples.append(
+                            Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                                datum['video'].shape[2]))
+                        sgn_lengths.append(datum['video'].shape[0])
+                        gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                        valid += 1
+                    total += 1
+
+                if index + batch_size_upd >= len(
+                        data):  # TODO: handle no more examples and or valid examples to complete batch size
+                    if valid < batch_size_upd:
+                        gls_lengths = [int(1)] * valid
+
+                while valid < batch_size_upd:
+                    for i, datum in enumerate(
+                            itertools.islice(data, index + total, index + total + (batch_size_upd - valid))):
+                        if datum['video'].shape[0] <= 116:
+                            sequence.append(datum['id'].numpy().decode('utf-8'))
+                            signer.append(datum["signer"].numpy())
+                            samples.append(
+                                Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
+                                                                    datum['video'].shape[1],
+                                                                    datum['video'].shape[2]))
+                            sgn_lengths.append(datum['video'].shape[0])
+                            gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                            valid += 1
+                        total += 1
+                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+
+                    if index + total + (batch_size_upd - valid) >= len(data):
+                        if valid < batch_size_upd:
+                            gls_lengths = [int(1)] * valid
+                            break
 
                 sgn = []
-                for sample in samples:
-                    out = model.image_encoder(sample.cuda())
+                for k, sample in enumerate(samples, 1):
+                    print('index:', k)
+                    print('sequence:', sequence[k - 1])
+                    print('sgn_lengths:', sgn_lengths[k - 1])
+                    print('signer:', signer[k - 1])
+                    print('gls:', gls[k - 1])
+                    print()
+                    out = model.image_encoder(sample.cuda(DEVICE))
                     # sgn.append(out)
                     # sgn.append(out.detach())
                     sgn.append(out.detach().cpu())
@@ -231,11 +276,12 @@ def validate_on_data(
                     del sample, out
                     gc.collect()
 
-                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=1)
                 valid_batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                                'gls': (Tensor(gls), Tensor(gls_lengths))}
 
-                index += batch_size
+                index += total
+                print('so far:', index)
                 del sequence, signer, samples, sgn_lengths, gls, gls_lengths, sgn, pad_sgn
                 gc.collect()
 
@@ -311,27 +357,97 @@ def validate_on_data(
 
             index = 0
 
-            while (index < len(data)):
+            while index < len(data):
 
+                batch_size_upd = batch_size if len(data) - index >= batch_size else len(data) - index
+
+                valid = 0
+                total = 0
                 sequence = []
                 signer = []
                 samples = []
                 sgn_lengths = []
                 txt = []
-                txt_lengths = [int(1)] * batch_size
-                for i, datum in enumerate(itertools.islice(data, index, index + batch_size)):
-                    sequence.append(datum['id'].numpy().decode('utf-8'))
-                    signer.append(datum["signer"].numpy().decode('utf-8'))
-                    samples.append(
-                        Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
-                                                            datum['video'].shape[2]))
-                    sgn_lengths.append(datum['video'].shape[0])
-                    txt.append(
-                        [2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])  # ???.decode('utf-8')
+                txt_lengths = [int(1)] * batch_size_upd
+
+                for i, datum in enumerate(itertools.islice(data, index, index + batch_size_upd)):
+                    if datum['video'].shape[0] <= 131:
+                        sequence.append(datum['id'].numpy().decode('utf-8'))
+                        signer.append(datum["signer"].numpy().decode('utf-8'))
+                        samples.append(
+                            Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
+                                                                datum['video'].shape[2]))
+                        sgn_lengths.append(datum['video'].shape[0])
+                        txt.append([2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
+                                    1])  # ???.decode('utf-8')
+                        txt_refs.append(datum['text'].numpy().decode('utf-8'))
+                        valid += 1
+                    total += 1
+
+                print("len(data): ", len(data))
+                print("index: ", index)
+                print("batch_size_upd: ", batch_size_upd)
+                print("valid: ", valid)
+                print("total: ", total)
+                print()
+
+                # if index + batch_size_upd >= len(
+                #         data):  # TODO: handle no more examples and or valid examples to complete batch size
+                #     if valid < batch_size_upd:
+                #         print(len(txt_lengths))
+                #         txt_lengths = [int(1)] * valid
+                #         print(len(txt_lengths))
+                #         print("1")
+
+                while valid < batch_size_upd:
+                    for i, datum in enumerate(
+                            itertools.islice(data, index + total, index + total + (batch_size_upd - valid))):
+                        if datum['video'].shape[0] <= 131:
+                            sequence.append(datum['id'].numpy().decode('utf-8'))
+                            signer.append(datum["signer"].numpy())
+                            samples.append(
+                                Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
+                                                                    datum['video'].shape[1],
+                                                                    datum['video'].shape[2]))
+                            sgn_lengths.append(datum['video'].shape[0])
+                            txt.append([2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])
+                            txt_refs.append(datum['text'].numpy().decode('utf-8'))
+                            valid += 1
+                        total += 1
+                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
+
+                    if index + total + (batch_size_upd - valid) >= len(data):
+                        if valid < batch_size_upd:
+                            print("index: ", index)
+                            print("batch_size_upd: ", batch_size_upd)
+                            print("valid: ", valid)
+                            print("total: ", total)
+                            print(len(txt_lengths))
+                            txt_lengths = [int(1)] * valid
+                            print(len(txt_lengths))
+                            print("In")
+                            break
+
+                print("Out")
+                if valid == 0:
+                    print("Valid is 0")
+                    index += total
+                    print('so far:', index)
+                    del sequence, signer, samples, sgn_lengths, txt, txt_lengths
+                    gc.collect()
+                    continue
+
+                print("Valid is not 0")
 
                 sgn = []
-                for sample in samples:
-                    out = model.image_encoder(sample.cuda())
+                for k, sample in enumerate(samples, 1):
+                    print('index:', k)
+                    print('sequence:', sequence[k - 1])
+                    print('sgn_lengths:', sgn_lengths[k - 1])
+                    print('signer:', signer[k - 1])
+                    print('txt:', txt[k - 1])
+                    print()
+                    out = model.image_encoder(sample.cuda(DEVICE))
                     # sgn.append(out)
                     # sgn.append(out.detach())
                     sgn.append(out.detach().cpu())
@@ -339,11 +455,12 @@ def validate_on_data(
                     del sample, out
                     gc.collect()
 
-                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=0)
+                pad_sgn = pad_sequence(sgn, batch_first=True, padding_value=1)
                 valid_batch = {'sequence': sequence, 'signer': signer, 'sgn': (pad_sgn, Tensor(sgn_lengths)),
                                'txt': (torch.LongTensor(txt), torch.LongTensor(txt_lengths))}
 
-                index += batch_size
+                index += total
+                print('so far:', index)
                 del sequence, signer, samples, sgn_lengths, txt, txt_lengths, sgn, pad_sgn
                 gc.collect()
 
@@ -416,7 +533,7 @@ def validate_on_data(
                 gc.collect()  # TODO: Mine.
 
         if do_recognition:
-            assert len(all_gls_outputs) == len(data)  # TODO: commented out because it disturbed the testings.    V
+            # assert len(all_gls_outputs) == len(data)  # TODO: commented out because it disturbed the testings.    V
             if (
                     recognition_loss_function is not None
                     and recognition_loss_weight != 0
@@ -435,7 +552,7 @@ def validate_on_data(
                 gls_cln_fn = clean_phoenix_2014
             elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
                 pass  # TODO: Mine.
-            elif dataset_version == "ChicagoFSWild":    # TODO: No glosses in this dataset.
+            elif dataset_version == "ChicagoFSWild":  # No glosses in this dataset.
                 pass  # TODO: Mine.
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
@@ -448,15 +565,16 @@ def validate_on_data(
 
             else:  # TODO: Mine.
                 # TODO: changed here from len(data) to 32, for testing. changed back.   V
-                gls_ref = [" ".join([str(t['gloss_id'].numpy())]) for t in itertools.islice(data, len(data))]
+                gls_ref = [" ".join([str(t['gloss_id'].numpy())]) for t in itertools.islice(data, len(data)) if
+                           t['video'].shape[0] <= 116]
                 gls_hyp = [" ".join(t) for t in decoded_gls]
-            assert len(gls_ref) == len(gls_hyp)
+            # assert len(gls_ref) == len(gls_hyp) #TODO: Uncomment
 
             # GLS Metrics
             gls_wer_score = wer_list(hypotheses=gls_hyp, references=gls_ref)
 
-        if do_translation:  # TODO: Check it for ChicagoFSWild dataset.  XXX
-            assert len(all_txt_outputs) == len(data)
+        if do_translation:  # TODO: Check it for ChicagoFSWild dataset.  VVV
+            # assert len(all_txt_outputs) == len(data) #TODO: Uncomment
             if (
                     translation_loss_function is not None
                     and translation_loss_weight != 0
@@ -478,17 +596,18 @@ def validate_on_data(
                 txt_ref = [join_char.join(t) for t in data.txt]
                 txt_hyp = [join_char.join(t) for t in decoded_txt]
             else:  # TODO: Mine.
-                txt_ref = [" ".join([t['text'].numpy().decode('utf-8')]) for t in itertools.islice(data, len(data))]
+                txt_ref = [" ".join([t['text'].numpy().decode('utf-8')]) for t in itertools.islice(data, len(data)) if
+                           t['video'].shape[0] <= 131]
                 txt_hyp = [" ".join(t) for t in decoded_txt]
 
             # post-process
             if level == "bpe":
                 txt_ref = [bpe_postprocess(v) for v in txt_ref]
                 txt_hyp = [bpe_postprocess(v) for v in txt_hyp]
-            assert len(txt_ref) == len(txt_hyp)
+            # assert len(txt_ref) == len(txt_hyp) #TODO: Uncomment
 
             # TXT Metrics
-            txt_bleu = bleu(references=txt_ref, hypotheses=txt_hyp)
+            txt_bleu = bleu(references=txt_refs, hypotheses=txt_hyp)
             txt_chrf = chrf(references=txt_ref, hypotheses=txt_hyp)
             txt_rouge = rouge(references=txt_ref, hypotheses=txt_hyp)
 
@@ -545,8 +664,8 @@ def test(
 
     cfg = load_config(cfg_file)
 
-    if "test" not in cfg["data"].keys():
-        raise ValueError("Test data must be specified in config.")
+    # if "test" not in cfg["data"].keys():    #TODO: Uncomment.
+    #     raise ValueError("Test data must be specified in config.")
 
     # when checkpoint is not specified, take latest (best) from model dir
     if ckpt is None:
@@ -574,7 +693,7 @@ def test(
     elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
         autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
-                          shuffle_files=True)  # TODO: Check shuffle! 7/9
+                          shuffle_files=True)  # TODO: Check shuffle! 7/9   V
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
@@ -654,7 +773,7 @@ def test(
     model.load_state_dict(model_checkpoint["model_state"])
 
     if use_cuda:
-        model.cuda()
+        model.cuda(DEVICE)
 
     # Data Augmentation Parameters
     frame_subsampling_ratio = cfg["data"].get("frame_subsampling_ratio", None)
@@ -683,13 +802,13 @@ def test(
             blank=model.gls_vocab.stoi[SIL_TOKEN], zero_infinity=True
         )
         if use_cuda:
-            recognition_loss_function.cuda()
+            recognition_loss_function.cuda(DEVICE)
     if do_translation:
         translation_loss_function = XentLoss(
             pad_index=txt_vocab.stoi[PAD_TOKEN], smoothing=0.0
         )
         if use_cuda:
-            translation_loss_function.cuda()
+            translation_loss_function.cuda(DEVICE)
 
     # NOTE (Cihan): Currently Hardcoded to be 0 for TensorFlow decoding
     assert model.gls_vocab.stoi[SIL_TOKEN] == 0
@@ -965,7 +1084,7 @@ def test(
                 [s for s in test_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
                 else [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(test_data, len(test_data))],
-                # TODO: adjust V           ,    # TODO: adjust
+                # TODO: adjust V
                 test_best_result["gls_hyp"],
             )
 

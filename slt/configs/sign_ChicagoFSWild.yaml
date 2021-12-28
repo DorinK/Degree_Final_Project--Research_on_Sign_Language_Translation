@@ -8,7 +8,7 @@ data:
 #    dev: phoenix14t.pami0.dev
 #    test: phoenix14t.pami0.test
     feature_size: 1000
-    level: char
+    level: word
 #    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
@@ -49,7 +49,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./ChicagoFSWild/check"
+    model_dir: "./ChicagoFSWild_model__14"
     recognition_loss_weight: 0.0
     translation_loss_weight: 1.0
     eval_metric: bleu
@@ -61,22 +61,22 @@ training:
     early_stopping_metric: eval_metric
     batch_type: token
     translation_normalization: batch
-    eval_recognition_beam_size: 10
+    eval_recognition_beam_size: 9
     eval_translation_beam_size: 9
     eval_translation_beam_alpha: 1
     overwrite: true
     shuffle: true
     use_cuda: true
-    translation_max_output_length: 30
+    translation_max_output_length: 1
     keep_last_ckpts: 1
     batch_multiplier: 1
     logging_freq: 1
-    validation_freq: 1
+    validation_freq: 100
     betas:
     - 0.9
     - 0.998
     scheduling: plateau
-    learning_rate_min: 1.0e-07
+    learning_rate_min: 1.0e-06
     weight_decay: 0.001
     patience: 8
     decrease_factor: 0.7

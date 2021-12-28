@@ -4,6 +4,8 @@ import random
 import torch
 import numpy as np
 
+DEVICE=0
+
 
 class Batch:
     """Object for holding a batch of data with mask during training.
@@ -108,7 +110,7 @@ class Batch:
         self.num_seqs = self.sgn.size(0)
 
         # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name.    XXX
+        #  to match it to the AUTSL attribute name.    VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "txt") or "txt" in torch_batch:  # TODO: Addition for asynchronous dataset. V
             if dataset_type == 'phoenix_2014_trans':
@@ -125,7 +127,7 @@ class Batch:
             self.num_txt_tokens = (self.txt != txt_pad_index).data.sum().item()
 
         # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name.    XXX
+        #  to match it to the AUTSL attribute name.    VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "gls") or "gls" in torch_batch:  # TODO: Addition for asynchronous dataset. V
             if dataset_type == 'phoenix_2014_trans':
@@ -133,7 +135,7 @@ class Batch:
             else:  # TODO: Mine.
                 self.gls, self.gls_lengths = torch_batch["gls"]
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
-            print(self.num_gls_tokens)
+            # print(self.num_gls_tokens)
 
         if use_cuda:
             self._make_cuda()
@@ -144,13 +146,13 @@ class Batch:
 
         :return:
         """
-        self.sgn = self.sgn.cuda()
-        self.sgn_mask = self.sgn_mask.cuda()
+        self.sgn = self.sgn.cuda(DEVICE)
+        self.sgn_mask = self.sgn_mask.cuda(DEVICE)
 
         if self.txt_input is not None:
-            self.txt = self.txt.cuda()
-            self.txt_mask = self.txt_mask.cuda()
-            self.txt_input = self.txt_input.cuda()
+            self.txt = self.txt.cuda(DEVICE)
+            self.txt_mask = self.txt_mask.cuda(DEVICE)
+            self.txt_input = self.txt_input.cuda(DEVICE)
 
     def make_cpu(self):  # TODO: Mine.
         self.sgn = self.sgn.detach().cpu()
@@ -161,7 +163,7 @@ class Batch:
             self.txt_mask = self.txt_mask.detach().cpu()
             self.txt_input = self.txt_input.detach().cpu()
 
-    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. XXX
+    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. Not needed  VVV
         """
         Sort by sgn length (descending) and return index to revert sort
 
