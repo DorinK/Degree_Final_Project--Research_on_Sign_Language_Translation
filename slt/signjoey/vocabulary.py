@@ -13,7 +13,7 @@ BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
 
-# TODO: Update accordingly. XXX
+# TODO: Update accordingly. VVV
 class Vocabulary:
     """ Vocabulary represents mapping between tokens and indices. """
 
@@ -25,7 +25,7 @@ class Vocabulary:
         self.stoi = None
         self.DEFAULT_UNK_ID = None
 
-    # TODO: Change if it is the way.    XXX
+    # TODO: Change if it is the way.    VVV
     def _from_list(self, tokens: List[str] = None):
         """
         Make vocabulary from list of tokens.
@@ -37,7 +37,7 @@ class Vocabulary:
         self.add_tokens(tokens=self.specials + tokens)
         assert len(self.stoi) == len(self.itos)
 
-    # TODO: Should check it.    XXX
+    # TODO: Should check it.    VVV
     def _from_file(self, file: str):
         """
         Make vocabulary from contents of file.
@@ -54,7 +54,7 @@ class Vocabulary:
     def __str__(self) -> str:
         return self.stoi.__str__()
 
-    # TODO: Should check it.    XXX
+    # TODO: Should check it.    VVV
     def to_file(self, file: str):
         """
         Save the vocabulary to a file, by writing token with index i in line i.
@@ -65,7 +65,7 @@ class Vocabulary:
             for t in self.itos:
                 open_file.write("{}\n".format(t))
 
-    # TODO: Should check it.    XXX
+    # TODO: Should check it.    VVV
     #  Update: This func gives a number to each label. Should not be used.
     def add_tokens(self, tokens: List[str]):
         """
@@ -80,7 +80,7 @@ class Vocabulary:
                 self.itos.append(t)
                 self.stoi[t] = new_index
 
-    # TODO: Should check it.    XXX
+    # TODO: Should check it.    VVV
     def is_unk(self, token: str) -> bool:
         """
         Check whether a token is covered by the vocabulary
@@ -147,7 +147,7 @@ class TextVocabulary(Vocabulary):
         return sentences
 
 
-# TODO: Update to suite to a gloss ids format.  XXX
+# TODO: Update to suite to a gloss ids format.  VVV
 class GlossVocabulary(Vocabulary):
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
@@ -237,7 +237,7 @@ def build_vocab(
                 else:
                     raise ValueError("Unknown field type")
 
-        elif version == 'autsl':  # TODO: Check it is working.    XXX  # TODO: Mine.
+        elif version == 'autsl':  # TODO: Check it is working.    VVV  # TODO: Mine.
 
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
@@ -258,7 +258,7 @@ def build_vocab(
         counter = Counter(tokens)
         if min_freq > -1:
             counter = filter_min(counter, min_freq)
-        vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if needed.   XXX
+        vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if needed.   VVV
         assert len(vocab_tokens) <= max_size
 
         if field == "gls":  # TODO: Okay.
@@ -268,11 +268,11 @@ def build_vocab(
         else:
             raise ValueError("Unknown vocabulary type")
 
-        # TODO: Change if needed.   XXX
+        # TODO: Change if needed.   VVV
         assert len(vocab) <= max_size + len(vocab.specials)
         assert vocab.itos[vocab.DEFAULT_UNK_ID()] == UNK_TOKEN
 
-    # TODO: Change if needed. Update: I think it's harmless.    XXX
+    # TODO: Change if needed. Update: I think it's harmless.    VVV
     for i, s in enumerate(vocab.specials):
         if i != vocab.DEFAULT_UNK_ID():
             assert not vocab.is_unk(s)

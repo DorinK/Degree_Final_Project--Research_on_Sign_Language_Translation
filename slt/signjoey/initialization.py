@@ -125,7 +125,7 @@ def initialize_model(model: nn.Module, cfg: dict, txt_padding_idx: int) -> None:
     embed_init_fn_ = _parse_init(embed_init, embed_init_weight, embed_gain)
     bias_init_fn_ = _parse_init(bias_init, bias_init_weight, gain)
 
-    # TODO: Should check this.
+    # TODO: Should check this.  Okay.   VVV
     with torch.no_grad():
         for name, p in model.named_parameters():
 

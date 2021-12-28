@@ -78,7 +78,7 @@ class SignModel(nn.Module):
 
         if dataset != 'phoenix_2014_trans':  # TODO: Mine.
             self.image_encoder = torchvision.models.mobilenet_v3_small(
-                pretrained=True)  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets.
+                pretrained=True)  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets.    V
 
     # pylint: disable=arguments-differ
     def forward(
@@ -212,10 +212,10 @@ class SignModel(nn.Module):
         if self.do_recognition:
             assert gloss_probabilities is not None
 
-            print(gloss_probabilities)
-            print(batch.gls)
-            print(batch.sgn_lengths.long())
-            print(batch.gls_lengths.long())
+            # print(gloss_probabilities)
+            # print(batch.gls)
+            # print(batch.sgn_lengths.long())
+            # print(batch.gls_lengths.long())
             # Calculate Recognition Loss
             recognition_loss = (
                     recognition_loss_function(
@@ -360,7 +360,7 @@ class SignModel(nn.Module):
         )
 
 
-def build_model(  # TODO: Update in process.
+def build_model(  # TODO: Update in process.    VVV
         dataset: str,  # TODO: Mine.
         cfg: dict,
         sgn_dim: int,
@@ -390,7 +390,7 @@ def build_model(  # TODO: Update in process.
         input_size=sgn_dim,  # TODO: update sgn_dim. V
     )
 
-    # TODO: Don't think it should change, but check the yaml to be sure.    XXX
+    # TODO: Don't think it should change, but check the yaml to be sure.    VVV
     # build encoder
     enc_dropout = cfg["encoder"].get("dropout", 0.0)
     enc_emb_dropout = cfg["encoder"]["embeddings"].get("dropout", enc_dropout)
@@ -412,7 +412,7 @@ def build_model(  # TODO: Update in process.
             emb_dropout=enc_emb_dropout,
         )
 
-    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay VVX
+    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay VVV
         gloss_output_layer = nn.Linear(encoder.output_size, len(gls_vocab))
         if cfg["encoder"].get("freeze", False):
             freeze_params(gloss_output_layer)
@@ -479,7 +479,7 @@ def build_model(  # TODO: Update in process.
                     "The decoder must be a Transformer."
                 )
 
-    # TODO: Update. XXX
+    # TODO: Update. Not needed  V
     # custom initialization of model parameters
     initialize_model(model, cfg, txt_padding_idx)
 
