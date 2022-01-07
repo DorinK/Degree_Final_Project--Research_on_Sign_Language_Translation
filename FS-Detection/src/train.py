@@ -19,6 +19,7 @@ parser = configargparse.ArgumentParser(
     description="Train Detector",
     config_file_parser_class=configargparse.YAMLConfigFileParser,
     formatter_class=configargparse.ArgumentDefaultsHelpFormatter)
+
 parser.add_argument('--train_label', type=str, help='train json file')
 parser.add_argument('--dev_label', type=str, help='dev json file')
 parser.add_argument('--train_scp', type=str, help='train scp file')
@@ -83,22 +84,33 @@ map_size = utils.get_map_size(encoder.features, args.train_scp, args.image_scale
 
 logging.info(f"{encoder}")
 
-train_data = roiloader.VideoData(args.train_label, args.train_scp, args.train_pose, transform=transforms.Compose([toTensor, normalize]), bbox_file=args.bbox_file, image_scale=args.image_scale, det_sample_rate=args.det_sample_rate, pose_sample_rate=args.pose_sample_rate, sigma=1, fmap_wh=map_size)
-train_loader = tud.DataLoader(train_data, batch_sampler=BucketBatchSampler(shuffle=True, batch_size=args.batch_size, files=train_data.rgb_videos, seeds=loader_seeds), collate_fn=train_data.collate_fn)
-dev_data = roiloader.VideoData(args.dev_label, args.dev_scp, args.dev_pose, transform=transforms.Compose([toTensor, normalize]), bbox_file=args.bbox_file, image_scale=args.image_scale, det_sample_rate=args.det_sample_rate, pose_sample_rate=args.pose_sample_rate, sigma=1, fmap_wh=map_size)
-dev_loader = tud.DataLoader(dev_data, batch_sampler=BucketBatchSampler(shuffle=False, batch_size=args.batch_size, files=dev_data.rgb_videos, cycle=False), collate_fn=dev_data.collate_fn)
+train_data = roiloader.VideoData(args.train_label, args.train_scp, args.train_pose,
+                                 transform=transforms.Compose([toTensor, normalize]), bbox_file=args.bbox_file,
+                                 image_scale=args.image_scale, det_sample_rate=args.det_sample_rate,
+                                 pose_sample_rate=args.pose_sample_rate, sigma=1, fmap_wh=map_size)
+train_loader = tud.DataLoader(train_data, batch_sampler=BucketBatchSampler(shuffle=True, batch_size=args.batch_size,
+                              files=train_data.rgb_videos, seeds=loader_seeds), collate_fn=train_data.collate_fn)
+dev_data = roiloader.VideoData(args.dev_label, args.dev_scp, args.dev_pose,
+                               transform=transforms.Compose([toTensor, normalize]), bbox_file=args.bbox_file,
+                               image_scale=args.image_scale, det_sample_rate=args.det_sample_rate,
+                               pose_sample_rate=args.pose_sample_rate, sigma=1, fmap_wh=map_size)
+dev_loader = tud.DataLoader(dev_data, batch_sampler=BucketBatchSampler(shuffle=False, batch_size=args.batch_size,
+                            files=dev_data.rgb_videos, cycle=False), collate_fn=dev_data.collate_fn)
 
 logging.info('Train: %d, dev: %d' % (len(train_data), len(dev_data)))
 
 optimizer = getattr(torch.optim, args.optim)(encoder.parameters(), lr=args.lr)
-scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=3, min_lr=1.0e-8, verbose=True)
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=3, min_lr=1.0e-8,
+                                                       verbose=True)
 
 if args.amp == 1:
+
     from apex import amp
     logging.info(f"AMP training, opt level: O1")
     encoder, optimizer = amp.initialize(encoder, optimizer, opt_level="O1")
 
-hyp = {'epoch': 0, 'step': 0, 'optimizer': optimizer.state_dict(), 'scheduler': scheduler.state_dict(), 'sampler': train_loader.batch_sampler.state_dict(), 'best_dev_metric': -float('inf')}
+hyp = {'epoch': 0, 'step': 0, 'optimizer': optimizer.state_dict(), 'scheduler': scheduler.state_dict(),
+       'sampler': train_loader.batch_sampler.state_dict(), 'best_dev_metric': -float('inf')}
 
 if args.amp == 1:
     hyp['amp'] = amp.state_dict()
@@ -113,19 +125,34 @@ if os.path.isfile(latest_model_path) and os.path.isfile(hyp_path):
     if args.amp == 1:
         amp.load_state_dict(hyp['amp'])
 
+
 def main():
+
     global hyp
     for epoch in range(args.epoch):
         if epoch < hyp['epoch']:
             continue
         logging.info(f"Epoch {epoch}")
         encoder.train()
+
+        # Checking the number of model parameters
+        pytorch_total_params = sum(p.numel() for p in encoder.parameters())
+        pytorch_total_trained_params = sum(p.numel() for p in encoder.parameters() if p.requires_grad)
+        print('Total_params:', pytorch_total_params)
+        print('Total_trained_params:', pytorch_total_trained_params)
+
         ls, rpn_cls_ls, rpn_reg_ls, rcnn_cls_ls, rcnn_reg_ls, pose_ls, reward_ls = [], [], [], [], [], [], []
         fsr_preds, fsr_labels = [], []
+
         for i_batch, sample in enumerate(train_loader):
+
             optimizer.zero_grad()
-            rpn_cls_loss, rpn_reg_loss, rcnn_cls_loss, rcnn_reg_loss, fsr_pred, fsr_label, pose_loss, reward_loss = encoder(sample, training=True, pose_on=(args.pose_coef!=0), fsr_on=(args.fsr_coef!=0), pose_sample_rate=args.pose_sample_rate, reward_on=(args.reward_coef!=0), stage=args.stage)
-            l = args.det_coef * (rpn_cls_loss + rpn_reg_loss) + args.fsr_coef * (rcnn_cls_loss + rcnn_reg_loss)  + args.pose_coef * pose_loss + args.reward_coef * reward_loss
+            rpn_cls_loss, rpn_reg_loss, rcnn_cls_loss, rcnn_reg_loss, fsr_pred, fsr_label, pose_loss, reward_loss = encoder(
+                sample, training=True, pose_on=(args.pose_coef != 0), fsr_on=(args.fsr_coef != 0),
+                pose_sample_rate=args.pose_sample_rate, reward_on=(args.reward_coef != 0), stage=args.stage)
+            l = args.det_coef * (rpn_cls_loss + rpn_reg_loss) + args.fsr_coef * (
+                        rcnn_cls_loss + rcnn_reg_loss) + args.pose_coef * pose_loss + args.reward_coef * reward_loss
+
             if args.amp == 1:
                 with amp.scale_loss(l, optimizer) as scaled_loss:
                     scaled_loss.backward()
@@ -133,6 +160,7 @@ def main():
             else:
                 l.backward()
                 torch.nn.utils.clip_grad_norm(encoder.parameters(), args.clip)
+
             optimizer.step()
             ls.append(l.item())
             rpn_cls_ls.append(rpn_cls_loss.item())
@@ -143,17 +171,24 @@ def main():
             reward_ls.append(reward_loss.item())
             hyp['step'] += 1
             # logging.info(f"{l}")
+
             if hyp['step'] % args.info_interval == 0:
                 mean_loss = sum(ls) / len(ls)
-                mean_rpn_cls, mean_rpn_reg, mean_rcnn_cls, mean_rcnn_reg, mean_pose_loss, mean_reward_loss = sum(rpn_cls_ls) / len(rpn_cls_ls), sum(rpn_reg_ls) / len(rpn_reg_ls), sum(rcnn_cls_ls) / len(rcnn_cls_ls), sum(rcnn_reg_ls) / len(rcnn_reg_ls), sum(pose_ls) / len(pose_ls), sum(reward_ls)/len(reward_ls)
-                pcont = 'Epoch %d, Step %d, train loss: %.3f, rpn-cls: %.3f, rpn-reg: %.3f, fsr-ctc-loss: %.3f, pose loss: %.3f, fsr-rec-loss: %.3f' % (hyp['epoch'], hyp['step'], mean_loss, mean_rpn_cls, mean_rpn_reg, mean_rcnn_cls, mean_pose_loss, mean_reward_loss)
+                mean_rpn_cls, mean_rpn_reg, mean_rcnn_cls, mean_rcnn_reg, mean_pose_loss, mean_reward_loss = sum(
+                    rpn_cls_ls) / len(rpn_cls_ls), sum(rpn_reg_ls) / len(rpn_reg_ls), sum(rcnn_cls_ls) / len(
+                    rcnn_cls_ls), sum(rcnn_reg_ls) / len(rcnn_reg_ls), sum(pose_ls) / len(pose_ls), sum(
+                    reward_ls) / len(reward_ls)
+                pcont = 'Epoch %d, Step %d, train loss: %.3f, rpn-cls: %.3f, rpn-reg: %.3f, fsr-ctc-loss: %.3f, pose loss: %.3f, fsr-rec-loss: %.3f' % (
+                hyp['epoch'], hyp['step'], mean_loss, mean_rpn_cls, mean_rpn_reg, mean_rcnn_cls, mean_pose_loss,
+                mean_reward_loss)
                 logging.info(pcont)
-                open(log_file, 'a+').write(pcont+'\n')
+                open(log_file, 'a+').write(pcont + '\n')
                 torch.save(encoder.state_dict(), open(latest_model_path, 'wb'))
                 if args.amp == 1:
                     hyp['amp'] = amp.state_dict()
                 torch.save(hyp, open(hyp_path, 'wb'))
                 ls, rpn_cls_ls, rpn_reg_ls, rcnn_cls_ls, rcnn_reg_ls, pose_ls = [], [], [], [], [], []
+
             if hyp['step'] % args.det_interval == 0:
                 dev_out = os.path.join(args.output, 'dev-proposal.pkl')
                 eval_pred(encoder, dev_loader, dev_out, top_k=50, stage=args.stage)
@@ -168,10 +203,12 @@ def main():
                 scheduler.step(mAP)
                 pcont = 'Epoch %d, step %d, dev AP %.3f' % (epoch, hyp['step'], mAP)
                 logging.info(pcont)
-                open(log_file, 'a+').write(pcont+'\n')
+                open(log_file, 'a+').write(pcont + '\n')
                 encoder.train()
+
         hyp['epoch'] += 1
     return
+
 
 if __name__ == '__main__':
     main()

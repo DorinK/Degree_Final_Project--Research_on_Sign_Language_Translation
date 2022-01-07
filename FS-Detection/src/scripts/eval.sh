@@ -1,9 +1,9 @@
 #! /bin/bash
 
-exp_dir=data/exp/
-data_dir=data/fswild/loader/
+exp_dir=/home/nlp/dorink/project/FS-Detection/src/data/exp
+data_dir=/home/nlp/dorink/project/FS-Detection/src/data/fswild/loader
 stage=1
-rec_path=data/eval_ckpt/fswild.pth # path of a trained recognizer
+rec_path=/home/nlp/dorink/project/FS-Detection/src/data/eval_ckpt/fswild.pth # path of a trained recognizer
 
 while test $# -gt 0;do
     case "$1" in
@@ -63,16 +63,16 @@ eval_label=$data_dir/test.json
 eval_scp=$data_dir/video/test/scp
 
 echo "Generating proposals"
-python -B evaluate.py --config $exp/train_conf.yaml --eval_scp $eval_scp --eval_label $eval_label --output_fn $exp/test-proposal.pkl --eval_type pred || exit 1;
+python -B /home/nlp/dorink/project/FS-Detection/src/evaluate.py --config $exp/train_conf.yaml --eval_scp $eval_scp --eval_label $eval_label --output_fn $exp/test-proposal.pkl --eval_type pred || exit 1;
 
 echo "AP@IoU"
-python -B measure.py -p $exp/test-proposal.pkl -t iou || exit 1;
+python -B /home/nlp/dorink/project/FS-Detection/src/measure.py -p $exp/test-proposal.pkl -t iou || exit 1;
 
 echo "Evaluating with recognizer"
-python -B measure.py -p $exp/test-proposal.pkl -m $rec_path -l $eval_label -s $eval_scp -t rec || exit 1;
+python -B /home/nlp/dorink/project/FS-Detection/src/measure.py -p $exp/test-proposal.pkl -m $rec_path -l $eval_label -s $eval_scp -t rec || exit 1;
 
 echo "AP@Acc"
-python -B measure.py -p $exp/test-proposal.pkl -t acc || exit 1;
+python -B /home/nlp/dorink/project/FS-Detection/src/measure.py -p $exp/test-proposal.pkl -t acc || exit 1;
 
 echo "MSA"
-python -B measure.py -p $exp/test-proposal.pkl -t msa || exit 1;
+python -B /home/nlp/dorink/project/FS-Detection/src/measure.py -p $exp/test-proposal.pkl -t msa || exit 1;

@@ -1,8 +1,9 @@
 from metrics import msa_acc
 from metrics import ap_iou
+import argparse
 
 if __name__ == '__main__':
-    import argparse
+
     parser = argparse.ArgumentParser(description='MSA, AP@Acc', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--pred", '-p', type=str, help="prediction file")
     parser.add_argument("--model", '-m', type=str, help="rec model path")
@@ -16,7 +17,8 @@ if __name__ == '__main__':
     if args.type == 'rec':
         msa_acc.get_rec_dict(args.pred, rec_file, args.model, args.label, args.scp)
     elif args.type == 'acc':
-        msa_acc.get_ap_ler(rec_file, ler_thrs=[0.0, 0.1, 0.2, 0.3, 0.4], iou_thrs=[0.0, 0.0, 0.0, 0.0, 0.0], ordering=True, ptype=args.ptype)
+        msa_acc.get_ap_ler(rec_file, ler_thrs=[0.0, 0.1, 0.2, 0.3, 0.4], iou_thrs=[0.0, 0.0, 0.0, 0.0, 0.0],
+                           ordering=True, ptype=args.ptype)
     elif args.type == 'msa':
         msa_acc.get_seq_ler_vars(rec_file, nms_thresh=0.01)
     elif args.type == 'iou':
