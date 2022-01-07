@@ -1,0 +1,32 @@
+Epoch 0, Step 1000, train loss: 3.514, rpn-cls: 0.313, rpn-reg: 0.103, fsr-ctc-loss: 30.973, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 0, step 1000, dev AP 0.200
+Epoch 0, Step 2000, train loss: 3.270, rpn-cls: 0.236, rpn-reg: 0.077, fsr-ctc-loss: 29.574, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 0, step 2000, dev AP 0.136
+Epoch 1, Step 3000, train loss: 2.686, rpn-cls: 0.196, rpn-reg: 0.067, fsr-ctc-loss: 24.234, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 1, step 3000, dev AP 0.287
+Epoch 1, Step 4000, train loss: 2.449, rpn-cls: 0.177, rpn-reg: 0.060, fsr-ctc-loss: 22.123, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 1, step 4000, dev AP 0.288
+Epoch 2, Step 5000, train loss: 2.320, rpn-cls: 0.155, rpn-reg: 0.055, fsr-ctc-loss: 21.106, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 2, step 5000, dev AP 0.286
+Epoch 2, Step 6000, train loss: 2.055, rpn-cls: 0.139, rpn-reg: 0.049, fsr-ctc-loss: 18.670, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 2, step 6000, dev AP 0.299
+Epoch 3, Step 7000, train loss: 1.950, rpn-cls: 0.117, rpn-reg: 0.045, fsr-ctc-loss: 17.885, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 3, step 7000, dev AP 0.317
+Epoch 3, Step 8000, train loss: 1.968, rpn-cls: 0.125, rpn-reg: 0.042, fsr-ctc-loss: 18.015, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 3, step 8000, dev AP 0.309
+Epoch 4, Step 9000, train loss: 1.830, rpn-cls: 0.103, rpn-reg: 0.035, fsr-ctc-loss: 16.913, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 4, step 9000, dev AP 0.316
+Epoch 4, Step 10000, train loss: 1.610, rpn-cls: 0.093, rpn-reg: 0.035, fsr-ctc-loss: 14.831, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 4, step 10000, dev AP 0.355
+Epoch 5, Step 11000, train loss: 1.480, rpn-cls: 0.069, rpn-reg: 0.029, fsr-ctc-loss: 13.813, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 5, step 11000, dev AP 0.374
+Epoch 5, Step 12000, train loss: 1.667, rpn-cls: 0.087, rpn-reg: 0.031, fsr-ctc-loss: 15.484, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 5, step 12000, dev AP 0.320
+Epoch 6, Step 13000, train loss: 1.375, rpn-cls: 0.065, rpn-reg: 0.029, fsr-ctc-loss: 12.815, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 6, step 13000, dev AP 0.346
+Epoch 6, Step 14000, train loss: 1.328, rpn-cls: 0.064, rpn-reg: 0.027, fsr-ctc-loss: 12.381, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 6, step 14000, dev AP 0.293
+Epoch 7, Step 15000, train loss: 1.063, rpn-cls: 0.042, rpn-reg: 0.025, fsr-ctc-loss: 9.955, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 7, step 15000, dev AP 0.331
+Epoch 7, Step 16000, train loss: 1.255, rpn-cls: 0.045, rpn-reg: 0.018, fsr-ctc-loss: 11.915, pose loss: 0.000, fsr-rec-loss: 0.000
+Epoch 7, step 16000, dev AP 0.394

@@ -1,0 +1,94 @@
+(chicago_env) [dorink@nlp15 FS-Detection]$ /home/nlp/dorink/project/FS-Detection/src/scripts/eval.sh --data /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/ --stage 1
+data dir: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/
+stage: 1
+Generating proposals
+Number of class: 2
+2021-11-16 20:33:42,647 (rpn:25) INFO: neg thr: 0.300, pos thr: 0.600
+Using warp CTC
+2021-11-16 20:33:48,354 (fsr:38) INFO: IoU threshold 0.5
+2021-11-16 20:33:48,716 (convnet:71) INFO: features.0.weight -> features.conv1_1.weight
+2021-11-16 20:33:48,716 (convnet:71) INFO: features.0.bias -> features.conv1_1.bias
+2021-11-16 20:33:48,717 (convnet:71) INFO: features.2.weight -> features.conv1_2.weight
+2021-11-16 20:33:48,717 (convnet:71) INFO: features.2.bias -> features.conv1_2.bias
+2021-11-16 20:33:48,717 (convnet:71) INFO: features.5.weight -> features.conv2_1.weight
+2021-11-16 20:33:48,717 (convnet:71) INFO: features.5.bias -> features.conv2_1.bias
+2021-11-16 20:33:48,718 (convnet:71) INFO: features.7.weight -> features.conv2_2.weight
+2021-11-16 20:33:48,718 (convnet:71) INFO: features.7.bias -> features.conv2_2.bias
+2021-11-16 20:33:48,718 (convnet:71) INFO: features.10.weight -> features.conv3_1.weight
+2021-11-16 20:33:48,719 (convnet:71) INFO: features.10.bias -> features.conv3_1.bias
+2021-11-16 20:33:48,719 (convnet:71) INFO: features.12.weight -> features.conv3_2.weight
+2021-11-16 20:33:48,720 (convnet:71) INFO: features.12.bias -> features.conv3_2.bias
+2021-11-16 20:33:48,721 (convnet:71) INFO: features.14.weight -> features.conv3_3.weight
+2021-11-16 20:33:48,722 (convnet:71) INFO: features.14.bias -> features.conv3_3.bias
+2021-11-16 20:33:48,722 (convnet:71) INFO: features.16.weight -> features.conv3_4.weight
+2021-11-16 20:33:48,723 (convnet:71) INFO: features.16.bias -> features.conv3_4.bias
+2021-11-16 20:33:48,723 (convnet:71) INFO: features.19.weight -> features.conv4_1.weight
+2021-11-16 20:33:48,725 (convnet:71) INFO: features.19.bias -> features.conv4_1.bias
+2021-11-16 20:33:48,726 (convnet:71) INFO: features.21.weight -> features.conv4_2.weight
+2021-11-16 20:33:48,729 (convnet:71) INFO: features.21.bias -> features.conv4_2.bias
+2021-11-16 20:33:48,729 (convnet:71) INFO: features.23.weight -> features.conv4_3.weight
+2021-11-16 20:33:48,733 (convnet:71) INFO: features.23.bias -> features.conv4_3.bias
+2021-11-16 20:33:48,733 (convnet:71) INFO: features.25.weight -> features.conv4_4.weight
+2021-11-16 20:33:48,737 (convnet:71) INFO: features.25.bias -> features.conv4_4.bias
+2021-11-16 20:33:48,737 (convnet:71) INFO: features.28.weight -> features.conv5_1.weight
+2021-11-16 20:33:48,740 (convnet:71) INFO: features.28.bias -> features.conv5_1.bias
+2021-11-16 20:33:48,741 (convnet:71) INFO: features.30.weight -> features.conv5_2.weight
+2021-11-16 20:33:48,746 (convnet:71) INFO: features.30.bias -> features.conv5_2.bias
+Number of data: 310, video raw width: 640, raw height: 360
+Image scale: 0.3 with center cropping
+Det sample rate: 1
+Initialize seeds and index array
+Eval data: 310
+Load checkpoint: /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/best-dev.pth
+/home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl exists
+AP@IoU
+IoU=0.1
+IoU=0.2
+IoU=0.3
+IoU=0.4
+IoU=0.5
+IoU 0.1, mAP: 0.461
+IoU 0.2, mAP: 0.448
+IoU 0.3, mAP: 0.425
+IoU 0.4, mAP: 0.382
+IoU 0.5, mAP: 0.313
+Write AP@IoU into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl.iou
+Evaluating with recognizer
+2021-11-16 20:33:54,912: DET pred file /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl -> REC pred file /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl.rec
+2021-11-16 20:33:59,009: Loading model /home/nlp/dorink/project/FS-Detection/src/data/eval_ckpt/fswild.pth
+2021-11-16 20:33:59,090: 279 items
+2021-11-16 20:33:59,092: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/0-rgb.mp4 (BGR)
+2021-11-16 20:34:03,985: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/1-rgb.mp4 (BGR)
+2021-11-16 20:34:08,748: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/2-rgb.mp4 (BGR)
+2021-11-16 20:34:17,674: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/3-rgb.mp4 (BGR)
+2021-11-16 20:34:37,151: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/4-rgb.mp4 (BGR)
+2021-11-16 20:34:49,481: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/5-rgb.mp4 (BGR)
+2021-11-16 20:34:59,943: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/6-rgb.mp4 (BGR)
+2021-11-16 20:35:14,396: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/7-rgb.mp4 (BGR)
+2021-11-16 20:35:28,873: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/8-rgb.mp4 (BGR)
+2021-11-16 20:35:40,965: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/9-rgb.mp4 (BGR)
+2021-11-16 20:35:51,899: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/10-rgb.mp4 (BGR)
+2021-11-16 20:36:05,430: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/11-rgb.mp4 (BGR)
+2021-11-16 20:36:14,168: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/12-rgb.mp4 (BGR)
+2021-11-16 20:36:21,000: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/13-rgb.mp4 (BGR)
+2021-11-16 20:36:42,193: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/14-rgb.mp4 (BGR)
+2021-11-16 20:37:01,597: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/15-rgb.mp4 (BGR)
+2021-11-16 20:37:11,228: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/16-rgb.mp4 (BGR)
+2021-11-16 20:37:29,106: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/17-rgb.mp4 (BGR)
+2021-11-16 20:37:52,126: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/18-rgb.mp4 (BGR)
+2021-11-16 20:38:00,534: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/19-rgb.mp4 (BGR)
+AP@Acc
+2021-11-16 20:38:15,966: 0.0
+2021-11-16 20:38:17,517: 0.1
+2021-11-16 20:38:19,126: 0.2
+2021-11-16 20:38:20,825: 0.3
+2021-11-16 20:38:22,804: 0.4
+2021-11-16 20:38:22,809: Acc 0.0, IoU 0.0, mAP: 0.11855217243794491
+2021-11-16 20:38:22,810: Acc 0.1, IoU 0.0, mAP: 0.111417651288863
+2021-11-16 20:38:22,810: Acc 0.2, IoU 0.0, mAP: 0.06850397329392063
+2021-11-16 20:38:22,811: Acc 0.3, IoU 0.0, mAP: 0.048562756529578276
+2021-11-16 20:38:22,812: Acc 0.4, IoU 0.0, mAP: 0.024142110193945753
+Write AP@Acc into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl.rec.acc
+MSA
+Write MSA into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/test-proposal.pkl.rec.msa
+MSA: 14.377104377104377

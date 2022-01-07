@@ -1,0 +1,445 @@
+(chicago_env) [dorink@nlp15 ~]$ /home/nlp/dorink/project/FS-Detection/src/scripts/eval.sh --data /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/ --stage 2
+data dir: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/
+stage: 2
+Generating proposals
+Number of class: 2
+2021-11-17 10:45:07,678 (rpn:25) INFO: neg thr: 0.300, pos thr: 0.600
+Using warp CTC
+2021-11-17 10:45:11,236 (fsr:38) INFO: IoU threshold 0.5
+2021-11-17 10:45:11,569 (convnet:71) INFO: features.0.weight -> features.conv1_1.weight
+2021-11-17 10:45:11,570 (convnet:71) INFO: features.0.bias -> features.conv1_1.bias
+2021-11-17 10:45:11,570 (convnet:71) INFO: features.2.weight -> features.conv1_2.weight
+2021-11-17 10:45:11,570 (convnet:71) INFO: features.2.bias -> features.conv1_2.bias
+2021-11-17 10:45:11,570 (convnet:71) INFO: features.5.weight -> features.conv2_1.weight
+2021-11-17 10:45:11,571 (convnet:71) INFO: features.5.bias -> features.conv2_1.bias
+2021-11-17 10:45:11,571 (convnet:71) INFO: features.7.weight -> features.conv2_2.weight
+2021-11-17 10:45:11,571 (convnet:71) INFO: features.7.bias -> features.conv2_2.bias
+2021-11-17 10:45:11,572 (convnet:71) INFO: features.10.weight -> features.conv3_1.weight
+2021-11-17 10:45:11,572 (convnet:71) INFO: features.10.bias -> features.conv3_1.bias
+2021-11-17 10:45:11,573 (convnet:71) INFO: features.12.weight -> features.conv3_2.weight
+2021-11-17 10:45:11,574 (convnet:71) INFO: features.12.bias -> features.conv3_2.bias
+2021-11-17 10:45:11,574 (convnet:71) INFO: features.14.weight -> features.conv3_3.weight
+2021-11-17 10:45:11,575 (convnet:71) INFO: features.14.bias -> features.conv3_3.bias
+2021-11-17 10:45:11,575 (convnet:71) INFO: features.16.weight -> features.conv3_4.weight
+2021-11-17 10:45:11,576 (convnet:71) INFO: features.16.bias -> features.conv3_4.bias
+2021-11-17 10:45:11,577 (convnet:71) INFO: features.19.weight -> features.conv4_1.weight
+2021-11-17 10:45:11,579 (convnet:71) INFO: features.19.bias -> features.conv4_1.bias
+2021-11-17 10:45:11,579 (convnet:71) INFO: features.21.weight -> features.conv4_2.weight
+2021-11-17 10:45:11,582 (convnet:71) INFO: features.21.bias -> features.conv4_2.bias
+2021-11-17 10:45:11,583 (convnet:71) INFO: features.23.weight -> features.conv4_3.weight
+2021-11-17 10:45:11,586 (convnet:71) INFO: features.23.bias -> features.conv4_3.bias
+2021-11-17 10:45:11,586 (convnet:71) INFO: features.25.weight -> features.conv4_4.weight
+2021-11-17 10:45:11,590 (convnet:71) INFO: features.25.bias -> features.conv4_4.bias
+2021-11-17 10:45:11,590 (convnet:71) INFO: features.28.weight -> features.conv5_1.weight
+2021-11-17 10:45:11,594 (convnet:71) INFO: features.28.bias -> features.conv5_1.bias
+2021-11-17 10:45:11,594 (convnet:71) INFO: features.30.weight -> features.conv5_2.weight
+2021-11-17 10:45:11,598 (convnet:71) INFO: features.30.bias -> features.conv5_2.bias
+Number of data: 310, video raw width: 640, raw height: 360
+Image scale: 0.3 with center cropping
+Det sample rate: 2
+Initialize seeds and index array
+Eval data: 310
+Load checkpoint: /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/best-dev.pth
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/19-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/19-opt.mp4
+/home/nlp/dorink/anaconda3/envs/chicago_env/lib/python3.6/site-packages/torch/nn/functional.py:2423: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  "See the documentation of nn.Upsample for details.".format(mode))
+tGAD19GTAVU-3000_3300
+tGAD19GTAVU-2750_3050
+tGAD19GTAVU-2500_2800
+tGAD19GTAVU-2250_2550
+tGAD19GTAVU-2000_2300
+tGAD19GTAVU-1750_2050
+tGAD19GTAVU-1500_1800
+tGAD19GTAVU-1250_1550
+tGAD19GTAVU-1000_1300
+tGAD19GTAVU-750_1050
+tGAD19GTAVU-500_800
+tGAD19GTAVU-250_550
+tGAD19GTAVU-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/18-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/18-opt.mp4
+mIYLRVzaNhs-2000_2300
+mIYLRVzaNhs-1750_2050
+mIYLRVzaNhs-1500_1800
+mIYLRVzaNhs-1250_1550
+mIYLRVzaNhs-1000_1300
+mIYLRVzaNhs-750_1050
+mIYLRVzaNhs-500_800
+mIYLRVzaNhs-250_550
+mIYLRVzaNhs-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/17-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/17-opt.mp4
+-kKdEYHDLrU-8000_8300
+-kKdEYHDLrU-7750_8050
+-kKdEYHDLrU-7500_7800
+-kKdEYHDLrU-6750_7050
+-kKdEYHDLrU-6500_6800
+-kKdEYHDLrU-6250_6550
+-kKdEYHDLrU-6000_6300
+-kKdEYHDLrU-5750_6050
+-kKdEYHDLrU-5500_5800
+-kKdEYHDLrU-5250_5550
+-kKdEYHDLrU-5000_5300
+-kKdEYHDLrU-4750_5050
+-kKdEYHDLrU-4500_4800
+-kKdEYHDLrU-4250_4550
+-kKdEYHDLrU-4000_4300
+-kKdEYHDLrU-3250_3550
+-kKdEYHDLrU-3000_3300
+-kKdEYHDLrU-2750_3050
+-kKdEYHDLrU-2500_2800
+-kKdEYHDLrU-2250_2550
+-kKdEYHDLrU-2000_2300
+-kKdEYHDLrU-1750_2050
+-kKdEYHDLrU-1500_1800
+-kKdEYHDLrU-1250_1550
+-kKdEYHDLrU-1000_1300
+-kKdEYHDLrU-750_1050
+-kKdEYHDLrU-500_800
+-kKdEYHDLrU-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/16-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/16-opt.mp4
+2MnvFrB5ljQ-5000_5300
+2MnvFrB5ljQ-4750_5050
+2MnvFrB5ljQ-4500_4800
+2MnvFrB5ljQ-4250_4550
+2MnvFrB5ljQ-4000_4300
+2MnvFrB5ljQ-3750_4050
+2MnvFrB5ljQ-3500_3800
+2MnvFrB5ljQ-3250_3550
+2MnvFrB5ljQ-3000_3300
+2MnvFrB5ljQ-2750_3050
+2MnvFrB5ljQ-2500_2800
+2MnvFrB5ljQ-2250_2550
+2MnvFrB5ljQ-2000_2300
+2MnvFrB5ljQ-1750_2050
+2MnvFrB5ljQ-1500_1800
+2MnvFrB5ljQ-1250_1550
+2MnvFrB5ljQ-1000_1300
+2MnvFrB5ljQ-750_1050
+2MnvFrB5ljQ-500_800
+2MnvFrB5ljQ-250_550
+2MnvFrB5ljQ-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/15-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/15-opt.mp4
+ehejTUlTwVU-6250_6550
+ehejTUlTwVU-6000_6300
+ehejTUlTwVU-4500_4800
+ehejTUlTwVU-4000_4300
+ehejTUlTwVU-3750_4050
+ehejTUlTwVU-3500_3800
+ehejTUlTwVU-1750_2050
+ehejTUlTwVU-1500_1800
+ehejTUlTwVU-1250_1550
+ehejTUlTwVU-1000_1300
+ehejTUlTwVU-750_1050
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/14-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/14-opt.mp4
+ShBzSJ5SOWE-10750_11050
+ShBzSJ5SOWE-8750_9050
+ShBzSJ5SOWE-8500_8800
+ShBzSJ5SOWE-8250_8550
+ShBzSJ5SOWE-7250_7550
+ShBzSJ5SOWE-7000_7300
+ShBzSJ5SOWE-6000_6300
+ShBzSJ5SOWE-5750_6050
+ShBzSJ5SOWE-4750_5050
+ShBzSJ5SOWE-4000_4300
+ShBzSJ5SOWE-3750_4050
+ShBzSJ5SOWE-3500_3800
+ShBzSJ5SOWE-3250_3550
+ShBzSJ5SOWE-3000_3300
+ShBzSJ5SOWE-2750_3050
+ShBzSJ5SOWE-2500_2800
+ShBzSJ5SOWE-2250_2550
+ShBzSJ5SOWE-2000_2300
+ShBzSJ5SOWE-1750_2050
+ShBzSJ5SOWE-1500_1800
+ShBzSJ5SOWE-1250_1550
+ShBzSJ5SOWE-1000_1300
+ShBzSJ5SOWE-750_1050
+ShBzSJ5SOWE-500_800
+ShBzSJ5SOWE-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/13-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/13-opt.mp4
+slInADNlbVM-7000_7300
+slInADNlbVM-6750_7050
+slInADNlbVM-6500_6800
+slInADNlbVM-6250_6550
+slInADNlbVM-6000_6300
+slInADNlbVM-5750_6050
+slInADNlbVM-5500_5800
+slInADNlbVM-5250_5550
+slInADNlbVM-4750_5050
+slInADNlbVM-4500_4800
+slInADNlbVM-4250_4550
+slInADNlbVM-4000_4300
+slInADNlbVM-3750_4050
+slInADNlbVM-3500_3800
+slInADNlbVM-3250_3550
+slInADNlbVM-2750_3050
+slInADNlbVM-2500_2800
+slInADNlbVM-2250_2550
+slInADNlbVM-2000_2300
+slInADNlbVM-1750_2050
+slInADNlbVM-1500_1800
+slInADNlbVM-1250_1550
+slInADNlbVM-1000_1300
+slInADNlbVM-750_1050
+slInADNlbVM-500_800
+slInADNlbVM-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/12-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/12-opt.mp4
+QBihyeseNA0-2500_2800
+QBihyeseNA0-2000_2300
+QBihyeseNA0-1500_1800
+QBihyeseNA0-1000_1300
+QBihyeseNA0-750_1050
+QBihyeseNA0-500_800
+QBihyeseNA0-250_550
+QBihyeseNA0-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/11-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/11-opt.mp4
+HLZ8jhFqCk8-3000_3300
+HLZ8jhFqCk8-2750_3050
+HLZ8jhFqCk8-2250_2550
+HLZ8jhFqCk8-2000_2300
+HLZ8jhFqCk8-1750_2050
+HLZ8jhFqCk8-1500_1800
+HLZ8jhFqCk8-1250_1550
+HLZ8jhFqCk8-1000_1300
+HLZ8jhFqCk8-500_800
+HLZ8jhFqCk8-250_550
+HLZ8jhFqCk8-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/10-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/10-opt.mp4
+NBB8A0hqAPQ-6500_6800
+NBB8A0hqAPQ-5500_5800
+NBB8A0hqAPQ-5000_5300
+NBB8A0hqAPQ-4750_5050
+NBB8A0hqAPQ-4500_4800
+NBB8A0hqAPQ-4250_4550
+NBB8A0hqAPQ-3500_3800
+NBB8A0hqAPQ-3000_3300
+NBB8A0hqAPQ-2500_2800
+NBB8A0hqAPQ-1750_2050
+NBB8A0hqAPQ-1500_1800
+NBB8A0hqAPQ-1000_1300
+NBB8A0hqAPQ-750_1050
+NBB8A0hqAPQ-500_800
+NBB8A0hqAPQ-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/9-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/9-opt.mp4
+YikNo4Oe9-8-6500_6800
+YikNo4Oe9-8-6000_6300
+YikNo4Oe9-8-5750_6050
+YikNo4Oe9-8-5500_5800
+YikNo4Oe9-8-5250_5550
+YikNo4Oe9-8-5000_5300
+YikNo4Oe9-8-4500_4800
+YikNo4Oe9-8-4250_4550
+YikNo4Oe9-8-3500_3800
+YikNo4Oe9-8-3250_3550
+YikNo4Oe9-8-3000_3300
+YikNo4Oe9-8-2250_2550
+YikNo4Oe9-8-1000_1300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/8-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/8-opt.mp4
+lqIvCUDCqeo-8000_8300
+lqIvCUDCqeo-7750_8050
+lqIvCUDCqeo-7500_7800
+lqIvCUDCqeo-5750_6050
+lqIvCUDCqeo-5500_5800
+lqIvCUDCqeo-5250_5550
+lqIvCUDCqeo-5000_5300
+lqIvCUDCqeo-4750_5050
+lqIvCUDCqeo-4500_4800
+lqIvCUDCqeo-4250_4550
+lqIvCUDCqeo-4000_4300
+lqIvCUDCqeo-1500_1800
+lqIvCUDCqeo-1250_1550
+lqIvCUDCqeo-1000_1300
+lqIvCUDCqeo-750_1050
+lqIvCUDCqeo-500_800
+lqIvCUDCqeo-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/7-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/7-opt.mp4
+8NTwUbsHd20-5250_5550
+8NTwUbsHd20-5000_5300
+8NTwUbsHd20-4750_5050
+8NTwUbsHd20-4500_4800
+8NTwUbsHd20-4000_4300
+8NTwUbsHd20-3500_3800
+8NTwUbsHd20-3250_3550
+8NTwUbsHd20-3000_3300
+8NTwUbsHd20-2750_3050
+8NTwUbsHd20-2500_2800
+8NTwUbsHd20-2250_2550
+8NTwUbsHd20-1750_2050
+8NTwUbsHd20-1500_1800
+8NTwUbsHd20-1250_1550
+8NTwUbsHd20-1000_1300
+8NTwUbsHd20-750_1050
+8NTwUbsHd20-500_800
+8NTwUbsHd20-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/6-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/6-opt.mp4
+djP4xSSDC-U-10000_10300
+djP4xSSDC-U-9750_10050
+djP4xSSDC-U-8250_8550
+djP4xSSDC-U-8000_8300
+djP4xSSDC-U-7000_7300
+djP4xSSDC-U-5000_5300
+djP4xSSDC-U-4750_5050
+djP4xSSDC-U-4500_4800
+djP4xSSDC-U-4250_4550
+djP4xSSDC-U-4000_4300
+djP4xSSDC-U-3750_4050
+djP4xSSDC-U-3500_3800
+djP4xSSDC-U-3250_3550
+djP4xSSDC-U-3000_3300
+djP4xSSDC-U-2750_3050
+djP4xSSDC-U-1250_1550
+djP4xSSDC-U-1000_1300
+djP4xSSDC-U-750_1050
+djP4xSSDC-U-500_800
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/5-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/5-opt.mp4
+L-0gmbh9nVE-12250_12550
+L-0gmbh9nVE-12000_12300
+L-0gmbh9nVE-3000_3300
+L-0gmbh9nVE-2750_3050
+L-0gmbh9nVE-2500_2800
+L-0gmbh9nVE-2250_2550
+L-0gmbh9nVE-2000_2300
+L-0gmbh9nVE-1750_2050
+L-0gmbh9nVE-1500_1800
+L-0gmbh9nVE-1250_1550
+L-0gmbh9nVE-1000_1300
+L-0gmbh9nVE-500_800
+L-0gmbh9nVE-250_550
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/4-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/4-opt.mp4
+P5Q-7z4VRko-6750_7050
+P5Q-7z4VRko-6500_6800
+P5Q-7z4VRko-6250_6550
+P5Q-7z4VRko-5500_5800
+P5Q-7z4VRko-4500_4800
+P5Q-7z4VRko-4250_4550
+P5Q-7z4VRko-4000_4300
+P5Q-7z4VRko-3500_3800
+P5Q-7z4VRko-3250_3550
+P5Q-7z4VRko-2250_2550
+P5Q-7z4VRko-1750_2050
+P5Q-7z4VRko-1500_1800
+P5Q-7z4VRko-1250_1550
+P5Q-7z4VRko-500_800
+P5Q-7z4VRko-250_550
+P5Q-7z4VRko-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/3-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/3-opt.mp4
+AVhrwJUSu4E-9250_9550
+AVhrwJUSu4E-9000_9300
+AVhrwJUSu4E-8750_9050
+AVhrwJUSu4E-8500_8800
+AVhrwJUSu4E-8250_8550
+AVhrwJUSu4E-8000_8300
+AVhrwJUSu4E-7750_8050
+AVhrwJUSu4E-7500_7800
+AVhrwJUSu4E-7000_7300
+AVhrwJUSu4E-6750_7050
+AVhrwJUSu4E-6250_6550
+AVhrwJUSu4E-6000_6300
+AVhrwJUSu4E-5500_5800
+AVhrwJUSu4E-4250_4550
+AVhrwJUSu4E-4000_4300
+AVhrwJUSu4E-3500_3800
+AVhrwJUSu4E-3000_3300
+AVhrwJUSu4E-2500_2800
+AVhrwJUSu4E-1750_2050
+AVhrwJUSu4E-1500_1800
+AVhrwJUSu4E-1250_1550
+AVhrwJUSu4E-1000_1300
+AVhrwJUSu4E-750_1050
+AVhrwJUSu4E-500_800
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/2-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/2-opt.mp4
+lLfaaraxvpw-4000_4300
+lLfaaraxvpw-3750_4050
+lLfaaraxvpw-3500_3800
+lLfaaraxvpw-2500_2800
+lLfaaraxvpw-2250_2550
+lLfaaraxvpw-1250_1550
+lLfaaraxvpw-1000_1300
+lLfaaraxvpw-750_1050
+lLfaaraxvpw-500_800
+lLfaaraxvpw-250_550
+lLfaaraxvpw-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/1-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/1-opt.mp4
+8Pp9VxJVkc0-5500_5800
+8Pp9VxJVkc0-4750_5050
+8Pp9VxJVkc0-4500_4800
+8Pp9VxJVkc0-4000_4300
+8Pp9VxJVkc0-1500_1800
+8Pp9VxJVkc0-0_300
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/0-rgb.mp4
+Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/0-opt.mp4
+ZMFCPi5Uip0-3500_3800
+ZMFCPi5Uip0-3250_3550
+ZMFCPi5Uip0-3000_3300
+ZMFCPi5Uip0-2750_3050
+ZMFCPi5Uip0-1000_1300
+ZMFCPi5Uip0-500_800
+AP@IoU
+IoU=0.1
+IoU=0.2
+IoU=0.3
+IoU=0.4
+IoU=0.5
+IoU 0.1, mAP: 0.450
+IoU 0.2, mAP: 0.431
+IoU 0.3, mAP: 0.403
+IoU 0.4, mAP: 0.364
+IoU 0.5, mAP: 0.308
+Write AP@IoU into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/test-proposal.pkl.iou
+Evaluating with recognizer
+2021-11-17 10:50:50,223: DET pred file /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/test-proposal.pkl -> REC pred file /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/test-proposal.pkl.rec
+2021-11-17 10:50:56,118: Loading model /home/nlp/dorink/project/FS-Detection/src/data/eval_ckpt/fswild.pth
+2021-11-17 10:50:56,191: 279 items
+2021-11-17 10:50:56,193: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/0-rgb.mp4 (BGR)
+2021-11-17 10:51:01,172: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/1-rgb.mp4 (BGR)
+2021-11-17 10:51:06,060: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/2-rgb.mp4 (BGR)
+2021-11-17 10:51:14,932: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/3-rgb.mp4 (BGR)
+2021-11-17 10:51:33,159: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/4-rgb.mp4 (BGR)
+2021-11-17 10:51:45,791: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/5-rgb.mp4 (BGR)
+2021-11-17 10:51:56,195: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/6-rgb.mp4 (BGR)
+2021-11-17 10:52:11,290: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/7-rgb.mp4 (BGR)
+2021-11-17 10:52:26,255: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/8-rgb.mp4 (BGR)
+2021-11-17 10:52:37,933: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/9-rgb.mp4 (BGR)
+2021-11-17 10:52:48,063: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/10-rgb.mp4 (BGR)
+2021-11-17 10:53:00,589: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/11-rgb.mp4 (BGR)
+2021-11-17 10:53:10,074: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/12-rgb.mp4 (BGR)
+2021-11-17 10:53:17,160: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/13-rgb.mp4 (BGR)
+2021-11-17 10:53:38,488: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/14-rgb.mp4 (BGR)
+2021-11-17 10:53:56,762: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/15-rgb.mp4 (BGR)
+2021-11-17 10:54:05,773: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/16-rgb.mp4 (BGR)
+2021-11-17 10:54:24,008: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/17-rgb.mp4 (BGR)
+2021-11-17 10:54:47,429: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/18-rgb.mp4 (BGR)
+2021-11-17 10:54:55,897: Loading video /home/nlp/dorink/project/FS-Detection/src/./data/fswild/loader/video/test/19-rgb.mp4 (BGR)
+AP@Acc
+2021-11-17 10:55:12,870: 0.0
+2021-11-17 10:55:14,518: 0.1
+2021-11-17 10:55:16,207: 0.2
+2021-11-17 10:55:17,869: 0.3
+2021-11-17 10:55:19,461: 0.4
+2021-11-17 10:55:19,467: Acc 0.0, IoU 0.0, mAP: 0.07427094356142366
+2021-11-17 10:55:19,468: Acc 0.1, IoU 0.0, mAP: 0.06772626245587134
+2021-11-17 10:55:19,468: Acc 0.2, IoU 0.0, mAP: 0.04554180319975941
+2021-11-17 10:55:19,469: Acc 0.3, IoU 0.0, mAP: 0.031836790100561535
+2021-11-17 10:55:19,470: Acc 0.4, IoU 0.0, mAP: 0.015602366766979207
+Write AP@Acc into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/test-proposal.pkl.rec.acc
+MSA
+Write MSA into /home/nlp/dorink/project/FS-Detection/src/data/exp/stage2/test-proposal.pkl.rec.msa
+MSA: -15.05050505050505

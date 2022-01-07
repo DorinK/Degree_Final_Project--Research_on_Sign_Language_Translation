@@ -1,0 +1,39 @@
+amp: 0
+batch_size: 1
+bbox_file: null
+best_dev_path: /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1/best-dev.pth
+char_list: _ '&.@acbedgfihkjmlonqpsrutwvyxz
+clip: 50
+ctc_type: warp
+det_coef: 1.0
+det_interval: 1000
+det_sample_rate: 1
+dev_label: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/dev.json
+dev_pose: null
+dev_scp: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/video/dev/scp
+dropout: 0.0
+epoch: 8
+fsr_coef: 0.1
+image_scale: 0.3
+immean:
+- 0.485
+- 0.456
+- 0.406
+imstd:
+- 0.229
+- 0.224
+- 0.225
+info_interval: 1000
+lr: 0.01
+optim: SGD
+output: /home/nlp/dorink/project/FS-Detection/src/data/exp/stage1
+path_pose: null
+pose_coef: 0.0
+pose_mode: null
+pose_sample_rate: 5
+reward_coef: 0.0
+reward_iou_thr: 0.5
+stage: 1
+train_label: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/train.json
+train_pose: null
+train_scp: /home/nlp/dorink/project/FS-Detection/src/data/fswild/loader/video/train/scp
