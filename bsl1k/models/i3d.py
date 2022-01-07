@@ -8,13 +8,16 @@ __all__ = ["InceptionI3d"]
 
 
 class MaxPool3dSamePadding(nn.MaxPool3d):
+
     def compute_pad(self, dim, s):
+
         if s % self.stride[dim] == 0:
             return max(self.kernel_size[dim] - self.stride[dim], 0)
         else:
             return max(self.kernel_size[dim] - (s % self.stride[dim]), 0)
 
     def forward(self, x):
+
         # compute 'same' padding
         (batch, channel, t, h, w) = x.size()
         # print t,h,ms.shaw
@@ -38,22 +41,24 @@ class MaxPool3dSamePadding(nn.MaxPool3d):
         # print x.size()
         # print pad
         x = F.pad(x, pad)
+
         return super(MaxPool3dSamePadding, self).forward(x)
 
 
 class Unit3D(nn.Module):
+
     def __init__(
-        self,
-        in_channels,
-        output_channels,
-        kernel_shape=(1, 1, 1),
-        stride=(1, 1, 1),
-        padding=0,
-        activation_fn=F.relu,
-        use_batch_norm=True,
-        use_bias=False,
-        name="unit_3d",
-        num_domains=1,
+            self,
+            in_channels,
+            output_channels,
+            kernel_shape=(1, 1, 1),
+            stride=(1, 1, 1),
+            padding=0,
+            activation_fn=F.relu,
+            use_batch_norm=True,
+            use_bias=False,
+            name="unit_3d",
+            num_domains=1,
     ):
 
         """Initializes Unit3D module."""
@@ -74,7 +79,8 @@ class Unit3D(nn.Module):
             out_channels=self._output_channels,
             kernel_size=self._kernel_shape,
             stride=self._stride,
-            padding=0,  # we always want padding to be 0 here. We will dynamically pad based on input size in forward function
+            padding=0,
+            # we always want padding to be 0 here. We will dynamically pad based on input size in forward function
             bias=self._use_bias,
         )
 
@@ -82,17 +88,17 @@ class Unit3D(nn.Module):
             if self._num_domains == 1:
                 self.bn = nn.BatchNorm3d(self._output_channels, eps=0.001, momentum=0.01)
             else:
-                self.bn = DomainSpecificBatchNorm3d(
-                    self._output_channels, self._num_domains, eps=0.001, momentum=0.01
-                )
+                self.bn = DomainSpecificBatchNorm3d(self._output_channels, self._num_domains, eps=0.001, momentum=0.01)
 
     def compute_pad(self, dim, s):
+
         if s % self._stride[dim] == 0:
             return max(self._kernel_shape[dim] - self._stride[dim], 0)
         else:
             return max(self._kernel_shape[dim] - (s % self._stride[dim]), 0)
 
     def forward(self, x):
+
         # compute 'same' padding
         (batch, channel, t, h, w) = x.size()
         # print t,h,w
@@ -123,10 +129,12 @@ class Unit3D(nn.Module):
             x = self.bn(x)
         if self._activation_fn is not None:
             x = self._activation_fn(x)
+
         return x
 
 
 class InceptionModule(nn.Module):
+
     def __init__(self, in_channels, out_channels, name, num_domains=1):
         super(InceptionModule, self).__init__()
 
@@ -176,19 +184,23 @@ class InceptionModule(nn.Module):
         self.name = name
 
     def forward(self, x):
+
         b0 = self.b0(x)
         b1 = self.b1b(self.b1a(x))
         b2 = self.b2b(self.b2a(x))
         b3 = self.b3b(self.b3a(x))
+
         return torch.cat([b0, b1, b2, b3], dim=1)
 
 
 class InceptionI3d(nn.Module):
-    """Inception-v1 I3D architecture.
+    """
+    Inception-v1 I3D architecture.
+
     The model is introduced in:
         Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset
-        Joao Carreira, Andrew Zisserman
-        https://arxiv.org/pdf/1705.07750v1.pdf.
+        Joao Carreira, Andrew Zisserman https://arxiv.org/pdf/1705.07750v1.pdf.
+
     See also the Inception architecture, introduced in:
         Going deeper with convolutions
         Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed,
@@ -196,9 +208,8 @@ class InceptionI3d(nn.Module):
         http://arxiv.org/pdf/1409.4842v1.pdf.
     """
 
-    # Endpoints of the model in order. During construction, all the endpoints up
-    # to a designated `final_endpoint` are returned in a dictionary as the
-    # second return value.
+    # Endpoints of the model in order. During construction, all the endpoints up to a designated
+    # `final_endpoint` are returned in a dictionary as the second return value.
     VALID_ENDPOINTS = (
         "Conv3d_1a_7x7",
         "MaxPool3d_2a_3x3",
@@ -221,33 +232,34 @@ class InceptionI3d(nn.Module):
     )
 
     def __init__(
-        self,
-        num_classes=400,
-        spatiotemporal_squeeze=True,
-        final_endpoint="Logits",
-        name="inception_i3d",
-        in_channels=3,
-        dropout_keep_prob=0.5,
-        num_in_frames=64,
-        include_embds=False,
+            self,
+            num_classes=400,
+            spatiotemporal_squeeze=True,
+            final_endpoint="Logits",
+            name="inception_i3d",
+            in_channels=3,
+            dropout_keep_prob=0.5,
+            num_in_frames=64,
+            include_embds=False,
     ):
-        """Initializes I3D model instance.
+        """
+        Initializes I3D model instance.
+
         Args:
-          num_classes: The number of outputs in the logit layer (default 400, which
-              matches the Kinetics dataset).
+          num_classes: The number of outputs in the logit layer (default 400, which matches the Kinetics dataset).
           spatiotemporal_squeeze: Whether to squeeze the 2 spatial and 1 temporal dimensions for the logits
               before returning (default True).
           final_endpoint: The model contains many possible endpoints.
-              `final_endpoint` specifies the last endpoint for the model to be built
-              up to. In addition to the output at `final_endpoint`, all the outputs
-              at endpoints up to `final_endpoint` will also be returned, in a
-              dictionary. `final_endpoint` must be one of
-              InceptionI3d.VALID_ENDPOINTS (default 'Logits').
+              `final_endpoint` specifies the last endpoint for the model to be built up to.
+              In addition to the output at `final_endpoint`, all the outputs at endpoints up to
+              `final_endpoint` will also be returned, in a dictionary.
+              `final_endpoint` must be one of InceptionI3d.VALID_ENDPOINTS (default 'Logits').
           in_channels: Number of input channels (default 3 for RGB).
           dropout_keep_prob: Dropout probability (default 0.5).
           name: A string (optional). The name of this module.
           num_in_frames: Number of input frames (default 64).
           include_embds: Whether to return embeddings (default False).
+
         Raises:
           ValueError: if `final_endpoint` is not recognized.
         """
@@ -395,6 +407,7 @@ class InceptionI3d(nn.Module):
 
         last_duration = int(math.ceil(num_in_frames / 8))  # 8
         last_size = 7  # int(math.ceil(sample_width / 32))  # this is for 224
+
         self.avgpool = nn.AvgPool3d((last_duration, last_size, last_size), stride=1)
 
         self.dropout = nn.Dropout(dropout_keep_prob)
@@ -413,6 +426,7 @@ class InceptionI3d(nn.Module):
         self.build()
 
     def replace_logits(self, num_classes):
+
         self._num_classes = num_classes
         self.logits = Unit3D(
             in_channels=384 + 384 + 128 + 128,
@@ -426,13 +440,16 @@ class InceptionI3d(nn.Module):
         )
 
     def build(self):
+
         for k in self.end_points.keys():
             self.add_module(k, self.end_points[k])
 
     def forward(self, x):
+
         for end_point in self.VALID_ENDPOINTS:
             if end_point in self.end_points:
                 x = self._modules[end_point](x)
+
         # [batch x featuredim x 1 x 1 x 1]
         embds = self.dropout(self.avgpool(x))
 

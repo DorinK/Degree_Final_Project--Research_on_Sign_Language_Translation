@@ -11,8 +11,8 @@ from utils.misc import (
     is_show,
     save_pred,
 )
-from utils.vizutils import viz_gt_pred
 
+from utils.vizutils import viz_gt_pred
 
 # ----------------------------------------------------------------
 # monkey patch for progress bar on SLURM
@@ -32,32 +32,34 @@ if True:
 
 # Combined train/val epoch
 def do_epoch(
-    setname,
-    loader,
-    model,
-    criterion,
-    epochno=-1,
-    optimizer=None,
-    num_classes=None,
-    debug=False,
-    checkpoint=None,
-    mean=torch.Tensor([0.5, 0.5, 0.5]),
-    std=torch.Tensor([1.0, 1.0, 1.0]),
-    feature_dim=1024,
-    save_logits=False,
-    save_features=False,
-    num_figs=100,
-    topk=[1],
-    save_feature_dir="",
-    save_fig_dir="",
+        setname,
+        loader,
+        model,
+        criterion,
+        epochno=-1,
+        optimizer=None,
+        num_classes=None,
+        debug=False,
+        checkpoint=None,
+        mean=torch.Tensor([0.5, 0.5, 0.5]),
+        std=torch.Tensor([1.0, 1.0, 1.0]),
+        feature_dim=1024,
+        save_logits=False,
+        save_features=False,
+        num_figs=100,
+        topk=[1],
+        save_feature_dir="",
+        save_fig_dir="",
 ):
     assert setname == "train" or setname == "val" or setname == "test"  # TODO: Adjusting.  V
+
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = [AverageMeter()]
+
     perfs = []
     for k in topk:
-        perfs.append(AverageMeter())    # TODO: AverageMeter() - Computes and stores the average and current value
+        perfs.append(AverageMeter())  # TODO: AverageMeter() - Computes and stores the average and current value.
 
     if save_logits:
         all_logits = torch.Tensor(loader.dataset.__len__(), num_classes)
@@ -68,26 +70,26 @@ def do_epoch(
         model.train()
     elif setname == "val":
         model.eval()
-    elif setname == "test": # TODO: Adjusting.  V
+    elif setname == "test":  # TODO: Add test set option.   V
         model.eval()
 
     end = time.time()
 
     gt_win, pred_win, fig_gt_pred = None, None, None
     bar = Bar("E%d" % (epochno + 1), max=len(loader))
+
     for i, data in enumerate(loader):
 
         if data.get("gpu_collater", False):
-            # We handle collation on the GPU to enable faster data augmentation
+            #  We handle collation on the GPU to enable faster data augmentation
+
             with torch.no_grad():
                 data["rgb"] = data["rgb"].cuda()
                 collater_kwargs = {}
                 if isinstance(loader.dataset, torch.utils.data.ConcatDataset):
                     cat_datasets = loader.dataset.datasets
                     collater = cat_datasets[0].gpu_collater
-                    cat_datasets = {
-                        type(x).__name__.lower(): x for x in cat_datasets
-                    }
+                    cat_datasets = {type(x).__name__.lower(): x for x in cat_datasets}
                     collater_kwargs["concat_datasets"] = cat_datasets
                 else:
                     collater = loader.dataset.gpu_collater
@@ -108,7 +110,7 @@ def do_epoch(
         # compute the loss
         logits = outputs_cuda["logits"].data.cpu()
         loss = criterion(outputs_cuda["logits"], targets_cuda)
-        topk_acc = performance(logits, targets, topk=topk)  # TODO: performance - Returns the accuracy at top-k over a batch
+        topk_acc = performance(logits, targets, topk=topk)  # TODO: performance - Returns the accuracy at top-k over a batch.
 
         for ki, acc in enumerate(topk_acc):
             perfs[ki].update(acc, inputs.size(0))
@@ -160,24 +162,24 @@ def do_epoch(
             perf=", ".join([f"{perfs[i].avg:.3f}" for i in range(len(perfs))]),
         )
         bar.next()
+
     bar.finish()
 
     # from sklearn.preprocessing import MultiLabelBinarizer
     # mlb = MultiLabelBinarizer()
     # mlb.fit_transform([(1, 2), (3,)])
     # save outputs
+
     if save_logits or save_features:
         meta = {
             "clip_gt": np.asarray(loader.dataset.get_set_classes()),
             "clip_ix": loader.dataset.valid,
             "video_names": loader.dataset.get_all_videonames(),
         }
+
     if save_logits:
-        save_pred(
-            all_logits, checkpoint=save_feature_dir, filename="preds.mat", meta=meta,
-        )
+        save_pred( all_logits, checkpoint=save_feature_dir, filename="preds.mat", meta=meta)
     if save_features:
-        save_pred(
-            all_features, checkpoint=save_feature_dir, filename="features.mat", meta=meta,
-        )
+        save_pred(all_features, checkpoint=save_feature_dir, filename="features.mat", meta=meta)
+
     return losses, perfs

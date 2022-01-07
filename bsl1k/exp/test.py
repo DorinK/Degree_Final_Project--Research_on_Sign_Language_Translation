@@ -1,7 +1,7 @@
 from create_exp import run_cmd
 
-
 if __name__ == "__main__":
+
     extra_args = """
         --num-classes 1233 \\
         --num_in_frames 16 \\
@@ -10,6 +10,7 @@ if __name__ == "__main__":
         --test_set test \\
         --phoenix_path /home/nlp/dorink/project/bsl1k/data_phoenix \\
     """
+
     run_cmd(
         dataset="phoenix2014",
         subfolder="bug",
@@ -21,6 +22,7 @@ if __name__ == "__main__":
         jobsub=False,
         refresh=False,
     )
+
     # extra_args = """
     #     --num-classes 2000 \\
     #     --num_in_frames 64 \\
@@ -39,4 +41,4 @@ if __name__ == "__main__":
     #     jobsub=False,
     #     refresh=False,
     # )
-#         --checkpoint checkpoint/phoenix2014t_i3d_pkinetics \\
+#         --checkpoint checkpoint/phoenix2014t_i3d_pkinetics \

@@ -22,6 +22,7 @@ model_names = sorted(
 
 
 def build_parser():
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', type=int, default=0)
     # Model structure
@@ -250,8 +251,8 @@ def build_parser():
     parser.add_argument(
         "--word_data_pkl", type=str, default="misc/bsl1k/bsl1k_vocab.pkl", help="Path to the list of words."
     )
-    parser.add_argument(
-        # "--phoenix_assign_labels", type=str, default="auto", help="uniform | auto"    # TODO: We decided to work with uniform labels. V
+    parser.add_argument(  # TODO: We decided to work with uniform labels.   V
+        # "--phoenix_assign_labels", type=str, default="auto", help="uniform | auto"
         "--phoenix_assign_labels", type=str, default="uniform", help="uniform | auto"
     )
     parser.add_argument(
@@ -300,6 +301,7 @@ def build_parser():
         default=0,
         help="Whether to return the I3D embeddings.",
     )
+
     return parser
 
 
@@ -309,19 +311,24 @@ def parse_opts(argv=None):
 
 
 def print_args(args):
+
     print("==== Options ====")
+
     for k, v in sorted(vars(args).items()):
         print(f"{k}: {v}")
+
     print("=================")
 
 
 def save_args(args, save_folder, opt_prefix="opt", verbose=True):
+
     opts = vars(args)
     os.makedirs(save_folder, exist_ok=True)
 
     # Save to text
     opt_filename = f"{opt_prefix}.txt"
     opt_path = os.path.join(save_folder, opt_filename)
+
     with open(opt_path, "a") as opt_file:
         opt_file.write("====== Options ======\n")
         for k, v in sorted(opts.items()):
@@ -332,7 +339,9 @@ def save_args(args, save_folder, opt_prefix="opt", verbose=True):
     # Save as pickle
     opt_picklename = f"{opt_prefix}.pkl"
     opt_picklepath = os.path.join(save_folder, opt_picklename)
+
     with open(opt_picklepath, "wb") as opt_file:
         pickle.dump(opts, opt_file)
+
     if verbose:
         print(f"Saved options to {opt_path}")

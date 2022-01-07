@@ -1,6 +1,3 @@
-"""Main code driver
-"""
-
 import logging
 import os
 import sys
@@ -15,7 +12,7 @@ import torch.nn.parallel
 import torch.optim
 
 import evaluate
-import evaluate_seq # TODO: me
+import evaluate_seq  # TODO: Mine.
 import models
 import opts
 from datasets.multidataloader import MultiDataLoader
@@ -28,7 +25,13 @@ from utils.misc import (adjust_learning_rate, load_checkpoint,
 # import tensorflow as tf
 # from sign_language_datasets.datasets.config import SignDatasetConfig
 
+"""""""""""""""""""""
+  Main code driver
+"""""""""""""""""""""
+
+
 def main(args):
+
     # Seed
     torch.manual_seed(args.seed)
     torch.backends.cudnn.deterministic = True
@@ -76,15 +79,14 @@ def main(args):
             msg = "Set --include_embds 1 to save_features"
             assert args.include_embds, msg
     elif args.arch == "Pose2Sign":
-        model = models.Pose2Sign(num_classes=args.num_classes,)
+        model = models.Pose2Sign(num_classes=args.num_classes)
     else:
-        model = models.__dict__[args.arch](num_classes=args.num_classes,)
+        model = models.__dict__[args.arch](num_classes=args.num_classes)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    # adjust for opts for multi-gpu training. Note that we also apply warmup to the
-    # learning rate. Can technically remove this if-statement, but leaving for now
-    # to make the change explicit.
+    # Adjust for opts for multi-gpu training. Note that we also apply warmup to the learning rate.
+    # Can technically remove this if-statement, but leaving for now to make the change explicit.
     if args.num_gpus > 1:
         num_gpus = torch.cuda.device_count()
         msg = f"Requested {args.num_gpus}, but {num_gpus} were visible"
@@ -106,9 +108,10 @@ def main(args):
         weight_decay=args.weight_decay,
     )
 
-    # optionally resume from a checkpoint
     tic = time.time()
     title = f"{args.datasetname} - {args.arch}"
+
+    # optionally resume from a checkpoint
     if args.resume:
         if os.path.isfile(args.resume):
             plog.info(f"=> loading checkpoint '{args.resume}'")
@@ -116,12 +119,8 @@ def main(args):
             model.load_state_dict(checkpoint["state_dict"])
             optimizer.load_state_dict(checkpoint["optimizer"])
             args.start_epoch = checkpoint["epoch"]
-            plog.info(
-                f"=> loaded checkpoint '{args.resume}' (epoch {checkpoint['epoch']})"
-            )
-            logger = Logger(
-                os.path.join(args.checkpoint, "log.txt"), title=title, resume=True
-            )
+            plog.info(f"=> loaded checkpoint '{args.resume}' (epoch {checkpoint['epoch']})")
+            logger = Logger(os.path.join(args.checkpoint, "log.txt"), title=title, resume=True)
             del checkpoint
         else:
             plog.info(f"=> no checkpoint found at '{args.resume}'")
@@ -135,7 +134,6 @@ def main(args):
         for p in range(args.nperf):  # TODO: nperf = number of performance metrics.
             logger_names.append("train_perf%d" % p)
             logger_names.append("val_perf%d" % p)
-
         logger.set_names(logger_names)
 
     if args.pretrained:
@@ -147,9 +145,7 @@ def main(args):
     plog.info(f"Loaded parameters for model in {duration}")
 
     # if args.dataset_name == "phoenix2014":
-    mdl = MultiDataLoader(
-        train_datasets=args.datasetname, val_datasets=args.datasetname,
-    )
+    mdl = MultiDataLoader(train_datasets=args.datasetname, val_datasets=args.datasetname)
     train_loader, val_loader, meanstd = mdl._get_loaders(args)
 
     train_mean = meanstd[0]
@@ -157,23 +153,24 @@ def main(args):
     val_mean = meanstd[2]
     val_std = meanstd[3]
 
-    # else:
+    # else: # TODO: Trying to adjust the model to support the AUTSL dataset.
     #     config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
     #     autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
-    #                       shuffle_files=True)  # TODO: Check shuffle! 7/9
+    #                       shuffle_files=True)
     #     train_loader, val_loader, test_loader = autsl['train'], autsl['validation'], autsl['test']
 
-        # meanstd = [
-        #     train_loader.mean,
-        #     train_loader.std,
-        #     val_loader.mean,
-        #     val_loader.std,
-        #     test_loader.mean,
-        #     test_loader.std
-        # ]
+    # meanstd = [
+    #     train_loader.mean,
+    #     train_loader.std,
+    #     val_loader.mean,
+    #     val_loader.std,
+    #     test_loader.mean,
+    #     test_loader.std
+    # ]
 
     save_feature_dir = args.checkpoint
     save_fig_dir = Path(args.checkpoint) / "figs"
+
     if args.featurize_mode:
         save_feature_dir = Path(args.checkpoint) / "filtered" / args.featurize_mask
         save_feature_dir.mkdir(exist_ok=True, parents=True)
@@ -185,6 +182,7 @@ def main(args):
     criterion = criterion.to(device)
 
     if args.evaluate or args.evaluate_video:
+
         plog.info("\nEvaluation only")
         loss, acc = do_epoch(
             # "val",    # TODO: Adjusting.  V
@@ -205,35 +203,36 @@ def main(args):
             save_feature_dir=save_feature_dir,
             save_fig_dir=save_fig_dir,
         )
+
         if args.featurize_mode:
             plog.info(f"Featurizing without metric evaluation")
             return
 
         try:
             # Summarize/save results
-            evaluate.evaluate(args, val_loader.dataset, plog)  # TODO: Can be removed.   V
-        except:  # TODO: Redirecting - evaluate.py doesn't match to phoenix2014t, but evaluate_seq.py.   V
+            evaluate.evaluate(args, val_loader.dataset, plog)  # TODO: Can be removed.  V
+        except:  # TODO: Redirecting - evaluate.py doesn't match to phoenix2014t, but evaluate_seq.py.  V
             print('IN EXCEPTION')
             evaluate_seq.evaluate(args, val_loader.dataset, plog)
 
-
         logger_epoch = [0, 0]
+
         for p in range(len(loss)):
             logger_epoch.append(float(loss[p].avg))
             logger_epoch.append(float(loss[p].avg))
         for p in range(len(acc)):
             logger_epoch.append(float(acc[p].avg))
             logger_epoch.append(float(acc[p].avg))
+
         # append logger file
         logger.append(logger_epoch)
-
         return
 
     lr = args.lr
+
     for epoch in range(args.start_epoch, args.epochs):
-        lr = adjust_learning_rate(
-            optimizer, epoch, lr, args.schedule, args.gamma, num_gpus=args.num_gpus
-        )
+
+        lr = adjust_learning_rate(optimizer, epoch, lr, args.schedule, args.gamma, num_gpus=args.num_gpus)
         plog.info("\nEpoch: %d | LR: %.8f" % (epoch + 1, lr))
 
         # train for one epoch
@@ -280,12 +279,14 @@ def main(args):
         )
 
         logger_epoch = [epoch + 1, lr]
+
         for p in range(len(train_loss)):
             logger_epoch.append(float(train_loss[p].avg))
             logger_epoch.append(float(valid_loss[p].avg))
         for p in range(len(train_perf)):
             logger_epoch.append(float(train_perf[p].avg))
             logger_epoch.append(float(valid_perf[p].avg))
+
         # append logger file
         logger.append(logger_epoch)
 
@@ -312,5 +313,6 @@ def main(args):
 
 
 if __name__ == "__main__":
+
     args = opts.parse_opts(argv=sys.argv[1:])
     main(args)

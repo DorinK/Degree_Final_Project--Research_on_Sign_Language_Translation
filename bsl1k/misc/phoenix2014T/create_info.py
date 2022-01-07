@@ -1,16 +1,18 @@
-"""Create metadata for the phoenix2014T dataset.
-"""
 import os
 import csv
 import pickle as pkl
 import argparse
 from pathlib import Path
 from datetime import date
-
 import cv2
+
+"""""""""""""""""""""""""""""""""""""""""""""
+Create metadata for the phoenix2014T dataset
+"""""""""""""""""""""""""""""""""""""""""""""
 
 
 def _get_video_info(rgb_path):
+
     if os.path.exists(rgb_path):
         cap = cv2.VideoCapture(rgb_path)
         video_res_t = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -29,19 +31,23 @@ def _get_video_info(rgb_path):
         video_res_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         video_res_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         video_fps = cap.get(cv2.CAP_PROP_FPS)
+
         if video_res_t == 0 or video_res_w == 0 or video_res_h == 0 or video_fps == 0:
             return [None] * 5
         else:
             video_duration_sec = float(video_res_t) / video_fps
+
         return video_res_t, video_res_w, video_res_h, video_fps, video_duration_sec
+
     else:
         return [None] * 5
 
 
 def main(data_path: Path):
+
     today_str = date.today().strftime("%y.%m.%d")
-    info_file = '/home/nlp/dorink/project/bsl1k'/data_path / "info" / f"info_{today_str}.pkl"
-    dict_file = open('/home/nlp/dorink/project/bsl1k'/data_path / "info" / f"words_{today_str}.txt", "w")
+    info_file = '/home/nlp/dorink/project/bsl1k' / data_path / "info" / f"info_{today_str}.pkl"
+    dict_file = open('/home/nlp/dorink/project/bsl1k' / data_path / "info" / f"words_{today_str}.txt", "w")
 
     data = {}
     words = set()
@@ -70,9 +76,7 @@ def main(data_path: Path):
     # Read all the sentences from the csvs to determine the vocab for each split
     all_glosses = {}
     for s, v in sets.items():
-        annot_file = os.path.join(
-            "/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv"
-        )
+        annot_file = os.path.join("/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv")
         with open(annot_file, newline="") as f:
             reader = csv.reader(f)
             # Skip the header
@@ -111,10 +115,10 @@ def main(data_path: Path):
     data["words_to_id"] = words_to_id
 
     for s, v in sets.items():
-        annot_file = os.path.join(
-            "/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv"
-        )
+
+        annot_file = os.path.join("/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv")
         videos_set = os.path.join("/home/nlp/dorink/project/bsl1k/data_phoenix", "videos", s)
+
         with open(annot_file, newline="") as f:
             reader = csv.reader(f)
             # Skip the header
@@ -122,8 +126,10 @@ def main(data_path: Path):
             rows = []
             for row in reader:
                 rows.append(row[0].split("|"))
+
         # Loop over annotation csv
         for row in rows:
+
             # e.g. row[1] is: '01April_2010_Thursday_heute_default-0/1/*.png'
             # Trim the last 8 bits: '01April_2010_Thursday_heute_default-0'
             # This should be our naming convention with gather_frames.py script.
@@ -131,6 +137,7 @@ def main(data_path: Path):
             v = f"{v}.mp4"  # append .mp4
             mp4_path = os.path.join(videos_set, v)
             assert os.path.exists(mp4_path)
+
             # Video resolution information
             (
                 video_res_t,
@@ -139,6 +146,7 @@ def main(data_path: Path):
                 video_fps,
                 video_duration_sec,
             ) = _get_video_info(mp4_path)
+
             # Indication that the video is readable
             if video_res_t:
                 data["videos"]["videos"]["T"].append(video_res_t)
@@ -154,6 +162,7 @@ def main(data_path: Path):
                 data["videos"]["gloss_seq"].append(gloss_seq)
                 glosses = []
                 gloss_ids = []
+
                 for g in gloss_seq.split(" "):
                     glosses.append(g)
                     if g in words_to_id:
@@ -168,6 +177,7 @@ def main(data_path: Path):
                 name = os.path.join(s, v)
                 data["videos"]["name"].append(name)
                 data["videos"]["signer"].append(row[4])
+
             else:
                 print(mp4_path)
 
@@ -180,7 +190,7 @@ if __name__ == "__main__":
     p.add_argument(
         "--data_path",
         type=Path,
-        default= "data_phoenix",#"data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T",
+        default="data_phoenix",  # "data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T",
         help="Path to Phoenix data.",
     )
     main(**vars(p.parse_args()))

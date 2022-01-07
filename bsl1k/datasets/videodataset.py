@@ -11,22 +11,21 @@ import torch
 import torch.utils.data as data
 from beartype import beartype
 
-from utils.imutils import (im_to_numpy, im_to_torch, im_to_video,
-                           resize_generic, video_to_im)
-from utils.transforms import (bbox_format, color_normalize, im_color_jitter,
-                              scale_yxyx_bbox)
+from utils.imutils import (im_to_numpy, im_to_torch, im_to_video,resize_generic, video_to_im)
+from utils.transforms import (bbox_format, color_normalize, im_color_jitter,scale_yxyx_bbox)
 
 cv2.setNumThreads(0)
 
-
-# not sure how many video readers it is safe to keep open for a given video
-# but this seems reasonable. For safety, we sho
+# not sure how many video readers it is safe to keep open for a given video but this seems reasonable.
+# For safety, we sho
 CAP_CACHE_LIMIT = 10
 DISABLE_CACHING = True
 
 
 class VideoDataset(data.Dataset):
+
     def __init__(self):
+
         self.mean = 0.5 * torch.ones(3)
         self.std = 1.0 * torch.ones(3)
         if not hasattr(self, "use_bbox"):
@@ -43,6 +42,7 @@ class VideoDataset(data.Dataset):
         raise NotImplementedError(f"_get_nframes name must be implemented by subclasss")
 
     def _slide_windows(self, valid):
+
         stride = int(self.stride * self.num_in_frames)  # 0.5 for 50% stride
         test = []
         t_beg = []
@@ -69,14 +69,16 @@ class VideoDataset(data.Dataset):
         return valid, t_beg
 
     def _load_rgb(self, ind, frame_ix):
-        """Loads the video frames from file
-            frame_ix could be range(t, t + nframes) for consecutive reading
-                or a random sorted subset of [0, video_length] of size nframes
+        """
+        Loads the video frames from file.
+        frame_ix could be range(t, t + nframes) for consecutive reading or a random sorted subset of
+        [0, video_length] of size nframes.
         """
         is_consecutive = range(min(frame_ix), max(frame_ix) + 1) == frame_ix
         nframes = len(frame_ix)
         videofile = self._get_video_file(ind)
         use_cv2 = True
+
         if getattr(self, "video_data_dict", False):
             use_cv2 = False
             compressed_frames = self.video_data_dict[videofile]["data"]
@@ -104,11 +106,11 @@ class VideoDataset(data.Dataset):
             assert self.gpu_collation == 256, msg
             rgb = torch.zeros(3, nframes, self.gpu_collation, self.gpu_collation)
         else:
-            rgb = torch.zeros(
-                3, nframes, self._get_img_height(ind), self._get_img_width(ind)
-            )
-        # rgb = torch.zeros(3, nframes, self.img_height, self.img_width)
+            rgb = torch.zeros(3, nframes, self._get_img_height(ind), self._get_img_width(ind))
+            # rgb = torch.zeros(3, nframes, self.img_height, self.img_width)
+
         for f, fix in enumerate(frame_ix):
+
             if use_cv2:
                 if not is_consecutive:
                     cap.set(propId=1, value=fix)
@@ -129,11 +131,12 @@ class VideoDataset(data.Dataset):
             else:
                 # Copy last frame for temporal padding
                 rgb[:, f, :, :] = rgb[:, f - 1, :, :]
+
         if use_cv2:
             if (
-                hasattr(self, "featurize_mode")
-                and self.featurize_mode
-                and not DISABLE_CACHING
+                    hasattr(self, "featurize_mode")
+                    and self.featurize_mode
+                    and not DISABLE_CACHING
             ):
                 if fix == self._get_nframes(ind):
                     cap.release()
@@ -148,8 +151,7 @@ class VideoDataset(data.Dataset):
                             f" >{CAP_CACHE_LIMIT}, clearing half of the keys"
                         )
                         for old_key in oldest_keys[: CAP_CACHE_LIMIT // 2]:
-                            # To guard against race conditions we supply a default for
-                            # missing keys
+                            # To guard against race conditions we supply a default for missing keys
                             self.cached_caps[videofile].pop(old_key, None)
             else:
                 cap.release()
@@ -159,9 +161,9 @@ class VideoDataset(data.Dataset):
         return rgb
 
     def collate_fn(self, batch):
-        """Note: To enable usage with ConcatDataset, this must not rely on any attributes
-        that are specific to a current dataset (apart from `gpu_collation`), since a
-        single collate_fn will be shared by all datasets.
+        """
+        Note: To enable usage with ConcatDataset, this must not rely on any attributes that are specific to
+        a current dataset (apart from `gpu_collation`), since a single collate_fn will be shared by all datasets.
         """
         if not getattr(self, "gpu_collation", False):
             return torch.utils.data._utils.collate.default_collate(batch)
@@ -169,6 +171,7 @@ class VideoDataset(data.Dataset):
         meta = {"class", "index", "data_index", "dataset"}
         minibatch = {key: [x[key] for x in batch] for key in meta}
         rgb = torch.stack([im_to_video(x["rgb"]) for x in batch])
+
         for key_long_dtype in {"class", "index", "data_index"}:
             minibatch[key_long_dtype] = torch.LongTensor(minibatch[key_long_dtype])
 
@@ -179,13 +182,16 @@ class VideoDataset(data.Dataset):
         class_names = [x["class_names"] for x in batch]
         msg = "collate_fn does not yet support mixtures of class names"
         assert len(set("-".join(x) for x in class_names)), msg
+
         minibatch["class_names"] = [[x] * len(batch) for x in batch[0]["class_names"]]
         minibatch["gpu_collater"] = True
         return minibatch
 
     def gpu_collater(self, minibatch, concat_datasets=None):
+
         rgb = minibatch["rgb"]
         assert rgb.is_cuda, "expected tensor to be on the GPU"
+
         if self.setname == "train":
             is_hflip = random.random() < self.hflip
             if is_hflip:
@@ -195,8 +201,8 @@ class VideoDataset(data.Dataset):
         if self.setname == "train":
             rgb = im_color_jitter(rgb, num_in_frames=self.num_in_frames, thr=0.2)
 
-        # For now, mimic the original pipeline.  If it's still a bottleneck, we should
-        # collapse the cropping, resizing etc. logic into a single sampling grid.
+        # For now, mimic the original pipeline.  If it's still a bottleneck, we should collapse the cropping,
+        # resizing etc. logic into a single sampling grid.
         iB, iC, iK, iH, iW = rgb.shape
         assert iK == self.num_in_frames, "unexpected number of frames per clip"
 
@@ -222,6 +228,7 @@ class VideoDataset(data.Dataset):
         bbox_yxyx[:, 2:] = np.minimum(1, bbox_yxyx[:, 2:])
 
         if self.setname == "train":
+
             if is_hflip:
                 flipped_xmin = 1 - bbox_yxyx[:, 3]
                 flipped_xmax = 1 - bbox_yxyx[:, 1]
@@ -235,16 +242,16 @@ class VideoDataset(data.Dataset):
             rand_scale = 1 / rand_scale
             bbox_yxyx = scale_yxyx_bbox(bbox_yxyx, scale=rand_scale)
 
-        # apply random/center cropping to match the proportions used in the original code
-        # (the scaling is not quite identical, but close to it)
+        # apply random/center cropping to match the proportions used in the original code (the scaling is not
+        # quite identical, but close to it)
         if self.setname == "train":
             crop_box_sc = (self.inp_res / self.resize_res) * rand_scale
         else:
             crop_box_sc = self.inp_res / self.resize_res
         bbox_yxyx = scale_yxyx_bbox(bbox_yxyx, scale=crop_box_sc)
 
-        # If training, jitter the location such that it still lies within the appropriate
-        # region defined by the (optionally scaled) bounding box
+        # If training, jitter the location such that it still lies within the appropriate region defined by
+        # the (optionally scaled) bounding box
         if self.setname == "train":
             crop_bbox_cenhw = bbox_format(bbox_yxyx, src="yxyx", dest="cenhw")
             cropped_hw = crop_bbox_cenhw[:, 2:]
@@ -259,9 +266,7 @@ class VideoDataset(data.Dataset):
         #  (2) whether zero padding is appropriate for out-of-bounds handling
         # center in [-1, -1] coordinates
         bbox_yxyx = 2 * bbox_yxyx - 1
-        grids = torch.zeros(
-            iB, self.inp_res, self.inp_res, 2, device=rgb.device, dtype=rgb.dtype
-        )
+        grids = torch.zeros(iB, self.inp_res, self.inp_res, 2, device=rgb.device, dtype=rgb.dtype)
 
         for ii, bbox in enumerate(bbox_yxyx):
             yticks = torch.linspace(start=bbox[0], end=bbox[2], steps=self.inp_res)
@@ -272,17 +277,18 @@ class VideoDataset(data.Dataset):
 
         # merge RGB and clip dimensions to use with grid sampler
         rgb = rgb.view(rgb.shape[0], 3 * self.num_in_frames, iH, iW)
-        rgb = torch.nn.functional.grid_sample(
-            rgb, grid=grids, mode="bilinear", align_corners=False, padding_mode="zeros",
-        )
+        rgb = torch.nn.functional.grid_sample(rgb, grid=grids, mode="bilinear", align_corners=False, padding_mode="zeros")
         # unflatten channel/clip dimension
         rgb = rgb.view(rgb.shape[0], 3, self.num_in_frames, self.inp_res, self.inp_res)
         rgb = color_normalize(rgb, self.mean, self.std)
         minibatch["rgb"] = rgb
+
         return minibatch
 
     def _get_single_video(self, index, data_index, frame_ix):
-        """Loads/augments/returns the video data
+        """
+        Loads/augments/returns the video data.
+
         :param index: Index wrt to the data loader
         :param data_index: Index wrt to train/valid list
         :param frame_ix: A list of frame indices to sample from the video
@@ -299,6 +305,7 @@ class VideoDataset(data.Dataset):
                 "dataset": self.datasetname,
             }
             return data
+
         # Otherwise the input is RGB
         else:
             rgb = self._load_rgb(data_index, frame_ix)
@@ -346,9 +353,7 @@ class VideoDataset(data.Dataset):
                 x1 = iW - x1
                 x0, x1 = x1, x0
             rgb = rgb[y0:y1, x0:x1, :]
-            rgb = resize_generic(
-                rgb, self.resize_res, self.resize_res, interp="bilinear", is_flow=False,
-            )
+            rgb = resize_generic(rgb, self.resize_res, self.resize_res, interp="bilinear", is_flow=False)
             iH, iW, iC = rgb.shape
 
         resol = self.resize_res  # 300 for 256, 130 for 112 etc.
@@ -358,6 +363,7 @@ class VideoDataset(data.Dataset):
             rand_scale = random.random()
             resol *= 1 - self.scale_factor + 2 * self.scale_factor * rand_scale
             resol = int(resol)
+
         if iW > iH:
             nH, nW = resol, int(resol * iW / iH)
         else:
@@ -374,8 +380,9 @@ class VideoDataset(data.Dataset):
             # Center crop coords
             ulx = int((nW - self.inp_res) / 2)
             uly = int((nH - self.inp_res) / 2)
+
         # Crop 256x256
-        rgb = rgb[uly : uly + self.inp_res, ulx : ulx + self.inp_res]
+        rgb = rgb[uly: uly + self.inp_res, ulx: ulx + self.inp_res]
         rgb = im_to_torch(rgb)
         rgb = im_to_video(rgb)
         rgb = color_normalize(rgb, self.mean, self.std)
@@ -392,6 +399,7 @@ class VideoDataset(data.Dataset):
         return data
 
     def __getitem__(self, index):
+
         if self.setname == "train":
             data_index = self.train[index]
         else:
@@ -401,6 +409,7 @@ class VideoDataset(data.Dataset):
         return self._get_single_video(index, data_index, frame_ix)
 
     def __len__(self):
+
         if self.setname == "train":
             return len(self.train)
         else:
@@ -408,22 +417,21 @@ class VideoDataset(data.Dataset):
 
     # TODO: Get rid of this
     def set_video_metadata(self, data, meta_key, fixed_sz_frames=None):
-        """Set the appropriate metadata for the videos used by the current dataset.
+        """
+        Set the appropriate metadata for the videos used by the current dataset.
 
         Args:
             data (dict): a collection of meta data associated with the current dataset.
-            meta_key (str): the key under which the video meta data is stored in Gul's
-                info data dicts.
-            fixed_sz_frames (int): A value to be used for the height and width of frames,
-                which, if provided, will overwrite the meta data from the data dict. This
-                is used for gpu collation.
+            meta_key (str): the key under which the video meta data is stored in Gul's info data dicts.
+            fixed_sz_frames (int): A value to be used for the height and width of frames, which, if provided,
+                will overwrite the meta data from the data dict. This is used for gpu collation.
         """
         # restrict to the given videos
         if (
-            hasattr(self, "featurize_mode")
-            and hasattr(self, "featurize_mask")
-            and self.featurize_mode
-            and self.featurize_mask
+                hasattr(self, "featurize_mode")
+                and hasattr(self, "featurize_mask")
+                and self.featurize_mode
+                and self.featurize_mask
         ):
             keep = np.array([self.featurize_mask in x for x in data["videos"]["name"]])
             print(f"Filtered featurization to {keep.sum()} videos")
@@ -445,32 +453,40 @@ class VideoDataset(data.Dataset):
             self.img_heights = [fixed_sz_frames for _ in self.img_heights]
 
     def set_class_names(self, data, word_data_pkl):
-        """Assign the dataset class names, optionally filtering them with a pickle
-        file of words.
+        """
+        Assign the dataset class names, optionally filtering them with a pickle file of words.
         """
         if word_data_pkl is None:
+
             # All words
             subset_ix = range(len(data["videos"]["name"]))
             self.classes = data["videos"]["word_id"]
+
             with open(os.path.join(self.root_path, "info", "words.txt"), "r") as f:
                 self.class_names = f.read().splitlines()
+
         else:
             print(f"Using the words from {word_data_pkl}")
+
             word_data = pkl.load(open(word_data_pkl, "rb"))
             self.classes = []
             subset_ix = []
+
             for i, w in enumerate(data["videos"]["word"]):
                 if w in word_data["words"]:
                     self.classes.append(word_data["words_to_id"][w])
                     subset_ix.append(i)
                 else:
                     self.classes.append(-1)
+
             with open(word_data_pkl.replace(".pkl", ".txt"), "r") as f:
                 self.class_names = f.read().splitlines()
+
         return subset_ix
 
     @beartype
     def get_set_classes(self, is_train: bool = False):
+
         if is_train:
             return np.asarray(self.classes)[self.train]
         else:
@@ -483,8 +499,8 @@ class VideoDataset(data.Dataset):
         return self.videos
 
     def _get_valid_temporal_interval(self, data_index):
-        """Returns the [beginning,end) frame indices
-        from which we will sample inputs from the full video.
+        """
+        Returns the [beginning,end) frame indices from which we will sample inputs from the full video.
         By default it returns the full video.
         For bsl1k, num_last_frames=20, it returns the last 20 frames.
         """
@@ -492,15 +508,18 @@ class VideoDataset(data.Dataset):
         # By default the full video is used.
         t0 = 0
         t1 = nFrames
+
         # Only take last num_last_frames of the video (used only for BSL1K)
         if hasattr(self, "num_last_frames"):
             if nFrames >= self.num_last_frames:
                 t0 = nFrames - self.num_last_frames
+
         len_t = t1 - t0
         return t0, t1, len_t, nFrames
 
     def _sample_frames(self, index, data_index):
-        """Returns a list of frame indices to sample (consecutively):
+        """
+        Returns a list of frame indices to sample (consecutively):
             if train: random initial point
             if val: middle clip
             if evaluate_video: sliding window
@@ -520,5 +539,6 @@ class VideoDataset(data.Dataset):
             # VAL (middle clip)
             else:
                 t = init_t + max(0, math.floor((len_t - self.num_in_frames) / 2))
+
         frame_ix = range(t, t + self.num_in_frames)
         return frame_ix

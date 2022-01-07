@@ -3,17 +3,18 @@ import os
 
 
 def set_user_specific_vars(config="/home/nlp/dorink/project/bsl1k/exp/config.json"):
+
     with open(config, "r") as f:
         config_data = json.load(f)
         code_dir = config_data["code_dir"]
         activate_env = config_data["activate_env"]
+
     return code_dir, activate_env
 
 
-def create_jobsub_str(
-    jobname, expdir, num_gpus=1, mem=96, num_workers=8, duration=96
-):
-    """Prepends the slurm job submission string to the bash script string. 
+def create_jobsub_str(jobname, expdir, num_gpus=1, mem=96, num_workers=8, duration=96):
+    """
+    Prepends the slurm job submission string to the bash script string.
     """
     jobsub_str = f"""#!/bin/bash
 #SBATCH --job-name={jobname}
@@ -35,17 +36,18 @@ export PATH=$PATH
 
 
 def create_cmd(
-    dataset,
-    subfolder,
-    extra_args,
-    code_dir,
-    activate_env,
-    running_mode="train",
-    modelno="",
-    test_suffix="",
-    num_gpus=1,
+        dataset,
+        subfolder,
+        extra_args,
+        code_dir,
+        activate_env,
+        running_mode="train",
+        modelno="",
+        test_suffix="",
+        num_gpus=1,
 ):
-    """Creates a string which will be the content of the bash script. 
+    """
+    Creates a string which will be the content of the bash script.
     """
     expdir = os.path.join(code_dir, "checkpoint", dataset, subfolder)
 
@@ -54,7 +56,8 @@ def create_cmd(
         expdir = os.path.join(expdir, f"test{modelno}{test_suffix}")
 
     os.makedirs(expdir, exist_ok=True)
-# {activate_env}
+
+    # {activate_env}
     cmd_str = f"""
 cd {code_dir}
 python main.py \\
@@ -81,6 +84,7 @@ def write_script_file(expdir, cmd_str, refresh=False):
             or exits to avoid overwriting.
     """
     scriptfile = f"{expdir}/run.sh"
+
     if os.path.exists(scriptfile):
         if refresh:
             print(f"{scriptfile} exists, refreshing...")
@@ -89,21 +93,23 @@ def write_script_file(expdir, cmd_str, refresh=False):
             print(f"   rm {scriptfile}")
             exit()
     print(f"Creating script file {scriptfile}")
+
     with open(scriptfile, "w") as f:
         f.write(cmd_str)
+
     return scriptfile
 
 
 def run_cmd(
-    dataset,
-    subfolder,
-    extra_args,
-    running_mode="train",
-    modelno="",
-    test_suffix="",
-    num_gpus=1,
-    jobsub=False,
-    refresh=False,
+        dataset,
+        subfolder,
+        extra_args,
+        running_mode="train",
+        modelno="",
+        test_suffix="",
+        num_gpus=1,
+        jobsub=False,
+        refresh=False,
 ):
     """
         Runs the job.
@@ -122,8 +128,7 @@ def run_cmd(
             jobsub: If True, submits the bash script as a job to the slurm cluster
             refresh: If True, overwrites any existing bash script and relaunches
         Note:
-            This is optional. The training/testing code can be ran by directly
-            typing `python main.py <args>` on terminal.
+            This is optional. The training/testing code can be ran by directly typing `python main.py <args>` on terminal.
     """
     code_dir, activate_env = set_user_specific_vars()
     cmd_str, expdir = create_cmd(
@@ -145,6 +150,7 @@ def run_cmd(
     scriptfile = write_script_file(expdir=expdir, cmd_str=cmd_str, refresh=refresh)
     print("Running:")
     print(cmd_str)
+
     if jobsub:
         print("SUBMITTING JOB...")
         os.system(f"sbatch {scriptfile}")

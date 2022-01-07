@@ -11,21 +11,23 @@ cv2.setNumThreads(0)
 
 
 class PHOENIX2014(VideoDataset):
+
     def __init__(
-        self,
-        root_path="/home/nlp/dorink/project/bsl1k/data_phoenix",
-        inp_res=224,
-        resize_res=256,
-        setname="train",
-        scale_factor=0.1,
-        num_in_frames=16,
-        evaluate_video=False,
-        hflip=0.5,
-        stride=0.5,
-        gpu_collation=False,
-        assign_labels="uniform",    # TODO: We decided to work with uniform labels. V
+            self,
+            root_path="/home/nlp/dorink/project/bsl1k/data_phoenix",
+            inp_res=224,
+            resize_res=256,
+            setname="train",
+            scale_factor=0.1,
+            num_in_frames=16,
+            evaluate_video=False,
+            hflip=0.5,
+            stride=0.5,
+            gpu_collation=False,
+            assign_labels="uniform",  # TODO: We decided to work with uniform labels.   V
     ):
-        print("SETNAME is:", setname)   # TODO: Check.  V
+
+        # print("SETNAME is:", setname)  # TODO: Check. V
         self.root_path = root_path
         self.setname = setname  # train, val or test
         self.gpu_collation = gpu_collation
@@ -37,6 +39,7 @@ class PHOENIX2014(VideoDataset):
         self.hflip = hflip
         self.stride = stride
         self.assign_labels = assign_labels
+
         infofile = os.path.join(root_path, "info", "info_21.04.15.pkl")
         print(f"Loading {infofile}")
         data = pkl.load(open(infofile, "rb"))
@@ -51,6 +54,7 @@ class PHOENIX2014(VideoDataset):
                     replace_cnt += 1
                     self.classes[i][j] = other_class_ix
         print(f"Replaced {replace_cnt} -1s with {other_class_ix}")
+
         with open(os.path.join(self.root_path, "info", "words_21.04.15.txt"), "r") as f:
             self.class_names = f.read().splitlines()
 
@@ -58,9 +62,11 @@ class PHOENIX2014(VideoDataset):
 
         self.video_folder = "videos"
         meta_key = self.video_folder
+
         if gpu_collation:
             # GPU collation requires all inputs to share the same spatial input size
             self.video_folder = "videos-resized-256fps-256x256"
+
         self.set_video_metadata(data, meta_key=meta_key, fixed_sz_frames=gpu_collation)
 
         self.train = list(np.where(np.asarray(data["videos"]["split"]) == 0)[0])
@@ -70,7 +76,7 @@ class PHOENIX2014(VideoDataset):
             self.valid = list(np.where(np.asarray(data["videos"]["split"]) == 2)[0])
 
         if self.assign_labels == "auto":
-            self.frame_level_glosses = data["videos"]["gloss_ids"] #data["videos"]["alignments"]["gloss_id"]
+            self.frame_level_glosses = data["videos"]["gloss_ids"]  # data["videos"]["alignments"]["gloss_id"]
 
         if evaluate_video:
             self.valid, self.t_beg = self._slide_windows(self.valid)
@@ -87,20 +93,23 @@ class PHOENIX2014(VideoDataset):
         return self.classes[ind], len(self.classes[ind])
 
     def _get_class(self, ind, frame_ix):
+
         total_duration = self.num_frames[ind]
         t_middle = frame_ix[0] + (self.num_in_frames / 2)
+
         # Uniformly distribute the glosses over the video
         # auto labels are only for training
         if (
-            self.assign_labels == "uniform"
-            or self.setname != "train"
-            or len(self.frame_level_glosses[ind]) == 0
+                self.assign_labels == "uniform"
+                or self.setname != "train"
+                or len(self.frame_level_glosses[ind]) == 0
         ):
             glosses = self.classes[ind]
             num_glosses = len(glosses)
             duration_per_gloss = total_duration / num_glosses
             glossix = math.floor(t_middle / duration_per_gloss)
             return glosses[glossix]
+
         # Use the automatic alignments
         elif self.assign_labels == "auto":
             frame_glosses = self.frame_level_glosses[ind]
@@ -132,6 +141,7 @@ class PHOENIX2014(VideoDataset):
             max_indices = np.where(cnts == cnts.max())[0]
             selected_max_index = np.random.choice(max_indices)
             return glss[selected_max_index]
+
         else:
             exit()
 

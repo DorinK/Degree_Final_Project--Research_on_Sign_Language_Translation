@@ -1,11 +1,3 @@
-# Example usage:
-"""
-source activate pytorch1.3
-python evaluate_seq.py --datasetname phoenix2014 \
-    --checkpoint checkpoint/phoenix2014/T_c1233_ctc_blank_unfreeze/test_002_stride0.50/ \
-    --num-classes 1233 --num_in_frames 16 --stride 0.5 \
-    --phoenix_path data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T \
-"""
 import json
 import logging
 import os
@@ -21,21 +13,35 @@ from utils.evaluation.wer import wer_list, wer_single
 
 plt.switch_backend("agg")
 
+"""
+# Example usage:
+source activate pytorch1.3
+python evaluate_seq.py --datasetname phoenix2014 \
+    --checkpoint checkpoint/phoenix2014/T_c1233_ctc_blank_unfreeze/test_002_stride0.50/ \
+    --num-classes 1233 --num_in_frames 16 --stride 0.5 \
+    --phoenix_path data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T \
+"""
+
 
 def phoenix_make_ctm(pred, names, output_file="demo.ctm"):
+
     f = open(output_file, "w")
     interval = 0.1
+
     for i in range(len(pred)):
         t_beg = 0
         for gloss in pred[i]:
             f.write(f"{names[i]} {t_beg:.3f} {t_beg + interval:.3f} {gloss}\n")
             t_beg += interval
+
     f.close()
 
 
 def phoenix_name_to_official(name, phoenix2014T=False):
+
     name = name[:-4]  # rm ".mp4"
     name = name.split("/")[-1]  # rm "test/"
+
     if phoenix2014T:
         return f"{name} 1"
     else:
@@ -45,12 +51,13 @@ def phoenix_name_to_official(name, phoenix2014T=False):
 
 def gather_clips(dataloader_val, scores=None, features=None, phoenix2014T=False):
     """
-        Takes in sliding window network outputs (clips)
+        Takes in sliding window network outputs (clips).
             dataloader_val: dataloader constructed with evaluate_video=1
             scores: clip scores [num_clips, num_classes]
             features: clip features [num_clips, feature_dim]
     """
     video_ix = np.unique(dataloader_val.valid)
+
     N = len(video_ix)
     gt = [None for _ in range(N)]
     pred = [None for _ in range(N)]
@@ -58,30 +65,28 @@ def gather_clips(dataloader_val, scores=None, features=None, phoenix2014T=False)
     pred_glosses = [None for _ in range(N)]
     names = [None for _ in range(N)]
     len_clip = np.zeros(N)
+
     if features is not None:
         vid_features = np.zeros((N, features.shape[1]))
     else:
         vid_features = None
 
     for i, vid in enumerate(video_ix):
+
         clip_ix = np.where(dataloader_val.valid == vid)
+
         if scores is not None:
             clip_score = scores[clip_ix]
             len_clip[i] = clip_score.shape[0]
             pred_seq = np.argmax(clip_score, axis=1)
             # [8, 8, 59, 603, 603, 603, 8] becomes [8, 59, 603, 8] removing consecutive repeating elems
-            pred_seq_simple = [
-                v for i, v in enumerate(pred_seq) if i == 0 or v != pred_seq[i - 1]
-            ]
+            pred_seq_simple = [v for i, v in enumerate(pred_seq) if i == 0 or v != pred_seq[i - 1]]
             pred[i] = pred_seq_simple
             gt[i] = dataloader_val.classes[vid]
-            pred_glosses[i] = [
-                "".join(dataloader_val.class_names[g].split(" ")[1:]) for g in pred[i]
-            ]
-            gt_glosses[i] = [
-                "".join(dataloader_val.class_names[g].split(" ")[1:]) for g in gt[i]
-            ]
+            pred_glosses[i] = ["".join(dataloader_val.class_names[g].split(" ")[1:]) for g in pred[i]]
+            gt_glosses[i] = ["".join(dataloader_val.class_names[g].split(" ")[1:]) for g in gt[i]]
             names[i] = phoenix_name_to_official(dataloader_val.videos[vid], phoenix2014T)
+
         if features is not None:
             vid_features[i] = np.mean(features[clip_ix], axis=0)
 
@@ -89,12 +94,14 @@ def gather_clips(dataloader_val, scores=None, features=None, phoenix2014T=False)
 
 
 def get_dataloader(args):
+
     common_kwargs = {
         "stride": args.stride,
         "inp_res": args.inp_res,
         "resize_res": args.resize_res,
         "num_in_frames": args.num_in_frames,
     }
+
     if args.datasetname == "phoenix2014":
         loader = datasets.PHOENIX2014(
             root_path=args.phoenix_path,
@@ -105,25 +112,32 @@ def get_dataloader(args):
     else:
         print("Which dataset? (evaluate.py)")
         exit()
+
     return loader
 
 
 def save_wer_to_json(wer_result, result_file):
+
     print(f"Saving results to {result_file}")
+
     with open(result_file, "w") as f:
         f.write(json.dumps(wer_result, indent=2))
         f.write("\n")
 
 
 def evaluate(args, dataloader_val, plog):
-    # if "PHOENIX-2014-T" in args.phoenix_path or True:
-    if "phoenix2014t" in args.phoenix_path or True:     # TODO: fix.    V
+
+    if "phoenix2014t" in args.phoenix_path or True:  # TODO: Fix.   V
         phoenix2014T = True
+
     with_scores = True
     with_features = args.save_features
-    # dataloader_val = get_dataloader(args) # TODO: Remove this line, the dataloader_val is being received as parameter.    V
+
+    # TODO: Remove this line, the dataloader_val is being received as parameter.    V
+    # dataloader_val = get_dataloader(args)
     exp_root = args.checkpoint
     scores = None
+
     if with_scores:
         # scores_file = f"{exp_root}/preds_valid.mat"   # TODO: Name is inconsistent - should be 'preds.mat'.   V
         scores_file = f"{exp_root}/preds.mat"
@@ -131,6 +145,7 @@ def evaluate(args, dataloader_val, plog):
         scores = sio.loadmat(scores_file)["preds"]
         plog.info(scores.shape)  # e.g. [32558, 60]
         assert scores.shape[0] == len(dataloader_val.valid)
+
     features = None
     if with_features:
         plog.info("Loading features_valid.mat")
@@ -148,13 +163,16 @@ def evaluate(args, dataloader_val, plog):
     pred_sentences = [" ".join(s) for s in pred_glosses]
     gt_list = []
     pred_list = []
+
     for i in range(N):
+
         if phoenix2014T:
             gt_i_clean = clean_phoenix_2014_trans(gt_sentences[i])
             pred_i_clean = clean_phoenix_2014_trans(pred_sentences[i])
         else:
             gt_i_clean = clean_phoenix_2014(gt_sentences[i])
             pred_i_clean = clean_phoenix_2014(pred_sentences[i])
+
         w = wer_single(gt_i_clean, pred_i_clean)
         gt_list.append(gt_i_clean)
         pred_list.append(pred_i_clean)
@@ -162,11 +180,14 @@ def evaluate(args, dataloader_val, plog):
         print("PD", pred_i_clean)
         print(w)
         print()
+
     wer_result = wer_list(gt_list, pred_list)
     for k, v in wer_result.items():
         wer_result[k] = f"{v:.2f}"
+
     print("==> Python eval script results:")
     print(wer_result)
+
     if phoenix2014T:
         eval_path = "data/evaluation/sign-recognition/"
         eval_script = "evaluatePHOENIX-2014-T-signrecognition.sh"
@@ -179,7 +200,7 @@ def evaluate(args, dataloader_val, plog):
         output_file = "demo.ctm"
         phoenix_make_ctm(pred_glosses, names, output_file=f"{eval_path}/{output_file}")
         print("==> Official eval script results:")
-        # TODO: The Official script is not working at the moment, don't think it's crucial. X
+        # TODO: The Official script is not working at the moment, don't think it's crucial. V
         # cmd = f"cd {eval_path} && PATH=$PATH:/users/gul/tools/sctk-2.4.10/bin ./{eval_script} {output_file} test"
         cmd = f"cd {eval_path} PATH=$PATH:home/nlp/dorink/project/bsl1k/checkpoint/phoenix2014t_i3d_pkinetics_new_Sep1/{eval_script} {output_file} test"
         # out = os.system(cmd)
@@ -194,12 +215,16 @@ def evaluate(args, dataloader_val, plog):
     # Write the results to json file
     result_file = f"{exp_root}/wer.json"
     save_wer_to_json(wer_result, result_file)
+
     return wer_result["wer"]
 
 
 if __name__ == "__main__":
+
     args = opts.parse_opts()
     args.evaluate_video = 1
     args.test_set = "test"
+
     plog = logging.getLogger("eval")
+
     evaluate(args, plog)
