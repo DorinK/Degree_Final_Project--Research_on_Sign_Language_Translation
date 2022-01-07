@@ -1,4 +1,3 @@
-# coding: utf-8
 import numpy as np
 
 from collections import defaultdict, Counter
@@ -13,8 +12,7 @@ BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
 
-# TODO: Update accordingly. VVV
-class Vocabulary:
+class Vocabulary:  # TODO: Update accordingly.  VVV
     """ Vocabulary represents mapping between tokens and indices. """
 
     def __init__(self):
@@ -25,7 +23,7 @@ class Vocabulary:
         self.stoi = None
         self.DEFAULT_UNK_ID = None
 
-    # TODO: Change if it is the way.    VVV
+    # TODO: Change if it is in the way. VVV
     def _from_list(self, tokens: List[str] = None):
         """
         Make vocabulary from list of tokens.
@@ -69,7 +67,7 @@ class Vocabulary:
     #  Update: This func gives a number to each label. Should not be used.
     def add_tokens(self, tokens: List[str]):
         """
-        Add list of tokens to vocabulary
+        Add list of tokens to vocabulary.
 
         :param tokens: list of tokens to add to the vocabulary
         """
@@ -83,7 +81,7 @@ class Vocabulary:
     # TODO: Should check it.    VVV
     def is_unk(self, token: str) -> bool:
         """
-        Check whether a token is covered by the vocabulary
+        Check whether a token is covered by the vocabulary.
 
         :param token:
         :return: True if covered, False otherwise
@@ -117,8 +115,7 @@ class TextVocabulary(Vocabulary):
 
     def array_to_sentence(self, array: np.array, cut_at_eos=True) -> List[str]:
         """
-        Converts an array of IDs to a sentence, optionally cutting the result
-        off at the end-of-sequence token.
+        Converts an array of IDs to a sentence, optionally cutting the result off at the end-of-sequence token.
 
         :param array: 1D array containing indices
         :param cut_at_eos: cut the decoded sentences at the first <eos>
@@ -134,8 +131,8 @@ class TextVocabulary(Vocabulary):
 
     def arrays_to_sentences(self, arrays: np.array, cut_at_eos=True) -> List[List[str]]:
         """
-        Convert multiple arrays containing sequences of token IDs to their
-        sentences, optionally cutting them off at the end-of-sequence token.
+        Convert multiple arrays containing sequences of token IDs to their sentences, optionally cutting
+        them off at the end-of-sequence token.
 
         :param arrays: 2D array containing indices
         :param cut_at_eos: cut the decoded sentences at the first <eos>
@@ -147,8 +144,7 @@ class TextVocabulary(Vocabulary):
         return sentences
 
 
-# TODO: Update to suite to a gloss ids format.  VVV
-class GlossVocabulary(Vocabulary):
+class GlossVocabulary(Vocabulary):  # TODO: Update to suite to a gloss ids format.  VVV
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
         Create vocabulary from list of tokens or file.
@@ -184,17 +180,16 @@ class GlossVocabulary(Vocabulary):
         return gloss_sequences
 
 
-# TODO: Okay.
+# TODO: Okay.   V
 def filter_min(counter: Counter, minimum_freq: int):
     """ Filter counter by min frequency """
     filtered_counter = Counter({t: c for t, c in counter.items() if c >= minimum_freq})
     return filtered_counter
 
 
-# TODO: Okay.
+# TODO: Okay.   V
 def sort_and_cut(counter: Counter, limit: int):
-    """ Cut counter to most frequent,
-    sorted numerically and alphabetically"""
+    """ Cut counter to most frequent, sorted numerically and alphabetically"""
     # sort by frequency, then alphabetically
     tokens_and_frequencies = sorted(counter.items(), key=lambda tup: tup[0])
     tokens_and_frequencies.sort(key=lambda tup: tup[1], reverse=True)
@@ -218,7 +213,7 @@ def build_vocab(
     :return: Vocabulary created from either `dataset` or `vocab_file`
     """
 
-    if vocab_file is not None:  # TODO: Okay.
+    if vocab_file is not None:  # TODO: Okay.   V
         # load it from file
         if field == "gls":
             vocab = GlossVocabulary(file=vocab_file)
@@ -228,7 +223,7 @@ def build_vocab(
             raise ValueError("Unknown vocabulary type")
     else:
         tokens = []
-        if version == 'phoenix_2014_trans':  # TODO: Match to the asynchronous loader.    V  # TODO: Mine.
+        if version == 'phoenix_2014_trans':  # TODO: Match to the asynchronous loader.  V
             for i in dataset.examples:
                 if field == "gls":
                     tokens.extend(i.gls)
@@ -237,21 +232,29 @@ def build_vocab(
                 else:
                     raise ValueError("Unknown field type")
 
-        elif version == 'autsl':  # TODO: Check it is working.    VVV  # TODO: Mine.
+        elif version == 'autsl':  # TODO: Mine - Check it is working.  VVV
 
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
-                    tokens.append(int(i['gloss_id'].numpy()))
-                elif field == "txt":
-                    tokens.append(int(i['text'].numpy()))
-                else:
+                    # tokens.append(int(i['gloss_id'].numpy()))
+                    tokens.append(str(i['gloss_id'].numpy()))
+                # elif field == "txt":
+                #     tokens.append(int(i['text'].numpy()))
+                else:   # TODO: Mine.
                     raise ValueError("Unknown field type")
         else:  # TODO: Mine.
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     break
-                elif field == "txt":
-                    tokens.append(i['text'].numpy().decode('utf-8'))
+                if field == "txt":  # TODO: Break the text reference into word tokens.  V
+                    # tokens += [char for word in words for char in word]
+                    words=i['text'].numpy().decode('utf-8').split()
+                    # for word in words:
+                    #     chars = [char for char in word] +[' ']
+                    #     tokens+= chars
+                    # tokens.append(i['text'].numpy().decode('utf-8'))
+                    # tokens.append(i['text'].numpy().decode('utf-8'))
+                    tokens+=words
                 else:
                     raise ValueError("Unknown field type")
 
@@ -261,7 +264,7 @@ def build_vocab(
         vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if needed.   VVV
         assert len(vocab_tokens) <= max_size
 
-        if field == "gls":  # TODO: Okay.
+        if field == "gls":  # TODO: Okay.   V
             vocab = GlossVocabulary(tokens=vocab_tokens)
         elif field == "txt":
             vocab = TextVocabulary(tokens=vocab_tokens)

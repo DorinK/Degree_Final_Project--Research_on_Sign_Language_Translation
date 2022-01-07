@@ -1,7 +1,3 @@
-# coding: utf-8
-"""
-Data module
-"""
 from torchtext import data
 # from torchtext.data import Field, RawField
 from torchtext.data import Dataset, RawField, Field, Example  # TODO: Mine.
@@ -13,6 +9,10 @@ import torch
 # TODO: Mine.
 import itertools
 
+"""""""""""""""
+ Data module
+"""""""""""""""
+
 
 def load_dataset_file(filename):
     with gzip.open(filename, "rb") as f:
@@ -21,7 +21,9 @@ def load_dataset_file(filename):
 
 
 class SignTranslationDataset(Dataset):
-    """Defines a dataset for machine translation."""
+    """
+    Defines a dataset for machine translation.
+    """
 
     @staticmethod
     def sort_key(ex):
@@ -39,10 +41,8 @@ class SignTranslationDataset(Dataset):
         Arguments:
             path: Common prefix of paths to the data files for both languages.
             exts: A tuple containing the extension to path for each language.
-            fields: A tuple containing the fields that will be used for data
-                in each language.
-            Remaining keyword arguments: Passed to the constructor of
-                data.Dataset.
+            fields: A tuple containing the fields that will be used for data in each language.
+            Remaining keyword arguments: Passed to the constructor of data.Dataset.
         """
 
         if not isinstance(fields[0], (tuple, list)):
@@ -67,9 +67,7 @@ class SignTranslationDataset(Dataset):
                     assert samples[seq_id]["signer"] == s["signer"]
                     assert samples[seq_id]["gloss"] == s["gloss"]
                     assert samples[seq_id]["text"] == s["text"]
-                    samples[seq_id]["sign"] = torch.cat(
-                        [samples[seq_id]["sign"], s["sign"]], axis=1
-                    )
+                    samples[seq_id]["sign"] = torch.cat([samples[seq_id]["sign"], s["sign"]], axis=1)
                 else:
                     samples[seq_id] = {
                         "name": s["name"],

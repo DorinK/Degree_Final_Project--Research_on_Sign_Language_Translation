@@ -1,7 +1,3 @@
-# coding: utf-8
-"""
-Collection of helper functions
-"""
 import copy
 import glob
 import os
@@ -21,6 +17,12 @@ from torch import nn, Tensor
 from torchtext.data import Dataset  # TODO: Mine.
 import yaml
 from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
+
+"""""""""""""""""""""""""""""""""
+ Collection of helper functions
+"""""""""""""""""""""""""""""""""
+
+DEVICE = 0
 
 
 def make_model_dir(model_dir: str, overwrite: bool = False) -> str:
@@ -95,8 +97,7 @@ def clones(module: nn.Module, n: int) -> nn.ModuleList:
 
 def subsequent_mask(size: int) -> Tensor:
     """
-    Mask out subsequent positions (to prevent attending to future positions)
-    Transformer helper function.
+    Mask out subsequent positions (to prevent attending to future positions) Transformer helper function.
 
     :param size: size of mask (2nd and 3rd dim)
     :return: Tensor with 0s and 1s of shape (1, size, size)
@@ -209,7 +210,7 @@ def load_checkpoint(path: str, use_cuda: bool = True) -> dict:
     :return: checkpoint (dict)
     """
     assert os.path.isfile(path), "Checkpoint %s not found" % path
-    checkpoint = torch.load(path, map_location="cuda" if use_cuda else "cpu")
+    checkpoint = torch.load(path, map_location="cuda:{}".format(DEVICE) if use_cuda else "cpu")
     return checkpoint
 
 
@@ -249,8 +250,7 @@ def tile(x: Tensor, count: int, dim=0) -> Tensor:
 
 def freeze_params(module: nn.Module):
     """
-    Freeze the parameters of this module,
-    i.e. do not update them during training
+    Freeze the parameters of this module, i.e. do not update them during training.
 
     :param module: freeze parameters of this module
     """

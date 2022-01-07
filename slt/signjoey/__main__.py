@@ -5,9 +5,8 @@ import sys
 from slt.signjoey.training import train
 from slt.signjoey.prediction import test
 
-# sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # TODO: Mine.
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # TODO: Mine.
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO: Mine.
 
 
 def main():
@@ -31,7 +30,13 @@ def main():
     if args.mode == "train":
         train(cfg_file=args.config_path)
     elif args.mode == "test":
-        test(cfg_file=args.config_path, ckpt=args.ckpt, output_path=args.output_path)
+        from training import load_config
+        cfg = load_config(args.config_path)
+        ckpt = "{}/{}.ckpt".format(cfg["training"]["model_dir"], 2600)
+        output_name = "best.IT_{:08d}".format(2600)
+        output_path = os.path.join(cfg["training"]["model_dir"], output_name)
+        test(cfg_file=args.config_path, ckpt=ckpt, output_path=output_path)
+        # test(cfg_file=args.config_path, ckpt=args.ckpt, output_path=args.output_path)
     else:
         raise ValueError("Unknown mode")
 

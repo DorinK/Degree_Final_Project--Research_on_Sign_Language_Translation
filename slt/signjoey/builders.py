@@ -1,7 +1,3 @@
-# coding: utf-8
-"""
-Collection of builder functions
-"""
 from typing import Callable, Optional, Generator
 
 import torch
@@ -12,6 +8,10 @@ from torch.optim import lr_scheduler
 
 # Optimization Algorithms
 from torch.optim import Optimizer
+
+"""""""""""""""""""""""""""""""""
+Collection of builder functions
+"""""""""""""""""""""""""""""""""
 
 
 def build_gradient_clipper(config: dict) -> Optional[Callable]:
@@ -31,14 +31,10 @@ def build_gradient_clipper(config: dict) -> Optional[Callable]:
     clip_grad_fun = None
     if "clip_grad_val" in config.keys():
         clip_value = config["clip_grad_val"]
-        clip_grad_fun = lambda params: nn.utils.clip_grad_value_(
-            parameters=params, clip_value=clip_value
-        )
+        clip_grad_fun = lambda params: nn.utils.clip_grad_value_(parameters=params, clip_value=clip_value)
     elif "clip_grad_norm" in config.keys():
         max_norm = config["clip_grad_norm"]
-        clip_grad_fun = lambda params: nn.utils.clip_grad_norm_(
-            parameters=params, max_norm=max_norm
-        )
+        clip_grad_fun = lambda params: nn.utils.clip_grad_norm_(parameters=params, max_norm=max_norm)
 
     if "clip_grad_val" in config.keys() and "clip_grad_norm" in config.keys():
         raise ValueError("You can only specify either clip_grad_val or clip_grad_norm.")
@@ -50,8 +46,7 @@ def build_optimizer(config: dict, parameters) -> Optimizer:
     """
     Create an optimizer for the given parameters as specified in config.
 
-    Except for the weight decay and initial learning rate,
-    default optimizer settings are used.
+    Except for the weight decay and initial learning rate, default optimizer settings are used.
 
     Currently supported configuration settings for "optimizer":
         - "sgd" (default): see `torch.optim.SGD`
@@ -62,11 +57,10 @@ def build_optimizer(config: dict, parameters) -> Optimizer:
 
     The initial learning rate is set according to "learning_rate" in the config.
     The weight decay is set according to "weight_decay" in the config.
-    If they are not specified, the initial learning rate is set to 3.0e-4, the
-    weight decay to 0.
+    If they are not specified, the initial learning rate is set to 3.0e-4, the weight decay to 0.
 
-    Note that the scheduler state is saved in the checkpoint, so if you load
-    a model for further training you have to use the same type of scheduler.
+    Note that the scheduler state is saved in the checkpoint, so if you load a model for further
+    training you have to use the same type of scheduler.
 
     :param config: configuration dictionary
     :param parameters:
@@ -139,8 +133,8 @@ def build_scheduler(
         config: dict, optimizer: Optimizer, scheduler_mode: str, hidden_size: int = 0
 ) -> (Optional[lr_scheduler._LRScheduler], Optional[str]):
     """
-    Create a learning rate scheduler if specified in config and
-    determine when a scheduler step should be executed.
+    Create a learning rate scheduler if specified in config and determine when a scheduler step should be
+    executed.
 
     Current options:
         - "plateau": see `torch.optim.lr_scheduler.ReduceLROnPlateau`
@@ -148,8 +142,7 @@ def build_scheduler(
         - "exponential": see `torch.optim.lr_scheduler.ExponentialLR`
         - "noam": see `joeynmt.transformer.NoamScheduler`
 
-    If no scheduler is specified, returns (None, None) which will result in
-    a constant learning rate.
+    If no scheduler is specified, returns (None, None) which will result in a constant learning rate.
 
     :param config: training configuration
     :param optimizer: optimizer for the scheduler, determines the set of
@@ -244,7 +237,7 @@ def build_scheduler(
 
 class NoamScheduler:
     """
-    The Noam learning rate scheduler used in "Attention is all you need"
+    The Noam learning rate scheduler used in "Attention is all you need".
     See Eq. 3 in https://arxiv.org/pdf/1706.03762.pdf
     """
 
@@ -308,6 +301,7 @@ class WarmupExponentialDecayScheduler:
     ):
         """
         Warm-up, followed by exponential learning rate decay.
+
         :param peak_rate: maximum learning rate at peak after warmup
         :param optimizer:
         :param decay_length: decay length after warmup

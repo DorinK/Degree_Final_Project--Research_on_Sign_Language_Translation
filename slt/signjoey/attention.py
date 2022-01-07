@@ -1,17 +1,16 @@
-# coding: utf-8
-"""
-Attention modules
-"""
-
 import torch
 from torch import Tensor
 import torch.nn as nn
 import torch.nn.functional as F
 
+"""""""""""""""""
+Attention modules
+"""""""""""""""""
+
 
 class AttentionMechanism(nn.Module):
     """
-    Base attention class
+    Base attention class.
     """
 
     def forward(self, *inputs):
@@ -20,7 +19,7 @@ class AttentionMechanism(nn.Module):
 
 class BahdanauAttention(AttentionMechanism):
     """
-    Implements Bahdanau (MLP) attention
+    Implements Bahdanau (MLP) attention.
 
     Section A.1.2 in https://arxiv.org/pdf/1409.0473.pdf.
     """
@@ -138,15 +137,12 @@ class LuongAttention(AttentionMechanism):
         """
         Creates attention mechanism.
 
-        :param hidden_size: size of the key projection layer, has to be equal
-            to decoder hidden size
+        :param hidden_size: size of the key projection layer, has to be equal to decoder hidden size
         :param key_size: size of the attention input keys
         """
 
         super(LuongAttention, self).__init__()
-        self.key_layer = nn.Linear(
-            in_features=key_size, out_features=hidden_size, bias=False
-        )
+        self.key_layer = nn.Linear(in_features=key_size, out_features=hidden_size, bias=False)
         self.proj_keys = None  # projected keys
 
     # pylint: disable=arguments-differ
@@ -158,8 +154,7 @@ class LuongAttention(AttentionMechanism):
     ):
         """
         Luong (multiplicative / bilinear) attention forward pass.
-        Computes context vectors and attention scores for a given query and
-        all masked values and returns them.
+        Computes context vectors and attention scores for a given query and all masked values and returns them.
 
         :param query: the item (decoder state) to compare with the keys/memory,
             shape (batch_size, 1, decoder.hidden_size)
@@ -192,8 +187,7 @@ class LuongAttention(AttentionMechanism):
     def compute_proj_keys(self, keys: Tensor):
         """
         Compute the projection of the keys and assign them to `self.proj_keys`.
-        This pre-computation is efficiently done for all keys
-        before receiving individual queries.
+        This pre-computation is efficiently done for all keys before receiving individual queries.
 
         :param keys: shape (batch_size, sgn_length, encoder.hidden_size)
         """

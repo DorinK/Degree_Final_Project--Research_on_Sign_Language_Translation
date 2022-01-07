@@ -49,7 +49,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./autsl_model__16"
+    model_dir: "./autsl_model__21"
     recognition_loss_weight: 1.0
     translation_loss_weight: 0.0
     eval_metric: wer
@@ -67,10 +67,10 @@ training:
     overwrite: true
     shuffle: true
     use_cuda: true
-    translation_max_output_length: 30
+    translation_max_output_length: 1
     keep_last_ckpts: 1
     batch_multiplier: 1
-    logging_freq: 1
+    logging_freq: 100
     validation_freq: 400
     betas:
     - 0.9

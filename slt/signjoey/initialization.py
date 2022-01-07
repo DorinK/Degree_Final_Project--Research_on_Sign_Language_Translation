@@ -1,9 +1,3 @@
-# coding: utf-8
-
-"""
-Implements custom initialization
-"""
-
 import math
 
 import torch
@@ -11,10 +5,14 @@ import torch.nn as nn
 from torch import Tensor
 from torch.nn.init import _calculate_fan_in_and_fan_out
 
+"""""""""""""""""""""""""""""""""
+Implements custom initialization
+"""""""""""""""""""""""""""""""""
+
 
 def orthogonal_rnn_init_(cell: nn.RNNBase, gain: float = 1.0):
     """
-    Orthogonal initialization of recurrent weights
+    Orthogonal initialization of recurrent weights.
     RNN parameters contain 3 or 4 matrices in one parameter, so we slice it.
     """
     with torch.no_grad():
@@ -39,9 +37,9 @@ def lstm_forget_gate_init_(cell: nn.RNNBase, value: float = 1.0) -> None:
 
 def xavier_uniform_n_(w: Tensor, gain: float = 1.0, n: int = 4) -> None:
     """
-    Xavier initializer for parameters that combine multiple matrices in one
-    parameter for efficiency. This is e.g. used for GRU and LSTM parameters,
-    where e.g. all gates are computed at the same time by 1 big matrix.
+    Xavier initializer for parameters that combine multiple matrices in one parameter for efficiency.
+    This is e.g. used for GRU and LSTM parameters, where e.g. all gates are computed at the same time
+    by 1 big matrix.
 
     :param w: parameter
     :param gain: default 1
@@ -61,30 +59,25 @@ def initialize_model(model: nn.Module, cfg: dict, txt_padding_idx: int) -> None:
     """
     This initializes a model based on the provided config.
 
-    All initializer configuration is part of the `model` section of the
-    configuration file.
-    For an example, see e.g. `https://github.com/joeynmt/joeynmt/
-    blob/master/configs/iwslt_envi_xnmt.yaml#L47`
+    All initializer configuration is part of the `model` section of the configuration file.
+    For an example, see e.g. `https://github.com/joeynmt/joeynmt/blob/master/configs/iwslt_envi_xnmt.yaml#L47`
 
-    The main initializer is set using the `initializer` key.
-    Possible values are `xavier`, `uniform`, `normal` or `zeros`.
+    The main initializer is set using the `initializer` key. Possible values are `xavier`, `uniform`, `normal` or `zeros`.
     (`xavier` is the default).
 
-    When an initializer is set to `uniform`, then `init_weight` sets the
-    range for the values (-init_weight, init_weight).
+    When an initializer is set to `uniform`, then `init_weight` sets the range for the values (-init_weight,
+    init_weight).
+    When an initializer is set to `normal`, then `init_weight` sets the standard deviation for the weights
+    (with mean 0).
 
-    When an initializer is set to `normal`, then `init_weight` sets the
-    standard deviation for the weights (with mean 0).
-
-    The word embedding initializer is set using `embed_initializer` and takes
-    the same values. The default is `normal` with `embed_init_weight = 0.01`.
+    The word embedding initializer is set using `embed_initializer` and takes the same values.
+    The default is `normal` with `embed_init_weight = 0.01`.
 
     Biases are initialized separately using `bias_initializer`.
-    The default is `zeros`, but you can use the same initializers as
-    the main initializer.
+    The default is `zeros`, but you can use the same initializers as the main initializer.
 
-    Set `init_rnn_orthogonal` to True if you want RNN orthogonal initialization
-    (for recurrent matrices). Default is False.
+    Set `init_rnn_orthogonal` to True if you want RNN orthogonal initialization (for recurrent matrices).
+    Default is False.
 
     `lstm_forget_gate` controls how the LSTM forget gate is initialized.
     Default is `1`.
@@ -138,8 +131,7 @@ def initialize_model(model: nn.Module, cfg: dict, txt_padding_idx: int) -> None:
 
             elif len(p.size()) > 1:
 
-                # RNNs combine multiple matrices is one, which messes up
-                # xavier initialization
+                # RNNs combine multiple matrices is one, which messes up xavier initialization
                 if init == "xavier" and "rnn" in name:
                     n = 1
                     if "encoder" in name:

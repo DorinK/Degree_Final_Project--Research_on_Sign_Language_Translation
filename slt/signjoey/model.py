@@ -1,4 +1,3 @@
-# coding: utf-8
 import tensorflow as tf
 import torchvision  # TODO: Mine.
 
@@ -29,7 +28,7 @@ from typing import Union
 
 class SignModel(nn.Module):
     """
-    Base Model class
+    Base Model class.
     """
 
     def __init__(
@@ -46,7 +45,7 @@ class SignModel(nn.Module):
             do_translation: bool = True,
     ):
         """
-        Create a new encoder-decoder model
+        Create a new encoder-decoder model.
 
         :param encoder: encoder
         :param decoder: decoder
@@ -76,9 +75,9 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        if dataset != 'phoenix_2014_trans':  # TODO: Mine.
-            self.image_encoder = torchvision.models.mobilenet_v3_small(
-                pretrained=True)  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets.    V
+        if dataset != 'phoenix_2014_trans':  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets. V
+            self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
+            self.image_encoder.train()
 
     # pylint: disable=arguments-differ
     def forward(
@@ -90,8 +89,7 @@ class SignModel(nn.Module):
             txt_mask: Tensor = None,
     ) -> (Tensor, Tensor, Tensor, Tensor):
         """
-        First encodes the source sentence.
-        Then produces the target one word at a time.
+        First encodes the source sentence, then produces the target one word at a time.
 
         :param sgn: source input
         :param sgn_mask: source mask
@@ -100,12 +98,9 @@ class SignModel(nn.Module):
         :param txt_mask: target mask
         :return: decoder outputs
         """
-        encoder_output, encoder_hidden = self.encode(
-            sgn=sgn, sgn_mask=sgn_mask, sgn_length=sgn_lengths
-        )
+        encoder_output, encoder_hidden = self.encode(sgn=sgn, sgn_mask=sgn_mask, sgn_length=sgn_lengths)
 
-        if self.do_recognition:
-            # Gloss Recognition Part
+        if self.do_recognition:  # Gloss Recognition Part
             # N x T x C
             gloss_scores = self.gloss_output_layer(encoder_output)
             # N x T x C
@@ -188,7 +183,7 @@ class SignModel(nn.Module):
             translation_loss_weight: float,
     ) -> (Tensor, Tensor):
         """
-        Compute non-normalized loss and number of tokens for a batch
+        Compute non-normalized loss and number of tokens for a batch.
 
         :param batch: batch to compute loss for
         :param recognition_loss_function: Sign Language Recognition Loss Function (CTC)
@@ -217,6 +212,7 @@ class SignModel(nn.Module):
             # print(batch.sgn_lengths.long())
             # print(batch.gls_lengths.long())
             # Calculate Recognition Loss
+
             recognition_loss = (
                     recognition_loss_function(
                         gloss_probabilities,
@@ -252,7 +248,7 @@ class SignModel(nn.Module):
             translation_max_output_length: int = 100,
     ) -> (np.array, np.array, np.array):
         """
-        Get outputs and attentions scores for a given batch
+        Get outputs and attentions scores for a given batch.
 
         :param batch: batch to generate hypotheses for
         :param recognition_beam_size: size of the beam for CTC beam search
@@ -265,12 +261,10 @@ class SignModel(nn.Module):
             stacked_attention_scores: attention scores for batch
         """
 
-        encoder_output, encoder_hidden = self.encode(
-            sgn=batch.sgn, sgn_mask=batch.sgn_mask, sgn_length=batch.sgn_lengths
-        )
+        encoder_output, encoder_hidden = self.encode(sgn=batch.sgn, sgn_mask=batch.sgn_mask,
+                                                     sgn_length=batch.sgn_lengths)
 
-        if self.do_recognition:
-            # Gloss Recognition Part
+        if self.do_recognition:  # Gloss Recognition Part
             # N x T x C
             gloss_scores = self.gloss_output_layer(encoder_output)
             # N x T x C
@@ -291,17 +285,15 @@ class SignModel(nn.Module):
                 top_paths=1,
             )
             ctc_decode = ctc_decode[0]
+
             # Create a decoded gloss list for each sample
             tmp_gloss_sequences = [[] for i in range(gloss_scores.shape[0])]
             for (value_idx, dense_idx) in enumerate(ctc_decode.indices):
-                tmp_gloss_sequences[dense_idx[0]].append(
-                    ctc_decode.values[value_idx].numpy() + 1
-                )
+                tmp_gloss_sequences[dense_idx[0]].append(ctc_decode.values[value_idx].numpy() + 1)
+
             decoded_gloss_sequences = []
             for seq_idx in range(0, len(tmp_gloss_sequences)):
-                decoded_gloss_sequences.append(
-                    [x[0] for x in groupby(tmp_gloss_sequences[seq_idx])]
-                )
+                decoded_gloss_sequences.append([x[0] for x in groupby(tmp_gloss_sequences[seq_idx])])
         else:
             decoded_gloss_sequences = None
 
@@ -340,7 +332,7 @@ class SignModel(nn.Module):
 
     def __repr__(self) -> str:
         """
-        String representation: a description of encoder, decoder and embeddings
+        String representation: a description of encoder, decoder and embeddings.
 
         :return: string representation
         """
@@ -387,7 +379,7 @@ def build_model(  # TODO: Update in process.    VVV
     sgn_embed: SpatialEmbeddings = SpatialEmbeddings(
         **cfg["encoder"]["embeddings"],
         num_heads=cfg["encoder"]["num_heads"],
-        input_size=sgn_dim,  # TODO: update sgn_dim. V
+        input_size=sgn_dim,  # TODO: update sgn_dim.    V
     )
 
     # TODO: Don't think it should change, but check the yaml to be sure.    VVV
@@ -412,7 +404,7 @@ def build_model(  # TODO: Update in process.    VVV
             emb_dropout=enc_emb_dropout,
         )
 
-    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay VVV
+    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay. VVV
         gloss_output_layer = nn.Linear(encoder.output_size, len(gls_vocab))
         if cfg["encoder"].get("freeze", False):
             freeze_params(gloss_output_layer)
@@ -422,12 +414,14 @@ def build_model(  # TODO: Update in process.    VVV
     # TODO: Should be okay. V
     # build decoder and word embeddings
     if do_translation:
+
         txt_embed: Union[Embeddings, None] = Embeddings(
             **cfg["decoder"]["embeddings"],
             num_heads=cfg["decoder"]["num_heads"],
             vocab_size=len(txt_vocab),
             padding_idx=txt_padding_idx,
         )
+
         dec_dropout = cfg["decoder"].get("dropout", 0.0)
         dec_emb_dropout = cfg["decoder"]["embeddings"].get("dropout", dec_dropout)
         if cfg["decoder"].get("type", "recurrent") == "transformer":
@@ -446,6 +440,7 @@ def build_model(  # TODO: Update in process.    VVV
                 emb_size=txt_embed.embedding_dim,
                 emb_dropout=dec_emb_dropout,
             )
+
     else:
         txt_embed = None
         decoder = None
@@ -465,8 +460,10 @@ def build_model(  # TODO: Update in process.    VVV
     )
 
     if do_translation:
+
         # tie softmax layer with txt embeddings
         if cfg.get("tied_softmax", False):
+
             # noinspection PyUnresolvedReferences
             if txt_embed.lut.weight.shape == model.decoder.output_layer.weight.shape:
                 # (also) share txt embeddings and softmax layer:
@@ -479,7 +476,7 @@ def build_model(  # TODO: Update in process.    VVV
                     "The decoder must be a Transformer."
                 )
 
-    # TODO: Update. Not needed  V
+    # TODO: Update. Not needed. V
     # custom initialization of model parameters
     initialize_model(model, cfg, txt_padding_idx)
 

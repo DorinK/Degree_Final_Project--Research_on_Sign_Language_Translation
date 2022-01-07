@@ -1,7 +1,3 @@
-# coding: utf-8
-"""
-Data module
-"""
 import os
 import sys
 import random
@@ -23,22 +19,24 @@ from slt.signjoey.vocabulary import (
 import tensorflow_datasets as tfds
 from sign_language_datasets.datasets.config import SignDatasetConfig
 
+"""""""""""""""
+ Data module
+"""""""""""""""
+
 
 def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabulary):
     """
     Load train, dev and optionally test data as specified in configuration.
-    Vocabularies are created from the training set with a limit of `voc_limit`
-    tokens and a minimum token frequency of `voc_min_freq`
-    (specified in the configuration dictionary).
+    Vocabularies are created from the training set with a limit of `voc_limit` tokens and a minimum token
+    frequency of `voc_min_freq` (specified in the configuration dictionary).
 
-    The training data is filtered to include sentences up to `max_sent_length`
-    on source and target side.
+    The training data is filtered to include sentences up to `max_sent_length` on source and target side.
 
-    If you set ``random_train_subset``, a random selection of this size is used
-    from the training set instead of the full training set.
+    If you set ``random_train_subset``, a random selection of this size is used from the training set
+    instead of the full training set.
 
-    If you set ``random_dev_subset``, a random selection of this size is used
-    from the dev development instead of the full development set.
+    If you set ``random_dev_subset``, a random selection of this size is used from the dev development
+    instead of the full development set.
 
     :param data_cfg: configuration dictionary for data
         ("data" part of configuration file)
@@ -158,9 +156,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     if random_train_subset > -1:
         # select this many training examples randomly and discard the rest
         keep_ratio = random_train_subset / len(train_data)
-        keep, _ = train_data.split(
-            split_ratio=[keep_ratio, 1 - keep_ratio], random_state=random.getstate()
-        )
+        keep, _ = train_data.split(split_ratio=[keep_ratio, 1 - keep_ratio], random_state=random.getstate())
         train_data = keep
 
     # Get the preprocessed validation set.
@@ -173,9 +169,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     if random_dev_subset > -1:
         # select this many development examples randomly and discard the rest
         keep_ratio = random_dev_subset / len(dev_data)
-        keep, _ = dev_data.split(
-            split_ratio=[keep_ratio, 1 - keep_ratio], random_state=random.getstate()
-        )
+        keep, _ = dev_data.split(split_ratio=[keep_ratio, 1 - keep_ratio], random_state=random.getstate())
         dev_data = keep
 
     # Get the preprocessed test set.

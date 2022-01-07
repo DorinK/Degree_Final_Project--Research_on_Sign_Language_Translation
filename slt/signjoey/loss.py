@@ -1,16 +1,15 @@
-# coding: utf-8
-"""
-Module to implement training loss
-"""
-
 import torch
 from torch import nn, Tensor
 from torch.autograd import Variable
 
+"""""""""""""""""""""""""""""""""
+Module to implement training loss
+"""""""""""""""""""""""""""""""""
+
 
 class XentLoss(nn.Module):
     """
-    Cross-Entropy Loss with optional label smoothing
+    Cross-Entropy Loss with optional label smoothing.
     """
 
     def __init__(self, pad_index: int, smoothing: float = 0.0):
@@ -26,8 +25,7 @@ class XentLoss(nn.Module):
 
     def _smooth_targets(self, targets: Tensor, vocab_size: int):
         """
-        Smooth target distribution. All non-reference words get uniform
-        probability mass according to "smoothing".
+        Smooth target distribution. All non-reference words get uniform probability mass according to "smoothing".
 
         :param targets: target indices, batch*seq_len
         :param vocab_size: size of the output vocabulary
@@ -53,27 +51,19 @@ class XentLoss(nn.Module):
         """
         Compute the cross-entropy between logits and targets.
 
-        If label smoothing is used, target distributions are not one-hot, but
-        "1-smoothing" for the correct target token and the rest of the
-        probability mass is uniformly spread across the other tokens.
+        If label smoothing is used, target distributions are not one-hot, but "1-smoothing" for the correct
+        target token and the rest of the probability mass is uniformly spread across the other tokens.
 
         :param log_probs: log probabilities as predicted by model
         :param targets: target indices
         :return:
         """
         if self.smoothing > 0:
-            targets = self._smooth_targets(
-                targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1)
-            )
+            targets = self._smooth_targets(targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1))
             # targets: distributions with batch*seq_len x vocab_size
-            assert (
-                    log_probs.contiguous().view(-1, log_probs.size(-1)).shape
-                    == targets.shape
-            )
+            assert (log_probs.contiguous().view(-1, log_probs.size(-1)).shape == targets.shape)
         else:
             # targets: indices with batch*seq_len
             targets = targets.contiguous().view(-1)
-        loss = self.criterion(
-            log_probs.contiguous().view(-1, log_probs.size(-1)), targets
-        )
+        loss = self.criterion(log_probs.contiguous().view(-1, log_probs.size(-1)), targets)
         return loss

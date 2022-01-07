@@ -1,14 +1,14 @@
-# coding: utf-8
 import math
 import random
 import torch
 import numpy as np
 
-DEVICE=0
+from slt.signjoey.helpers import DEVICE
 
 
 class Batch:
-    """Object for holding a batch of data with mask during training.
+    """
+    Object for holding a batch of data with mask during training.
     Input is a batch from a torch text iterator.
     """
 
@@ -26,8 +26,8 @@ class Batch:
     ):
         """
         Create a new joey batch from a torch batch.
-        This batch extends torch text's batch attributes with sgn (sign),
-        gls (gloss), and txt (text) length, masks, number of non-padded tokens in txt.
+        This batch extends torch text's batch attributes with sgn (sign), gls (gloss), and txt (text) length,
+        masks, number of non-padded tokens in txt.
         Furthermore, it can be sorted by sgn length.
 
         :param torch_batch:
@@ -48,8 +48,9 @@ class Batch:
         else:  # TODO: Mine.
             self.sequence = torch_batch["sequence"]
             self.signer = torch_batch["signer"]
+
             # Sign
-            # TODO: Check with the phoenix dataset to which dimension the sgn_lengths are referring to.  V
+            # TODO: Check with the phoenix dataset to which dimension the sgn_lengths are referring to. V
             #  Ans: sgn_lengts is a tensor containing the number of frames in each video of the batch.
             #  and how sgn and sgn_lengths should look like.    V
             #  Ans: sgn is a padded batch of videos
@@ -78,14 +79,11 @@ class Batch:
         # TODO: Conditional expression: False.  V
         if random_frame_masking_ratio and is_train:
             tmp_sgn = torch.zeros_like(self.sgn)
-            num_mask_frames = (
-                (self.sgn_lengths * random_frame_masking_ratio).floor().long()
-            )
+            num_mask_frames = ((self.sgn_lengths * random_frame_masking_ratio).floor().long())
             for idx, features in enumerate(self.sgn):
                 features = features.clone()
-                mask_frame_idx = np.random.permutation(
-                    int(self.sgn_lengths[idx].long().numpy())
-                )[: num_mask_frames[idx]]
+                mask_frame_idx = np.random.permutation(int(self.sgn_lengths[idx].long().numpy()))[
+                                 : num_mask_frames[idx]]
                 features[mask_frame_idx, :] = 1e-8
                 tmp_sgn[idx] = features
             self.sgn = tmp_sgn
@@ -110,13 +108,15 @@ class Batch:
         self.num_seqs = self.sgn.size(0)
 
         # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name.    VVV
+        #  to match it to the AUTSL attribute name. VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "txt") or "txt" in torch_batch:  # TODO: Addition for asynchronous dataset. V
+
             if dataset_type == 'phoenix_2014_trans':
                 txt, txt_lengths = torch_batch.txt
             else:  # TODO: Mine.
                 txt, txt_lengths = torch_batch["txt"]
+
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
             self.txt_lengths = txt_lengths
@@ -127,22 +127,23 @@ class Batch:
             self.num_txt_tokens = (self.txt != txt_pad_index).data.sum().item()
 
         # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name.    VVV
+        #  to match it to the AUTSL attribute name. VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "gls") or "gls" in torch_batch:  # TODO: Addition for asynchronous dataset. V
+
             if dataset_type == 'phoenix_2014_trans':
                 self.gls, self.gls_lengths = torch_batch.gls
             else:  # TODO: Mine.
                 self.gls, self.gls_lengths = torch_batch["gls"]
+
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
-            # print(self.num_gls_tokens)
 
         if use_cuda:
             self._make_cuda()
 
     def _make_cuda(self):
         """
-        Move the batch to GPU
+        Move the batch to GPU.
 
         :return:
         """
@@ -155,6 +156,11 @@ class Batch:
             self.txt_input = self.txt_input.cuda(DEVICE)
 
     def make_cpu(self):  # TODO: Mine.
+        """
+        Move the batch back to the CPU.
+
+        :return:
+        """
         self.sgn = self.sgn.detach().cpu()
         self.sgn_mask = self.sgn_mask.detach().cpu()
 
@@ -163,9 +169,9 @@ class Batch:
             self.txt_mask = self.txt_mask.detach().cpu()
             self.txt_input = self.txt_input.detach().cpu()
 
-    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. Not needed  VVV
+    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. Not needed. VVV
         """
-        Sort by sgn length (descending) and return index to revert sort
+        Sort by sgn length (descending) and return index to revert sort.
 
         :return:
         """

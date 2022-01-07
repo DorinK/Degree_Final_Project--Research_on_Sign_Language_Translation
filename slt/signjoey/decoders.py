@@ -1,8 +1,3 @@
-# coding: utf-8
-
-"""
-Various decoders
-"""
 from typing import Optional
 
 import torch
@@ -13,17 +8,21 @@ from slt.signjoey.encoders import Encoder
 from slt.signjoey.helpers import freeze_params, subsequent_mask
 from slt.signjoey.transformer_layers import PositionalEncoding, TransformerDecoderLayer
 
+"""""""""""""""""""""
+  Various decoders
+"""""""""""""""""""""
+
 
 # pylint: disable=abstract-method
 class Decoder(nn.Module):
     """
-    Base decoder class
+    Base decoder class.
     """
 
     @property
     def output_size(self):
         """
-        Return the output size (size of the target vocabulary)
+        Return the output size (size of the target vocabulary).
 
         :return:
         """
@@ -33,7 +32,9 @@ class Decoder(nn.Module):
 # pylint: disable=arguments-differ,too-many-arguments
 # pylint: disable=too-many-instance-attributes, unused-argument
 class RecurrentDecoder(Decoder):
-    """A conditional RNN decoder with attention."""
+    """
+    A conditional RNN decoder with attention.
+    """
 
     def __init__(
             self,
@@ -103,9 +104,7 @@ class RecurrentDecoder(Decoder):
         )
 
         # combine output with context vector before output layer (Luong-style)
-        self.att_vector_layer = nn.Linear(
-            hidden_size + encoder.output_size, hidden_size, bias=True
-        )
+        self.att_vector_layer = nn.Linear(hidden_size + encoder.output_size, hidden_size, bias=True)
 
         self.output_layer = nn.Linear(hidden_size, vocab_size, bias=False)
         self._output_size = vocab_size
@@ -227,9 +226,9 @@ class RecurrentDecoder(Decoder):
         """
         Perform a single decoder step (1 token).
 
-        1. `rnn_input`: concat(prev_embed, prev_att_vector [possibly empty])
-        2. update RNN with `rnn_input`
-        3. calculate attention and context/attention vector
+        1. `rnn_input`: concat(prev_embed, prev_att_vector [possibly empty]).
+        2. update RNN with `rnn_input`.
+        3. calculate attention and context/attention vector.
 
         :param prev_embed: embedded previous token,
             shape (batch_size, 1, embed_size)
@@ -273,12 +272,9 @@ class RecurrentDecoder(Decoder):
         else:
             query = hidden[-1].unsqueeze(1)  # [#layers, B, D] -> [B, 1, D]
 
-        # compute context vector using attention mechanism
-        # only use last layer for attention mechanism
+        # compute context vector using attention mechanism only use last layer for attention mechanism
         # key projections are pre-computed
-        context, att_probs = self.attention(
-            query=query, values=encoder_output, mask=src_mask
-        )
+        context, att_probs = self.attention(query=query, values=encoder_output, mask=src_mask)
 
         # return attention vector (Luong)
         # combine context with decoder hidden state before prediction
@@ -306,25 +302,22 @@ class RecurrentDecoder(Decoder):
          Unroll the decoder one step at a time for `unroll_steps` steps.
          For every step, the `_forward_step` function is called internally.
 
-         During training, the target inputs (`trg_embed') are already known for
-         the full sequence, so the full unrol is done.
+         During training, the target inputs (`trg_embed') are already known for the full sequence, so the
+         full unrol is done.
          In this case, `hidden` and `prev_att_vector` are None.
 
-         For inference, this function is called with one step at a time since
-         embedded targets are the predictions from the previous time step.
-         In this case, `hidden` and `prev_att_vector` are fed from the output
-         of the previous call of this function (from the 2nd step on).
+         For inference, this function is called with one step at a time since embedded targets are the
+         predictions from the previous time step.
+         In this case, `hidden` and `prev_att_vector` are fed from the output of the previous call of
+         this function (from the 2nd step on).
 
-         `src_mask` is needed to mask out the areas of the encoder states that
-         should not receive any attention,
+         `src_mask` is needed to mask out the areas of the encoder states that should not receive any attention,
          which is everything after the first <eos>.
 
-         The `encoder_output` are the hidden states from the encoder and are
-         used as context for the attention.
+         The `encoder_output` are the hidden states from the encoder and are used as context for the attention.
 
-         The `encoder_hidden` is the last encoder hidden state that is used to
-         initialize the first hidden decoder state
-         (when `self.init_hidden_option` is "bridge" or "last").
+         The `encoder_hidden` is the last encoder hidden state that is used to initialize the first
+         hidden decoder state (when `self.init_hidden_option` is "bridge" or "last").
 
         :param trg_embed: emdedded target inputs,
             shape (batch_size, trg_length, embed_size)
@@ -378,9 +371,7 @@ class RecurrentDecoder(Decoder):
 
         if prev_att_vector is None:
             with torch.no_grad():
-                prev_att_vector = encoder_output.new_zeros(
-                    [batch_size, 1, self.hidden_size]
-                )
+                prev_att_vector = encoder_output.new_zeros([batch_size, 1, self.hidden_size])
 
         # unroll the decoder RNN for `unroll_steps` steps
         for i in range(unroll_steps):
@@ -405,22 +396,20 @@ class RecurrentDecoder(Decoder):
 
     def _init_hidden(self, encoder_final: Tensor = None) -> (Tensor, Optional[Tensor]):
         """
-        Returns the initial decoder state,
-        conditioned on the final encoder state of the last encoder layer.
+        Returns the initial decoder state, conditioned on the final encoder state of the last encoder layer.
 
-        In case of `self.init_hidden_option == "bridge"`
-        and a given `encoder_final`, this is a projection of the encoder state.
+        In case of `self.init_hidden_option == "bridge"` and a given `encoder_final`, this is a projection
+        of the encoder state.
 
-        In case of `self.init_hidden_option == "last"`
-        and a size-matching `encoder_final`, this is set to the encoder state.
-        If the encoder is twice as large as the decoder state (e.g. when
-        bi-directional), just use the forward hidden state.
+        In case of `self.init_hidden_option == "last"` and a size-matching `encoder_final`, this is set
+        to the encoder state.
+        If the encoder is twice as large as the decoder state (e.g. when bi-directional), just use the
+        forward hidden state.
 
-        In case of `self.init_hidden_option == "zero"`, it is initialized with
-        zeros.
+        In case of `self.init_hidden_option == "zero"`, it is initialized with zeros.
 
-        For LSTMs we initialize both the hidden state and the memory cell
-        with the same projection/copy of the encoder hidden state.
+        For LSTMs we initialize both the hidden state and the memory cell with the same projection/copy
+        of the encoder hidden state.
 
         All decoder layers are initialized with the same initial values.
 
@@ -434,11 +423,7 @@ class RecurrentDecoder(Decoder):
         # for multiple layers: is the same for all layers
         if self.init_hidden_option == "bridge" and encoder_final is not None:
             # num_layers x batch_size x hidden_size
-            hidden = (
-                torch.tanh(self.bridge_layer(encoder_final))
-                    .unsqueeze(0)
-                    .repeat(self.num_layers, 1, 1)
-            )
+            hidden = (torch.tanh(self.bridge_layer(encoder_final)).unsqueeze(0).repeat(self.num_layers, 1, 1))
         elif self.init_hidden_option == "last" and encoder_final is not None:
             # special case: encoder is bidirectional: use only forward state
             if encoder_final.shape[1] == 2 * self.hidden_size:  # bidirectional
@@ -446,9 +431,7 @@ class RecurrentDecoder(Decoder):
             hidden = encoder_final.unsqueeze(0).repeat(self.num_layers, 1, 1)
         else:  # initialize with zeros
             with torch.no_grad():
-                hidden = encoder_final.new_zeros(
-                    self.num_layers, batch_size, self.hidden_size
-                )
+                hidden = encoder_final.new_zeros(self.num_layers, batch_size, self.hidden_size)
 
         return (hidden, hidden) if isinstance(self.rnn, nn.LSTM) else hidden
 

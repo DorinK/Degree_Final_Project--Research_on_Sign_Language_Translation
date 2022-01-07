@@ -49,17 +49,17 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./ChicagoFSWild_model__14"
+    model_dir: "./ChicagoFSWild_model__24"
     recognition_loss_weight: 0.0
     translation_loss_weight: 1.0
-    eval_metric: bleu
+    eval_metric: wacc
     optimizer: adam
     learning_rate: 0.001
     batch_size: 32
     num_valid_log: 5
     epochs: 5000000
     early_stopping_metric: eval_metric
-    batch_type: token
+    batch_type: sentence
     translation_normalization: batch
     eval_recognition_beam_size: 9
     eval_translation_beam_size: 9
@@ -70,7 +70,7 @@ training:
     translation_max_output_length: 1
     keep_last_ckpts: 1
     batch_multiplier: 1
-    logging_freq: 1
+    logging_freq: 100
     validation_freq: 100
     betas:
     - 0.9

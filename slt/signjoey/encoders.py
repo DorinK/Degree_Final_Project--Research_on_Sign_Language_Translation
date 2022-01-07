@@ -1,5 +1,3 @@
-# coding: utf-8
-
 import torch
 import torch.nn as nn
 from torch import Tensor
@@ -12,13 +10,13 @@ from slt.signjoey.transformer_layers import TransformerEncoderLayer, PositionalE
 # pylint: disable=abstract-method
 class Encoder(nn.Module):
     """
-    Base encoder class
+    Base encoder class.
     """
 
     @property
     def output_size(self):
         """
-        Return the output size
+        Return the output size.
 
         :return:
         """
@@ -26,7 +24,9 @@ class Encoder(nn.Module):
 
 
 class RecurrentEncoder(Encoder):
-    """Encodes a sequence of word embeddings"""
+    """
+    Encodes a sequence of word embeddings.
+    """
 
     # pylint: disable=unused-argument
     def __init__(
@@ -115,9 +115,7 @@ class RecurrentEncoder(Encoder):
             - hidden_concat: last hidden state with
                 shape (batch_size, directions*hidden)
         """
-        self._check_shapes_input_forward(
-            embed_src=embed_src, src_length=src_length, mask=mask
-        )
+        self._check_shapes_input_forward(embed_src=embed_src, src_length=src_length, mask=mask)
 
         # apply dropout to the rnn input
         embed_src = self.emb_dropout(embed_src)
@@ -159,7 +157,7 @@ class RecurrentEncoder(Encoder):
 
 class TransformerEncoder(Encoder):
     """
-    Transformer Encoder
+    Transformer Encoder.
     """
 
     # pylint: disable=unused-argument
@@ -176,6 +174,7 @@ class TransformerEncoder(Encoder):
     ):
         """
         Initializes the Transformer.
+
         :param hidden_size: hidden size and size of embeddings
         :param ff_size: position-wise feed-forward layer size.
           (Typically this is 2*hidden_size.)
