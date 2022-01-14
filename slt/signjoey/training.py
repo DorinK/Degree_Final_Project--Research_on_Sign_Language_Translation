@@ -700,8 +700,8 @@ class TrainManager:
                             Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                                 datum['video'].shape[2]))
                         sgn_lengths.append(datum['video'].shape[0])
-                        gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
-                        # gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                        # gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
+                        gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                         valid += 1
                     total += 1
 
@@ -721,8 +721,8 @@ class TrainManager:
                                                                     datum['video'].shape[1],
                                                                     datum['video'].shape[2]))
                             sgn_lengths.append(datum['video'].shape[0])
-                            gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
-                            # gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
+                            # gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
+                            gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                             valid += 1
                         total += 1
                     # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
