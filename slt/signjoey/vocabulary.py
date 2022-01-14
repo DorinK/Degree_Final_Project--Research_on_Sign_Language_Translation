@@ -237,7 +237,7 @@ def build_vocab(
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     # tokens.append(int(i['gloss_id'].numpy()))
-                    tokens.append(str(i['gloss_id'].numpy()))
+                    tokens.append(i['gloss_id'].numpy())
                 # elif field == "txt":
                 #     tokens.append(int(i['text'].numpy()))
                 else:   # TODO: Mine.
