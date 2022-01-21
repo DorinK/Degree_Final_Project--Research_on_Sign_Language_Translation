@@ -1,0 +1,8 @@
+Steps: 100	Recognition Loss: -1.00000	Translation Loss: 11046.57617	PPL: 5560.26318	Eval Metric: wacc	WAcc (Word Accuracy Rate) 0.47	(DEL: 25.76,	INS: 0.00,	SUB: 73.77)	Sequence Accuracy 0.63	LR: 0.00100000	*
+Steps: 200	Recognition Loss: -1.00000	Translation Loss: 10640.34766	PPL: 4238.31494	Eval Metric: wacc	WAcc (Word Accuracy Rate) 1.49	(DEL: 24.96,	INS: 0.00,	SUB: 73.55)	Sequence Accuracy 1.46	LR: 0.00100000	*
+Steps: 300	Recognition Loss: -1.00000	Translation Loss: 10813.33789	PPL: 5019.81689	Eval Metric: wacc	WAcc (Word Accuracy Rate) 1.50	(DEL: 24.59,	INS: 0.00,	SUB: 73.92)	Sequence Accuracy 1.36	LR: 0.00100000	*
+Steps: 400	Recognition Loss: -1.00000	Translation Loss: 10606.65723	PPL: 5482.40771	Eval Metric: wacc	WAcc (Word Accuracy Rate) 2.84	(DEL: 21.59,	INS: 0.00,	SUB: 75.57)	Sequence Accuracy 2.69	LR: 0.00100000	*
+Steps: 500	Recognition Loss: -1.00000	Translation Loss: 10192.41211	PPL: 5321.29297	Eval Metric: wacc	WAcc (Word Accuracy Rate) 2.10	(DEL: 18.60,	INS: 0.00,	SUB: 79.29)	Sequence Accuracy 2.28	LR: 0.00100000	
+Steps: 600	Recognition Loss: -1.00000	Translation Loss: 10634.83105	PPL: 5090.73389	Eval Metric: wacc	WAcc (Word Accuracy Rate) 1.52	(DEL: 22.95,	INS: 0.00,	SUB: 75.52)	Sequence Accuracy 1.77	LR: 0.00100000	
+Steps: 700	Recognition Loss: -1.00000	Translation Loss: 10505.49512	PPL: 4812.69043	Eval Metric: wacc	WAcc (Word Accuracy Rate) 2.42	(DEL: 22.60,	INS: 0.00,	SUB: 74.98)	Sequence Accuracy 1.88	LR: 0.00100000	
+Steps: 800	Recognition Loss: -1.00000	Translation Loss: 10770.84961	PPL: 5797.63281	Eval Metric: wacc	WAcc (Word Accuracy Rate) 3.06	(DEL: 22.85,	INS: 0.00,	SUB: 74.09)	Sequence Accuracy 2.82	LR: 0.00100000	*

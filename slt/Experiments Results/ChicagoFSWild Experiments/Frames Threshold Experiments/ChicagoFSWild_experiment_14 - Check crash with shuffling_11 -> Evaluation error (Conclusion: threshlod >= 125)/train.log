@@ -1,0 +1,184 @@
+2021-12-27 09:33:15,170 Hello! This is Joey-NMT.
+2021-12-27 09:33:15,201 Total params: 27927304
+2021-12-27 09:33:15,202 Trainable parameters: ['decoder.layer_norm.bias', 'decoder.layer_norm.weight', 'decoder.layers.0.dec_layer_norm.bias', 'decoder.layers.0.dec_layer_norm.weight', 'decoder.layers.0.feed_forward.layer_norm.bias', 'decoder.layers.0.feed_forward.layer_norm.weight', 'decoder.layers.0.feed_forward.pwff_layer.0.bias', 'decoder.layers.0.feed_forward.pwff_layer.0.weight', 'decoder.layers.0.feed_forward.pwff_layer.3.bias', 'decoder.layers.0.feed_forward.pwff_layer.3.weight', 'decoder.layers.0.src_trg_att.k_layer.bias', 'decoder.layers.0.src_trg_att.k_layer.weight', 'decoder.layers.0.src_trg_att.output_layer.bias', 'decoder.layers.0.src_trg_att.output_layer.weight', 'decoder.layers.0.src_trg_att.q_layer.bias', 'decoder.layers.0.src_trg_att.q_layer.weight', 'decoder.layers.0.src_trg_att.v_layer.bias', 'decoder.layers.0.src_trg_att.v_layer.weight', 'decoder.layers.0.trg_trg_att.k_layer.bias', 'decoder.layers.0.trg_trg_att.k_layer.weight', 'decoder.layers.0.trg_trg_att.output_layer.bias', 'decoder.layers.0.trg_trg_att.output_layer.weight', 'decoder.layers.0.trg_trg_att.q_layer.bias', 'decoder.layers.0.trg_trg_att.q_layer.weight', 'decoder.layers.0.trg_trg_att.v_layer.bias', 'decoder.layers.0.trg_trg_att.v_layer.weight', 'decoder.layers.0.x_layer_norm.bias', 'decoder.layers.0.x_layer_norm.weight', 'decoder.layers.1.dec_layer_norm.bias', 'decoder.layers.1.dec_layer_norm.weight', 'decoder.layers.1.feed_forward.layer_norm.bias', 'decoder.layers.1.feed_forward.layer_norm.weight', 'decoder.layers.1.feed_forward.pwff_layer.0.bias', 'decoder.layers.1.feed_forward.pwff_layer.0.weight', 'decoder.layers.1.feed_forward.pwff_layer.3.bias', 'decoder.layers.1.feed_forward.pwff_layer.3.weight', 'decoder.layers.1.src_trg_att.k_layer.bias', 'decoder.layers.1.src_trg_att.k_layer.weight', 'decoder.layers.1.src_trg_att.output_layer.bias', 'decoder.layers.1.src_trg_att.output_layer.weight', 'decoder.layers.1.src_trg_att.q_layer.bias', 'decoder.layers.1.src_trg_att.q_layer.weight', 'decoder.layers.1.src_trg_att.v_layer.bias', 'decoder.layers.1.src_trg_att.v_layer.weight', 'decoder.layers.1.trg_trg_att.k_layer.bias', 'decoder.layers.1.trg_trg_att.k_layer.weight', 'decoder.layers.1.trg_trg_att.output_layer.bias', 'decoder.layers.1.trg_trg_att.output_layer.weight', 'decoder.layers.1.trg_trg_att.q_layer.bias', 'decoder.layers.1.trg_trg_att.q_layer.weight', 'decoder.layers.1.trg_trg_att.v_layer.bias', 'decoder.layers.1.trg_trg_att.v_layer.weight', 'decoder.layers.1.x_layer_norm.bias', 'decoder.layers.1.x_layer_norm.weight', 'decoder.layers.2.dec_layer_norm.bias', 'decoder.layers.2.dec_layer_norm.weight', 'decoder.layers.2.feed_forward.layer_norm.bias', 'decoder.layers.2.feed_forward.layer_norm.weight', 'decoder.layers.2.feed_forward.pwff_layer.0.bias', 'decoder.layers.2.feed_forward.pwff_layer.0.weight', 'decoder.layers.2.feed_forward.pwff_layer.3.bias', 'decoder.layers.2.feed_forward.pwff_layer.3.weight', 'decoder.layers.2.src_trg_att.k_layer.bias', 'decoder.layers.2.src_trg_att.k_layer.weight', 'decoder.layers.2.src_trg_att.output_layer.bias', 'decoder.layers.2.src_trg_att.output_layer.weight', 'decoder.layers.2.src_trg_att.q_layer.bias', 'decoder.layers.2.src_trg_att.q_layer.weight', 'decoder.layers.2.src_trg_att.v_layer.bias', 'decoder.layers.2.src_trg_att.v_layer.weight', 'decoder.layers.2.trg_trg_att.k_layer.bias', 'decoder.layers.2.trg_trg_att.k_layer.weight', 'decoder.layers.2.trg_trg_att.output_layer.bias', 'decoder.layers.2.trg_trg_att.output_layer.weight', 'decoder.layers.2.trg_trg_att.q_layer.bias', 'decoder.layers.2.trg_trg_att.q_layer.weight', 'decoder.layers.2.trg_trg_att.v_layer.bias', 'decoder.layers.2.trg_trg_att.v_layer.weight', 'decoder.layers.2.x_layer_norm.bias', 'decoder.layers.2.x_layer_norm.weight', 'decoder.output_layer.weight', 'encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight', 'txt_embed.lut.weight', 'txt_embed.norm.norm.bias', 'txt_embed.norm.norm.weight']
+2021-12-27 09:33:29,001 cfg.name                           : ChicagoFSWild Experiment
+2021-12-27 09:33:29,002 cfg.data.data_path                 : ./data/
+2021-12-27 09:33:29,002 cfg.data.version                   : ChicagoFSWild
+2021-12-27 09:33:29,002 cfg.data.sgn                       : sign
+2021-12-27 09:33:29,002 cfg.data.gls                       : gloss
+2021-12-27 09:33:29,002 cfg.data.feature_size              : 1000
+2021-12-27 09:33:29,002 cfg.data.level                     : word
+2021-12-27 09:33:29,002 cfg.data.max_sent_length           : 400
+2021-12-27 09:33:29,002 cfg.data.random_train_subset       : -1
+2021-12-27 09:33:29,002 cfg.data.random_dev_subset         : -1
+2021-12-27 09:33:29,002 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-27 09:33:29,002 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-27 09:33:29,003 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2021-12-27 09:33:29,003 cfg.training.reset_best_ckpt       : False
+2021-12-27 09:33:29,003 cfg.training.reset_scheduler       : False
+2021-12-27 09:33:29,003 cfg.training.reset_optimizer       : False
+2021-12-27 09:33:29,003 cfg.training.random_seed           : 42
+2021-12-27 09:33:29,003 cfg.training.model_dir             : ./ChicagoFSWild Experiments/ChicagoFSWild_experiment_14
+2021-12-27 09:33:29,003 cfg.training.recognition_loss_weight : 0.0
+2021-12-27 09:33:29,003 cfg.training.translation_loss_weight : 1.0
+2021-12-27 09:33:29,003 cfg.training.eval_metric           : bleu
+2021-12-27 09:33:29,003 cfg.training.optimizer             : adam
+2021-12-27 09:33:29,003 cfg.training.learning_rate         : 0.001
+2021-12-27 09:33:29,003 cfg.training.batch_size            : 32
+2021-12-27 09:33:29,004 cfg.training.num_valid_log         : 5
+2021-12-27 09:33:29,004 cfg.training.epochs                : 5000000
+2021-12-27 09:33:29,004 cfg.training.early_stopping_metric : eval_metric
+2021-12-27 09:33:29,004 cfg.training.batch_type            : token
+2021-12-27 09:33:29,004 cfg.training.translation_normalization : batch
+2021-12-27 09:33:29,004 cfg.training.eval_recognition_beam_size : 9
+2021-12-27 09:33:29,004 cfg.training.eval_translation_beam_size : 9
+2021-12-27 09:33:29,004 cfg.training.eval_translation_beam_alpha : 1
+2021-12-27 09:33:29,004 cfg.training.overwrite             : True
+2021-12-27 09:33:29,004 cfg.training.shuffle               : True
+2021-12-27 09:33:29,004 cfg.training.use_cuda              : True
+2021-12-27 09:33:29,004 cfg.training.translation_max_output_length : 5
+2021-12-27 09:33:29,004 cfg.training.keep_last_ckpts       : 1
+2021-12-27 09:33:29,005 cfg.training.batch_multiplier      : 1
+2021-12-27 09:33:29,005 cfg.training.logging_freq          : 1
+2021-12-27 09:33:29,005 cfg.training.validation_freq       : 100
+2021-12-27 09:33:29,005 cfg.training.betas                 : [0.9, 0.998]
+2021-12-27 09:33:29,005 cfg.training.scheduling            : plateau
+2021-12-27 09:33:29,005 cfg.training.learning_rate_min     : 1e-06
+2021-12-27 09:33:29,005 cfg.training.weight_decay          : 0.001
+2021-12-27 09:33:29,005 cfg.training.patience              : 8
+2021-12-27 09:33:29,005 cfg.training.decrease_factor       : 0.7
+2021-12-27 09:33:29,005 cfg.training.label_smoothing       : 0.0
+2021-12-27 09:33:29,005 cfg.model.initializer              : xavier
+2021-12-27 09:33:29,005 cfg.model.bias_initializer         : zeros
+2021-12-27 09:33:29,006 cfg.model.init_gain                : 1.0
+2021-12-27 09:33:29,006 cfg.model.embed_initializer        : xavier
+2021-12-27 09:33:29,006 cfg.model.embed_init_gain          : 1.0
+2021-12-27 09:33:29,006 cfg.model.tied_softmax             : False
+2021-12-27 09:33:29,006 cfg.model.encoder.type             : transformer
+2021-12-27 09:33:29,006 cfg.model.encoder.num_layers       : 3
+2021-12-27 09:33:29,006 cfg.model.encoder.num_heads        : 8
+2021-12-27 09:33:29,006 cfg.model.encoder.embeddings.embedding_dim : 512
+2021-12-27 09:33:29,006 cfg.model.encoder.embeddings.scale : False
+2021-12-27 09:33:29,006 cfg.model.encoder.embeddings.dropout : 0.1
+2021-12-27 09:33:29,006 cfg.model.encoder.embeddings.norm_type : batch
+2021-12-27 09:33:29,006 cfg.model.encoder.embeddings.activation_type : softsign
+2021-12-27 09:33:29,006 cfg.model.encoder.hidden_size      : 512
+2021-12-27 09:33:29,007 cfg.model.encoder.ff_size          : 2048
+2021-12-27 09:33:29,007 cfg.model.encoder.dropout          : 0.1
+2021-12-27 09:33:29,007 cfg.model.decoder.type             : transformer
+2021-12-27 09:33:29,007 cfg.model.decoder.num_layers       : 3
+2021-12-27 09:33:29,007 cfg.model.decoder.num_heads        : 8
+2021-12-27 09:33:29,007 cfg.model.decoder.embeddings.embedding_dim : 512
+2021-12-27 09:33:29,007 cfg.model.decoder.embeddings.scale : False
+2021-12-27 09:33:29,007 cfg.model.decoder.embeddings.dropout : 0.1
+2021-12-27 09:33:29,007 cfg.model.decoder.embeddings.norm_type : batch
+2021-12-27 09:33:29,007 cfg.model.decoder.embeddings.activation_type : softsign
+2021-12-27 09:33:29,007 cfg.model.decoder.hidden_size      : 512
+2021-12-27 09:33:29,007 cfg.model.decoder.ff_size          : 2048
+2021-12-27 09:33:29,007 cfg.model.decoder.dropout          : 0.1
+2021-12-27 09:33:29,008 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=TransformerDecoder(num_layers=3, num_heads=8),
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=Embeddings(embedding_dim=512, vocab_size=2733))
+2021-12-27 09:33:29,014 EPOCH 1
+2021-12-27 09:33:36,581 [Epoch: 001 Step: 00000001] Batch Translation Loss:   8.089406 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:33:42,945 [Epoch: 001 Step: 00000002] Batch Translation Loss:   8.151444 => Txt Tokens per Sec:        5 || Lr: 0.001000
+2021-12-27 09:33:51,071 [Epoch: 001 Step: 00000003] Batch Translation Loss:   7.797155 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:34:01,393 [Epoch: 001 Step: 00000004] Batch Translation Loss:   7.931017 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:34:10,605 [Epoch: 001 Step: 00000005] Batch Translation Loss:   7.974257 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:34:18,209 [Epoch: 001 Step: 00000006] Batch Translation Loss:   7.961377 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:34:33,062 [Epoch: 001 Step: 00000007] Batch Translation Loss:   8.122573 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:34:41,702 [Epoch: 001 Step: 00000008] Batch Translation Loss:   7.635252 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:34:51,275 [Epoch: 001 Step: 00000009] Batch Translation Loss:   8.378694 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:35:01,902 [Epoch: 001 Step: 00000010] Batch Translation Loss:   8.107465 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:35:11,856 [Epoch: 001 Step: 00000011] Batch Translation Loss:   8.030339 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:35:20,965 [Epoch: 001 Step: 00000012] Batch Translation Loss:   8.385515 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:35:30,771 [Epoch: 001 Step: 00000013] Batch Translation Loss:   8.135574 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:35:46,459 [Epoch: 001 Step: 00000014] Batch Translation Loss:   7.828639 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:35:57,300 [Epoch: 001 Step: 00000015] Batch Translation Loss:   8.082982 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:36:12,761 [Epoch: 001 Step: 00000016] Batch Translation Loss:   7.737653 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:36:21,576 [Epoch: 001 Step: 00000017] Batch Translation Loss:   7.582199 => Txt Tokens per Sec:        4 || Lr: 0.001000
+2021-12-27 09:36:36,077 [Epoch: 001 Step: 00000018] Batch Translation Loss:   7.717825 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:36:50,307 [Epoch: 001 Step: 00000019] Batch Translation Loss:   8.091797 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:37:00,284 [Epoch: 001 Step: 00000020] Batch Translation Loss:   8.407513 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:37:11,157 [Epoch: 001 Step: 00000021] Batch Translation Loss:   7.906891 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:37:20,418 [Epoch: 001 Step: 00000022] Batch Translation Loss:   8.470549 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:37:34,279 [Epoch: 001 Step: 00000023] Batch Translation Loss:   7.912060 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:37:51,071 [Epoch: 001 Step: 00000024] Batch Translation Loss:   7.998747 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:38:01,625 [Epoch: 001 Step: 00000025] Batch Translation Loss:   8.140941 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:38:11,798 [Epoch: 001 Step: 00000026] Batch Translation Loss:   7.807300 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:38:30,618 [Epoch: 001 Step: 00000027] Batch Translation Loss:   8.096128 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:38:48,837 [Epoch: 001 Step: 00000028] Batch Translation Loss:   8.019640 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:39:06,727 [Epoch: 001 Step: 00000029] Batch Translation Loss:   8.039212 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:39:23,709 [Epoch: 001 Step: 00000030] Batch Translation Loss:   7.508236 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:39:35,890 [Epoch: 001 Step: 00000031] Batch Translation Loss:   7.789815 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:39:49,978 [Epoch: 001 Step: 00000032] Batch Translation Loss:   8.058172 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:40:01,101 [Epoch: 001 Step: 00000033] Batch Translation Loss:   7.591907 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:40:12,467 [Epoch: 001 Step: 00000034] Batch Translation Loss:   7.965882 => Txt Tokens per Sec:        3 || Lr: 0.001000
+2021-12-27 09:40:26,102 [Epoch: 001 Step: 00000035] Batch Translation Loss:   7.529495 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:40:41,720 [Epoch: 001 Step: 00000036] Batch Translation Loss:   7.565799 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:40:58,195 [Epoch: 001 Step: 00000037] Batch Translation Loss:   8.106045 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:41:20,377 [Epoch: 001 Step: 00000038] Batch Translation Loss:   7.166343 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:41:49,898 [Epoch: 001 Step: 00000039] Batch Translation Loss:   7.535247 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:42:10,521 [Epoch: 001 Step: 00000040] Batch Translation Loss:   7.366314 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:42:27,714 [Epoch: 001 Step: 00000041] Batch Translation Loss:   7.825159 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:43:02,187 [Epoch: 001 Step: 00000042] Batch Translation Loss:   7.989625 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:43:34,835 [Epoch: 001 Step: 00000043] Batch Translation Loss:   7.842917 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:43:53,311 [Epoch: 001 Step: 00000044] Batch Translation Loss:   7.684856 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:44:11,715 [Epoch: 001 Step: 00000045] Batch Translation Loss:   7.601303 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:44:30,857 [Epoch: 001 Step: 00000046] Batch Translation Loss:   7.540103 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:44:50,162 [Epoch: 001 Step: 00000047] Batch Translation Loss:   7.413369 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:45:08,838 [Epoch: 001 Step: 00000048] Batch Translation Loss:   7.842249 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:45:28,223 [Epoch: 001 Step: 00000049] Batch Translation Loss:   8.020358 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:45:47,190 [Epoch: 001 Step: 00000050] Batch Translation Loss:   8.071960 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:46:24,653 [Epoch: 001 Step: 00000051] Batch Translation Loss:   7.303800 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:46:44,443 [Epoch: 001 Step: 00000052] Batch Translation Loss:   7.375643 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:47:05,951 [Epoch: 001 Step: 00000053] Batch Translation Loss:   7.419572 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:47:26,690 [Epoch: 001 Step: 00000054] Batch Translation Loss:   8.126448 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 09:47:48,793 [Epoch: 001 Step: 00000055] Batch Translation Loss:   7.935913 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:48:10,775 [Epoch: 001 Step: 00000056] Batch Translation Loss:   7.897409 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:48:50,939 [Epoch: 001 Step: 00000057] Batch Translation Loss:   7.501356 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:49:12,591 [Epoch: 001 Step: 00000058] Batch Translation Loss:   8.003929 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:49:34,746 [Epoch: 001 Step: 00000059] Batch Translation Loss:   7.703112 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:49:57,417 [Epoch: 001 Step: 00000060] Batch Translation Loss:   7.655161 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:50:20,338 [Epoch: 001 Step: 00000061] Batch Translation Loss:   7.522276 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:50:42,300 [Epoch: 001 Step: 00000062] Batch Translation Loss:   7.279299 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:51:04,900 [Epoch: 001 Step: 00000063] Batch Translation Loss:   7.877836 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:51:27,573 [Epoch: 001 Step: 00000064] Batch Translation Loss:   7.566359 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:51:51,389 [Epoch: 001 Step: 00000065] Batch Translation Loss:   7.852324 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:52:16,462 [Epoch: 001 Step: 00000066] Batch Translation Loss:   7.266072 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:52:40,928 [Epoch: 001 Step: 00000067] Batch Translation Loss:   8.132921 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:53:04,906 [Epoch: 001 Step: 00000068] Batch Translation Loss:   7.484924 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:53:29,652 [Epoch: 001 Step: 00000069] Batch Translation Loss:   7.582111 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:53:55,405 [Epoch: 001 Step: 00000070] Batch Translation Loss:   7.252526 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:54:20,169 [Epoch: 001 Step: 00000071] Batch Translation Loss:   7.522598 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:54:45,807 [Epoch: 001 Step: 00000072] Batch Translation Loss:   7.854597 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:55:11,373 [Epoch: 001 Step: 00000073] Batch Translation Loss:   7.807857 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:55:42,865 [Epoch: 001 Step: 00000074] Batch Translation Loss:   7.662885 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:56:08,965 [Epoch: 001 Step: 00000075] Batch Translation Loss:   7.343337 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:56:34,225 [Epoch: 001 Step: 00000076] Batch Translation Loss:   7.973458 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:57:00,829 [Epoch: 001 Step: 00000077] Batch Translation Loss:   7.257771 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:57:27,039 [Epoch: 001 Step: 00000078] Batch Translation Loss:   8.570363 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:57:53,331 [Epoch: 001 Step: 00000079] Batch Translation Loss:   7.960502 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:58:19,857 [Epoch: 001 Step: 00000080] Batch Translation Loss:   6.904876 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:59:06,612 [Epoch: 001 Step: 00000081] Batch Translation Loss:   7.267810 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 09:59:33,154 [Epoch: 001 Step: 00000082] Batch Translation Loss:   7.947590 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:00:01,475 [Epoch: 001 Step: 00000083] Batch Translation Loss:   7.070440 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:00:28,635 [Epoch: 001 Step: 00000084] Batch Translation Loss:   7.193194 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:00:56,536 [Epoch: 001 Step: 00000085] Batch Translation Loss:   8.216501 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:01:18,926 [Epoch: 001 Step: 00000086] Batch Translation Loss:   7.807222 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:02:05,559 [Epoch: 001 Step: 00000087] Batch Translation Loss:   7.840396 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:02:40,142 [Epoch: 001 Step: 00000088] Batch Translation Loss:   7.215669 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:03:04,499 [Epoch: 001 Step: 00000089] Batch Translation Loss:   7.825241 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:03:31,054 [Epoch: 001 Step: 00000090] Batch Translation Loss:   7.534854 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:03:55,901 [Epoch: 001 Step: 00000091] Batch Translation Loss:   7.957177 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:04:18,400 [Epoch: 001 Step: 00000092] Batch Translation Loss:   7.222660 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:04:43,265 [Epoch: 001 Step: 00000093] Batch Translation Loss:   7.783806 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:05:31,516 [Epoch: 001 Step: 00000094] Batch Translation Loss:   7.704424 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:05:59,351 [Epoch: 001 Step: 00000095] Batch Translation Loss:   7.150301 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:06:22,257 [Epoch: 001 Step: 00000096] Batch Translation Loss:   7.397706 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:06:54,037 [Epoch: 001 Step: 00000097] Batch Translation Loss:   8.144253 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:07:18,204 [Epoch: 001 Step: 00000098] Batch Translation Loss:   8.060685 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:07:40,912 [Epoch: 001 Step: 00000099] Batch Translation Loss:   7.714906 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2021-12-27 10:08:22,492 [Epoch: 001 Step: 00000100] Batch Translation Loss:   7.968902 => Txt Tokens per Sec:        1 || Lr: 0.001000

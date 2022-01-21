@@ -1,0 +1,376 @@
+2022-01-07 18:56:40,247 Hello! This is Joey-NMT.
+2022-01-07 18:56:40,256 Total params: 27946760
+2022-01-07 18:56:40,258 Trainable parameters: ['decoder.layer_norm.bias', 'decoder.layer_norm.weight', 'decoder.layers.0.dec_layer_norm.bias', 'decoder.layers.0.dec_layer_norm.weight', 'decoder.layers.0.feed_forward.layer_norm.bias', 'decoder.layers.0.feed_forward.layer_norm.weight', 'decoder.layers.0.feed_forward.pwff_layer.0.bias', 'decoder.layers.0.feed_forward.pwff_layer.0.weight', 'decoder.layers.0.feed_forward.pwff_layer.3.bias', 'decoder.layers.0.feed_forward.pwff_layer.3.weight', 'decoder.layers.0.src_trg_att.k_layer.bias', 'decoder.layers.0.src_trg_att.k_layer.weight', 'decoder.layers.0.src_trg_att.output_layer.bias', 'decoder.layers.0.src_trg_att.output_layer.weight', 'decoder.layers.0.src_trg_att.q_layer.bias', 'decoder.layers.0.src_trg_att.q_layer.weight', 'decoder.layers.0.src_trg_att.v_layer.bias', 'decoder.layers.0.src_trg_att.v_layer.weight', 'decoder.layers.0.trg_trg_att.k_layer.bias', 'decoder.layers.0.trg_trg_att.k_layer.weight', 'decoder.layers.0.trg_trg_att.output_layer.bias', 'decoder.layers.0.trg_trg_att.output_layer.weight', 'decoder.layers.0.trg_trg_att.q_layer.bias', 'decoder.layers.0.trg_trg_att.q_layer.weight', 'decoder.layers.0.trg_trg_att.v_layer.bias', 'decoder.layers.0.trg_trg_att.v_layer.weight', 'decoder.layers.0.x_layer_norm.bias', 'decoder.layers.0.x_layer_norm.weight', 'decoder.layers.1.dec_layer_norm.bias', 'decoder.layers.1.dec_layer_norm.weight', 'decoder.layers.1.feed_forward.layer_norm.bias', 'decoder.layers.1.feed_forward.layer_norm.weight', 'decoder.layers.1.feed_forward.pwff_layer.0.bias', 'decoder.layers.1.feed_forward.pwff_layer.0.weight', 'decoder.layers.1.feed_forward.pwff_layer.3.bias', 'decoder.layers.1.feed_forward.pwff_layer.3.weight', 'decoder.layers.1.src_trg_att.k_layer.bias', 'decoder.layers.1.src_trg_att.k_layer.weight', 'decoder.layers.1.src_trg_att.output_layer.bias', 'decoder.layers.1.src_trg_att.output_layer.weight', 'decoder.layers.1.src_trg_att.q_layer.bias', 'decoder.layers.1.src_trg_att.q_layer.weight', 'decoder.layers.1.src_trg_att.v_layer.bias', 'decoder.layers.1.src_trg_att.v_layer.weight', 'decoder.layers.1.trg_trg_att.k_layer.bias', 'decoder.layers.1.trg_trg_att.k_layer.weight', 'decoder.layers.1.trg_trg_att.output_layer.bias', 'decoder.layers.1.trg_trg_att.output_layer.weight', 'decoder.layers.1.trg_trg_att.q_layer.bias', 'decoder.layers.1.trg_trg_att.q_layer.weight', 'decoder.layers.1.trg_trg_att.v_layer.bias', 'decoder.layers.1.trg_trg_att.v_layer.weight', 'decoder.layers.1.x_layer_norm.bias', 'decoder.layers.1.x_layer_norm.weight', 'decoder.layers.2.dec_layer_norm.bias', 'decoder.layers.2.dec_layer_norm.weight', 'decoder.layers.2.feed_forward.layer_norm.bias', 'decoder.layers.2.feed_forward.layer_norm.weight', 'decoder.layers.2.feed_forward.pwff_layer.0.bias', 'decoder.layers.2.feed_forward.pwff_layer.0.weight', 'decoder.layers.2.feed_forward.pwff_layer.3.bias', 'decoder.layers.2.feed_forward.pwff_layer.3.weight', 'decoder.layers.2.src_trg_att.k_layer.bias', 'decoder.layers.2.src_trg_att.k_layer.weight', 'decoder.layers.2.src_trg_att.output_layer.bias', 'decoder.layers.2.src_trg_att.output_layer.weight', 'decoder.layers.2.src_trg_att.q_layer.bias', 'decoder.layers.2.src_trg_att.q_layer.weight', 'decoder.layers.2.src_trg_att.v_layer.bias', 'decoder.layers.2.src_trg_att.v_layer.weight', 'decoder.layers.2.trg_trg_att.k_layer.bias', 'decoder.layers.2.trg_trg_att.k_layer.weight', 'decoder.layers.2.trg_trg_att.output_layer.bias', 'decoder.layers.2.trg_trg_att.output_layer.weight', 'decoder.layers.2.trg_trg_att.q_layer.bias', 'decoder.layers.2.trg_trg_att.q_layer.weight', 'decoder.layers.2.trg_trg_att.v_layer.bias', 'decoder.layers.2.trg_trg_att.v_layer.weight', 'decoder.layers.2.x_layer_norm.bias', 'decoder.layers.2.x_layer_norm.weight', 'decoder.output_layer.weight', 'encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight', 'txt_embed.lut.weight', 'txt_embed.norm.norm.bias', 'txt_embed.norm.norm.weight']
+2022-01-07 18:56:43,805 cfg.name                           : ChicagoFSWild Experiment
+2022-01-07 18:56:43,805 cfg.data.data_path                 : ./data/
+2022-01-07 18:56:43,805 cfg.data.version                   : ChicagoFSWild
+2022-01-07 18:56:43,805 cfg.data.sgn                       : sign
+2022-01-07 18:56:43,805 cfg.data.gls                       : gloss
+2022-01-07 18:56:43,805 cfg.data.feature_size              : 1000
+2022-01-07 18:56:43,805 cfg.data.level                     : word
+2022-01-07 18:56:43,805 cfg.data.max_sent_length           : 400
+2022-01-07 18:56:43,805 cfg.data.random_train_subset       : -1
+2022-01-07 18:56:43,805 cfg.data.random_dev_subset         : -1
+2022-01-07 18:56:43,805 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-01-07 18:56:43,805 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-01-07 18:56:43,805 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2022-01-07 18:56:43,806 cfg.training.reset_best_ckpt       : False
+2022-01-07 18:56:43,806 cfg.training.reset_scheduler       : False
+2022-01-07 18:56:43,806 cfg.training.reset_optimizer       : False
+2022-01-07 18:56:43,806 cfg.training.random_seed           : 42
+2022-01-07 18:56:43,806 cfg.training.model_dir             : ./ChicagoFSWild Experiments/ChicagoFSWild_experiment_20
+2022-01-07 18:56:43,806 cfg.training.recognition_loss_weight : 0.0
+2022-01-07 18:56:43,806 cfg.training.translation_loss_weight : 1.0
+2022-01-07 18:56:43,806 cfg.training.eval_metric           : wacc
+2022-01-07 18:56:43,806 cfg.training.optimizer             : adam
+2022-01-07 18:56:43,806 cfg.training.learning_rate         : 0.001
+2022-01-07 18:56:43,806 cfg.training.batch_size            : 32
+2022-01-07 18:56:43,806 cfg.training.num_valid_log         : 5
+2022-01-07 18:56:43,806 cfg.training.epochs                : 5000000
+2022-01-07 18:56:43,806 cfg.training.early_stopping_metric : eval_metric
+2022-01-07 18:56:43,806 cfg.training.batch_type            : token
+2022-01-07 18:56:43,806 cfg.training.translation_normalization : batch
+2022-01-07 18:56:43,806 cfg.training.eval_recognition_beam_size : 9
+2022-01-07 18:56:43,806 cfg.training.eval_translation_beam_size : 9
+2022-01-07 18:56:43,806 cfg.training.eval_translation_beam_alpha : 1
+2022-01-07 18:56:43,806 cfg.training.overwrite             : True
+2022-01-07 18:56:43,806 cfg.training.shuffle               : True
+2022-01-07 18:56:43,806 cfg.training.use_cuda              : True
+2022-01-07 18:56:43,807 cfg.training.translation_max_output_length : 1
+2022-01-07 18:56:43,807 cfg.training.keep_last_ckpts       : 1
+2022-01-07 18:56:43,807 cfg.training.batch_multiplier      : 1
+2022-01-07 18:56:43,807 cfg.training.logging_freq          : 100
+2022-01-07 18:56:43,807 cfg.training.validation_freq       : 100
+2022-01-07 18:56:43,807 cfg.training.betas                 : [0.9, 0.998]
+2022-01-07 18:56:43,807 cfg.training.scheduling            : plateau
+2022-01-07 18:56:43,807 cfg.training.learning_rate_min     : 1e-06
+2022-01-07 18:56:43,807 cfg.training.weight_decay          : 0.001
+2022-01-07 18:56:43,807 cfg.training.patience              : 8
+2022-01-07 18:56:43,807 cfg.training.decrease_factor       : 0.7
+2022-01-07 18:56:43,807 cfg.training.label_smoothing       : 0.0
+2022-01-07 18:56:43,807 cfg.model.initializer              : xavier
+2022-01-07 18:56:43,807 cfg.model.bias_initializer         : zeros
+2022-01-07 18:56:43,807 cfg.model.init_gain                : 1.0
+2022-01-07 18:56:43,807 cfg.model.embed_initializer        : xavier
+2022-01-07 18:56:43,807 cfg.model.embed_init_gain          : 1.0
+2022-01-07 18:56:43,807 cfg.model.tied_softmax             : False
+2022-01-07 18:56:43,807 cfg.model.encoder.type             : transformer
+2022-01-07 18:56:43,807 cfg.model.encoder.num_layers       : 3
+2022-01-07 18:56:43,807 cfg.model.encoder.num_heads        : 8
+2022-01-07 18:56:43,807 cfg.model.encoder.embeddings.embedding_dim : 512
+2022-01-07 18:56:43,808 cfg.model.encoder.embeddings.scale : False
+2022-01-07 18:56:43,808 cfg.model.encoder.embeddings.dropout : 0.1
+2022-01-07 18:56:43,808 cfg.model.encoder.embeddings.norm_type : batch
+2022-01-07 18:56:43,808 cfg.model.encoder.embeddings.activation_type : softsign
+2022-01-07 18:56:43,808 cfg.model.encoder.hidden_size      : 512
+2022-01-07 18:56:43,808 cfg.model.encoder.ff_size          : 2048
+2022-01-07 18:56:43,808 cfg.model.encoder.dropout          : 0.1
+2022-01-07 18:56:43,808 cfg.model.decoder.type             : transformer
+2022-01-07 18:56:43,808 cfg.model.decoder.num_layers       : 3
+2022-01-07 18:56:43,808 cfg.model.decoder.num_heads        : 8
+2022-01-07 18:56:43,808 cfg.model.decoder.embeddings.embedding_dim : 512
+2022-01-07 18:56:43,808 cfg.model.decoder.embeddings.scale : False
+2022-01-07 18:56:43,808 cfg.model.decoder.embeddings.dropout : 0.1
+2022-01-07 18:56:43,808 cfg.model.decoder.embeddings.norm_type : batch
+2022-01-07 18:56:43,808 cfg.model.decoder.embeddings.activation_type : softsign
+2022-01-07 18:56:43,808 cfg.model.decoder.hidden_size      : 512
+2022-01-07 18:56:43,808 cfg.model.decoder.ff_size          : 2048
+2022-01-07 18:56:43,808 cfg.model.decoder.dropout          : 0.1
+2022-01-07 18:56:43,808 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=TransformerDecoder(num_layers=3, num_heads=8),
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=Embeddings(embedding_dim=512, vocab_size=2752))
+2022-01-07 18:56:44,112 EPOCH 1
+2022-01-07 19:39:17,411 [Epoch: 001 Step: 00000100] Batch Translation Loss:   9.054664 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2022-01-07 19:48:02,567 Hooray! New best validation result [eval_metric]!
+2022-01-07 19:48:02,568 Saving new checkpoint.
+2022-01-07 19:48:03,446 Validation result at epoch   1, step      100: duration: 526.0320s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 11046.57617	PPL: 5560.26318
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 0.47	(DEL: 25.76,	INS: 0.00,	SUB: 73.77)
+	Sequence Accuracy 0.63
+2022-01-07 19:48:10,892 Logging Recognition and Translation Outputs
+2022-01-07 19:48:10,893 ========================================================================================================================
+2022-01-07 19:48:10,893 Logging Sequence: aslized-joy_maisel_6427
+2022-01-07 19:48:10,894 	Text Reference  :	so
+2022-01-07 19:48:10,894 	Text Hypothesis :	if
+2022-01-07 19:48:10,894 	Text Alignment  :	S 
+2022-01-07 19:48:10,894 ========================================================================================================================
+2022-01-07 19:48:10,894 Logging Sequence: youtube_1-shoshannah_stern_2394
+2022-01-07 19:48:10,895 	Text Reference  :	gaddafi
+2022-01-07 19:48:10,895 	Text Hypothesis :	if     
+2022-01-07 19:48:10,895 	Text Alignment  :	S      
+2022-01-07 19:48:10,895 ========================================================================================================================
+2022-01-07 19:48:10,895 Logging Sequence: deafvideo_3-geoalpha_4556
+2022-01-07 19:48:10,895 	Text Reference  :	date
+2022-01-07 19:48:10,896 	Text Hypothesis :	if  
+2022-01-07 19:48:10,896 	Text Alignment  :	S   
+2022-01-07 19:48:10,896 ========================================================================================================================
+2022-01-07 19:48:10,896 Logging Sequence: youtube_1-shoshannah_stern_2398
+2022-01-07 19:48:10,896 	Text Reference  :	grandchildr grandchildren
+2022-01-07 19:48:10,896 	Text Hypothesis :	*********** ok           
+2022-01-07 19:48:10,897 	Text Alignment  :	D           S            
+2022-01-07 19:48:10,897 ========================================================================================================================
+2022-01-07 19:48:10,897 Logging Sequence: youtube_4-tim_albert_5266
+2022-01-07 19:48:10,897 	Text Reference  :	ok
+2022-01-07 19:48:10,897 	Text Hypothesis :	if
+2022-01-07 19:48:10,897 	Text Alignment  :	S 
+2022-01-07 19:48:10,897 ========================================================================================================================
+2022-01-07 20:52:03,130 Epoch   1: Total Training Recognition Loss -1.00  Total Training Translation Loss 1557.54 
+2022-01-07 20:52:03,184 EPOCH 2
+2022-01-07 21:04:27,379 [Epoch: 002 Step: 00000200] Batch Translation Loss:   8.375034 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2022-01-07 21:15:13,511 Hooray! New best validation result [eval_metric]!
+2022-01-07 21:15:13,512 Saving new checkpoint.
+2022-01-07 21:15:15,779 Validation result at epoch   2, step      200: duration: 648.3454s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10640.34766	PPL: 4238.31494
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 1.49	(DEL: 24.96,	INS: 0.00,	SUB: 73.55)
+	Sequence Accuracy 1.46
+2022-01-07 21:15:23,651 Logging Recognition and Translation Outputs
+2022-01-07 21:15:23,652 ========================================================================================================================
+2022-01-07 21:15:23,652 Logging Sequence: youtube_4-sean_berdy_5743
+2022-01-07 21:15:23,653 	Text Reference  :	saved
+2022-01-07 21:15:23,653 	Text Hypothesis :	asl  
+2022-01-07 21:15:23,653 	Text Alignment  :	S    
+2022-01-07 21:15:23,653 ========================================================================================================================
+2022-01-07 21:15:23,654 Logging Sequence: youtube_5-jeffrey_spinale_6056
+2022-01-07 21:15:23,654 	Text Reference  :	rit
+2022-01-07 21:15:23,654 	Text Hypothesis :	asl
+2022-01-07 21:15:23,654 	Text Alignment  :	S  
+2022-01-07 21:15:23,655 ========================================================================================================================
+2022-01-07 21:15:23,655 Logging Sequence: deafvideo_2-sddsimple_1581
+2022-01-07 21:15:23,655 	Text Reference  :	minn
+2022-01-07 21:15:23,655 	Text Hypothesis :	if  
+2022-01-07 21:15:23,656 	Text Alignment  :	S   
+2022-01-07 21:15:23,656 ========================================================================================================================
+2022-01-07 21:15:23,656 Logging Sequence: youtube_1-shoshannah_stern_2387
+2022-01-07 21:15:23,657 	Text Reference  :	stcy larence
+2022-01-07 21:15:23,657 	Text Hypothesis :	**** asl    
+2022-01-07 21:15:23,657 	Text Alignment  :	D    S      
+2022-01-07 21:15:23,657 ========================================================================================================================
+2022-01-07 21:15:23,657 Logging Sequence: youtube_5-debra_patkin_5789
+2022-01-07 21:15:23,658 	Text Reference  :	deane bray
+2022-01-07 21:15:23,658 	Text Hypothesis :	***** ag  
+2022-01-07 21:15:23,658 	Text Alignment  :	D     S   
+2022-01-07 21:15:23,658 ========================================================================================================================
+2022-01-07 23:01:04,065 [Epoch: 002 Step: 00000300] Batch Translation Loss:  10.448303 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2022-01-07 23:14:41,225 Hooray! New best validation result [eval_metric]!
+2022-01-07 23:14:41,586 Saving new checkpoint.
+2022-01-07 23:14:45,940 Validation result at epoch   2, step      300: duration: 821.8475s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10813.33789	PPL: 5019.81689
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 1.50	(DEL: 24.59,	INS: 0.00,	SUB: 73.92)
+	Sequence Accuracy 1.36
+2022-01-07 23:14:55,502 Logging Recognition and Translation Outputs
+2022-01-07 23:14:55,503 ========================================================================================================================
+2022-01-07 23:14:55,503 Logging Sequence: youtube_5-sean_berdy_6090
+2022-01-07 23:14:55,504 	Text Reference  :	jd
+2022-01-07 23:14:55,504 	Text Hypothesis :	ok
+2022-01-07 23:14:55,504 	Text Alignment  :	S 
+2022-01-07 23:14:55,504 ========================================================================================================================
+2022-01-07 23:14:55,504 Logging Sequence: youtube_3-ben_bahan_4524
+2022-01-07 23:14:55,505 	Text Reference  :	us
+2022-01-07 23:14:55,505 	Text Hypothesis :	ok
+2022-01-07 23:14:55,505 	Text Alignment  :	S 
+2022-01-07 23:14:55,505 ========================================================================================================================
+2022-01-07 23:14:55,505 Logging Sequence: deafvideo_3-deafgoldenhair_3074
+2022-01-07 23:14:55,505 	Text Reference  :	fre
+2022-01-07 23:14:55,506 	Text Hypothesis :	ok 
+2022-01-07 23:14:55,506 	Text Alignment  :	S  
+2022-01-07 23:14:55,506 ========================================================================================================================
+2022-01-07 23:14:55,506 Logging Sequence: youtube_5-daniel_durant_5875
+2022-01-07 23:14:55,506 	Text Reference  :	or
+2022-01-07 23:14:55,506 	Text Hypothesis :	ok
+2022-01-07 23:14:55,506 	Text Alignment  :	S 
+2022-01-07 23:14:55,506 ========================================================================================================================
+2022-01-07 23:14:55,506 Logging Sequence: deafvideo_5-silentoneye_7316
+2022-01-07 23:14:55,507 	Text Reference  :	joy maisel
+2022-01-07 23:14:55,507 	Text Hypothesis :	*** asl   
+2022-01-07 23:14:55,507 	Text Alignment  :	D   S     
+2022-01-07 23:14:55,507 ========================================================================================================================
+2022-01-08 00:02:03,329 Epoch   2: Total Training Recognition Loss -1.00  Total Training Translation Loss 1436.87 
+2022-01-08 00:02:03,421 EPOCH 3
+2022-01-08 00:43:16,009 [Epoch: 003 Step: 00000400] Batch Translation Loss:   7.879055 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2022-01-08 01:00:55,617 Hooray! New best validation result [eval_metric]!
+2022-01-08 01:00:55,651 Saving new checkpoint.
+2022-01-08 01:01:02,021 Validation result at epoch   3, step      400: duration: 1065.9898s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10606.65723	PPL: 5482.40771
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 2.84	(DEL: 21.59,	INS: 0.00,	SUB: 75.57)
+	Sequence Accuracy 2.69
+2022-01-08 01:01:19,036 Logging Recognition and Translation Outputs
+2022-01-08 01:01:19,081 ========================================================================================================================
+2022-01-08 01:01:19,081 Logging Sequence: deafvideo_3-yellowbirdie84_4669
+2022-01-08 01:01:19,082 	Text Reference  :	atak
+2022-01-08 01:01:19,082 	Text Hypothesis :	asl 
+2022-01-08 01:01:19,082 	Text Alignment  :	S   
+2022-01-08 01:01:19,082 ========================================================================================================================
+2022-01-08 01:01:19,082 Logging Sequence: youtube_5-sean_berdy_6080
+2022-01-08 01:01:19,082 	Text Reference  :	aslized
+2022-01-08 01:01:19,082 	Text Hypothesis :	asl    
+2022-01-08 01:01:19,083 	Text Alignment  :	S      
+2022-01-08 01:01:19,083 ========================================================================================================================
+2022-01-08 01:01:19,083 Logging Sequence: youtube_5-tanea_brown_6030
+2022-01-08 01:01:19,083 	Text Reference  :	jhnson cty h   
+2022-01-08 01:01:19,083 	Text Hypothesis :	****** *** absl
+2022-01-08 01:01:19,083 	Text Alignment  :	D      D   S   
+2022-01-08 01:01:19,083 ========================================================================================================================
+2022-01-08 01:01:19,083 Logging Sequence: deafvideo_2-deafpoweronethumbtwo_1784
+2022-01-08 01:01:19,083 	Text Reference  :	defhd
+2022-01-08 01:01:19,084 	Text Hypothesis :	asl  
+2022-01-08 01:01:19,084 	Text Alignment  :	S    
+2022-01-08 01:01:19,084 ========================================================================================================================
+2022-01-08 01:01:19,084 Logging Sequence: deafvideo_3-deafgoldenhair_3082
+2022-01-08 01:01:19,084 	Text Reference  :	mayor
+2022-01-08 01:01:19,084 	Text Hypothesis :	asl  
+2022-01-08 01:01:19,084 	Text Alignment  :	S    
+2022-01-08 01:01:19,084 ========================================================================================================================
+2022-01-08 03:44:16,511 [Epoch: 003 Step: 00000500] Batch Translation Loss:   6.488275 => Txt Tokens per Sec:        0 || Lr: 0.001000
+2022-01-08 04:02:27,969 Validation result at epoch   3, step      500: duration: 1091.4139s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10192.41211	PPL: 5321.29297
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 2.10	(DEL: 18.60,	INS: 0.00,	SUB: 79.29)
+	Sequence Accuracy 2.28
+2022-01-08 04:02:37,377 Logging Recognition and Translation Outputs
+2022-01-08 04:02:37,420 ========================================================================================================================
+2022-01-08 04:02:37,420 Logging Sequence: youtube_5-debra_patkin_5793
+2022-01-08 04:02:37,421 	Text Reference  :	deaf
+2022-01-08 04:02:37,422 	Text Hypothesis :	asl 
+2022-01-08 04:02:37,422 	Text Alignment  :	S   
+2022-01-08 04:02:37,422 ========================================================================================================================
+2022-01-08 04:02:37,422 Logging Sequence: aslized-joy_maisel_6433
+2022-01-08 04:02:37,423 	Text Reference  :	ok 
+2022-01-08 04:02:37,423 	Text Hypothesis :	asl
+2022-01-08 04:02:37,423 	Text Alignment  :	S  
+2022-01-08 04:02:37,424 ========================================================================================================================
+2022-01-08 04:02:37,424 Logging Sequence: youtube_1-melvin_patterson_2351
+2022-01-08 04:02:37,424 	Text Reference  :	hammer   
+2022-01-08 04:02:37,424 	Text Hypothesis :	landsides
+2022-01-08 04:02:37,425 	Text Alignment  :	S        
+2022-01-08 04:02:37,425 ========================================================================================================================
+2022-01-08 04:02:37,425 Logging Sequence: deafvideo_3-geoalpha_4544
+2022-01-08 04:02:37,425 	Text Reference  :	pn 
+2022-01-08 04:02:37,426 	Text Hypothesis :	asl
+2022-01-08 04:02:37,426 	Text Alignment  :	S  
+2022-01-08 04:02:37,426 ========================================================================================================================
+2022-01-08 04:02:37,426 Logging Sequence: youtube_1-don_grushkin_2319
+2022-01-08 04:02:37,427 	Text Reference  :	mary ann sereth   
+2022-01-08 04:02:37,427 	Text Hypothesis :	**** *** landsides
+2022-01-08 04:02:37,427 	Text Alignment  :	D    D   S        
+2022-01-08 04:02:37,427 ========================================================================================================================
+2022-01-08 04:20:02,939 Epoch   3: Total Training Recognition Loss -1.00  Total Training Translation Loss 1405.66 
+2022-01-08 04:20:02,967 EPOCH 4
+2022-01-08 05:46:06,332 [Epoch: 004 Step: 00000600] Batch Translation Loss:   8.061919 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2022-01-08 06:01:41,994 Validation result at epoch   4, step      600: duration: 935.6117s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10634.83105	PPL: 5090.73389
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 1.52	(DEL: 22.95,	INS: 0.00,	SUB: 75.52)
+	Sequence Accuracy 1.77
+2022-01-08 06:02:03,403 Logging Recognition and Translation Outputs
+2022-01-08 06:02:03,430 ========================================================================================================================
+2022-01-08 06:02:03,430 Logging Sequence: aslized-suzanne_stecker_0252
+2022-01-08 06:02:03,431 	Text Reference  :	out
+2022-01-08 06:02:03,431 	Text Hypothesis :	so 
+2022-01-08 06:02:03,431 	Text Alignment  :	S  
+2022-01-08 06:02:03,431 ========================================================================================================================
+2022-01-08 06:02:03,431 Logging Sequence: deafvideo_2-sddsimple_1561
+2022-01-08 06:02:03,432 	Text Reference  :	cards
+2022-01-08 06:02:03,432 	Text Hypothesis :	asl  
+2022-01-08 06:02:03,432 	Text Alignment  :	S    
+2022-01-08 06:02:03,432 ========================================================================================================================
+2022-01-08 06:02:03,432 Logging Sequence: deafvideo_3-titans_4689
+2022-01-08 06:02:03,433 	Text Reference  :	dona carell
+2022-01-08 06:02:03,433 	Text Hypothesis :	**** gerald
+2022-01-08 06:02:03,433 	Text Alignment  :	D    S     
+2022-01-08 06:02:03,434 ========================================================================================================================
+2022-01-08 06:02:03,434 Logging Sequence: youtube_1-don_grushkin_2763
+2022-01-08 06:02:03,434 	Text Reference  :	baa    
+2022-01-08 06:02:03,434 	Text Hypothesis :	frosted
+2022-01-08 06:02:03,434 	Text Alignment  :	S      
+2022-01-08 06:02:03,434 ========================================================================================================================
+2022-01-08 06:02:03,435 Logging Sequence: deafvideo_2-fairytales9_2274
+2022-01-08 06:02:03,435 	Text Reference  :	to
+2022-01-08 06:02:03,435 	Text Hypothesis :	so
+2022-01-08 06:02:03,436 	Text Alignment  :	S 
+2022-01-08 06:02:03,436 ========================================================================================================================
+2022-01-08 08:23:01,093 Epoch   4: Total Training Recognition Loss -1.00  Total Training Translation Loss 1363.44 
+2022-01-08 08:23:01,125 EPOCH 5
+2022-01-08 08:35:57,063 [Epoch: 005 Step: 00000700] Batch Translation Loss:  10.785753 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2022-01-08 08:48:56,645 Validation result at epoch   5, step      700: duration: 779.5171s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10505.49512	PPL: 4812.69043
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 2.42	(DEL: 22.60,	INS: 0.00,	SUB: 74.98)
+	Sequence Accuracy 1.88
+2022-01-08 08:49:17,595 Logging Recognition and Translation Outputs
+2022-01-08 08:49:17,929 ========================================================================================================================
+2022-01-08 08:49:17,929 Logging Sequence: deafvideo_2-goatman_1541
+2022-01-08 08:49:17,930 	Text Reference  :	la
+2022-01-08 08:49:17,930 	Text Hypothesis :	ok
+2022-01-08 08:49:17,930 	Text Alignment  :	S 
+2022-01-08 08:49:17,930 ========================================================================================================================
+2022-01-08 08:49:17,930 Logging Sequence: deafvideo_3-yellowbirdie84_4681
+2022-01-08 08:49:17,931 	Text Reference  :	oregon
+2022-01-08 08:49:17,931 	Text Hypothesis :	asl   
+2022-01-08 08:49:17,931 	Text Alignment  :	S     
+2022-01-08 08:49:17,931 ========================================================================================================================
+2022-01-08 08:49:17,931 Logging Sequence: youtube_1-don_grushkin_2330
+2022-01-08 08:49:17,931 	Text Reference  :	tbn
+2022-01-08 08:49:17,931 	Text Hypothesis :	ok 
+2022-01-08 08:49:17,932 	Text Alignment  :	S  
+2022-01-08 08:49:17,932 ========================================================================================================================
+2022-01-08 08:49:17,932 Logging Sequence: deafvideo_3-otismhill82_4613
+2022-01-08 08:49:17,932 	Text Reference  :	speak spak
+2022-01-08 08:49:17,932 	Text Hypothesis :	***** dr  
+2022-01-08 08:49:17,932 	Text Alignment  :	D     S   
+2022-01-08 08:49:17,932 ========================================================================================================================
+2022-01-08 08:49:17,932 Logging Sequence: youtube_5-caroline_jackson_5861
+2022-01-08 08:49:17,933 	Text Reference  :	of
+2022-01-08 08:49:17,933 	Text Hypothesis :	ok
+2022-01-08 08:49:17,933 	Text Alignment  :	S 
+2022-01-08 08:49:17,933 ========================================================================================================================
+2022-01-08 10:53:36,790 [Epoch: 005 Step: 00000800] Batch Translation Loss:   7.496131 => Txt Tokens per Sec:        1 || Lr: 0.001000
+2022-01-08 11:10:28,665 Hooray! New best validation result [eval_metric]!
+2022-01-08 11:10:28,716 Saving new checkpoint.
+2022-01-08 11:10:34,074 Validation result at epoch   5, step      800: duration: 1017.2142s
+	Recognition Beam Size: -1	Translation Beam Size: 9	Translation Beam Alpha: 1
+	Recognition Loss: -1.00000	Translation Loss: 10770.84961	PPL: 5797.63281
+	Eval Metric: WACC
+	WAcc (Word Accuracy Rate) 3.06	(DEL: 22.85,	INS: 0.00,	SUB: 74.09)
+	Sequence Accuracy 2.82
+2022-01-08 11:11:01,253 Logging Recognition and Translation Outputs
+2022-01-08 11:11:01,334 ========================================================================================================================
+2022-01-08 11:11:01,335 Logging Sequence: youtube_4-howard_rosenblum_5563
+2022-01-08 11:11:01,601 	Text Reference  :	file les
+2022-01-08 11:11:01,601 	Text Hypothesis :	**** asl
+2022-01-08 11:11:01,601 	Text Alignment  :	D    S  
+2022-01-08 11:11:01,602 ========================================================================================================================
+2022-01-08 11:11:01,602 Logging Sequence: aslized-joy_maisel_6437
+2022-01-08 11:11:01,602 	Text Reference  :	mentor
+2022-01-08 11:11:01,602 	Text Hypothesis :	asl   
+2022-01-08 11:11:01,602 	Text Alignment  :	S     
+2022-01-08 11:11:01,603 ========================================================================================================================
+2022-01-08 11:11:01,603 Logging Sequence: deafvideo_3-crossover_3867
+2022-01-08 11:11:01,603 	Text Reference  :	ok
+2022-01-08 11:11:01,603 	Text Hypothesis :	so
+2022-01-08 11:11:01,603 	Text Alignment  :	S 
+2022-01-08 11:11:01,603 ========================================================================================================================
+2022-01-08 11:11:01,603 Logging Sequence: youtube_3-ben_bahan_4524
+2022-01-08 11:11:01,604 	Text Reference  :	all
+2022-01-08 11:11:01,604 	Text Hypothesis :	so 
+2022-01-08 11:11:01,604 	Text Alignment  :	S  
+2022-01-08 11:11:01,604 ========================================================================================================================
+2022-01-08 11:11:01,604 Logging Sequence: deafvideo_3-geoalpha_4552
+2022-01-08 11:11:01,604 	Text Reference  :	but
+2022-01-08 11:11:01,605 	Text Hypothesis :	so 
+2022-01-08 11:11:01,605 	Text Alignment  :	S  
+2022-01-08 11:11:01,605 ========================================================================================================================
+2022-01-08 12:34:58,194 Epoch   5: Total Training Recognition Loss -1.00  Total Training Translation Loss 1307.75 
+2022-01-08 12:34:58,391 EPOCH 6

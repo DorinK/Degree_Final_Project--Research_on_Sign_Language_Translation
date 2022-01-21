@@ -1,0 +1,6360 @@
+ssh://dorink@nlp15:22/home/nlp/dorink/anaconda3/envs/slt_env/bin/python3 -u /home/nlp/dorink/project/slt/signjoey/__main__.py train /home/nlp/dorink/project/slt/configs/sign_ChicagoFSWild.yaml
+2021-12-27 15:32:14.434621: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2021-12-27 15:36:23.613545: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcuda.so.1
+2021-12-27 15:36:23.906614: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
+pciBusID: 0000:3b:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-27 15:36:23.907967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 1 with properties:
+pciBusID: 0000:5e:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-27 15:36:23.910732: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 2 with properties:
+pciBusID: 0000:86:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-27 15:36:23.913546: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 3 with properties:
+pciBusID: 0000:af:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-27 15:36:23.913798: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2021-12-27 15:36:23.914016: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
+2021-12-27 15:36:23.914129: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
+2021-12-27 15:36:23.914265: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcufft.so.10
+2021-12-27 15:36:23.914395: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcurand.so.10
+2021-12-27 15:36:23.914518: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusolver.so.11
+2021-12-27 15:36:23.914626: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusparse.so.11
+2021-12-27 15:36:24.394863: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudnn.so.8
+2021-12-27 15:36:24.412215: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0, 1, 2, 3
+WARNING:absl:Using custom data configuration new-setup
+2021-12-27 15:39:04.878106: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-12-27 15:39:05.276766: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1258] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-12-27 15:39:05.276901: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]
+2021-12-27 15:39:06.891787: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+2021-12-27 15:39:06.893392: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2100000000 Hz
+2021-12-27 15:39:42.583274: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 41472000 exceeds 10% of free system memory.
+2021-12-27 15:39:42.715076: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 69120000 exceeds 10% of free system memory.
+2021-12-27 15:39:42.791882: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 40780800 exceeds 10% of free system memory.
+2021-12-27 15:39:42.826037: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 82252800 exceeds 10% of free system memory.
+2021-12-27 15:39:42.848471: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 51840000 exceeds 10% of free system memory.
+INFO:slt.signjoey.helpers:Hello! This is Joey-NMT.
+2021-12-27 15:41:38,561 Hello! This is Joey-NMT.
+INFO:slt.signjoey.helpers:Total params: 27927304
+2021-12-27 15:41:38,909 Total params: 27927304
+INFO:slt.signjoey.helpers:Trainable parameters: ['decoder.layer_norm.bias', 'decoder.layer_norm.weight', 'decoder.layers.0.dec_layer_norm.bias', 'decoder.layers.0.dec_layer_norm.weight', 'decoder.layers.0.feed_forward.layer_norm.bias', 'decoder.layers.0.feed_forward.layer_norm.weight', 'decoder.layers.0.feed_forward.pwff_layer.0.bias', 'decoder.layers.0.feed_forward.pwff_layer.0.weight', 'decoder.layers.0.feed_forward.pwff_layer.3.bias', 'decoder.layers.0.feed_forward.pwff_layer.3.weight', 'decoder.layers.0.src_trg_att.k_layer.bias', 'decoder.layers.0.src_trg_att.k_layer.weight', 'decoder.layers.0.src_trg_att.output_layer.bias', 'decoder.layers.0.src_trg_att.output_layer.weight', 'decoder.layers.0.src_trg_att.q_layer.bias', 'decoder.layers.0.src_trg_att.q_layer.weight', 'decoder.layers.0.src_trg_att.v_layer.bias', 'decoder.layers.0.src_trg_att.v_layer.weight', 'decoder.layers.0.trg_trg_att.k_layer.bias', 'decoder.layers.0.trg_trg_att.k_layer.weight', 'decoder.layers.0.trg_trg_att.output_layer.bias', 'decoder.layers.0.trg_trg_att.output_layer.weight', 'decoder.layers.0.trg_trg_att.q_layer.bias', 'decoder.layers.0.trg_trg_att.q_layer.weight', 'decoder.layers.0.trg_trg_att.v_layer.bias', 'decoder.layers.0.trg_trg_att.v_layer.weight', 'decoder.layers.0.x_layer_norm.bias', 'decoder.layers.0.x_layer_norm.weight', 'decoder.layers.1.dec_layer_norm.bias', 'decoder.layers.1.dec_layer_norm.weight', 'decoder.layers.1.feed_forward.layer_norm.bias', 'decoder.layers.1.feed_forward.layer_norm.weight', 'decoder.layers.1.feed_forward.pwff_layer.0.bias', 'decoder.layers.1.feed_forward.pwff_layer.0.weight', 'decoder.layers.1.feed_forward.pwff_layer.3.bias', 'decoder.layers.1.feed_forward.pwff_layer.3.weight', 'decoder.layers.1.src_trg_att.k_layer.bias', 'decoder.layers.1.src_trg_att.k_layer.weight', 'decoder.layers.1.src_trg_att.output_layer.bias', 'decoder.layers.1.src_trg_att.output_layer.weight', 'decoder.layers.1.src_trg_att.q_layer.bias', 'decoder.layers.1.src_trg_att.q_layer.weight', 'decoder.layers.1.src_trg_att.v_layer.bias', 'decoder.layers.1.src_trg_att.v_layer.weight', 'decoder.layers.1.trg_trg_att.k_layer.bias', 'decoder.layers.1.trg_trg_att.k_layer.weight', 'decoder.layers.1.trg_trg_att.output_layer.bias', 'decoder.layers.1.trg_trg_att.output_layer.weight', 'decoder.layers.1.trg_trg_att.q_layer.bias', 'decoder.layers.1.trg_trg_att.q_layer.weight', 'decoder.layers.1.trg_trg_att.v_layer.bias', 'decoder.layers.1.trg_trg_att.v_layer.weight', 'decoder.layers.1.x_layer_norm.bias', 'decoder.layers.1.x_layer_norm.weight', 'decoder.layers.2.dec_layer_norm.bias', 'decoder.layers.2.dec_layer_norm.weight', 'decoder.layers.2.feed_forward.layer_norm.bias', 'decoder.layers.2.feed_forward.layer_norm.weight', 'decoder.layers.2.feed_forward.pwff_layer.0.bias', 'decoder.layers.2.feed_forward.pwff_layer.0.weight', 'decoder.layers.2.feed_forward.pwff_layer.3.bias', 'decoder.layers.2.feed_forward.pwff_layer.3.weight', 'decoder.layers.2.src_trg_att.k_layer.bias', 'decoder.layers.2.src_trg_att.k_layer.weight', 'decoder.layers.2.src_trg_att.output_layer.bias', 'decoder.layers.2.src_trg_att.output_layer.weight', 'decoder.layers.2.src_trg_att.q_layer.bias', 'decoder.layers.2.src_trg_att.q_layer.weight', 'decoder.layers.2.src_trg_att.v_layer.bias', 'decoder.layers.2.src_trg_att.v_layer.weight', 'decoder.layers.2.trg_trg_att.k_layer.bias', 'decoder.layers.2.trg_trg_att.k_layer.weight', 'decoder.layers.2.trg_trg_att.output_layer.bias', 'decoder.layers.2.trg_trg_att.output_layer.weight', 'decoder.layers.2.trg_trg_att.q_layer.bias', 'decoder.layers.2.trg_trg_att.q_layer.weight', 'decoder.layers.2.trg_trg_att.v_layer.bias', 'decoder.layers.2.trg_trg_att.v_layer.weight', 'decoder.layers.2.x_layer_norm.bias', 'decoder.layers.2.x_layer_norm.weight', 'decoder.output_layer.weight', 'encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight', 'txt_embed.lut.weight', 'txt_embed.norm.norm.bias', 'txt_embed.norm.norm.weight']
+2021-12-27 15:41:38,913 Trainable parameters: ['decoder.layer_norm.bias', 'decoder.layer_norm.weight', 'decoder.layers.0.dec_layer_norm.bias', 'decoder.layers.0.dec_layer_norm.weight', 'decoder.layers.0.feed_forward.layer_norm.bias', 'decoder.layers.0.feed_forward.layer_norm.weight', 'decoder.layers.0.feed_forward.pwff_layer.0.bias', 'decoder.layers.0.feed_forward.pwff_layer.0.weight', 'decoder.layers.0.feed_forward.pwff_layer.3.bias', 'decoder.layers.0.feed_forward.pwff_layer.3.weight', 'decoder.layers.0.src_trg_att.k_layer.bias', 'decoder.layers.0.src_trg_att.k_layer.weight', 'decoder.layers.0.src_trg_att.output_layer.bias', 'decoder.layers.0.src_trg_att.output_layer.weight', 'decoder.layers.0.src_trg_att.q_layer.bias', 'decoder.layers.0.src_trg_att.q_layer.weight', 'decoder.layers.0.src_trg_att.v_layer.bias', 'decoder.layers.0.src_trg_att.v_layer.weight', 'decoder.layers.0.trg_trg_att.k_layer.bias', 'decoder.layers.0.trg_trg_att.k_layer.weight', 'decoder.layers.0.trg_trg_att.output_layer.bias', 'decoder.layers.0.trg_trg_att.output_layer.weight', 'decoder.layers.0.trg_trg_att.q_layer.bias', 'decoder.layers.0.trg_trg_att.q_layer.weight', 'decoder.layers.0.trg_trg_att.v_layer.bias', 'decoder.layers.0.trg_trg_att.v_layer.weight', 'decoder.layers.0.x_layer_norm.bias', 'decoder.layers.0.x_layer_norm.weight', 'decoder.layers.1.dec_layer_norm.bias', 'decoder.layers.1.dec_layer_norm.weight', 'decoder.layers.1.feed_forward.layer_norm.bias', 'decoder.layers.1.feed_forward.layer_norm.weight', 'decoder.layers.1.feed_forward.pwff_layer.0.bias', 'decoder.layers.1.feed_forward.pwff_layer.0.weight', 'decoder.layers.1.feed_forward.pwff_layer.3.bias', 'decoder.layers.1.feed_forward.pwff_layer.3.weight', 'decoder.layers.1.src_trg_att.k_layer.bias', 'decoder.layers.1.src_trg_att.k_layer.weight', 'decoder.layers.1.src_trg_att.output_layer.bias', 'decoder.layers.1.src_trg_att.output_layer.weight', 'decoder.layers.1.src_trg_att.q_layer.bias', 'decoder.layers.1.src_trg_att.q_layer.weight', 'decoder.layers.1.src_trg_att.v_layer.bias', 'decoder.layers.1.src_trg_att.v_layer.weight', 'decoder.layers.1.trg_trg_att.k_layer.bias', 'decoder.layers.1.trg_trg_att.k_layer.weight', 'decoder.layers.1.trg_trg_att.output_layer.bias', 'decoder.layers.1.trg_trg_att.output_layer.weight', 'decoder.layers.1.trg_trg_att.q_layer.bias', 'decoder.layers.1.trg_trg_att.q_layer.weight', 'decoder.layers.1.trg_trg_att.v_layer.bias', 'decoder.layers.1.trg_trg_att.v_layer.weight', 'decoder.layers.1.x_layer_norm.bias', 'decoder.layers.1.x_layer_norm.weight', 'decoder.layers.2.dec_layer_norm.bias', 'decoder.layers.2.dec_layer_norm.weight', 'decoder.layers.2.feed_forward.layer_norm.bias', 'decoder.layers.2.feed_forward.layer_norm.weight', 'decoder.layers.2.feed_forward.pwff_layer.0.bias', 'decoder.layers.2.feed_forward.pwff_layer.0.weight', 'decoder.layers.2.feed_forward.pwff_layer.3.bias', 'decoder.layers.2.feed_forward.pwff_layer.3.weight', 'decoder.layers.2.src_trg_att.k_layer.bias', 'decoder.layers.2.src_trg_att.k_layer.weight', 'decoder.layers.2.src_trg_att.output_layer.bias', 'decoder.layers.2.src_trg_att.output_layer.weight', 'decoder.layers.2.src_trg_att.q_layer.bias', 'decoder.layers.2.src_trg_att.q_layer.weight', 'decoder.layers.2.src_trg_att.v_layer.bias', 'decoder.layers.2.src_trg_att.v_layer.weight', 'decoder.layers.2.trg_trg_att.k_layer.bias', 'decoder.layers.2.trg_trg_att.k_layer.weight', 'decoder.layers.2.trg_trg_att.output_layer.bias', 'decoder.layers.2.trg_trg_att.output_layer.weight', 'decoder.layers.2.trg_trg_att.q_layer.bias', 'decoder.layers.2.trg_trg_att.q_layer.weight', 'decoder.layers.2.trg_trg_att.v_layer.bias', 'decoder.layers.2.trg_trg_att.v_layer.weight', 'decoder.layers.2.x_layer_norm.bias', 'decoder.layers.2.x_layer_norm.weight', 'decoder.output_layer.weight', 'encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight', 'txt_embed.lut.weight', 'txt_embed.norm.norm.bias', 'txt_embed.norm.norm.weight']
+INFO:slt.signjoey.helpers:cfg.name                           : sign_experiment
+2021-12-27 15:42:06,491 cfg.name                           : sign_experiment
+INFO:slt.signjoey.helpers:cfg.data.data_path                 : ./data/
+2021-12-27 15:42:06,516 cfg.data.data_path                 : ./data/
+INFO:slt.signjoey.helpers:cfg.data.version                   : ChicagoFSWild
+2021-12-27 15:42:06,516 cfg.data.version                   : ChicagoFSWild
+INFO:slt.signjoey.helpers:cfg.data.sgn                       : sign
+2021-12-27 15:42:06,516 cfg.data.sgn                       : sign
+INFO:slt.signjoey.helpers:cfg.data.gls                       : gloss
+2021-12-27 15:42:06,516 cfg.data.gls                       : gloss
+INFO:slt.signjoey.helpers:cfg.data.feature_size              : 1000
+2021-12-27 15:42:06,516 cfg.data.feature_size              : 1000
+INFO:slt.signjoey.helpers:cfg.data.level                     : word
+2021-12-27 15:42:06,517 cfg.data.level                     : word
+INFO:slt.signjoey.helpers:cfg.data.max_sent_length           : 400
+2021-12-27 15:42:06,517 cfg.data.max_sent_length           : 400
+INFO:slt.signjoey.helpers:cfg.data.random_train_subset       : -1
+2021-12-27 15:42:06,517 cfg.data.random_train_subset       : -1
+INFO:slt.signjoey.helpers:cfg.data.random_dev_subset         : -1
+2021-12-27 15:42:06,517 cfg.data.random_dev_subset         : -1
+INFO:slt.signjoey.helpers:cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-27 15:42:06,517 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+INFO:slt.signjoey.helpers:cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-27 15:42:06,517 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+INFO:slt.signjoey.helpers:cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2021-12-27 15:42:06,517 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+INFO:slt.signjoey.helpers:cfg.training.reset_best_ckpt       : False
+2021-12-27 15:42:06,518 cfg.training.reset_best_ckpt       : False
+INFO:slt.signjoey.helpers:cfg.training.reset_scheduler       : False
+2021-12-27 15:42:06,518 cfg.training.reset_scheduler       : False
+INFO:slt.signjoey.helpers:cfg.training.reset_optimizer       : False
+2021-12-27 15:42:06,518 cfg.training.reset_optimizer       : False
+INFO:slt.signjoey.helpers:cfg.training.random_seed           : 42
+2021-12-27 15:42:06,518 cfg.training.random_seed           : 42
+INFO:slt.signjoey.helpers:cfg.training.model_dir             : ./ChicagoFSWild_model__13
+2021-12-27 15:42:06,518 cfg.training.model_dir             : ./ChicagoFSWild_model__13
+INFO:slt.signjoey.helpers:cfg.training.recognition_loss_weight : 0.0
+2021-12-27 15:42:06,518 cfg.training.recognition_loss_weight : 0.0
+INFO:slt.signjoey.helpers:cfg.training.translation_loss_weight : 1.0
+2021-12-27 15:42:06,519 cfg.training.translation_loss_weight : 1.0
+INFO:slt.signjoey.helpers:cfg.training.eval_metric           : bleu
+2021-12-27 15:42:06,519 cfg.training.eval_metric           : bleu
+INFO:slt.signjoey.helpers:cfg.training.optimizer             : adam
+2021-12-27 15:42:06,519 cfg.training.optimizer             : adam
+INFO:slt.signjoey.helpers:cfg.training.learning_rate         : 0.001
+2021-12-27 15:42:06,519 cfg.training.learning_rate         : 0.001
+INFO:slt.signjoey.helpers:cfg.training.batch_size            : 32
+2021-12-27 15:42:06,519 cfg.training.batch_size            : 32
+INFO:slt.signjoey.helpers:cfg.training.num_valid_log         : 5
+2021-12-27 15:42:06,519 cfg.training.num_valid_log         : 5
+INFO:slt.signjoey.helpers:cfg.training.epochs                : 5000000
+2021-12-27 15:42:06,519 cfg.training.epochs                : 5000000
+INFO:slt.signjoey.helpers:cfg.training.early_stopping_metric : eval_metric
+2021-12-27 15:42:06,519 cfg.training.early_stopping_metric : eval_metric
+INFO:slt.signjoey.helpers:cfg.training.batch_type            : token
+2021-12-27 15:42:06,520 cfg.training.batch_type            : token
+INFO:slt.signjoey.helpers:cfg.training.translation_normalization : batch
+2021-12-27 15:42:06,520 cfg.training.translation_normalization : batch
+INFO:slt.signjoey.helpers:cfg.training.eval_recognition_beam_size : 9
+2021-12-27 15:42:06,520 cfg.training.eval_recognition_beam_size : 9
+INFO:slt.signjoey.helpers:cfg.training.eval_translation_beam_size : 9
+2021-12-27 15:42:06,520 cfg.training.eval_translation_beam_size : 9
+INFO:slt.signjoey.helpers:cfg.training.eval_translation_beam_alpha : 1
+2021-12-27 15:42:06,520 cfg.training.eval_translation_beam_alpha : 1
+INFO:slt.signjoey.helpers:cfg.training.overwrite             : True
+2021-12-27 15:42:06,520 cfg.training.overwrite             : True
+INFO:slt.signjoey.helpers:cfg.training.shuffle               : True
+2021-12-27 15:42:06,520 cfg.training.shuffle               : True
+INFO:slt.signjoey.helpers:cfg.training.use_cuda              : True
+2021-12-27 15:42:06,521 cfg.training.use_cuda              : True
+INFO:slt.signjoey.helpers:cfg.training.translation_max_output_length : 5
+2021-12-27 15:42:06,521 cfg.training.translation_max_output_length : 5
+INFO:slt.signjoey.helpers:cfg.training.keep_last_ckpts       : 1
+2021-12-27 15:42:06,521 cfg.training.keep_last_ckpts       : 1
+INFO:slt.signjoey.helpers:cfg.training.batch_multiplier      : 1
+2021-12-27 15:42:06,521 cfg.training.batch_multiplier      : 1
+INFO:slt.signjoey.helpers:cfg.training.logging_freq          : 1
+2021-12-27 15:42:06,521 cfg.training.logging_freq          : 1
+INFO:slt.signjoey.helpers:cfg.training.validation_freq       : 1
+2021-12-27 15:42:06,521 cfg.training.validation_freq       : 1
+INFO:slt.signjoey.helpers:cfg.training.betas                 : [0.9, 0.998]
+2021-12-27 15:42:06,521 cfg.training.betas                 : [0.9, 0.998]
+INFO:slt.signjoey.helpers:cfg.training.scheduling            : plateau
+2021-12-27 15:42:06,522 cfg.training.scheduling            : plateau
+INFO:slt.signjoey.helpers:cfg.training.learning_rate_min     : 1e-06
+2021-12-27 15:42:06,522 cfg.training.learning_rate_min     : 1e-06
+INFO:slt.signjoey.helpers:cfg.training.weight_decay          : 0.001
+2021-12-27 15:42:06,522 cfg.training.weight_decay          : 0.001
+INFO:slt.signjoey.helpers:cfg.training.patience              : 8
+2021-12-27 15:42:06,522 cfg.training.patience              : 8
+INFO:slt.signjoey.helpers:cfg.training.decrease_factor       : 0.7
+2021-12-27 15:42:06,522 cfg.training.decrease_factor       : 0.7
+INFO:slt.signjoey.helpers:cfg.training.label_smoothing       : 0.0
+2021-12-27 15:42:06,522 cfg.training.label_smoothing       : 0.0
+INFO:slt.signjoey.helpers:cfg.model.initializer              : xavier
+2021-12-27 15:42:06,522 cfg.model.initializer              : xavier
+INFO:slt.signjoey.helpers:cfg.model.bias_initializer         : zeros
+2021-12-27 15:42:06,523 cfg.model.bias_initializer         : zeros
+INFO:slt.signjoey.helpers:cfg.model.init_gain                : 1.0
+2021-12-27 15:42:06,523 cfg.model.init_gain                : 1.0
+INFO:slt.signjoey.helpers:cfg.model.embed_initializer        : xavier
+2021-12-27 15:42:06,523 cfg.model.embed_initializer        : xavier
+INFO:slt.signjoey.helpers:cfg.model.embed_init_gain          : 1.0
+2021-12-27 15:42:06,523 cfg.model.embed_init_gain          : 1.0
+INFO:slt.signjoey.helpers:cfg.model.tied_softmax             : False
+2021-12-27 15:42:06,523 cfg.model.tied_softmax             : False
+INFO:slt.signjoey.helpers:cfg.model.encoder.type             : transformer
+2021-12-27 15:42:06,523 cfg.model.encoder.type             : transformer
+INFO:slt.signjoey.helpers:cfg.model.encoder.num_layers       : 3
+2021-12-27 15:42:06,523 cfg.model.encoder.num_layers       : 3
+INFO:slt.signjoey.helpers:cfg.model.encoder.num_heads        : 8
+2021-12-27 15:42:06,523 cfg.model.encoder.num_heads        : 8
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.embedding_dim : 512
+2021-12-27 15:42:06,524 cfg.model.encoder.embeddings.embedding_dim : 512
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.scale : False
+2021-12-27 15:42:06,524 cfg.model.encoder.embeddings.scale : False
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.dropout : 0.1
+2021-12-27 15:42:06,524 cfg.model.encoder.embeddings.dropout : 0.1
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.norm_type : batch
+2021-12-27 15:42:06,524 cfg.model.encoder.embeddings.norm_type : batch
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.activation_type : softsign
+2021-12-27 15:42:06,524 cfg.model.encoder.embeddings.activation_type : softsign
+INFO:slt.signjoey.helpers:cfg.model.encoder.hidden_size      : 512
+2021-12-27 15:42:06,524 cfg.model.encoder.hidden_size      : 512
+INFO:slt.signjoey.helpers:cfg.model.encoder.ff_size          : 2048
+2021-12-27 15:42:06,524 cfg.model.encoder.ff_size          : 2048
+INFO:slt.signjoey.helpers:cfg.model.encoder.dropout          : 0.1
+2021-12-27 15:42:06,525 cfg.model.encoder.dropout          : 0.1
+INFO:slt.signjoey.helpers:cfg.model.decoder.type             : transformer
+2021-12-27 15:42:06,525 cfg.model.decoder.type             : transformer
+INFO:slt.signjoey.helpers:cfg.model.decoder.num_layers       : 3
+2021-12-27 15:42:06,525 cfg.model.decoder.num_layers       : 3
+INFO:slt.signjoey.helpers:cfg.model.decoder.num_heads        : 8
+2021-12-27 15:42:06,525 cfg.model.decoder.num_heads        : 8
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.embedding_dim : 512
+2021-12-27 15:42:06,525 cfg.model.decoder.embeddings.embedding_dim : 512
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.scale : False
+2021-12-27 15:42:06,525 cfg.model.decoder.embeddings.scale : False
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.dropout : 0.1
+2021-12-27 15:42:06,525 cfg.model.decoder.embeddings.dropout : 0.1
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.norm_type : batch
+2021-12-27 15:42:06,526 cfg.model.decoder.embeddings.norm_type : batch
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.activation_type : softsign
+2021-12-27 15:42:06,526 cfg.model.decoder.embeddings.activation_type : softsign
+INFO:slt.signjoey.helpers:cfg.model.decoder.hidden_size      : 512
+2021-12-27 15:42:06,526 cfg.model.decoder.hidden_size      : 512
+INFO:slt.signjoey.helpers:cfg.model.decoder.ff_size          : 2048
+2021-12-27 15:42:06,526 cfg.model.decoder.ff_size          : 2048
+INFO:slt.signjoey.helpers:cfg.model.decoder.dropout          : 0.1
+2021-12-27 15:42:06,526 cfg.model.decoder.dropout          : 0.1
+INFO:slt.signjoey.helpers:SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=TransformerDecoder(num_layers=3, num_heads=8),
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=Embeddings(embedding_dim=512, vocab_size=2733))
+2021-12-27 15:42:06,526 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=TransformerDecoder(num_layers=3, num_heads=8),
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=Embeddings(embedding_dim=512, vocab_size=2733))
+SLT_total_params: 27927304
+SLT_total_trained_params: 27927304
+INFO:slt.signjoey.helpers:EPOCH 1
+2021-12-27 15:42:06,728 EPOCH 1
+index: 1
+sequence: youtube_6-tom_humphries_6654
+sgn_lengths: 6
+signer: 0080
+txt: [2, 445, 1]
+
+index: 2
+sequence: youtube_6-marlee_matlin_6889
+sgn_lengths: 12
+signer: 0078
+txt: [2, 358, 1]
+
+index: 3
+sequence: youtube_4-alex_abenchuchan_5468
+sgn_lengths: 10
+signer: 0050
+txt: [2, 84, 1]
+
+index: 4
+sequence: youtube_2-insanemisha_3688
+sgn_lengths: 10
+signer: 0059
+txt: [2, 5, 1]
+
+index: 5
+sequence: youtube_2-tia_albert_3835
+sgn_lengths: 24
+signer: 0060
+txt: [2, 2067, 1]
+
+index: 6
+sequence: youtube_3-alex_abenchuchan_4009
+sgn_lengths: 23
+signer: 0050
+txt: [2, 2693, 1]
+
+index: 7
+sequence: deafvideo_3-deafaynrand_4411
+sgn_lengths: 40
+signer: 0020
+txt: [2, 68, 1]
+
+index: 8
+sequence: aslized-elsie_stecker_0002
+sgn_lengths: 13
+signer: 0000
+txt: [2, 9, 1]
+
+index: 9
+sequence: aslized-keith_gamache_jr_0468
+sgn_lengths: 22
+signer: 0002
+txt: [2, 202, 1]
+
+index: 10
+sequence: youtube_2-alex_abenchuchan_3359
+sgn_lengths: 30
+signer: 0050
+txt: [2, 2082, 1]
+
+index: 11
+sequence: awti-austin_andrews_0670
+sgn_lengths: 39
+signer: 0017
+txt: [2, 67, 1]
+
+index: 12
+sequence: deafvideo_4-mattref2005_5201
+sgn_lengths: 34
+signer: 0037
+txt: [2, 2713, 1]
+
+index: 13
+sequence: deafvideo_3-deafaynrand_4488
+sgn_lengths: 27
+signer: 0020
+txt: [2, 36, 1]
+
+index: 14
+sequence: youtube_3-alex_abenchuchan_4023
+sgn_lengths: 101
+signer: 0050
+txt: [2, 1621, 1]
+
+index: 15
+sequence: misc_1-carol_padden_1991
+sgn_lengths: 32
+signer: 0045
+txt: [2, 2527, 1]
+
+index: 16
+sequence: aslized-elsie_stecker_0004
+sgn_lengths: 66
+signer: 0000
+txt: [2, 207, 1]
+
+index: 17
+sequence: youtube_2-alex_abenchuchan_3311
+sgn_lengths: 25
+signer: 0050
+txt: [2, 503, 1]
+
+index: 18
+sequence: youtube_6-marlee_matlin_6879
+sgn_lengths: 16
+signer: 0078
+txt: [2, 2696, 1]
+
+index: 19
+sequence: deafvideo_4-dsport06_4933
+sgn_lengths: 10
+signer: 0030
+txt: [2, 2362, 1]
+
+index: 20
+sequence: youtube_3-alex_abenchuchan_4176
+sgn_lengths: 16
+signer: 0050
+txt: [2, 191, 1]
+
+index: 21
+sequence: youtube_3-alex_abenchuchan_4159
+sgn_lengths: 49
+signer: 0050
+txt: [2, 1483, 1]
+
+index: 22
+sequence: misc_2-aidan_mack_3171
+sgn_lengths: 9
+signer: 0048
+txt: [2, 11, 1]
+
+index: 23
+sequence: aslized-felicia_williams_7007
+sgn_lengths: 50
+signer: 0083
+txt: [2, 1277, 1]
+
+index: 24
+sequence: youtube_6-peter_hauser_6968
+sgn_lengths: 18
+signer: 0079
+txt: [2, 1262, 1]
+
+index: 25
+sequence: deafvideo_5-archie_6980
+sgn_lengths: 33
+signer: 0029
+txt: [2, 173, 1]
+
+index: 26
+sequence: deafvideo_1-taylerade_1246
+sgn_lengths: 27
+signer: 0025
+txt: [2, 1452, 1]
+
+index: 27
+sequence: aslthat-joseph_wheeler_0498
+sgn_lengths: 18
+signer: 0016
+txt: [2, 193, 1]
+
+index: 28
+sequence: youtube_4-alex_abenchuchan_5463
+sgn_lengths: 70
+signer: 0050
+txt: [2, 648, 1]
+
+index: 29
+sequence: youtube_2-alex_abenchuchan_3387
+sgn_lengths: 37
+signer: 0050
+txt: [2, 1810, 1]
+
+index: 30
+sequence: youtube_4-alex_abenchuchan_5392
+sgn_lengths: 9
+signer: 0050
+txt: [2, 13, 1]
+
+index: 31
+sequence: deafvideo_3-deafaynrand_4442
+sgn_lengths: 30
+signer: 0020
+txt: [2, 890, 1]
+
+index: 32
+sequence: youtube_1-jackie_roth_3028
+sgn_lengths: 19
+signer: 0055
+txt: [2, 1623, 1]
+
+so far: 32
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000001] Batch Translation Loss:   8.143467 => Txt Tokens per Sec:        2 || Lr: 0.001000
+2021-12-27 15:42:23,048 [Epoch: 001 Step: 00000001] Batch Translation Loss:   8.143467 => Txt Tokens per Sec:        2 || Lr: 0.001000
+981
+0
+32
+32
+32
+index: 1
+sequence: youtube_4-sean_berdy_5728
+sgn_lengths: 24
+signer: 0113
+txt: [2, 305, 1]
+
+index: 2
+sequence: deafvideo_2-deafpoweronethumbtwo_1791
+sgn_lengths: 7
+signer: 0090
+txt: [2, 6, 1]
+
+index: 3
+sequence: youtube_1-melvin_patterson_2364
+sgn_lengths: 14
+signer: 0108
+txt: [2, 1769, 1]
+
+index: 4
+sequence: deafvideo_3-yesyes_3109
+sgn_lengths: 13
+signer: 0102
+txt: [2, 22, 1]
+
+index: 5
+sequence: deafvideo_3-yesyes_4479
+sgn_lengths: 17
+signer: 0102
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_5-sean_berdy_6123
+sgn_lengths: 10
+signer: 0113
+txt: [2, 1958, 1]
+
+index: 7
+sequence: deafvideo_2-sddsimple_1585
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 8
+sequence: deafvideo_2-confederateboy_1667
+sgn_lengths: 26
+signer: 0089
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_2-sddsimple_1587
+sgn_lengths: 24
+signer: 0093
+txt: [2, 12, 1]
+
+index: 10
+sequence: youtube_5-daniel_durant_5882
+sgn_lengths: 22
+signer: 0116
+txt: [2, 82, 1]
+
+index: 11
+sequence: deafvideo_3-fieldstreamasl_4041
+sgn_lengths: 70
+signer: 0097
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_5-scottnorby_6460
+sgn_lengths: 20
+signer: 0105
+txt: [2, 439, 1]
+
+index: 13
+sequence: youtube_1-catherine_mackinnon_2787
+sgn_lengths: 19
+signer: 0107
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_4-lizzie_sorkin_5253
+sgn_lengths: 12
+signer: 0112
+txt: [2, 19, 1]
+
+index: 15
+sequence: deafvideo_5-silentoneye_7321
+sgn_lengths: 50
+signer: 0106
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_5-roberta_cordano_6148
+sgn_lengths: 27
+signer: 0123
+txt: [2, 214, 1]
+
+index: 17
+sequence: deafvideo_5-morningstar_6254
+sgn_lengths: 32
+signer: 0104
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_4-howard_rosenblum_5576
+sgn_lengths: 20
+signer: 0111
+txt: [2, 450, 1]
+
+index: 19
+sequence: deafvideo_2-confederateboy_1674
+sgn_lengths: 10
+signer: 0089
+txt: [2, 12, 1]
+
+index: 20
+sequence: youtube_1-catherine_mackinnon_2794
+sgn_lengths: 4
+signer: 0107
+txt: [2, 7, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2835
+sgn_lengths: 31
+signer: 0107
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_5-scottnorby_6452
+sgn_lengths: 6
+signer: 0105
+txt: [2, 6, 1]
+
+index: 23
+sequence: youtube_1-catherine_mackinnon_2820
+sgn_lengths: 12
+signer: 0107
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-roberta_cordano_6136
+sgn_lengths: 8
+signer: 0123
+txt: [2, 37, 1]
+
+index: 25
+sequence: youtube_5-melissa_draganac-hawk_5843
+sgn_lengths: 22
+signer: 0119
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_6-myles_de_bastion_6531
+sgn_lengths: 30
+signer: 0121
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_5-roberta_cordano_6143
+sgn_lengths: 15
+signer: 0123
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_5-tanea_brown_6034
+sgn_lengths: 4
+signer: 0120
+txt: [2, 13, 1]
+
+index: 29
+sequence: deafvideo_2-sddsimple_1559
+sgn_lengths: 50
+signer: 0093
+txt: [2, 0, 1]
+
+index: 30
+sequence: youtube_6-roberta_cordano_6473
+sgn_lengths: 14
+signer: 0123
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_1-shoshannah_stern_2380
+sgn_lengths: 15
+signer: 0109
+txt: [2, 51, 1]
+
+index: 32
+sequence: deafvideo_3-otismhill82_4622
+sgn_lengths: 12
+signer: 0099
+txt: [2, 313, 1]
+
+so far: 32
+981
+32
+32
+32
+32
+index: 1
+sequence: deafvideo_5-silentoneye_7317
+sgn_lengths: 22
+signer: 0106
+txt: [2, 0, 1]
+
+index: 2
+sequence: youtube_5-daniel_durant_5886
+sgn_lengths: 6
+signer: 0116
+txt: [2, 10, 1]
+
+index: 3
+sequence: youtube_1-catherine_mackinnon_2843
+sgn_lengths: 12
+signer: 0107
+txt: [2, 4, 1]
+
+index: 4
+sequence: deafvideo_5-scottnorby_6460
+sgn_lengths: 20
+signer: 0105
+txt: [2, 439, 1]
+
+index: 5
+sequence: deafvideo_2-deafpoweronethumbtwo_1794
+sgn_lengths: 16
+signer: 0090
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-yesyes_3117
+sgn_lengths: 31
+signer: 0102
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-catherine_mackinnon_2790
+sgn_lengths: 31
+signer: 0107
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_5-roberta_cordano_6137
+sgn_lengths: 20
+signer: 0123
+txt: [2, 492, 1]
+
+index: 9
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_4-tim_albert_5264
+sgn_lengths: 23
+signer: 0114
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_2-sddsimple_1559
+sgn_lengths: 50
+signer: 0093
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_1-shoshannah_stern_2380
+sgn_lengths: 15
+signer: 0109
+txt: [2, 51, 1]
+
+index: 13
+sequence: youtube_5-daniel_durant_5889
+sgn_lengths: 39
+signer: 0116
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_3-yesyes_4478
+sgn_lengths: 39
+signer: 0102
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_2-sddsimple_1587
+sgn_lengths: 24
+signer: 0093
+txt: [2, 12, 1]
+
+index: 16
+sequence: deafvideo_5-scottnorby_6461
+sgn_lengths: 30
+signer: 0105
+txt: [2, 1789, 1]
+
+index: 17
+sequence: youtube_5-daniel_durant_5882
+sgn_lengths: 22
+signer: 0116
+txt: [2, 82, 1]
+
+index: 18
+sequence: youtube_4-howard_rosenblum_5563
+sgn_lengths: 24
+signer: 0111
+txt: [2, 450, 1]
+
+index: 19
+sequence: deafvideo_3-damien23_3608
+sgn_lengths: 38
+signer: 0095
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_5-melissa_draganac-hawk_5833
+sgn_lengths: 23
+signer: 0119
+txt: [2, 125, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2805
+sgn_lengths: 33
+signer: 0107
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yellowbirdie84_4666
+sgn_lengths: 44
+signer: 0101
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-debra_patkin_5786
+sgn_lengths: 82
+signer: 0117
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_5-silentoneye_7315
+sgn_lengths: 27
+signer: 0106
+txt: [2, 5, 1]
+
+index: 25
+sequence: aslized-joy_maisel_6434
+sgn_lengths: 71
+signer: 0087
+txt: [2, 0, 1]
+
+index: 26
+sequence: deafvideo_3-otismhill82_4611
+sgn_lengths: 16
+signer: 0099
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-deafgoldenhair_3077
+sgn_lengths: 30
+signer: 0096
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_2-sddsimple_1579
+sgn_lengths: 25
+signer: 0093
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_4-tim_albert_5276
+sgn_lengths: 23
+signer: 0114
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_2-fairytales9_2292
+sgn_lengths: 22
+signer: 0091
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_2-sddsimple_1569
+sgn_lengths: 90
+signer: 0093
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_1-don_grushkin_2776
+sgn_lengths: 47
+signer: 0122
+txt: [2, 0, 1]
+
+so far: 64
+981
+64
+32
+32
+32
+index: 1
+sequence: deafvideo_3-otismhill82_4607
+sgn_lengths: 30
+signer: 0099
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_2-sddsimple_1554
+sgn_lengths: 29
+signer: 0093
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_5-scottnorby_6460
+sgn_lengths: 20
+signer: 0105
+txt: [2, 439, 1]
+
+index: 4
+sequence: youtube_5-melissa_draganac-hawk_5841
+sgn_lengths: 20
+signer: 0119
+txt: [2, 328, 1]
+
+index: 5
+sequence: deafvideo_2-sddsimple_1587
+sgn_lengths: 24
+signer: 0093
+txt: [2, 12, 1]
+
+index: 6
+sequence: youtube_1-don_grushkin_2308
+sgn_lengths: 28
+signer: 0122
+txt: [2, 597, 1]
+
+index: 7
+sequence: deafvideo_5-deafpoweronethumbtwo_7291
+sgn_lengths: 24
+signer: 0090
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_5-silentoneye_7325
+sgn_lengths: 37
+signer: 0106
+txt: [2, 0, 1]
+
+index: 9
+sequence: aslized-suzanne_stecker_0276
+sgn_lengths: 35
+signer: 0088
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_4-tax_tips_by_irs_4964
+sgn_lengths: 30
+signer: 0103
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_2-fairytales9_2274
+sgn_lengths: 45
+signer: 0091
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-damien23_3604
+sgn_lengths: 29
+signer: 0095
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_2-sddsimple_1566
+sgn_lengths: 52
+signer: 0093
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_2-confederateboy_1664
+sgn_lengths: 59
+signer: 0089
+txt: [2, 0, 1]
+
+index: 16
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 17
+sequence: deafvideo_3-yesyes_3112
+sgn_lengths: 120
+signer: 0102
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_2-goatman_1538
+sgn_lengths: 52
+signer: 0092
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_2-sddsimple_1580
+sgn_lengths: 66
+signer: 0093
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_1-shoshannah_stern_2384
+sgn_lengths: 32
+signer: 0109
+txt: [2, 272, 1]
+
+index: 21
+sequence: deafvideo_2-sddsimple_1572
+sgn_lengths: 39
+signer: 0093
+txt: [2, 663, 1]
+
+index: 22
+sequence: youtube_4-tim_albert_5269
+sgn_lengths: 64
+signer: 0114
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-sean_berdy_6090
+sgn_lengths: 19
+signer: 0113
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_3-yesyes_3105
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_2-sddsimple_1556
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_4-howard_rosenblum_5568
+sgn_lengths: 62
+signer: 0111
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-geoalpha_4549
+sgn_lengths: 33
+signer: 0098
+txt: [2, 547, 1]
+
+index: 28
+sequence: youtube_5-debra_patkin_5786
+sgn_lengths: 82
+signer: 0117
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_1-don_grushkin_2323
+sgn_lengths: 33
+signer: 0122
+txt: [2, 4, 1]
+
+index: 30
+sequence: deafvideo_5-deafpoweronethumbtwo_7294
+sgn_lengths: 45
+signer: 0090
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_3-fieldstreamasl_4036
+sgn_lengths: 44
+signer: 0097
+txt: [2, 53, 1]
+
+index: 32
+sequence: deafvideo_3-yellowbirdie84_4685
+sgn_lengths: 26
+signer: 0101
+txt: [2, 0, 1]
+
+so far: 96
+981
+96
+32
+32
+32
+index: 1
+sequence: deafvideo_3-yesyes_4475
+sgn_lengths: 36
+signer: 0102
+txt: [2, 0, 1]
+
+index: 2
+sequence: youtube_5-daniel_durant_5885
+sgn_lengths: 17
+signer: 0116
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_5-sean_berdy_6091
+sgn_lengths: 27
+signer: 0113
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-otismhill82_4604
+sgn_lengths: 15
+signer: 0099
+txt: [2, 0, 1]
+
+index: 5
+sequence: aslized-joy_maisel_6428
+sgn_lengths: 47
+signer: 0087
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_2-goatman_1533
+sgn_lengths: 23
+signer: 0092
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-shoshannah_stern_2379
+sgn_lengths: 8
+signer: 0109
+txt: [2, 22, 1]
+
+index: 8
+sequence: deafvideo_3-yellowbirdie84_4677
+sgn_lengths: 15
+signer: 0101
+txt: [2, 5, 1]
+
+index: 9
+sequence: deafvideo_3-deafgoldenhair_3068
+sgn_lengths: 39
+signer: 0096
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_5-caroline_jackson_5855
+sgn_lengths: 50
+signer: 0115
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_1-catherine_mackinnon_2777
+sgn_lengths: 40
+signer: 0107
+txt: [2, 0, 1]
+
+index: 12
+sequence: aslized-suzanne_stecker_0241
+sgn_lengths: 53
+signer: 0088
+txt: [2, 54, 1]
+
+index: 13
+sequence: deafvideo_2-confederateboy_1664
+sgn_lengths: 59
+signer: 0089
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_1-melvin_patterson_2338
+sgn_lengths: 86
+signer: 0108
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_3-yesyes_4478
+sgn_lengths: 39
+signer: 0102
+txt: [2, 0, 1]
+
+index: 16
+sequence: aslized-suzanne_stecker_0201
+sgn_lengths: 38
+signer: 0088
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_6-roberta_cordano_6474
+sgn_lengths: 111
+signer: 0123
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_5-caroline_jackson_5854
+sgn_lengths: 68
+signer: 0115
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_1-catherine_mackinnon_2816
+sgn_lengths: 34
+signer: 0107
+txt: [2, 0, 1]
+
+index: 20
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 21
+sequence: youtube_5-daniel_durant_5881
+sgn_lengths: 43
+signer: 0116
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-fieldstreamasl_4041
+sgn_lengths: 70
+signer: 0097
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_3-deafgoldenhair_3080
+sgn_lengths: 64
+signer: 0096
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_2-sddsimple_1569
+sgn_lengths: 90
+signer: 0093
+txt: [2, 0, 1]
+
+index: 25
+sequence: aslized-joy_maisel_6419
+sgn_lengths: 66
+signer: 0087
+txt: [2, 0, 1]
+
+index: 26
+sequence: aslized-joy_maisel_6427
+sgn_lengths: 54
+signer: 0087
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_5-melissa_draganac-hawk_5833
+sgn_lengths: 23
+signer: 0119
+txt: [2, 125, 1]
+
+index: 28
+sequence: deafvideo_3-otismhill82_4597
+sgn_lengths: 23
+signer: 0099
+txt: [2, 192, 1]
+
+index: 29
+sequence: youtube_1-shoshannah_stern_2387
+sgn_lengths: 32
+signer: 0109
+txt: [2, 0, 1]
+
+index: 30
+sequence: aslized-joy_maisel_6420
+sgn_lengths: 35
+signer: 0087
+txt: [2, 54, 1]
+
+index: 31
+sequence: deafvideo_2-goatman_1536
+sgn_lengths: 51
+signer: 0092
+txt: [2, 525, 1]
+
+index: 32
+sequence: deafvideo_2-sddsimple_1552
+sgn_lengths: 54
+signer: 0093
+txt: [2, 399, 1]
+
+so far: 128
+981
+128
+32
+32
+32
+index: 1
+sequence: aslized-joy_maisel_6437
+sgn_lengths: 9
+signer: 0087
+txt: [2, 7, 1]
+
+index: 2
+sequence: deafvideo_2-fairytales9_2298
+sgn_lengths: 14
+signer: 0091
+txt: [2, 238, 1]
+
+index: 3
+sequence: deafvideo_3-crossover_3872
+sgn_lengths: 26
+signer: 0094
+txt: [2, 20, 1]
+
+index: 4
+sequence: deafvideo_2-goatman_1527
+sgn_lengths: 16
+signer: 0092
+txt: [2, 123, 1]
+
+index: 5
+sequence: deafvideo_3-deafgoldenhair_3081
+sgn_lengths: 16
+signer: 0096
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-deafgoldenhair_3068
+sgn_lengths: 39
+signer: 0096
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-shoshannah_stern_2392
+sgn_lengths: 32
+signer: 0109
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_1-catherine_mackinnon_2827
+sgn_lengths: 35
+signer: 0107
+txt: [2, 0, 1]
+
+index: 9
+sequence: aslized-suzanne_stecker_0194
+sgn_lengths: 70
+signer: 0088
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_3-ben_bahan_4534
+sgn_lengths: 24
+signer: 0110
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_2-sddsimple_1554
+sgn_lengths: 29
+signer: 0093
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_2-sddsimple_1564
+sgn_lengths: 47
+signer: 0093
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_2-sddsimple_1577
+sgn_lengths: 108
+signer: 0093
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_6-myles_de_bastion_6528
+sgn_lengths: 86
+signer: 0121
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_4-howard_rosenblum_5569
+sgn_lengths: 41
+signer: 0111
+txt: [2, 659, 1]
+
+index: 16
+sequence: deafvideo_4-tax_tips_by_irs_4954
+sgn_lengths: 47
+signer: 0103
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-joy_maisel_6434
+sgn_lengths: 71
+signer: 0087
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_1-don_grushkin_2776
+sgn_lengths: 47
+signer: 0122
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_2-deafpoweronethumbtwo_1788
+sgn_lengths: 13
+signer: 0090
+txt: [2, 36, 1]
+
+index: 20
+sequence: aslized-suzanne_stecker_0261
+sgn_lengths: 71
+signer: 0088
+txt: [2, 0, 1]
+
+index: 21
+sequence: deafvideo_3-titans_4689
+sgn_lengths: 55
+signer: 0100
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_2-fairytales9_2274
+sgn_lengths: 45
+signer: 0091
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_5-deafpoweronethumbtwo_7293
+sgn_lengths: 39
+signer: 0090
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-sean_berdy_6086
+sgn_lengths: 30
+signer: 0113
+txt: [2, 2639, 1]
+
+index: 25
+sequence: deafvideo_3-yesyes_3105
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-fieldstreamasl_4036
+sgn_lengths: 44
+signer: 0097
+txt: [2, 53, 1]
+
+index: 28
+sequence: youtube_1-don_grushkin_2310
+sgn_lengths: 35
+signer: 0122
+txt: [2, 598, 1]
+
+index: 29
+sequence: youtube_6-myles_de_bastion_6524
+sgn_lengths: 49
+signer: 0121
+txt: [2, 0, 1]
+
+index: 30
+sequence: aslized-suzanne_stecker_0202
+sgn_lengths: 71
+signer: 0088
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_5-daniel_durant_5893
+sgn_lengths: 41
+signer: 0116
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_1-catherine_mackinnon_2828
+sgn_lengths: 33
+signer: 0107
+txt: [2, 0, 1]
+
+so far: 160
+981
+160
+32
+32
+32
+index: 1
+sequence: deafvideo_3-yesyes_3101
+sgn_lengths: 39
+signer: 0102
+txt: [2, 0, 1]
+
+index: 2
+sequence: aslized-suzanne_stecker_0276
+sgn_lengths: 35
+signer: 0088
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_3-titans_4704
+sgn_lengths: 15
+signer: 0100
+txt: [2, 0, 1]
+
+index: 4
+sequence: aslized-joy_maisel_6440
+sgn_lengths: 33
+signer: 0087
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_4-lizzie_sorkin_5254
+sgn_lengths: 36
+signer: 0112
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_3-ben_bahan_4528
+sgn_lengths: 11
+signer: 0110
+txt: [2, 14, 1]
+
+index: 7
+sequence: deafvideo_3-yellowbirdie84_4679
+sgn_lengths: 26
+signer: 0101
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_3-otismhill82_4622
+sgn_lengths: 12
+signer: 0099
+txt: [2, 313, 1]
+
+index: 9
+sequence: youtube_5-sean_berdy_6099
+sgn_lengths: 8
+signer: 0113
+txt: [2, 234, 1]
+
+index: 10
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 11
+sequence: deafvideo_2-confederateboy_1664
+sgn_lengths: 59
+signer: 0089
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_3-yesyes_4476
+sgn_lengths: 56
+signer: 0102
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-otismhill82_4617
+sgn_lengths: 56
+signer: 0099
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_3-fieldstreamasl_4041
+sgn_lengths: 70
+signer: 0097
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_5-silentoneye_7327
+sgn_lengths: 64
+signer: 0106
+txt: [2, 444, 1]
+
+index: 16
+sequence: deafvideo_2-fairytales9_2274
+sgn_lengths: 45
+signer: 0091
+txt: [2, 0, 1]
+
+index: 17
+sequence: deafvideo_5-silentoneye_7326
+sgn_lengths: 98
+signer: 0106
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_1-melvin_patterson_2342
+sgn_lengths: 84
+signer: 0108
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-deafgoldenhair_3080
+sgn_lengths: 64
+signer: 0096
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_1-melvin_patterson_2341
+sgn_lengths: 88
+signer: 0108
+txt: [2, 2138, 1]
+
+index: 21
+sequence: deafvideo_2-sddsimple_1566
+sgn_lengths: 52
+signer: 0093
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_1-melvin_patterson_2340
+sgn_lengths: 64
+signer: 0108
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_2-sddsimple_1569
+sgn_lengths: 90
+signer: 0093
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_2-sddsimple_1546
+sgn_lengths: 47
+signer: 0093
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_2-sddsimple_1563
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_4-lizzie_sorkin_5252
+sgn_lengths: 86
+signer: 0112
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-yesyes_3112
+sgn_lengths: 120
+signer: 0102
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_1-don_grushkin_2308
+sgn_lengths: 28
+signer: 0122
+txt: [2, 597, 1]
+
+index: 29
+sequence: aslized-suzanne_stecker_0241
+sgn_lengths: 53
+signer: 0088
+txt: [2, 54, 1]
+
+index: 30
+sequence: youtube_6-roberta_cordano_6472
+sgn_lengths: 67
+signer: 0123
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_4-tim_albert_5269
+sgn_lengths: 64
+signer: 0114
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_1-don_grushkin_2768
+sgn_lengths: 41
+signer: 0122
+txt: [2, 0, 1]
+
+so far: 192
+981
+192
+32
+32
+32
+index: 1
+sequence: youtube_1-don_grushkin_2326
+sgn_lengths: 28
+signer: 0122
+txt: [2, 597, 1]
+
+index: 2
+sequence: deafvideo_5-morningstar_6265
+sgn_lengths: 21
+signer: 0104
+txt: [2, 0, 1]
+
+index: 3
+sequence: aslized-suzanne_stecker_0208
+sgn_lengths: 22
+signer: 0088
+txt: [2, 0, 1]
+
+index: 4
+sequence: aslized-joy_maisel_6433
+sgn_lengths: 14
+signer: 0087
+txt: [2, 117, 1]
+
+index: 5
+sequence: youtube_1-don_grushkin_2309
+sgn_lengths: 11
+signer: 0122
+txt: [2, 7, 1]
+
+index: 6
+sequence: deafvideo_5-silentoneye_7329
+sgn_lengths: 22
+signer: 0106
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_4-sean_berdy_5747
+sgn_lengths: 12
+signer: 0113
+txt: [2, 647, 1]
+
+index: 8
+sequence: deafvideo_3-fieldstreamasl_4045
+sgn_lengths: 23
+signer: 0097
+txt: [2, 1715, 1]
+
+index: 9
+sequence: deafvideo_2-fairytales9_2278
+sgn_lengths: 16
+signer: 0091
+txt: [2, 10, 1]
+
+index: 10
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_5-daniel_durant_5884
+sgn_lengths: 8
+signer: 0116
+txt: [2, 10, 1]
+
+index: 12
+sequence: youtube_1-catherine_mackinnon_2823
+sgn_lengths: 23
+signer: 0107
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_1-don_grushkin_2775
+sgn_lengths: 24
+signer: 0122
+txt: [2, 1333, 1]
+
+index: 14
+sequence: youtube_1-melvin_patterson_2369
+sgn_lengths: 47
+signer: 0108
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_6-myles_de_bastion_6529
+sgn_lengths: 48
+signer: 0121
+txt: [2, 0, 1]
+
+index: 16
+sequence: deafvideo_3-titans_4702
+sgn_lengths: 41
+signer: 0100
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_1-shoshannah_stern_2382
+sgn_lengths: 16
+signer: 0109
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_3-fieldstreamasl_4041
+sgn_lengths: 70
+signer: 0097
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-geoalpha_4555
+sgn_lengths: 38
+signer: 0098
+txt: [2, 547, 1]
+
+index: 20
+sequence: deafvideo_3-otismhill82_4617
+sgn_lengths: 56
+signer: 0099
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_5-daniel_durant_5889
+sgn_lengths: 39
+signer: 0116
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yesyes_4476
+sgn_lengths: 56
+signer: 0102
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_1-don_grushkin_2301
+sgn_lengths: 81
+signer: 0122
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_6-myles_de_bastion_6520
+sgn_lengths: 70
+signer: 0121
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_1-don_grushkin_2774
+sgn_lengths: 98
+signer: 0122
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_4-tim_albert_5266
+sgn_lengths: 76
+signer: 0114
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-geoalpha_4552
+sgn_lengths: 37
+signer: 0098
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_2-sddsimple_1552
+sgn_lengths: 54
+signer: 0093
+txt: [2, 399, 1]
+
+index: 29
+sequence: youtube_1-don_grushkin_2303
+sgn_lengths: 56
+signer: 0122
+txt: [2, 2528, 1]
+
+index: 30
+sequence: deafvideo_3-yesyes_3116
+sgn_lengths: 49
+signer: 0102
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_5-silentoneye_7321
+sgn_lengths: 50
+signer: 0106
+txt: [2, 0, 1]
+
+index: 32
+sequence: aslized-suzanne_stecker_0280
+sgn_lengths: 42
+signer: 0088
+txt: [2, 0, 1]
+
+so far: 224
+981
+224
+32
+28
+32
+index: 1
+sequence: deafvideo_2-sddsimple_1556
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 2
+sequence: aslized-suzanne_stecker_0271
+sgn_lengths: 43
+signer: 0088
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_5-jeffrey_spinale_6055
+sgn_lengths: 21
+signer: 0118
+txt: [2, 0, 1]
+
+index: 4
+sequence: youtube_4-tim_albert_5268
+sgn_lengths: 22
+signer: 0114
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_5-sean_berdy_6113
+sgn_lengths: 16
+signer: 0113
+txt: [2, 0, 1]
+
+index: 6
+sequence: aslized-joy_maisel_6442
+sgn_lengths: 36
+signer: 0087
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_6-roberta_cordano_6474
+sgn_lengths: 111
+signer: 0123
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_5-scottnorby_6464
+sgn_lengths: 30
+signer: 0105
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_3-otismhill82_4603
+sgn_lengths: 24
+signer: 0099
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_2-goatman_1542
+sgn_lengths: 70
+signer: 0092
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_3-deafgoldenhair_3061
+sgn_lengths: 106
+signer: 0096
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_3-yesyes_3112
+sgn_lengths: 120
+signer: 0102
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-yesyes_3102
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_2-sddsimple_1578
+sgn_lengths: 81
+signer: 0093
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_6-myles_de_bastion_6520
+sgn_lengths: 70
+signer: 0121
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_1-don_grushkin_2312
+sgn_lengths: 60
+signer: 0122
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_6-myles_de_bastion_6518
+sgn_lengths: 71
+signer: 0121
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_1-melvin_patterson_2367
+sgn_lengths: 63
+signer: 0108
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-crossover_3870
+sgn_lengths: 92
+signer: 0094
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_5-caroline_jackson_5850
+sgn_lengths: 63
+signer: 0115
+txt: [2, 0, 1]
+
+index: 21
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 22
+sequence: deafvideo_2-fairytales9_2281
+sgn_lengths: 23
+signer: 0091
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-caroline_jackson_5859
+sgn_lengths: 38
+signer: 0115
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_4-howard_rosenblum_5565
+sgn_lengths: 54
+signer: 0111
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_3-otismhill82_4593
+sgn_lengths: 9
+signer: 0099
+txt: [2, 2574, 1]
+
+index: 26
+sequence: youtube_4-tim_albert_5283
+sgn_lengths: 30
+signer: 0114
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_5-roberta_cordano_6147
+sgn_lengths: 37
+signer: 0123
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_2-sddsimple_1584
+sgn_lengths: 42
+signer: 0093
+txt: [2, 1431, 1]
+
+index: 29
+sequence: deafvideo_3-otismhill82_4621
+sgn_lengths: 6
+signer: b'0099'
+txt: [2, 0, 1]
+
+index: 30
+sequence: youtube_4-howard_rosenblum_5578
+sgn_lengths: 6
+signer: b'0111'
+txt: [2, 8, 1]
+
+index: 31
+sequence: deafvideo_3-otismhill82_4606
+sgn_lengths: 18
+signer: b'0099'
+txt: [2, 8, 1]
+
+index: 32
+sequence: deafvideo_2-sddsimple_1590
+sgn_lengths: 36
+signer: b'0093'
+txt: [2, 191, 1]
+
+so far: 260
+981
+260
+32
+31
+32
+index: 1
+sequence: deafvideo_3-deafgoldenhair_3075
+sgn_lengths: 16
+signer: 0096
+txt: [2, 10, 1]
+
+index: 2
+sequence: deafvideo_2-confederateboy_1667
+sgn_lengths: 26
+signer: 0089
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_1-shoshannah_stern_2395
+sgn_lengths: 6
+signer: 0109
+txt: [2, 6, 1]
+
+index: 4
+sequence: youtube_3-ben_bahan_4535
+sgn_lengths: 56
+signer: 0110
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_1-don_grushkin_2327
+sgn_lengths: 24
+signer: 0122
+txt: [2, 597, 1]
+
+index: 6
+sequence: deafvideo_2-sddsimple_1584
+sgn_lengths: 42
+signer: 0093
+txt: [2, 1431, 1]
+
+index: 7
+sequence: aslized-suzanne_stecker_0200
+sgn_lengths: 28
+signer: 0088
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_3-otismhill82_4594
+sgn_lengths: 13
+signer: 0099
+txt: [2, 1919, 1]
+
+index: 9
+sequence: aslized-suzanne_stecker_0247
+sgn_lengths: 32
+signer: 0088
+txt: [2, 1666, 1]
+
+index: 10
+sequence: youtube_5-sean_berdy_6081
+sgn_lengths: 20
+signer: 0113
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_2-sddsimple_1585
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 12
+sequence: deafvideo_5-scottnorby_6452
+sgn_lengths: 6
+signer: 0105
+txt: [2, 6, 1]
+
+index: 13
+sequence: deafvideo_2-fairytales9_2297
+sgn_lengths: 11
+signer: 0091
+txt: [2, 1123, 1]
+
+index: 14
+sequence: aslized-suzanne_stecker_0285
+sgn_lengths: 17
+signer: 0088
+txt: [2, 7, 1]
+
+index: 15
+sequence: youtube_1-catherine_mackinnon_2842
+sgn_lengths: 10
+signer: 0107
+txt: [2, 5, 1]
+
+index: 16
+sequence: deafvideo_3-titans_4695
+sgn_lengths: 11
+signer: 0100
+txt: [2, 4, 1]
+
+index: 17
+sequence: deafvideo_3-geoalpha_4552
+sgn_lengths: 37
+signer: 0098
+txt: [2, 0, 1]
+
+index: 18
+sequence: aslized-joy_maisel_6430
+sgn_lengths: 33
+signer: 0087
+txt: [2, 0, 1]
+
+index: 19
+sequence: aslized-suzanne_stecker_0202
+sgn_lengths: 71
+signer: 0088
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_6-myles_de_bastion_6526
+sgn_lengths: 82
+signer: 0121
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_1-don_grushkin_2774
+sgn_lengths: 98
+signer: 0122
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_1-melvin_patterson_2338
+sgn_lengths: 86
+signer: 0108
+txt: [2, 0, 1]
+
+index: 23
+sequence: aslized-joy_maisel_6434
+sgn_lengths: 71
+signer: 0087
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_6-myles_de_bastion_6528
+sgn_lengths: 86
+signer: 0121
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_2-sddsimple_1594
+sgn_lengths: 117
+signer: 0093
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-don_grushkin_2301
+sgn_lengths: 81
+signer: 0122
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_3-yesyes_3114
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_5-daniel_durant_5875
+sgn_lengths: 70
+signer: 0116
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-yesyes_3105
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_4-lizzie_sorkin_5249
+sgn_lengths: 44
+signer: 0112
+txt: [2, 0, 1]
+
+index: 32
+sequence: deafvideo_5-morningstar_6264
+sgn_lengths: 30
+signer: b'0104'
+txt: [2, 0, 1]
+
+so far: 293
+981
+293
+32
+31
+32
+index: 1
+sequence: deafvideo_4-tax_tips_by_irs_4961
+sgn_lengths: 17
+signer: 0103
+txt: [2, 0, 1]
+
+index: 2
+sequence: youtube_5-melissa_draganac-hawk_5844
+sgn_lengths: 38
+signer: 0119
+txt: [2, 0, 1]
+
+index: 3
+sequence: aslized-suzanne_stecker_0257
+sgn_lengths: 16
+signer: 0088
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-geoalpha_4562
+sgn_lengths: 19
+signer: 0098
+txt: [2, 0, 1]
+
+index: 5
+sequence: aslized-suzanne_stecker_0281
+sgn_lengths: 19
+signer: 0088
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-yesyes_4478
+sgn_lengths: 39
+signer: 0102
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_3-geoalpha_4568
+sgn_lengths: 12
+signer: 0098
+txt: [2, 12, 1]
+
+index: 8
+sequence: youtube_1-don_grushkin_2313
+sgn_lengths: 23
+signer: 0122
+txt: [2, 597, 1]
+
+index: 9
+sequence: deafvideo_3-yellowbirdie84_4670
+sgn_lengths: 13
+signer: 0101
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_3-titans_4700
+sgn_lengths: 22
+signer: 0100
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_3-yellowbirdie84_4682
+sgn_lengths: 17
+signer: 0101
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_5-daniel_durant_5884
+sgn_lengths: 8
+signer: 0116
+txt: [2, 10, 1]
+
+index: 13
+sequence: youtube_5-caroline_jackson_5854
+sgn_lengths: 68
+signer: 0115
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_3-geoalpha_4549
+sgn_lengths: 33
+signer: 0098
+txt: [2, 547, 1]
+
+index: 15
+sequence: aslized-joy_maisel_6438
+sgn_lengths: 41
+signer: 0087
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_6-roberta_cordano_6470
+sgn_lengths: 33
+signer: 0123
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-joy_maisel_6421
+sgn_lengths: 17
+signer: 0087
+txt: [2, 4, 1]
+
+index: 18
+sequence: deafvideo_3-fieldstreamasl_4041
+sgn_lengths: 70
+signer: 0097
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_2-goatman_1542
+sgn_lengths: 70
+signer: 0092
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_3-ben_bahan_4526
+sgn_lengths: 56
+signer: 0110
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_5-debra_patkin_5786
+sgn_lengths: 82
+signer: 0117
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yesyes_3111
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_6-roberta_cordano_6474
+sgn_lengths: 111
+signer: 0123
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_3-yesyes_4473
+sgn_lengths: 105
+signer: 0102
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_6-roberta_cordano_6467
+sgn_lengths: 73
+signer: 0123
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_6-myles_de_bastion_6520
+sgn_lengths: 70
+signer: 0121
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-don_grushkin_2331
+sgn_lengths: 92
+signer: 0122
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_3-otismhill82_4598
+sgn_lengths: 79
+signer: 0099
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_5-silentoneye_7319
+sgn_lengths: 83
+signer: 0106
+txt: [2, 0, 1]
+
+index: 30
+sequence: aslized-suzanne_stecker_0282
+sgn_lengths: 47
+signer: 0088
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_1-don_grushkin_2317
+sgn_lengths: 41
+signer: 0122
+txt: [2, 597, 1]
+
+index: 32
+sequence: youtube_4-sean_berdy_5754
+sgn_lengths: 8
+signer: b'0113'
+txt: [2, 0, 1]
+
+so far: 326
+981
+326
+32
+32
+32
+index: 1
+sequence: youtube_5-sean_berdy_6120
+sgn_lengths: 12
+signer: 0113
+txt: [2, 1958, 1]
+
+index: 2
+sequence: deafvideo_3-geoalpha_4573
+sgn_lengths: 16
+signer: 0098
+txt: [2, 337, 1]
+
+index: 3
+sequence: youtube_1-catherine_mackinnon_2837
+sgn_lengths: 15
+signer: 0107
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_2-deafpoweronethumbtwo_1799
+sgn_lengths: 16
+signer: 0090
+txt: [2, 0, 1]
+
+index: 5
+sequence: deafvideo_5-morningstar_6263
+sgn_lengths: 21
+signer: 0104
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-yellowbirdie84_4688
+sgn_lengths: 7
+signer: 0101
+txt: [2, 5, 1]
+
+index: 7
+sequence: youtube_5-debra_patkin_5791
+sgn_lengths: 9
+signer: 0117
+txt: [2, 177, 1]
+
+index: 8
+sequence: youtube_5-roberta_cordano_6147
+sgn_lengths: 37
+signer: 0123
+txt: [2, 0, 1]
+
+index: 9
+sequence: youtube_5-jeffrey_spinale_6046
+sgn_lengths: 19
+signer: 0118
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_3-otismhill82_4601
+sgn_lengths: 4
+signer: 0099
+txt: [2, 8, 1]
+
+index: 11
+sequence: deafvideo_3-geoalpha_4561
+sgn_lengths: 8
+signer: 0098
+txt: [2, 540, 1]
+
+index: 12
+sequence: youtube_5-tanea_brown_6033
+sgn_lengths: 5
+signer: 0120
+txt: [2, 12, 1]
+
+index: 13
+sequence: deafvideo_5-scottnorby_6451
+sgn_lengths: 7
+signer: 0105
+txt: [2, 11, 1]
+
+index: 14
+sequence: youtube_1-shoshannah_stern_2379
+sgn_lengths: 8
+signer: 0109
+txt: [2, 22, 1]
+
+index: 15
+sequence: youtube_5-tanea_brown_6036
+sgn_lengths: 9
+signer: 0120
+txt: [2, 40, 1]
+
+index: 16
+sequence: youtube_5-sean_berdy_6088
+sgn_lengths: 11
+signer: 0113
+txt: [2, 234, 1]
+
+index: 17
+sequence: youtube_5-jeffrey_spinale_6057
+sgn_lengths: 10
+signer: 0118
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_5-tanea_brown_6031
+sgn_lengths: 12
+signer: 0120
+txt: [2, 19, 1]
+
+index: 19
+sequence: youtube_5-jeffrey_spinale_6044
+sgn_lengths: 21
+signer: 0118
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_5-debra_patkin_5794
+sgn_lengths: 9
+signer: 0117
+txt: [2, 372, 1]
+
+index: 21
+sequence: youtube_5-sean_berdy_6089
+sgn_lengths: 26
+signer: 0113
+txt: [2, 305, 1]
+
+index: 22
+sequence: youtube_5-daniel_durant_5893
+sgn_lengths: 41
+signer: 0116
+txt: [2, 0, 1]
+
+index: 23
+sequence: aslized-suzanne_stecker_0263
+sgn_lengths: 50
+signer: 0088
+txt: [2, 4, 1]
+
+index: 24
+sequence: deafvideo_2-fairytales9_2299
+sgn_lengths: 19
+signer: 0091
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_3-geoalpha_4556
+sgn_lengths: 43
+signer: 0098
+txt: [2, 0, 1]
+
+index: 26
+sequence: aslized-suzanne_stecker_0248
+sgn_lengths: 20
+signer: 0088
+txt: [2, 9, 1]
+
+index: 27
+sequence: youtube_5-jeffrey_spinale_6047
+sgn_lengths: 10
+signer: 0118
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_5-sean_berdy_6119
+sgn_lengths: 6
+signer: 0113
+txt: [2, 14, 1]
+
+index: 29
+sequence: deafvideo_5-morningstar_6248
+sgn_lengths: 22
+signer: 0104
+txt: [2, 153, 1]
+
+index: 30
+sequence: deafvideo_5-morningstar_6255
+sgn_lengths: 18
+signer: 0104
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_6-myles_de_bastion_6517
+sgn_lengths: 34
+signer: 0121
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_5-caroline_jackson_5856
+sgn_lengths: 50
+signer: 0115
+txt: [2, 0, 1]
+
+so far: 358
+981
+358
+32
+32
+32
+index: 1
+sequence: youtube_4-tim_albert_5278
+sgn_lengths: 6
+signer: 0114
+txt: [2, 2503, 1]
+
+index: 2
+sequence: deafvideo_2-fairytales9_2276
+sgn_lengths: 22
+signer: 0091
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_3-otismhill82_4592
+sgn_lengths: 23
+signer: 0099
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-yesyes_3103
+sgn_lengths: 26
+signer: 0102
+txt: [2, 0, 1]
+
+index: 5
+sequence: deafvideo_2-sddsimple_1560
+sgn_lengths: 9
+signer: 0093
+txt: [2, 6, 1]
+
+index: 6
+sequence: deafvideo_3-otismhill82_4612
+sgn_lengths: 4
+signer: 0099
+txt: [2, 8, 1]
+
+index: 7
+sequence: deafvideo_5-silentoneye_7331
+sgn_lengths: 16
+signer: 0106
+txt: [2, 88, 1]
+
+index: 8
+sequence: youtube_5-sean_berdy_6095
+sgn_lengths: 4
+signer: 0113
+txt: [2, 12, 1]
+
+index: 9
+sequence: deafvideo_3-yellowbirdie84_4675
+sgn_lengths: 35
+signer: 0101
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_5-jeffrey_spinale_6043
+sgn_lengths: 3
+signer: 0118
+txt: [2, 10, 1]
+
+index: 11
+sequence: aslized-suzanne_stecker_0251
+sgn_lengths: 49
+signer: 0088
+txt: [2, 4, 1]
+
+index: 12
+sequence: aslized-joy_maisel_6434
+sgn_lengths: 71
+signer: 0087
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_6-myles_de_bastion_6524
+sgn_lengths: 49
+signer: 0121
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_5-scottnorby_6453
+sgn_lengths: 56
+signer: 0105
+txt: [2, 0, 1]
+
+index: 15
+sequence: aslized-suzanne_stecker_0202
+sgn_lengths: 71
+signer: 0088
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_5-roberta_cordano_6150
+sgn_lengths: 47
+signer: 0123
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-suzanne_stecker_0256
+sgn_lengths: 39
+signer: 0088
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_4-tax_tips_by_irs_4963
+sgn_lengths: 23
+signer: 0103
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_1-don_grushkin_2758
+sgn_lengths: 37
+signer: 0122
+txt: [2, 0, 1]
+
+index: 20
+sequence: aslized-joy_maisel_6420
+sgn_lengths: 35
+signer: 0087
+txt: [2, 54, 1]
+
+index: 21
+sequence: deafvideo_3-yesyes_3114
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_3-yesyes_4473
+sgn_lengths: 105
+signer: 0102
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_1-melvin_patterson_2338
+sgn_lengths: 86
+signer: 0108
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_4-sean_berdy_5733
+sgn_lengths: 15
+signer: 0113
+txt: [2, 374, 1]
+
+index: 26
+sequence: youtube_5-sean_berdy_6102
+sgn_lengths: 46
+signer: 0113
+txt: [2, 0, 1]
+
+index: 27
+sequence: aslized-suzanne_stecker_0268
+sgn_lengths: 18
+signer: 0088
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_1-catherine_mackinnon_2781
+sgn_lengths: 41
+signer: 0107
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-otismhill82_4607
+sgn_lengths: 30
+signer: 0099
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-deafgoldenhair_3065
+sgn_lengths: 20
+signer: 0096
+txt: [2, 4, 1]
+
+index: 31
+sequence: deafvideo_3-yesyes_3105
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_4-howard_rosenblum_5574
+sgn_lengths: 14
+signer: 0111
+txt: [2, 14, 1]
+
+so far: 390
+981
+390
+32
+32
+32
+index: 1
+sequence: aslized-joy_maisel_6422
+sgn_lengths: 14
+signer: 0087
+txt: [2, 4, 1]
+
+index: 2
+sequence: youtube_1-melvin_patterson_2357
+sgn_lengths: 74
+signer: 0108
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_2-sddsimple_1576
+sgn_lengths: 86
+signer: 0093
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_2-goatman_1526
+sgn_lengths: 20
+signer: 0092
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_3-ben_bahan_4537
+sgn_lengths: 78
+signer: 0110
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_4-howard_rosenblum_5561
+sgn_lengths: 13
+signer: 0111
+txt: [2, 13, 1]
+
+index: 7
+sequence: youtube_1-shoshannah_stern_2370
+sgn_lengths: 16
+signer: 0109
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_5-jeffrey_spinale_6052
+sgn_lengths: 7
+signer: 0118
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_3-yellowbirdie84_4667
+sgn_lengths: 93
+signer: 0101
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_4-lizzie_sorkin_5253
+sgn_lengths: 12
+signer: 0112
+txt: [2, 19, 1]
+
+index: 11
+sequence: deafvideo_3-deafgoldenhair_3061
+sgn_lengths: 106
+signer: 0096
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_1-catherine_mackinnon_2787
+sgn_lengths: 19
+signer: 0107
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_5-sean_berdy_6122
+sgn_lengths: 8
+signer: 0113
+txt: [2, 69, 1]
+
+index: 14
+sequence: youtube_4-lizzie_sorkin_5248
+sgn_lengths: 63
+signer: 0112
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_3-yellowbirdie84_4668
+sgn_lengths: 8
+signer: 0101
+txt: [2, 298, 1]
+
+index: 16
+sequence: deafvideo_3-geoalpha_4572
+sgn_lengths: 120
+signer: 0098
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_5-roberta_cordano_6148
+sgn_lengths: 27
+signer: 0123
+txt: [2, 214, 1]
+
+index: 18
+sequence: deafvideo_3-titans_4695
+sgn_lengths: 11
+signer: 0100
+txt: [2, 4, 1]
+
+index: 19
+sequence: youtube_5-sean_berdy_6123
+sgn_lengths: 10
+signer: 0113
+txt: [2, 1958, 1]
+
+index: 20
+sequence: youtube_1-don_grushkin_2327
+sgn_lengths: 24
+signer: 0122
+txt: [2, 597, 1]
+
+index: 21
+sequence: deafvideo_5-morningstar_6254
+sgn_lengths: 32
+signer: 0104
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yesyes_4479
+sgn_lengths: 17
+signer: 0102
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-roberta_cordano_6127
+sgn_lengths: 61
+signer: 0123
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_4-sean_berdy_5728
+sgn_lengths: 24
+signer: 0113
+txt: [2, 305, 1]
+
+index: 25
+sequence: deafvideo_2-confederateboy_1670
+sgn_lengths: 26
+signer: 0089
+txt: [2, 125, 1]
+
+index: 26
+sequence: deafvideo_2-confederateboy_1672
+sgn_lengths: 32
+signer: 0089
+txt: [2, 125, 1]
+
+index: 27
+sequence: youtube_1-catherine_mackinnon_2794
+sgn_lengths: 4
+signer: 0107
+txt: [2, 7, 1]
+
+index: 28
+sequence: youtube_1-melvin_patterson_2369
+sgn_lengths: 47
+signer: 0108
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_2-sddsimple_1585
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 30
+sequence: youtube_1-melvin_patterson_2365
+sgn_lengths: 34
+signer: 0108
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_2-confederateboy_1674
+sgn_lengths: 10
+signer: 0089
+txt: [2, 12, 1]
+
+index: 32
+sequence: deafvideo_5-scottnorby_6452
+sgn_lengths: 6
+signer: 0105
+txt: [2, 6, 1]
+
+so far: 422
+981
+422
+32
+30
+32
+index: 1
+sequence: youtube_1-melvin_patterson_2341
+sgn_lengths: 88
+signer: 0108
+txt: [2, 2138, 1]
+
+index: 2
+sequence: youtube_3-ben_bahan_4537
+sgn_lengths: 78
+signer: 0110
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_3-yesyes_3114
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_5-silentoneye_7318
+sgn_lengths: 95
+signer: 0106
+txt: [2, 0, 1]
+
+index: 5
+sequence: deafvideo_3-crossover_3870
+sgn_lengths: 92
+signer: 0094
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-geoalpha_4570
+sgn_lengths: 93
+signer: 0098
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-melvin_patterson_2349
+sgn_lengths: 99
+signer: 0108
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_3-yesyes_3112
+sgn_lengths: 120
+signer: 0102
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_1-don_grushkin_2759
+sgn_lengths: 117
+signer: 0122
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_2-sddsimple_1573
+sgn_lengths: 108
+signer: 0093
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_1-catherine_mackinnon_2821
+sgn_lengths: 13
+signer: 0107
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_5-daniel_durant_5879
+sgn_lengths: 7
+signer: 0116
+txt: [2, 37, 1]
+
+index: 14
+sequence: youtube_1-catherine_mackinnon_2816
+sgn_lengths: 34
+signer: 0107
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_5-roberta_cordano_6140
+sgn_lengths: 15
+signer: 0123
+txt: [2, 10, 1]
+
+index: 16
+sequence: youtube_5-melissa_draganac-hawk_5838
+sgn_lengths: 24
+signer: 0119
+txt: [2, 19, 1]
+
+index: 17
+sequence: youtube_5-melissa_draganac-hawk_5842
+sgn_lengths: 14
+signer: 0119
+txt: [2, 19, 1]
+
+index: 18
+sequence: youtube_1-don_grushkin_2311
+sgn_lengths: 22
+signer: 0122
+txt: [2, 597, 1]
+
+index: 19
+sequence: deafvideo_3-deafgoldenhair_3084
+sgn_lengths: 40
+signer: 0096
+txt: [2, 0, 1]
+
+index: 20
+sequence: deafvideo_3-yellowbirdie84_4674
+sgn_lengths: 34
+signer: 0101
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_5-sean_berdy_6118
+sgn_lengths: 15
+signer: 0113
+txt: [2, 49, 1]
+
+index: 22
+sequence: deafvideo_5-morningstar_6258
+sgn_lengths: 13
+signer: 0104
+txt: [2, 13, 1]
+
+index: 23
+sequence: youtube_5-daniel_durant_5887
+sgn_lengths: 8
+signer: 0116
+txt: [2, 4, 1]
+
+index: 24
+sequence: deafvideo_3-otismhill82_4607
+sgn_lengths: 30
+signer: 0099
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_3-deafgoldenhair_3065
+sgn_lengths: 20
+signer: 0096
+txt: [2, 4, 1]
+
+index: 26
+sequence: deafvideo_3-yesyes_3105
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_4-howard_rosenblum_5574
+sgn_lengths: 14
+signer: 0111
+txt: [2, 14, 1]
+
+index: 28
+sequence: deafvideo_3-fieldstreamasl_4036
+sgn_lengths: 44
+signer: 0097
+txt: [2, 53, 1]
+
+index: 29
+sequence: youtube_5-melissa_draganac-hawk_5847
+sgn_lengths: 17
+signer: 0119
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-otismhill82_4612
+sgn_lengths: 4
+signer: 0099
+txt: [2, 8, 1]
+
+index: 31
+sequence: deafvideo_3-geoalpha_4544
+sgn_lengths: 8
+signer: b'0098'
+txt: [2, 5, 1]
+
+index: 32
+sequence: youtube_1-catherine_mackinnon_2780
+sgn_lengths: 8
+signer: b'0107'
+txt: [2, 0, 1]
+
+so far: 456
+981
+456
+32
+30
+32
+index: 1
+sequence: youtube_1-catherine_mackinnon_2832
+sgn_lengths: 40
+signer: 0107
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_3-otismhill82_4617
+sgn_lengths: 56
+signer: 0099
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_1-don_grushkin_2332
+sgn_lengths: 65
+signer: 0122
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-yellowbirdie84_4665
+sgn_lengths: 38
+signer: 0101
+txt: [2, 0, 1]
+
+index: 5
+sequence: deafvideo_5-deafpoweronethumbtwo_7294
+sgn_lengths: 45
+signer: 0090
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_1-catherine_mackinnon_2827
+sgn_lengths: 35
+signer: 0107
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_5-debra_patkin_5789
+sgn_lengths: 23
+signer: 0117
+txt: [2, 2206, 1]
+
+index: 8
+sequence: youtube_1-shoshannah_stern_2389
+sgn_lengths: 5
+signer: 0109
+txt: [2, 6, 1]
+
+index: 9
+sequence: deafvideo_2-sddsimple_1554
+sgn_lengths: 29
+signer: 0093
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_5-melissa_draganac-hawk_5835
+sgn_lengths: 31
+signer: 0119
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_1-shoshannah_stern_2380
+sgn_lengths: 15
+signer: 0109
+txt: [2, 51, 1]
+
+index: 12
+sequence: aslized-joy_maisel_6423
+sgn_lengths: 40
+signer: 0087
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-fieldstreamasl_4044
+sgn_lengths: 28
+signer: 0097
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_3-otismhill82_4603
+sgn_lengths: 24
+signer: 0099
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_6-roberta_cordano_6473
+sgn_lengths: 14
+signer: 0123
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_5-sean_berdy_6091
+sgn_lengths: 27
+signer: 0113
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_4-sean_berdy_5751
+sgn_lengths: 41
+signer: 0113
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_1-catherine_mackinnon_2797
+sgn_lengths: 27
+signer: 0107
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-crossover_3870
+sgn_lengths: 92
+signer: 0094
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_6-myles_de_bastion_6527
+sgn_lengths: 79
+signer: 0121
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_1-melvin_patterson_2342
+sgn_lengths: 84
+signer: 0108
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_6-myles_de_bastion_6526
+sgn_lengths: 82
+signer: 0121
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_3-crossover_3869
+sgn_lengths: 75
+signer: 0094
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-roberta_cordano_6135
+sgn_lengths: 80
+signer: 0123
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_3-crossover_3863
+sgn_lengths: 86
+signer: 0094
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-don_grushkin_2760
+sgn_lengths: 50
+signer: 0122
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_2-confederateboy_1661
+sgn_lengths: 62
+signer: 0089
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_1-melvin_patterson_2341
+sgn_lengths: 88
+signer: 0108
+txt: [2, 2138, 1]
+
+index: 29
+sequence: deafvideo_2-sddsimple_1590
+sgn_lengths: 36
+signer: 0093
+txt: [2, 191, 1]
+
+index: 30
+sequence: deafvideo_3-fieldstreamasl_4040
+sgn_lengths: 57
+signer: 0097
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_1-don_grushkin_2310
+sgn_lengths: 35
+signer: b'0122'
+txt: [2, 598, 1]
+
+index: 32
+sequence: aslized-suzanne_stecker_0206
+sgn_lengths: 22
+signer: b'0088'
+txt: [2, 0, 1]
+
+so far: 490
+981
+490
+32
+32
+32
+index: 1
+sequence: deafvideo_2-goatman_1521
+sgn_lengths: 15
+signer: 0092
+txt: [2, 6, 1]
+
+index: 2
+sequence: youtube_1-shoshannah_stern_2398
+sgn_lengths: 10
+signer: 0109
+txt: [2, 22, 1]
+
+index: 3
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 4
+sequence: youtube_5-daniel_durant_5896
+sgn_lengths: 10
+signer: 0116
+txt: [2, 156, 1]
+
+index: 5
+sequence: youtube_1-shoshannah_stern_2391
+sgn_lengths: 15
+signer: 0109
+txt: [2, 6, 1]
+
+index: 6
+sequence: deafvideo_3-yellowbirdie84_4668
+sgn_lengths: 8
+signer: 0101
+txt: [2, 298, 1]
+
+index: 7
+sequence: deafvideo_3-deafgoldenhair_3067
+sgn_lengths: 10
+signer: 0096
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_5-daniel_durant_5884
+sgn_lengths: 8
+signer: 0116
+txt: [2, 10, 1]
+
+index: 9
+sequence: deafvideo_2-sddsimple_1573
+sgn_lengths: 108
+signer: 0093
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_5-jeffrey_spinale_6049
+sgn_lengths: 9
+signer: 0118
+txt: [2, 180, 1]
+
+index: 11
+sequence: deafvideo_3-geoalpha_4554
+sgn_lengths: 15
+signer: 0098
+txt: [2, 11, 1]
+
+index: 12
+sequence: youtube_4-howard_rosenblum_5562
+sgn_lengths: 10
+signer: 0111
+txt: [2, 416, 1]
+
+index: 13
+sequence: youtube_5-sean_berdy_6096
+sgn_lengths: 5
+signer: 0113
+txt: [2, 238, 1]
+
+index: 14
+sequence: youtube_5-jeffrey_spinale_6060
+sgn_lengths: 13
+signer: 0118
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_1-shoshannah_stern_2390
+sgn_lengths: 9
+signer: 0109
+txt: [2, 4, 1]
+
+index: 16
+sequence: deafvideo_2-sddsimple_1549
+sgn_lengths: 12
+signer: 0093
+txt: [2, 108, 1]
+
+index: 17
+sequence: deafvideo_2-fairytales9_2285
+sgn_lengths: 14
+signer: 0091
+txt: [2, 10, 1]
+
+index: 18
+sequence: youtube_1-catherine_mackinnon_2825
+sgn_lengths: 15
+signer: 0107
+txt: [2, 35, 1]
+
+index: 19
+sequence: deafvideo_3-otismhill82_4619
+sgn_lengths: 12
+signer: 0099
+txt: [2, 25, 1]
+
+index: 20
+sequence: youtube_1-catherine_mackinnon_2789
+sgn_lengths: 13
+signer: 0107
+txt: [2, 0, 1]
+
+index: 21
+sequence: deafvideo_2-sddsimple_1593
+sgn_lengths: 17
+signer: 0093
+txt: [2, 663, 1]
+
+index: 22
+sequence: youtube_1-don_grushkin_2334
+sgn_lengths: 17
+signer: 0122
+txt: [2, 4, 1]
+
+index: 23
+sequence: youtube_1-melvin_patterson_2349
+sgn_lengths: 99
+signer: 0108
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-roberta_cordano_6146
+sgn_lengths: 12
+signer: 0123
+txt: [2, 10, 1]
+
+index: 25
+sequence: deafvideo_3-otismhill82_4595
+sgn_lengths: 12
+signer: 0099
+txt: [2, 1919, 1]
+
+index: 26
+sequence: youtube_4-lizzie_sorkin_5253
+sgn_lengths: 12
+signer: 0112
+txt: [2, 19, 1]
+
+index: 27
+sequence: youtube_5-tanea_brown_6038
+sgn_lengths: 16
+signer: 0120
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_5-debra_patkin_5790
+sgn_lengths: 13
+signer: 0117
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_5-scottnorby_6465
+sgn_lengths: 8
+signer: 0105
+txt: [2, 10, 1]
+
+index: 30
+sequence: aslized-suzanne_stecker_0259
+sgn_lengths: 19
+signer: 0088
+txt: [2, 4, 1]
+
+index: 31
+sequence: deafvideo_3-fieldstreamasl_4042
+sgn_lengths: 16
+signer: 0097
+txt: [2, 6, 1]
+
+index: 32
+sequence: youtube_4-lizzie_sorkin_5247
+sgn_lengths: 21
+signer: 0112
+txt: [2, 0, 1]
+
+so far: 522
+981
+522
+32
+31
+32
+index: 1
+sequence: youtube_5-roberta_cordano_6153
+sgn_lengths: 10
+signer: 0123
+txt: [2, 0, 1]
+
+index: 2
+sequence: aslized-joy_maisel_6441
+sgn_lengths: 12
+signer: 0087
+txt: [2, 7, 1]
+
+index: 3
+sequence: aslized-suzanne_stecker_0280
+sgn_lengths: 42
+signer: 0088
+txt: [2, 0, 1]
+
+index: 4
+sequence: youtube_1-catherine_mackinnon_2798
+sgn_lengths: 9
+signer: 0107
+txt: [2, 7, 1]
+
+index: 5
+sequence: aslized-suzanne_stecker_0286
+sgn_lengths: 18
+signer: 0088
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_3-geoalpha_4562
+sgn_lengths: 19
+signer: 0098
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_3-geoalpha_4561
+sgn_lengths: 8
+signer: 0098
+txt: [2, 540, 1]
+
+index: 8
+sequence: youtube_4-tim_albert_5272
+sgn_lengths: 13
+signer: 0114
+txt: [2, 1845, 1]
+
+index: 9
+sequence: deafvideo_4-tax_tips_by_irs_4961
+sgn_lengths: 17
+signer: 0103
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_3-geoalpha_4555
+sgn_lengths: 38
+signer: 0098
+txt: [2, 547, 1]
+
+index: 11
+sequence: deafvideo_5-morningstar_6245
+sgn_lengths: 28
+signer: 0104
+txt: [2, 25, 1]
+
+index: 12
+sequence: youtube_1-shoshannah_stern_2379
+sgn_lengths: 8
+signer: 0109
+txt: [2, 22, 1]
+
+index: 13
+sequence: aslized-suzanne_stecker_0243
+sgn_lengths: 33
+signer: 0088
+txt: [2, 54, 1]
+
+index: 14
+sequence: aslized-suzanne_stecker_0265
+sgn_lengths: 25
+signer: 0088
+txt: [2, 60, 1]
+
+index: 15
+sequence: deafvideo_5-scottnorby_6453
+sgn_lengths: 56
+signer: 0105
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_1-don_grushkin_2770
+sgn_lengths: 35
+signer: 0122
+txt: [2, 2489, 1]
+
+index: 17
+sequence: youtube_4-sean_berdy_5736
+sgn_lengths: 18
+signer: 0113
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_5-tanea_brown_6032
+sgn_lengths: 12
+signer: 0120
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-yellowbirdie84_4670
+sgn_lengths: 13
+signer: 0101
+txt: [2, 0, 1]
+
+index: 20
+sequence: aslized-suzanne_stecker_0266
+sgn_lengths: 46
+signer: 0088
+txt: [2, 0, 1]
+
+index: 21
+sequence: deafvideo_2-confederateboy_1664
+sgn_lengths: 59
+signer: 0089
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_5-daniel_durant_5880
+sgn_lengths: 28
+signer: 0116
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-daniel_durant_5894
+sgn_lengths: 37
+signer: 0116
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_1-melvin_patterson_2340
+sgn_lengths: 64
+signer: 0108
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_5-caroline_jackson_5854
+sgn_lengths: 68
+signer: 0115
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-don_grushkin_2760
+sgn_lengths: 50
+signer: 0122
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_5-silentoneye_7318
+sgn_lengths: 95
+signer: 0106
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-deafgoldenhair_3080
+sgn_lengths: 64
+signer: 0096
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-geoalpha_4570
+sgn_lengths: 93
+signer: 0098
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_1-don_grushkin_2759
+sgn_lengths: 117
+signer: 0122
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_5-roberta_cordano_6152
+sgn_lengths: 15
+signer: b'0123'
+txt: [2, 0, 1]
+
+so far: 555
+981
+555
+32
+32
+32
+index: 1
+sequence: deafvideo_2-sddsimple_1568
+sgn_lengths: 75
+signer: 0093
+txt: [2, 524, 1]
+
+index: 2
+sequence: deafvideo_3-yellowbirdie84_4685
+sgn_lengths: 26
+signer: 0101
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_2-fairytales9_2291
+sgn_lengths: 19
+signer: 0091
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-damien23_3606
+sgn_lengths: 25
+signer: 0095
+txt: [2, 5, 1]
+
+index: 5
+sequence: deafvideo_2-sddsimple_1564
+sgn_lengths: 47
+signer: 0093
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_1-catherine_mackinnon_2787
+sgn_lengths: 19
+signer: 0107
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_5-silentoneye_7330
+sgn_lengths: 18
+signer: 0106
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_3-yesyes_3111
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 9
+sequence: youtube_1-don_grushkin_2327
+sgn_lengths: 24
+signer: 0122
+txt: [2, 597, 1]
+
+index: 10
+sequence: deafvideo_2-confederateboy_1673
+sgn_lengths: 14
+signer: 0089
+txt: [2, 473, 1]
+
+index: 11
+sequence: youtube_5-daniel_durant_5896
+sgn_lengths: 10
+signer: 0116
+txt: [2, 156, 1]
+
+index: 12
+sequence: aslized-suzanne_stecker_0254
+sgn_lengths: 26
+signer: 0088
+txt: [2, 4, 1]
+
+index: 13
+sequence: deafvideo_3-yellowbirdie84_4680
+sgn_lengths: 28
+signer: 0101
+txt: [2, 0, 1]
+
+index: 14
+sequence: aslized-joy_maisel_6443
+sgn_lengths: 24
+signer: 0087
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_5-jeffrey_spinale_6048
+sgn_lengths: 8
+signer: 0118
+txt: [2, 5, 1]
+
+index: 16
+sequence: deafvideo_4-tax_tips_by_irs_4958
+sgn_lengths: 12
+signer: 0103
+txt: [2, 0, 1]
+
+index: 17
+sequence: deafvideo_3-geoalpha_4544
+sgn_lengths: 8
+signer: 0098
+txt: [2, 5, 1]
+
+index: 18
+sequence: deafvideo_2-fairytales9_2287
+sgn_lengths: 13
+signer: 0091
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_2-sddsimple_1553
+sgn_lengths: 12
+signer: 0093
+txt: [2, 7, 1]
+
+index: 20
+sequence: deafvideo_2-deafpoweronethumbtwo_1791
+sgn_lengths: 7
+signer: 0090
+txt: [2, 6, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2780
+sgn_lengths: 8
+signer: 0107
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yesyes_3103
+sgn_lengths: 26
+signer: 0102
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_4-sean_berdy_5743
+sgn_lengths: 7
+signer: 0113
+txt: [2, 26, 1]
+
+index: 24
+sequence: deafvideo_3-titans_4691
+sgn_lengths: 43
+signer: 0100
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_5-debra_patkin_5787
+sgn_lengths: 3
+signer: 0117
+txt: [2, 12, 1]
+
+index: 26
+sequence: deafvideo_2-confederateboy_1670
+sgn_lengths: 26
+signer: 0089
+txt: [2, 125, 1]
+
+index: 27
+sequence: deafvideo_3-fieldstreamasl_4038
+sgn_lengths: 21
+signer: 0097
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_3-geoalpha_4552
+sgn_lengths: 37
+signer: 0098
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_2-goatman_1524
+sgn_lengths: 19
+signer: 0092
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_2-deafpoweronethumbtwo_1789
+sgn_lengths: 13
+signer: 0090
+txt: [2, 66, 1]
+
+index: 31
+sequence: deafvideo_2-fairytales9_2285
+sgn_lengths: 14
+signer: 0091
+txt: [2, 10, 1]
+
+index: 32
+sequence: deafvideo_3-otismhill82_4595
+sgn_lengths: 12
+signer: 0099
+txt: [2, 1919, 1]
+
+so far: 587
+981
+587
+32
+32
+32
+index: 1
+sequence: deafvideo_3-geoalpha_4563
+sgn_lengths: 18
+signer: 0098
+txt: [2, 332, 1]
+
+index: 2
+sequence: deafvideo_2-sddsimple_1566
+sgn_lengths: 52
+signer: 0093
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_5-scottnorby_6462
+sgn_lengths: 18
+signer: 0105
+txt: [2, 196, 1]
+
+index: 4
+sequence: aslized-suzanne_stecker_0250
+sgn_lengths: 49
+signer: 0088
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_5-jeffrey_spinale_6043
+sgn_lengths: 3
+signer: 0118
+txt: [2, 10, 1]
+
+index: 6
+sequence: deafvideo_2-fairytales9_2275
+sgn_lengths: 56
+signer: 0091
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_4-howard_rosenblum_5560
+sgn_lengths: 30
+signer: 0111
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_3-otismhill82_4591
+sgn_lengths: 6
+signer: 0099
+txt: [2, 30, 1]
+
+index: 9
+sequence: youtube_5-caroline_jackson_5857
+sgn_lengths: 41
+signer: 0115
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_1-melvin_patterson_2347
+sgn_lengths: 9
+signer: 0108
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_5-roberta_cordano_6137
+sgn_lengths: 20
+signer: 0123
+txt: [2, 492, 1]
+
+index: 12
+sequence: youtube_5-daniel_durant_5890
+sgn_lengths: 14
+signer: 0116
+txt: [2, 2193, 1]
+
+index: 13
+sequence: deafvideo_3-crossover_3865
+sgn_lengths: 88
+signer: 0094
+txt: [2, 0, 1]
+
+index: 14
+sequence: deafvideo_2-fairytales9_2286
+sgn_lengths: 20
+signer: 0091
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_4-lizzie_sorkin_5246
+sgn_lengths: 21
+signer: 0112
+txt: [2, 28, 1]
+
+index: 16
+sequence: youtube_3-ben_bahan_4525
+sgn_lengths: 5
+signer: 0110
+txt: [2, 14, 1]
+
+index: 17
+sequence: deafvideo_3-geoalpha_4560
+sgn_lengths: 10
+signer: 0098
+txt: [2, 7, 1]
+
+index: 18
+sequence: youtube_1-catherine_mackinnon_2788
+sgn_lengths: 25
+signer: 0107
+txt: [2, 0, 1]
+
+index: 19
+sequence: aslized-joy_maisel_6426
+sgn_lengths: 38
+signer: 0087
+txt: [2, 4, 1]
+
+index: 20
+sequence: youtube_4-tim_albert_5269
+sgn_lengths: 64
+signer: 0114
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2790
+sgn_lengths: 31
+signer: 0107
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_4-howard_rosenblum_5570
+sgn_lengths: 17
+signer: 0111
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_2-deafpoweronethumbtwo_1790
+sgn_lengths: 19
+signer: 0090
+txt: [2, 2568, 1]
+
+index: 24
+sequence: youtube_5-sean_berdy_6123
+sgn_lengths: 10
+signer: 0113
+txt: [2, 1958, 1]
+
+index: 25
+sequence: youtube_4-sean_berdy_5728
+sgn_lengths: 24
+signer: 0113
+txt: [2, 305, 1]
+
+index: 26
+sequence: deafvideo_3-yesyes_4479
+sgn_lengths: 17
+signer: 0102
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_2-sddsimple_1585
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 28
+sequence: youtube_1-catherine_mackinnon_2794
+sgn_lengths: 4
+signer: 0107
+txt: [2, 7, 1]
+
+index: 29
+sequence: deafvideo_2-confederateboy_1674
+sgn_lengths: 10
+signer: 0089
+txt: [2, 12, 1]
+
+index: 30
+sequence: deafvideo_5-scottnorby_6452
+sgn_lengths: 6
+signer: 0105
+txt: [2, 6, 1]
+
+index: 31
+sequence: deafvideo_2-sddsimple_1594
+sgn_lengths: 117
+signer: 0093
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_1-catherine_mackinnon_2820
+sgn_lengths: 12
+signer: 0107
+txt: [2, 0, 1]
+
+so far: 619
+981
+619
+32
+30
+32
+index: 1
+sequence: deafvideo_5-silentoneye_7321
+sgn_lengths: 50
+signer: 0106
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_3-titans_4694
+sgn_lengths: 12
+signer: 0100
+txt: [2, 5, 1]
+
+index: 3
+sequence: deafvideo_2-deafpoweronethumbtwo_1799
+sgn_lengths: 16
+signer: 0090
+txt: [2, 0, 1]
+
+index: 4
+sequence: youtube_4-lizzie_sorkin_5249
+sgn_lengths: 44
+signer: 0112
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_4-tim_albert_5282
+sgn_lengths: 29
+signer: 0114
+txt: [2, 0, 1]
+
+index: 6
+sequence: aslized-joy_maisel_6425
+sgn_lengths: 11
+signer: 0087
+txt: [2, 12, 1]
+
+index: 7
+sequence: youtube_1-catherine_mackinnon_2795
+sgn_lengths: 10
+signer: 0107
+txt: [2, 7, 1]
+
+index: 8
+sequence: youtube_5-sean_berdy_6103
+sgn_lengths: 21
+signer: 0113
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_2-sddsimple_1556
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_3-geoalpha_4573
+sgn_lengths: 16
+signer: 0098
+txt: [2, 337, 1]
+
+index: 11
+sequence: youtube_3-ben_bahan_4533
+sgn_lengths: 17
+signer: 0110
+txt: [2, 5, 1]
+
+index: 12
+sequence: deafvideo_5-deafpoweronethumbtwo_7291
+sgn_lengths: 24
+signer: 0090
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-deafgoldenhair_3064
+sgn_lengths: 19
+signer: 0096
+txt: [2, 10, 1]
+
+index: 14
+sequence: deafvideo_3-otismhill82_4604
+sgn_lengths: 15
+signer: 0099
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_2-sddsimple_1582
+sgn_lengths: 65
+signer: 0093
+txt: [2, 0, 1]
+
+index: 16
+sequence: deafvideo_3-otismhill82_4603
+sgn_lengths: 24
+signer: 0099
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_5-daniel_durant_5885
+sgn_lengths: 17
+signer: 0116
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_5-silentoneye_7316
+sgn_lengths: 38
+signer: 0106
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_4-tim_albert_5283
+sgn_lengths: 30
+signer: 0114
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_5-roberta_cordano_6147
+sgn_lengths: 37
+signer: 0123
+txt: [2, 0, 1]
+
+index: 21
+sequence: deafvideo_3-yesyes_3112
+sgn_lengths: 120
+signer: 0102
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_6-myles_de_bastion_6527
+sgn_lengths: 79
+signer: 0121
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_5-silentoneye_7326
+sgn_lengths: 98
+signer: 0106
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_3-geoalpha_4570
+sgn_lengths: 93
+signer: 0098
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_1-melvin_patterson_2342
+sgn_lengths: 84
+signer: 0108
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-catherine_mackinnon_2830
+sgn_lengths: 80
+signer: 0107
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_4-sean_berdy_5744
+sgn_lengths: 96
+signer: 0113
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_3-crossover_3865
+sgn_lengths: 88
+signer: 0094
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_5-caroline_jackson_5863
+sgn_lengths: 51
+signer: 0115
+txt: [2, 1106, 1]
+
+index: 30
+sequence: youtube_1-don_grushkin_2774
+sgn_lengths: 98
+signer: 0122
+txt: [2, 0, 1]
+
+index: 31
+sequence: aslized-suzanne_stecker_0259
+sgn_lengths: 19
+signer: b'0088'
+txt: [2, 4, 1]
+
+index: 32
+sequence: youtube_4-tim_albert_5280
+sgn_lengths: 14
+signer: b'0114'
+txt: [2, 0, 1]
+
+so far: 653
+981
+653
+32
+32
+32
+index: 1
+sequence: deafvideo_3-yesyes_3108
+sgn_lengths: 10
+signer: 0102
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_3-deafgoldenhair_3087
+sgn_lengths: 21
+signer: 0096
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_1-catherine_mackinnon_2823
+sgn_lengths: 23
+signer: 0107
+txt: [2, 0, 1]
+
+index: 4
+sequence: youtube_1-don_grushkin_2305
+sgn_lengths: 25
+signer: 0122
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_4-sean_berdy_5753
+sgn_lengths: 18
+signer: 0113
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_4-howard_rosenblum_5577
+sgn_lengths: 21
+signer: 0111
+txt: [2, 56, 1]
+
+index: 7
+sequence: youtube_1-catherine_mackinnon_2824
+sgn_lengths: 9
+signer: 0107
+txt: [2, 1007, 1]
+
+index: 8
+sequence: aslized-suzanne_stecker_0205
+sgn_lengths: 48
+signer: 0088
+txt: [2, 54, 1]
+
+index: 9
+sequence: deafvideo_2-fairytales9_2295
+sgn_lengths: 33
+signer: 0091
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_5-tanea_brown_6037
+sgn_lengths: 10
+signer: 0120
+txt: [2, 0, 1]
+
+index: 11
+sequence: deafvideo_3-titans_4695
+sgn_lengths: 11
+signer: 0100
+txt: [2, 4, 1]
+
+index: 12
+sequence: youtube_5-sean_berdy_6096
+sgn_lengths: 5
+signer: 0113
+txt: [2, 238, 1]
+
+index: 13
+sequence: deafvideo_3-damien23_3600
+sgn_lengths: 16
+signer: 0095
+txt: [2, 5, 1]
+
+index: 14
+sequence: deafvideo_2-sddsimple_1551
+sgn_lengths: 12
+signer: 0093
+txt: [2, 12, 1]
+
+index: 15
+sequence: youtube_5-melissa_draganac-hawk_5836
+sgn_lengths: 13
+signer: 0119
+txt: [2, 4, 1]
+
+index: 16
+sequence: youtube_4-howard_rosenblum_5571
+sgn_lengths: 18
+signer: 0111
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-suzanne_stecker_0272
+sgn_lengths: 40
+signer: 0088
+txt: [2, 54, 1]
+
+index: 18
+sequence: deafvideo_2-goatman_1523
+sgn_lengths: 20
+signer: 0092
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_2-goatman_1525
+sgn_lengths: 24
+signer: 0092
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_3-ben_bahan_4530
+sgn_lengths: 22
+signer: 0110
+txt: [2, 0, 1]
+
+index: 21
+sequence: aslized-suzanne_stecker_0267
+sgn_lengths: 76
+signer: 0088
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-caroline_jackson_5866
+sgn_lengths: 25
+signer: 0115
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_2-sddsimple_1562
+sgn_lengths: 48
+signer: 0093
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_1-don_grushkin_2310
+sgn_lengths: 35
+signer: 0122
+txt: [2, 598, 1]
+
+index: 26
+sequence: youtube_4-tim_albert_5284
+sgn_lengths: 10
+signer: 0114
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_2-sddsimple_1572
+sgn_lengths: 39
+signer: 0093
+txt: [2, 663, 1]
+
+index: 28
+sequence: youtube_5-melissa_draganac-hawk_5844
+sgn_lengths: 38
+signer: 0119
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-yesyes_3117
+sgn_lengths: 31
+signer: 0102
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-yesyes_3111
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_6-myles_de_bastion_6529
+sgn_lengths: 48
+signer: 0121
+txt: [2, 0, 1]
+
+index: 32
+sequence: aslized-suzanne_stecker_0195
+sgn_lengths: 33
+signer: 0088
+txt: [2, 0, 1]
+
+so far: 685
+981
+685
+32
+32
+32
+index: 1
+sequence: youtube_5-roberta_cordano_6131
+sgn_lengths: 14
+signer: 0123
+txt: [2, 214, 1]
+
+index: 2
+sequence: aslized-suzanne_stecker_0258
+sgn_lengths: 22
+signer: 0088
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_5-sean_berdy_6113
+sgn_lengths: 16
+signer: 0113
+txt: [2, 0, 1]
+
+index: 4
+sequence: youtube_5-melissa_draganac-hawk_5847
+sgn_lengths: 17
+signer: 0119
+txt: [2, 0, 1]
+
+index: 5
+sequence: deafvideo_3-yesyes_3117
+sgn_lengths: 31
+signer: 0102
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_6-roberta_cordano_6479
+sgn_lengths: 8
+signer: 0123
+txt: [2, 5, 1]
+
+index: 7
+sequence: deafvideo_2-sddsimple_1556
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 8
+sequence: deafvideo_3-geoalpha_4571
+sgn_lengths: 31
+signer: 0098
+txt: [2, 0, 1]
+
+index: 9
+sequence: youtube_1-shoshannah_stern_2383
+sgn_lengths: 16
+signer: 0109
+txt: [2, 197, 1]
+
+index: 10
+sequence: youtube_1-catherine_mackinnon_2843
+sgn_lengths: 12
+signer: 0107
+txt: [2, 4, 1]
+
+index: 11
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_1-shoshannah_stern_2392
+sgn_lengths: 32
+signer: 0109
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-yesyes_3111
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_1-catherine_mackinnon_2823
+sgn_lengths: 23
+signer: 0107
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_5-roberta_cordano_6133
+sgn_lengths: 45
+signer: 0123
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_5-debra_patkin_5786
+sgn_lengths: 82
+signer: 0117
+txt: [2, 0, 1]
+
+index: 17
+sequence: youtube_6-myles_de_bastion_6529
+sgn_lengths: 48
+signer: 0121
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_2-sddsimple_1589
+sgn_lengths: 28
+signer: 0093
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-geoalpha_4552
+sgn_lengths: 37
+signer: 0098
+txt: [2, 0, 1]
+
+index: 20
+sequence: aslized-suzanne_stecker_0247
+sgn_lengths: 32
+signer: 0088
+txt: [2, 1666, 1]
+
+index: 21
+sequence: youtube_5-roberta_cordano_6129
+sgn_lengths: 25
+signer: 0123
+txt: [2, 214, 1]
+
+index: 22
+sequence: youtube_1-don_grushkin_2773
+sgn_lengths: 46
+signer: 0122
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_2-sddsimple_1546
+sgn_lengths: 47
+signer: 0093
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_5-scottnorby_6447
+sgn_lengths: 37
+signer: 0105
+txt: [2, 0, 1]
+
+index: 25
+sequence: deafvideo_2-sddsimple_1559
+sgn_lengths: 50
+signer: 0093
+txt: [2, 0, 1]
+
+index: 26
+sequence: aslized-joy_maisel_6438
+sgn_lengths: 41
+signer: 0087
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_3-ben_bahan_4537
+sgn_lengths: 78
+signer: 0110
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_3-deafgoldenhair_3073
+sgn_lengths: 27
+signer: 0096
+txt: [2, 0, 1]
+
+index: 29
+sequence: aslized-suzanne_stecker_0197
+sgn_lengths: 49
+signer: 0088
+txt: [2, 54, 1]
+
+index: 30
+sequence: deafvideo_2-fairytales9_2281
+sgn_lengths: 23
+signer: 0091
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_5-scottnorby_6464
+sgn_lengths: 30
+signer: 0105
+txt: [2, 0, 1]
+
+index: 32
+sequence: deafvideo_5-deafpoweronethumbtwo_7291
+sgn_lengths: 24
+signer: 0090
+txt: [2, 0, 1]
+
+so far: 717
+981
+717
+32
+31
+32
+index: 1
+sequence: aslized-joy_maisel_6435
+sgn_lengths: 25
+signer: 0087
+txt: [2, 2332, 1]
+
+index: 2
+sequence: youtube_1-catherine_mackinnon_2796
+sgn_lengths: 28
+signer: 0107
+txt: [2, 0, 1]
+
+index: 3
+sequence: aslized-suzanne_stecker_0247
+sgn_lengths: 32
+signer: 0088
+txt: [2, 1666, 1]
+
+index: 4
+sequence: deafvideo_5-silentoneye_7321
+sgn_lengths: 50
+signer: 0106
+txt: [2, 0, 1]
+
+index: 5
+sequence: aslized-joy_maisel_6428
+sgn_lengths: 47
+signer: 0087
+txt: [2, 0, 1]
+
+index: 6
+sequence: aslized-suzanne_stecker_0281
+sgn_lengths: 19
+signer: 0088
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_3-yellowbirdie84_4681
+sgn_lengths: 8
+signer: 0101
+txt: [2, 5, 1]
+
+index: 8
+sequence: youtube_5-caroline_jackson_5862
+sgn_lengths: 13
+signer: 0115
+txt: [2, 19, 1]
+
+index: 9
+sequence: deafvideo_3-geoalpha_4566
+sgn_lengths: 56
+signer: 0098
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_1-catherine_mackinnon_2785
+sgn_lengths: 12
+signer: 0107
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_1-melvin_patterson_2365
+sgn_lengths: 34
+signer: 0108
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_1-shoshannah_stern_2385
+sgn_lengths: 4
+signer: 0109
+txt: [2, 12, 1]
+
+index: 13
+sequence: youtube_4-howard_rosenblum_5572
+sgn_lengths: 16
+signer: 0111
+txt: [2, 659, 1]
+
+index: 14
+sequence: youtube_4-lizzie_sorkin_5248
+sgn_lengths: 63
+signer: 0112
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_1-catherine_mackinnon_2819
+sgn_lengths: 8
+signer: 0107
+txt: [2, 26, 1]
+
+index: 16
+sequence: deafvideo_2-fairytales9_2295
+sgn_lengths: 33
+signer: 0091
+txt: [2, 0, 1]
+
+index: 17
+sequence: deafvideo_2-confederateboy_1673
+sgn_lengths: 14
+signer: 0089
+txt: [2, 473, 1]
+
+index: 18
+sequence: youtube_5-caroline_jackson_5855
+sgn_lengths: 50
+signer: 0115
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-geoalpha_4552
+sgn_lengths: 37
+signer: 0098
+txt: [2, 0, 1]
+
+index: 20
+sequence: deafvideo_3-damien23_3601
+sgn_lengths: 40
+signer: 0095
+txt: [2, 0, 1]
+
+index: 21
+sequence: deafvideo_2-sddsimple_1592
+sgn_lengths: 51
+signer: 0093
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_2-sddsimple_1552
+sgn_lengths: 54
+signer: 0093
+txt: [2, 399, 1]
+
+index: 23
+sequence: deafvideo_3-deafgoldenhair_3079
+sgn_lengths: 55
+signer: 0096
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-roberta_cordano_6127
+sgn_lengths: 61
+signer: 0123
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_1-melvin_patterson_2369
+sgn_lengths: 47
+signer: 0108
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_5-jeffrey_spinale_6039
+sgn_lengths: 63
+signer: 0118
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-don_grushkin_2774
+sgn_lengths: 98
+signer: 0122
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_5-silentoneye_7325
+sgn_lengths: 37
+signer: 0106
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-deafgoldenhair_3071
+sgn_lengths: 44
+signer: 0096
+txt: [2, 0, 1]
+
+index: 30
+sequence: youtube_5-caroline_jackson_5863
+sgn_lengths: 51
+signer: 0115
+txt: [2, 1106, 1]
+
+index: 31
+sequence: deafvideo_3-geoalpha_4572
+sgn_lengths: 120
+signer: 0098
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_5-tanea_brown_6033
+sgn_lengths: 5
+signer: b'0120'
+txt: [2, 12, 1]
+
+so far: 750
+981
+750
+32
+32
+32
+index: 1
+sequence: youtube_6-roberta_cordano_6479
+sgn_lengths: 8
+signer: 0123
+txt: [2, 5, 1]
+
+index: 2
+sequence: deafvideo_3-geoalpha_4555
+sgn_lengths: 38
+signer: 0098
+txt: [2, 547, 1]
+
+index: 3
+sequence: deafvideo_3-otismhill82_4599
+sgn_lengths: 21
+signer: 0099
+txt: [2, 1920, 1]
+
+index: 4
+sequence: deafvideo_3-yellowbirdie84_4669
+sgn_lengths: 19
+signer: 0101
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_5-sean_berdy_6104
+sgn_lengths: 4
+signer: 0113
+txt: [2, 10, 1]
+
+index: 6
+sequence: youtube_5-roberta_cordano_6131
+sgn_lengths: 14
+signer: 0123
+txt: [2, 214, 1]
+
+index: 7
+sequence: youtube_1-don_grushkin_2764
+sgn_lengths: 18
+signer: 0122
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_1-don_grushkin_2327
+sgn_lengths: 24
+signer: 0122
+txt: [2, 597, 1]
+
+index: 9
+sequence: youtube_1-catherine_mackinnon_2784
+sgn_lengths: 15
+signer: 0107
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_3-geoalpha_4549
+sgn_lengths: 33
+signer: 0098
+txt: [2, 547, 1]
+
+index: 11
+sequence: deafvideo_2-goatman_1536
+sgn_lengths: 51
+signer: 0092
+txt: [2, 525, 1]
+
+index: 12
+sequence: youtube_5-melissa_draganac-hawk_5833
+sgn_lengths: 23
+signer: 0119
+txt: [2, 125, 1]
+
+index: 13
+sequence: deafvideo_5-deafpoweronethumbtwo_7294
+sgn_lengths: 45
+signer: 0090
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_1-catherine_mackinnon_2815
+sgn_lengths: 29
+signer: 0107
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_5-daniel_durant_5894
+sgn_lengths: 37
+signer: 0116
+txt: [2, 0, 1]
+
+index: 16
+sequence: deafvideo_5-scottnorby_6454
+sgn_lengths: 34
+signer: 0105
+txt: [2, 2033, 1]
+
+index: 17
+sequence: youtube_5-melissa_draganac-hawk_5846
+sgn_lengths: 13
+signer: 0119
+txt: [2, 7, 1]
+
+index: 18
+sequence: youtube_1-catherine_mackinnon_2822
+sgn_lengths: 9
+signer: 0107
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_5-melissa_draganac-hawk_5837
+sgn_lengths: 13
+signer: 0119
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_1-shoshannah_stern_2374
+sgn_lengths: 14
+signer: 0109
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2778
+sgn_lengths: 25
+signer: 0107
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_5-deafpoweronethumbtwo_7295
+sgn_lengths: 16
+signer: 0090
+txt: [2, 7, 1]
+
+index: 23
+sequence: aslized-joy_maisel_6434
+sgn_lengths: 71
+signer: 0087
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_2-sddsimple_1586
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 25
+sequence: youtube_1-shoshannah_stern_2381
+sgn_lengths: 27
+signer: 0109
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_3-ben_bahan_4526
+sgn_lengths: 56
+signer: 0110
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-titans_4702
+sgn_lengths: 41
+signer: 0100
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_4-tim_albert_5271
+sgn_lengths: 26
+signer: 0114
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_5-roberta_cordano_6148
+sgn_lengths: 27
+signer: 0123
+txt: [2, 214, 1]
+
+index: 30
+sequence: deafvideo_2-sddsimple_1552
+sgn_lengths: 54
+signer: 0093
+txt: [2, 399, 1]
+
+index: 31
+sequence: deafvideo_5-morningstar_6254
+sgn_lengths: 32
+signer: 0104
+txt: [2, 0, 1]
+
+index: 32
+sequence: aslized-joy_maisel_6419
+sgn_lengths: 66
+signer: 0087
+txt: [2, 0, 1]
+
+so far: 782
+981
+782
+32
+32
+32
+index: 1
+sequence: youtube_5-debra_patkin_5793
+sgn_lengths: 13
+signer: 0117
+txt: [2, 0, 1]
+
+index: 2
+sequence: youtube_5-caroline_jackson_5862
+sgn_lengths: 13
+signer: 0115
+txt: [2, 19, 1]
+
+index: 3
+sequence: deafvideo_3-yesyes_3102
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-yesyes_3107
+sgn_lengths: 14
+signer: 0102
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_1-catherine_mackinnon_2819
+sgn_lengths: 8
+signer: 0107
+txt: [2, 26, 1]
+
+index: 6
+sequence: youtube_4-howard_rosenblum_5573
+sgn_lengths: 16
+signer: 0111
+txt: [2, 13, 1]
+
+index: 7
+sequence: deafvideo_2-fairytales9_2291
+sgn_lengths: 19
+signer: 0091
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_5-sean_berdy_6111
+sgn_lengths: 10
+signer: 0113
+txt: [2, 0, 1]
+
+index: 9
+sequence: youtube_1-catherine_mackinnon_2818
+sgn_lengths: 9
+signer: 0107
+txt: [2, 2156, 1]
+
+index: 10
+sequence: youtube_3-ben_bahan_4528
+sgn_lengths: 11
+signer: 0110
+txt: [2, 14, 1]
+
+index: 11
+sequence: youtube_3-ben_bahan_4536
+sgn_lengths: 14
+signer: 0110
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_4-sean_berdy_5756
+sgn_lengths: 7
+signer: 0113
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_4-howard_rosenblum_5565
+sgn_lengths: 54
+signer: 0111
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_1-catherine_mackinnon_2833
+sgn_lengths: 7
+signer: 0107
+txt: [2, 12, 1]
+
+index: 15
+sequence: deafvideo_3-titans_4701
+sgn_lengths: 11
+signer: 0100
+txt: [2, 6, 1]
+
+index: 16
+sequence: youtube_5-tanea_brown_6029
+sgn_lengths: 17
+signer: 0120
+txt: [2, 0, 1]
+
+index: 17
+sequence: deafvideo_2-confederateboy_1662
+sgn_lengths: 11
+signer: 0089
+txt: [2, 284, 1]
+
+index: 18
+sequence: youtube_1-shoshannah_stern_2382
+sgn_lengths: 16
+signer: 0109
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_5-debra_patkin_5795
+sgn_lengths: 20
+signer: 0117
+txt: [2, 19, 1]
+
+index: 20
+sequence: youtube_1-catherine_mackinnon_2806
+sgn_lengths: 9
+signer: 0107
+txt: [2, 0, 1]
+
+index: 21
+sequence: youtube_6-myles_de_bastion_6530
+sgn_lengths: 15
+signer: 0121
+txt: [2, 10, 1]
+
+index: 22
+sequence: aslized-suzanne_stecker_0281
+sgn_lengths: 19
+signer: 0088
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_4-tim_albert_5278
+sgn_lengths: 6
+signer: 0114
+txt: [2, 2503, 1]
+
+index: 24
+sequence: deafvideo_2-sddsimple_1586
+sgn_lengths: 19
+signer: 0093
+txt: [2, 22, 1]
+
+index: 25
+sequence: youtube_5-sean_berdy_6103
+sgn_lengths: 21
+signer: 0113
+txt: [2, 0, 1]
+
+index: 26
+sequence: deafvideo_2-sddsimple_1560
+sgn_lengths: 9
+signer: 0093
+txt: [2, 6, 1]
+
+index: 27
+sequence: youtube_1-don_grushkin_2307
+sgn_lengths: 26
+signer: 0122
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_5-jeffrey_spinale_6056
+sgn_lengths: 16
+signer: 0118
+txt: [2, 19, 1]
+
+index: 29
+sequence: deafvideo_2-sddsimple_1561
+sgn_lengths: 16
+signer: 0093
+txt: [2, 7, 1]
+
+index: 30
+sequence: deafvideo_3-yesyes_3104
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_4-howard_rosenblum_5564
+sgn_lengths: 19
+signer: 0111
+txt: [2, 450, 1]
+
+index: 32
+sequence: aslized-suzanne_stecker_0262
+sgn_lengths: 23
+signer: 0088
+txt: [2, 4, 1]
+
+so far: 814
+981
+814
+32
+32
+32
+index: 1
+sequence: aslized-suzanne_stecker_0270
+sgn_lengths: 32
+signer: 0088
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_3-yesyes_3108
+sgn_lengths: 10
+signer: 0102
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_5-daniel_durant_5895
+sgn_lengths: 13
+signer: 0116
+txt: [2, 69, 1]
+
+index: 4
+sequence: youtube_1-melvin_patterson_2336
+sgn_lengths: 15
+signer: 0108
+txt: [2, 0, 1]
+
+index: 5
+sequence: youtube_4-sean_berdy_5753
+sgn_lengths: 18
+signer: 0113
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_5-sean_berdy_6095
+sgn_lengths: 4
+signer: 0113
+txt: [2, 12, 1]
+
+index: 7
+sequence: deafvideo_3-fieldstreamasl_4045
+sgn_lengths: 23
+signer: 0097
+txt: [2, 1715, 1]
+
+index: 8
+sequence: deafvideo_2-goatman_1525
+sgn_lengths: 24
+signer: 0092
+txt: [2, 0, 1]
+
+index: 9
+sequence: youtube_4-sean_berdy_5747
+sgn_lengths: 12
+signer: 0113
+txt: [2, 647, 1]
+
+index: 10
+sequence: deafvideo_2-goatman_1542
+sgn_lengths: 70
+signer: 0092
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_4-howard_rosenblum_5574
+sgn_lengths: 14
+signer: 0111
+txt: [2, 14, 1]
+
+index: 12
+sequence: youtube_5-melissa_draganac-hawk_5847
+sgn_lengths: 17
+signer: 0119
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_5-sean_berdy_6087
+sgn_lengths: 8
+signer: 0113
+txt: [2, 12, 1]
+
+index: 14
+sequence: deafvideo_3-otismhill82_4598
+sgn_lengths: 79
+signer: 0099
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_2-goatman_1539
+sgn_lengths: 21
+signer: 0092
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_6-roberta_cordano_6467
+sgn_lengths: 73
+signer: 0123
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-suzanne_stecker_0245
+sgn_lengths: 33
+signer: 0088
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_6-myles_de_bastion_6520
+sgn_lengths: 70
+signer: 0121
+txt: [2, 0, 1]
+
+index: 19
+sequence: youtube_1-don_grushkin_2312
+sgn_lengths: 60
+signer: 0122
+txt: [2, 0, 1]
+
+index: 20
+sequence: deafvideo_3-deafgoldenhair_3065
+sgn_lengths: 20
+signer: 0096
+txt: [2, 4, 1]
+
+index: 21
+sequence: youtube_1-catherine_mackinnon_2792
+sgn_lengths: 5
+signer: 0107
+txt: [2, 7, 1]
+
+index: 22
+sequence: deafvideo_3-titans_4697
+sgn_lengths: 7
+signer: 0100
+txt: [2, 7, 1]
+
+index: 23
+sequence: deafvideo_3-yesyes_3117
+sgn_lengths: 31
+signer: 0102
+txt: [2, 0, 1]
+
+index: 24
+sequence: deafvideo_3-otismhill82_4607
+sgn_lengths: 30
+signer: 0099
+txt: [2, 0, 1]
+
+index: 25
+sequence: aslized-suzanne_stecker_0267
+sgn_lengths: 76
+signer: 0088
+txt: [2, 0, 1]
+
+index: 26
+sequence: aslized-suzanne_stecker_0271
+sgn_lengths: 43
+signer: 0088
+txt: [2, 0, 1]
+
+index: 27
+sequence: deafvideo_3-otismhill82_4610
+sgn_lengths: 4
+signer: 0099
+txt: [2, 5, 1]
+
+index: 28
+sequence: youtube_5-jeffrey_spinale_6058
+sgn_lengths: 16
+signer: 0118
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_5-jeffrey_spinale_6050
+sgn_lengths: 12
+signer: 0118
+txt: [2, 0, 1]
+
+index: 30
+sequence: youtube_1-catherine_mackinnon_2811
+sgn_lengths: 11
+signer: 0107
+txt: [2, 4, 1]
+
+index: 31
+sequence: aslized-suzanne_stecker_0194
+sgn_lengths: 70
+signer: 0088
+txt: [2, 0, 1]
+
+index: 32
+sequence: youtube_1-melvin_patterson_2356
+sgn_lengths: 35
+signer: 0108
+txt: [2, 0, 1]
+
+so far: 846
+981
+846
+32
+30
+32
+index: 1
+sequence: youtube_6-roberta_cordano_6472
+sgn_lengths: 67
+signer: 0123
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_2-goatman_1542
+sgn_lengths: 70
+signer: 0092
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_3-ben_bahan_4525
+sgn_lengths: 5
+signer: 0110
+txt: [2, 14, 1]
+
+index: 4
+sequence: deafvideo_3-otismhill82_4591
+sgn_lengths: 6
+signer: 0099
+txt: [2, 30, 1]
+
+index: 5
+sequence: deafvideo_3-geoalpha_4560
+sgn_lengths: 10
+signer: 0098
+txt: [2, 7, 1]
+
+index: 6
+sequence: deafvideo_3-titans_4696
+sgn_lengths: 12
+signer: 0100
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_3-deafgoldenhair_3066
+sgn_lengths: 23
+signer: 0096
+txt: [2, 4, 1]
+
+index: 8
+sequence: youtube_5-roberta_cordano_6137
+sgn_lengths: 20
+signer: 0123
+txt: [2, 492, 1]
+
+index: 9
+sequence: aslized-suzanne_stecker_0273
+sgn_lengths: 20
+signer: 0088
+txt: [2, 8, 1]
+
+index: 10
+sequence: deafvideo_2-deafpoweronethumbtwo_1797
+sgn_lengths: 10
+signer: 0090
+txt: [2, 98, 1]
+
+index: 11
+sequence: deafvideo_2-sddsimple_1576
+sgn_lengths: 86
+signer: 0093
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_5-daniel_durant_5890
+sgn_lengths: 14
+signer: 0116
+txt: [2, 2193, 1]
+
+index: 13
+sequence: youtube_1-catherine_mackinnon_2845
+sgn_lengths: 6
+signer: 0107
+txt: [2, 7, 1]
+
+index: 14
+sequence: deafvideo_2-fairytales9_2286
+sgn_lengths: 20
+signer: 0091
+txt: [2, 0, 1]
+
+index: 15
+sequence: youtube_4-lizzie_sorkin_5246
+sgn_lengths: 21
+signer: 0112
+txt: [2, 28, 1]
+
+index: 16
+sequence: deafvideo_2-deafpoweronethumbtwo_1790
+sgn_lengths: 19
+signer: 0090
+txt: [2, 2568, 1]
+
+index: 17
+sequence: youtube_4-sean_berdy_5748
+sgn_lengths: 17
+signer: 0113
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_5-silentoneye_7318
+sgn_lengths: 95
+signer: 0106
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_5-silentoneye_7326
+sgn_lengths: 98
+signer: 0106
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_1-melvin_patterson_2341
+sgn_lengths: 88
+signer: 0108
+txt: [2, 2138, 1]
+
+index: 21
+sequence: youtube_3-ben_bahan_4526
+sgn_lengths: 56
+signer: 0110
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_6-roberta_cordano_6467
+sgn_lengths: 73
+signer: 0123
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_2-sddsimple_1578
+sgn_lengths: 81
+signer: 0093
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_5-debra_patkin_5786
+sgn_lengths: 82
+signer: 0117
+txt: [2, 0, 1]
+
+index: 25
+sequence: youtube_6-myles_de_bastion_6524
+sgn_lengths: 49
+signer: 0121
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_5-roberta_cordano_6127
+sgn_lengths: 61
+signer: 0123
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-don_grushkin_2759
+sgn_lengths: 117
+signer: 0122
+txt: [2, 0, 1]
+
+index: 28
+sequence: aslized-suzanne_stecker_0202
+sgn_lengths: 71
+signer: 0088
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-yesyes_3114
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 30
+sequence: youtube_4-sean_berdy_5744
+sgn_lengths: 96
+signer: 0113
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_3-otismhill82_4616
+sgn_lengths: 17
+signer: b'0099'
+txt: [2, 0, 1]
+
+index: 32
+sequence: aslized-suzanne_stecker_0283
+sgn_lengths: 34
+signer: b'0088'
+txt: [2, 0, 1]
+
+so far: 880
+981
+880
+32
+32
+32
+index: 1
+sequence: deafvideo_2-goatman_1530
+sgn_lengths: 19
+signer: 0092
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_3-yesyes_3107
+sgn_lengths: 14
+signer: 0102
+txt: [2, 0, 1]
+
+index: 3
+sequence: youtube_5-roberta_cordano_6151
+sgn_lengths: 25
+signer: 0123
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-geoalpha_4547
+sgn_lengths: 21
+signer: 0098
+txt: [2, 36, 1]
+
+index: 5
+sequence: youtube_4-sean_berdy_5738
+sgn_lengths: 22
+signer: 0113
+txt: [2, 0, 1]
+
+index: 6
+sequence: youtube_1-catherine_mackinnon_2806
+sgn_lengths: 9
+signer: 0107
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-don_grushkin_2768
+sgn_lengths: 41
+signer: 0122
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_1-catherine_mackinnon_2804
+sgn_lengths: 22
+signer: 0107
+txt: [2, 0, 1]
+
+index: 9
+sequence: aslized-joy_maisel_6440
+sgn_lengths: 33
+signer: 0087
+txt: [2, 0, 1]
+
+index: 10
+sequence: aslized-suzanne_stecker_0281
+sgn_lengths: 19
+signer: 0088
+txt: [2, 0, 1]
+
+index: 11
+sequence: aslized-suzanne_stecker_0262
+sgn_lengths: 23
+signer: 0088
+txt: [2, 4, 1]
+
+index: 12
+sequence: aslized-suzanne_stecker_0195
+sgn_lengths: 33
+signer: 0088
+txt: [2, 0, 1]
+
+index: 13
+sequence: deafvideo_3-yellowbirdie84_4671
+sgn_lengths: 30
+signer: 0101
+txt: [2, 53, 1]
+
+index: 14
+sequence: youtube_5-roberta_cordano_6133
+sgn_lengths: 45
+signer: 0123
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_5-scottnorby_6447
+sgn_lengths: 37
+signer: 0105
+txt: [2, 0, 1]
+
+index: 16
+sequence: deafvideo_2-fairytales9_2274
+sgn_lengths: 45
+signer: 0091
+txt: [2, 0, 1]
+
+index: 17
+sequence: aslized-suzanne_stecker_0207
+sgn_lengths: 42
+signer: 0088
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_5-tanea_brown_6030
+sgn_lengths: 47
+signer: 0120
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-titans_4691
+sgn_lengths: 43
+signer: 0100
+txt: [2, 0, 1]
+
+index: 20
+sequence: deafvideo_3-yellowbirdie84_4676
+sgn_lengths: 7
+signer: 0101
+txt: [2, 46, 1]
+
+index: 21
+sequence: deafvideo_3-otismhill82_4600
+sgn_lengths: 26
+signer: 0099
+txt: [2, 0, 1]
+
+index: 22
+sequence: youtube_5-caroline_jackson_5862
+sgn_lengths: 13
+signer: 0115
+txt: [2, 19, 1]
+
+index: 23
+sequence: deafvideo_3-yellowbirdie84_4688
+sgn_lengths: 7
+signer: 0101
+txt: [2, 5, 1]
+
+index: 24
+sequence: youtube_5-sean_berdy_6104
+sgn_lengths: 4
+signer: 0113
+txt: [2, 10, 1]
+
+index: 25
+sequence: youtube_5-tanea_brown_6036
+sgn_lengths: 9
+signer: 0120
+txt: [2, 40, 1]
+
+index: 26
+sequence: deafvideo_2-confederateboy_1664
+sgn_lengths: 59
+signer: 0089
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_5-sean_berdy_6089
+sgn_lengths: 26
+signer: 0113
+txt: [2, 305, 1]
+
+index: 28
+sequence: deafvideo_3-yesyes_3101
+sgn_lengths: 39
+signer: 0102
+txt: [2, 0, 1]
+
+index: 29
+sequence: youtube_5-debra_patkin_5791
+sgn_lengths: 9
+signer: 0117
+txt: [2, 177, 1]
+
+index: 30
+sequence: youtube_5-jeffrey_spinale_6047
+sgn_lengths: 10
+signer: 0118
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_2-fairytales9_2299
+sgn_lengths: 19
+signer: 0091
+txt: [2, 0, 1]
+
+index: 32
+sequence: deafvideo_5-morningstar_6261
+sgn_lengths: 7
+signer: 0104
+txt: [2, 11, 1]
+
+so far: 912
+981
+912
+32
+32
+32
+index: 1
+sequence: youtube_4-sean_berdy_5736
+sgn_lengths: 18
+signer: 0113
+txt: [2, 0, 1]
+
+index: 2
+sequence: deafvideo_5-silentoneye_7316
+sgn_lengths: 38
+signer: 0106
+txt: [2, 0, 1]
+
+index: 3
+sequence: deafvideo_3-yesyes_4474
+sgn_lengths: 54
+signer: 0102
+txt: [2, 0, 1]
+
+index: 4
+sequence: deafvideo_3-geoalpha_4544
+sgn_lengths: 8
+signer: 0098
+txt: [2, 5, 1]
+
+index: 5
+sequence: deafvideo_2-sddsimple_1592
+sgn_lengths: 51
+signer: 0093
+txt: [2, 0, 1]
+
+index: 6
+sequence: aslized-joy_maisel_6430
+sgn_lengths: 33
+signer: 0087
+txt: [2, 0, 1]
+
+index: 7
+sequence: youtube_1-catherine_mackinnon_2829
+sgn_lengths: 16
+signer: 0107
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_1-catherine_mackinnon_2780
+sgn_lengths: 8
+signer: 0107
+txt: [2, 0, 1]
+
+index: 9
+sequence: deafvideo_2-confederateboy_1669
+sgn_lengths: 25
+signer: 0089
+txt: [2, 0, 1]
+
+index: 10
+sequence: youtube_4-sean_berdy_5734
+sgn_lengths: 19
+signer: 0113
+txt: [2, 0, 1]
+
+index: 11
+sequence: youtube_5-daniel_durant_5889
+sgn_lengths: 39
+signer: 0116
+txt: [2, 0, 1]
+
+index: 12
+sequence: deafvideo_2-sddsimple_1583
+sgn_lengths: 17
+signer: 0093
+txt: [2, 191, 1]
+
+index: 13
+sequence: youtube_1-catherine_mackinnon_2834
+sgn_lengths: 13
+signer: 0107
+txt: [2, 1630, 1]
+
+index: 14
+sequence: youtube_5-caroline_jackson_5867
+sgn_lengths: 23
+signer: 0115
+txt: [2, 197, 1]
+
+index: 15
+sequence: youtube_1-catherine_mackinnon_2813
+sgn_lengths: 20
+signer: 0107
+txt: [2, 0, 1]
+
+index: 16
+sequence: aslized-suzanne_stecker_0246
+sgn_lengths: 35
+signer: 0088
+txt: [2, 54, 1]
+
+index: 17
+sequence: youtube_1-don_grushkin_2766
+sgn_lengths: 32
+signer: 0122
+txt: [2, 0, 1]
+
+index: 18
+sequence: youtube_5-daniel_durant_5896
+sgn_lengths: 10
+signer: 0116
+txt: [2, 156, 1]
+
+index: 19
+sequence: youtube_4-tim_albert_5267
+sgn_lengths: 37
+signer: 0114
+txt: [2, 0, 1]
+
+index: 20
+sequence: deafvideo_5-morningstar_6244
+sgn_lengths: 39
+signer: 0104
+txt: [2, 25, 1]
+
+index: 21
+sequence: youtube_5-debra_patkin_5792
+sgn_lengths: 30
+signer: 0117
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_3-yesyes_3116
+sgn_lengths: 49
+signer: 0102
+txt: [2, 0, 1]
+
+index: 23
+sequence: deafvideo_3-otismhill82_4595
+sgn_lengths: 12
+signer: 0099
+txt: [2, 1919, 1]
+
+index: 24
+sequence: youtube_3-ben_bahan_4532
+sgn_lengths: 26
+signer: 0110
+txt: [2, 5, 1]
+
+index: 25
+sequence: deafvideo_3-otismhill82_4597
+sgn_lengths: 23
+signer: 0099
+txt: [2, 192, 1]
+
+index: 26
+sequence: deafvideo_3-yesyes_3104
+sgn_lengths: 48
+signer: 0102
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_6-myles_de_bastion_6519
+sgn_lengths: 45
+signer: 0121
+txt: [2, 0, 1]
+
+index: 28
+sequence: youtube_5-daniel_durant_5881
+sgn_lengths: 43
+signer: 0116
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-yellowbirdie84_4683
+sgn_lengths: 32
+signer: 0101
+txt: [2, 0, 1]
+
+index: 30
+sequence: aslized-suzanne_stecker_0244
+sgn_lengths: 25
+signer: 0088
+txt: [2, 0, 1]
+
+index: 31
+sequence: deafvideo_2-fairytales9_2285
+sgn_lengths: 14
+signer: 0091
+txt: [2, 10, 1]
+
+index: 32
+sequence: deafvideo_2-sddsimple_1548
+sgn_lengths: 38
+signer: 0093
+txt: [2, 0, 1]
+
+so far: 944
+981
+944
+32
+27
+32
+32
+31
+1
+index: 1
+sequence: deafvideo_2-fairytales9_2293
+sgn_lengths: 6
+signer: 0091
+txt: [2, 6, 1]
+
+index: 2
+sequence: youtube_4-sean_berdy_5737
+sgn_lengths: 15
+signer: 0113
+txt: [2, 2635, 1]
+
+index: 3
+sequence: youtube_1-don_grushkin_2774
+sgn_lengths: 98
+signer: 0122
+txt: [2, 0, 1]
+
+index: 4
+sequence: aslized-suzanne_stecker_0274
+sgn_lengths: 13
+signer: 0088
+txt: [2, 14, 1]
+
+index: 5
+sequence: deafvideo_2-fairytales9_2275
+sgn_lengths: 56
+signer: 0091
+txt: [2, 0, 1]
+
+index: 6
+sequence: deafvideo_4-tax_tips_by_irs_4962
+sgn_lengths: 53
+signer: 0103
+txt: [2, 0, 1]
+
+index: 7
+sequence: deafvideo_3-geoalpha_4572
+sgn_lengths: 120
+signer: 0098
+txt: [2, 0, 1]
+
+index: 8
+sequence: youtube_5-caroline_jackson_5855
+sgn_lengths: 50
+signer: 0115
+txt: [2, 0, 1]
+
+index: 9
+sequence: aslized-suzanne_stecker_0194
+sgn_lengths: 70
+signer: 0088
+txt: [2, 0, 1]
+
+index: 10
+sequence: deafvideo_5-silentoneye_7327
+sgn_lengths: 64
+signer: 0106
+txt: [2, 444, 1]
+
+index: 11
+sequence: deafvideo_2-goatman_1538
+sgn_lengths: 52
+signer: 0092
+txt: [2, 0, 1]
+
+index: 12
+sequence: youtube_4-howard_rosenblum_5568
+sgn_lengths: 62
+signer: 0111
+txt: [2, 0, 1]
+
+index: 13
+sequence: youtube_1-melvin_patterson_2342
+sgn_lengths: 84
+signer: 0108
+txt: [2, 0, 1]
+
+index: 14
+sequence: youtube_6-myles_de_bastion_6528
+sgn_lengths: 86
+signer: 0121
+txt: [2, 0, 1]
+
+index: 15
+sequence: deafvideo_3-crossover_3871
+sgn_lengths: 75
+signer: 0094
+txt: [2, 0, 1]
+
+index: 16
+sequence: youtube_5-caroline_jackson_5854
+sgn_lengths: 68
+signer: 0115
+txt: [2, 0, 1]
+
+index: 17
+sequence: deafvideo_3-fieldstreamasl_4037
+sgn_lengths: 78
+signer: 0097
+txt: [2, 0, 1]
+
+index: 18
+sequence: deafvideo_3-deafgoldenhair_3061
+sgn_lengths: 106
+signer: 0096
+txt: [2, 0, 1]
+
+index: 19
+sequence: deafvideo_3-yesyes_3102
+sgn_lengths: 82
+signer: 0102
+txt: [2, 0, 1]
+
+index: 20
+sequence: youtube_1-melvin_patterson_2341
+sgn_lengths: 88
+signer: 0108
+txt: [2, 2138, 1]
+
+index: 21
+sequence: youtube_6-myles_de_bastion_6526
+sgn_lengths: 82
+signer: 0121
+txt: [2, 0, 1]
+
+index: 22
+sequence: deafvideo_2-sddsimple_1594
+sgn_lengths: 117
+signer: 0093
+txt: [2, 0, 1]
+
+index: 23
+sequence: youtube_5-daniel_durant_5875
+sgn_lengths: 70
+signer: 0116
+txt: [2, 0, 1]
+
+index: 24
+sequence: youtube_6-myles_de_bastion_6527
+sgn_lengths: 79
+signer: 0121
+txt: [2, 0, 1]
+
+index: 25
+sequence: aslized-suzanne_stecker_0267
+sgn_lengths: 76
+signer: 0088
+txt: [2, 0, 1]
+
+index: 26
+sequence: youtube_1-melvin_patterson_2349
+sgn_lengths: 99
+signer: 0108
+txt: [2, 0, 1]
+
+index: 27
+sequence: youtube_1-don_grushkin_2331
+sgn_lengths: 92
+signer: 0122
+txt: [2, 0, 1]
+
+index: 28
+sequence: deafvideo_5-silentoneye_7318
+sgn_lengths: 95
+signer: b'0106'
+txt: [2, 0, 1]
+
+index: 29
+sequence: deafvideo_3-otismhill82_4598
+sgn_lengths: 79
+signer: b'0099'
+txt: [2, 0, 1]
+
+index: 30
+sequence: deafvideo_3-geoalpha_4570
+sgn_lengths: 93
+signer: b'0098'
+txt: [2, 0, 1]
+
+index: 31
+sequence: youtube_1-don_grushkin_2759
+sgn_lengths: 117
+signer: b'0122'
+txt: [2, 0, 1]
+
+so far: 981
+959
+1
+Traceback (most recent call last):
+  File "/home/nlp/dorink/project/slt/signjoey/__main__.py", line 41, in <module>
+    main()
+  File "/home/nlp/dorink/project/slt/signjoey/__main__.py", line 32, in main
+    train(cfg_file=args.config_path)
+  File "/home/nlp/dorink/project/slt/signjoey/training.py", line 2133, in train
+    trainer.train_and_validate_chicago(train_data=train_data, valid_data=dev_data)
+  File "/home/nlp/dorink/project/slt/signjoey/training.py", line 1463, in train_and_validate_chicago
+    val_res = validate_on_data(
+  File "/home/nlp/dorink/project/slt/signjoey/prediction.py", line 595, in validate_on_data
+    txt_bleu = bleu(references=txt_ref, hypotheses=txt_hyp)
+  File "/home/nlp/dorink/project/slt/signjoey/metrics.py", line 36, in bleu
+    bleu_scores = sacrebleu.raw_corpus_bleu(
+  File "/home/nlp/dorink/project/slt/signjoey/external_metrics/sacrebleu.py", line 2017, in raw_corpus_bleu
+    return corpus_bleu(
+  File "/home/nlp/dorink/project/slt/signjoey/external_metrics/sacrebleu.py", line 1968, in corpus_bleu
+    raise EOFError("Source and reference streams have different lengths!")
+EOFError: Source and reference streams have different lengths!
+
+Process finished with exit code 1
