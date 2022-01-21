@@ -4,12 +4,8 @@ data:
     version: ChicagoFSWild
     sgn: sign
     gls: gloss
-#    train: phoenix14t.pami0.train
-#    dev: phoenix14t.pami0.dev
-#    test: phoenix14t.pami0.test
     feature_size: 1000
     level: word
-#    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
     random_dev_subset: -1
