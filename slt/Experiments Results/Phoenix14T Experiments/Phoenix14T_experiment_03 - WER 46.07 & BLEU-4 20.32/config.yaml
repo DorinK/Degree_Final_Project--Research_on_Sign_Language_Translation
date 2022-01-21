@@ -50,8 +50,8 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./Phoenix14T Experiments/Phoenix14T experiment05"
-    recognition_loss_weight: 5.0
+    model_dir: "./Phoenix14T Experiments/Phoenix14T_experiment_03"
+    recognition_loss_weight: 1.0
     translation_loss_weight: 1.0
     eval_metric: bleu
     optimizer: adam
