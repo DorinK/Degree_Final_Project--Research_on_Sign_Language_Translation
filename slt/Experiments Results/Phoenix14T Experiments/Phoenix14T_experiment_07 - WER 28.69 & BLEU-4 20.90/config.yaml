@@ -50,7 +50,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./Phoenix14T Experiments/Phoenix14T experiment06"
+    model_dir: "./Phoenix14T Experiments/Phoenix14T_experiment_07"
     recognition_loss_weight: 5.0
     translation_loss_weight: 1.0
     eval_metric: bleu
@@ -62,9 +62,9 @@ training:
     early_stopping_metric: eval_metric
     batch_type: sentence
     translation_normalization: batch
-    eval_recognition_beam_size: 5
-    eval_translation_beam_size: 4
-    eval_translation_beam_alpha: 2
+    eval_recognition_beam_size: 10
+    eval_translation_beam_size: 9
+    eval_translation_beam_alpha: 1
     overwrite: true
     shuffle: true
     use_cuda: true
@@ -77,7 +77,7 @@ training:
     - 0.9
     - 0.998
     scheduling: plateau
-    learning_rate_min: 1.0e-06
+    learning_rate_min: 1.0e-07
     weight_decay: 0.001
     patience: 8
     decrease_factor: 0.7

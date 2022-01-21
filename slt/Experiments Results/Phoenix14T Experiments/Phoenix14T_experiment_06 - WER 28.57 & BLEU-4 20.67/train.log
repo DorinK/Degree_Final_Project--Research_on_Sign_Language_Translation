@@ -23,7 +23,7 @@
 2021-04-01 16:42:07,572 cfg.training.reset_scheduler       : False
 2021-04-01 16:42:07,572 cfg.training.reset_optimizer       : False
 2021-04-01 16:42:07,572 cfg.training.random_seed           : 42
-2021-04-01 16:42:07,572 cfg.training.model_dir             : ./Phoenix14T Experiments/Phoenix14T experiment06
+2021-04-01 16:42:07,572 cfg.training.model_dir             : ./Phoenix14T Experiments/Phoenix14T_experiment_06
 2021-04-01 16:42:07,572 cfg.training.recognition_loss_weight : 5.0
 2021-04-01 16:42:07,572 cfg.training.translation_loss_weight : 1.0
 2021-04-01 16:42:07,572 cfg.training.eval_metric           : bleu
