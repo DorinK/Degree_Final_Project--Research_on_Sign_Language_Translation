@@ -2,7 +2,7 @@
   Extracting information from SLT model experiment on Phoenix14T Dataset
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-EXP_PATH = 'Phoenix14T experiment_09 - WER 28.06 & BLEU-4 21.36'
+EXP_PATH = 'Phoenix14T_experiment_09 - WER 28.06 & BLEU-4 21.36'
 OUTPUT_FILE = EXP_PATH + '/experiment_stats.txt'
 
 
