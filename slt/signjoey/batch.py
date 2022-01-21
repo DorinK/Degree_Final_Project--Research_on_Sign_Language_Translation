@@ -59,9 +59,12 @@ class Batch:
         # TODO: Conditional expression: False.  V
         # Here be dragons
         if frame_subsampling_ratio:
+
             tmp_sgn = torch.zeros_like(self.sgn)
             tmp_sgn_lengths = torch.zeros_like(self.sgn_lengths)
+
             for idx, (features, length) in enumerate(zip(self.sgn, self.sgn_lengths)):
+
                 features = features.clone()
                 if random_frame_subsampling and is_train:
                     init_frame = random.randint(0, (frame_subsampling_ratio - 1))
@@ -78,14 +81,17 @@ class Batch:
 
         # TODO: Conditional expression: False.  V
         if random_frame_masking_ratio and is_train:
+
             tmp_sgn = torch.zeros_like(self.sgn)
             num_mask_frames = ((self.sgn_lengths * random_frame_masking_ratio).floor().long())
+
             for idx, features in enumerate(self.sgn):
                 features = features.clone()
                 mask_frame_idx = np.random.permutation(int(self.sgn_lengths[idx].long().numpy()))[
                                  : num_mask_frames[idx]]
                 features[mask_frame_idx, :] = 1e-8
                 tmp_sgn[idx] = features
+
             self.sgn = tmp_sgn
 
         self.sgn_dim = sgn_dim
@@ -111,12 +117,10 @@ class Batch:
         #  to match it to the AUTSL attribute name. VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "txt") or "txt" in torch_batch:  # TODO: Addition for asynchronous dataset. V
-
             if dataset_type == 'phoenix_2014_trans':
                 txt, txt_lengths = torch_batch.txt
             else:  # TODO: Mine.
                 txt, txt_lengths = torch_batch["txt"]
-
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
             self.txt_lengths = txt_lengths
@@ -130,12 +134,10 @@ class Batch:
         #  to match it to the AUTSL attribute name. VVV
         # hasattr returns whether the object has an attribute with the given name.
         if hasattr(torch_batch, "gls") or "gls" in torch_batch:  # TODO: Addition for asynchronous dataset. V
-
             if dataset_type == 'phoenix_2014_trans':
                 self.gls, self.gls_lengths = torch_batch.gls
             else:  # TODO: Mine.
                 self.gls, self.gls_lengths = torch_batch["gls"]
-
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
 
         if use_cuda:
@@ -157,7 +159,7 @@ class Batch:
 
     def make_cpu(self):  # TODO: Mine.
         """
-        Move the batch back to the CPU.
+        Move the batch back to CPU.
 
         :return:
         """

@@ -3,7 +3,6 @@ import sys
 import random
 
 import torch
-# from torchtext import data
 from torchtext.data import RawField, Field, BucketIterator, Dataset, Iterator
 from slt.signjoey.dataset import SignTranslationDataset
 from slt.signjoey.vocabulary import (
@@ -47,17 +46,14 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         - gls_vocab: gloss vocabulary extracted from training data
         - txt_vocab: spoken text vocabulary extracted from training data
     """
-
-    # data_path = data_cfg.get("data_path", "./data")
     data_path = "/home/nlp/dorink/project/slt/data"
 
-    # Get the datasets path.(?)
+    # Get the datasets path.
     if isinstance(data_cfg["train"], list):
         train_paths = [os.path.join(data_path, x) for x in data_cfg["train"]]
         dev_paths = [os.path.join(data_path, x) for x in data_cfg["dev"]]
         test_paths = [os.path.join(data_path, x) for x in data_cfg["test"]]
         pad_feature_size = sum(data_cfg["feature_size"])
-
     else:
         train_paths = os.path.join(data_path, data_cfg["train"])
         dev_paths = os.path.join(data_path, data_cfg["dev"])
@@ -121,8 +117,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         dataset_type=data_cfg["version"],  # TODO: Mine.
         path=train_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
-        filter_pred=lambda x: len(vars(x)["sgn"]) <= max_sent_length
-                              and len(vars(x)["txt"]) <= max_sent_length,
+        filter_pred=lambda x: len(vars(x)["sgn"]) <= max_sent_length and len(vars(x)["txt"]) <= max_sent_length,
     )
 
     # Set the maximal vocab size and minimum items frequency of the gloss and text vocabs.
@@ -152,6 +147,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         dataset=train_data,
         vocab_file=txt_vocab_file,
     )
+
     random_train_subset = data_cfg.get("random_train_subset", -1)
     if random_train_subset > -1:
         # select this many training examples randomly and discard the rest
@@ -165,6 +161,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         path=dev_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
     )
+
     random_dev_subset = data_cfg.get("random_dev_subset", -1)
     if random_dev_subset > -1:
         # select this many development examples randomly and discard the rest
@@ -193,18 +190,24 @@ global max_sgn_in_batch, max_gls_in_batch, max_txt_in_batch
 
 # pylint: disable=unused-argument,global-variable-undefined
 def token_batch_size_fn(new, count, sofar):
-    """Compute batch size based on number of tokens (+padding)"""
+    """
+    Compute batch size based on number of tokens (+padding)
+    """
     global max_sgn_in_batch, max_gls_in_batch, max_txt_in_batch
+
     if count == 1:
         max_sgn_in_batch = 0
         max_gls_in_batch = 0
         max_txt_in_batch = 0
+
     max_sgn_in_batch = max(max_sgn_in_batch, len(new.sgn))
     max_gls_in_batch = max(max_gls_in_batch, len(new.gls))
     max_txt_in_batch = max(max_txt_in_batch, len(new.txt) + 2)
+
     sgn_elements = count * max_sgn_in_batch
     gls_elements = count * max_gls_in_batch
     txt_elements = count * max_txt_in_batch
+
     return max(sgn_elements, gls_elements, txt_elements)
 
 
@@ -227,7 +230,6 @@ def make_data_iter(
         (no effect if set to True for testing)
     :return: torchtext iterator
     """
-
     batch_size_fn = token_batch_size_fn if batch_type == "token" else None
 
     if train:

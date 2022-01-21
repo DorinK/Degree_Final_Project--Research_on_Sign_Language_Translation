@@ -29,6 +29,7 @@ def build_gradient_clipper(config: dict) -> Optional[Callable]:
     :return: clipping function (in-place) or None if no gradient clipping
     """
     clip_grad_fun = None
+
     if "clip_grad_val" in config.keys():
         clip_value = config["clip_grad_val"]
         clip_grad_fun = lambda params: nn.utils.clip_grad_value_(parameters=params, clip_value=clip_value)
@@ -263,15 +264,21 @@ class NoamScheduler:
         self._rate = 0
 
     def step(self):
-        """Update parameters and rate"""
+        """
+        Update parameters and rate
+        """
         self._step += 1
+
         rate = self._compute_rate()
         for p in self.optimizer.param_groups:
             p["lr"] = rate
+
         self._rate = rate
 
     def _compute_rate(self):
-        """Implement `lrate` above"""
+        """
+        Implement `lrate` above
+        """
         step = self._step
         return self.factor * (
                 self.hidden_size ** (-0.5)
@@ -319,15 +326,21 @@ class WarmupExponentialDecayScheduler:
         self.min_rate = min_rate
 
     def step(self):
-        """Update parameters and rate"""
+        """
+        Update parameters and rate
+        """
         self._step += 1
+
         rate = self._compute_rate()
         for p in self.optimizer.param_groups:
             p["lr"] = rate
+
         self._rate = rate
 
     def _compute_rate(self):
-        """Implement `lrate` above"""
+        """
+        Implement `lrate` above
+        """
         step = self._step
         warmup = self.warmup
 
@@ -336,6 +349,7 @@ class WarmupExponentialDecayScheduler:
         else:
             exponent = (step - warmup) / self.decay_length
             rate = self.peak_rate * (self.decay_rate ** exponent)
+
         return max(rate, self.min_rate)
 
     # pylint: disable=no-self-use

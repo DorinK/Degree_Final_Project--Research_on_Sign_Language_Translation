@@ -1,15 +1,16 @@
-name: sign_experiment
+name: Phoenix14T Experiment
 data:
     data_path: ./data/
-    version: autsl
+    version: phoenix_2014_trans
     sgn: sign
+    txt: text
     gls: gloss
-#    train: phoenix14t.pami0.train
-#    dev: phoenix14t.pami0.dev
-#    test: phoenix14t.pami0.test
-    feature_size: 1000
+    train: phoenix14t.pami0.train
+    dev: phoenix14t.pami0.dev
+    test: phoenix14t.pami0.test
+    feature_size: 1024
     level: word
-#    txt_lowercase: true
+    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
     random_dev_subset: -1
@@ -49,10 +50,10 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./autsl_model__21"
-    recognition_loss_weight: 1.0
-    translation_loss_weight: 0.0
-    eval_metric: wer
+    model_dir: "./Phoenix14T Experiments/Phoenix14T experiment_11"
+    recognition_loss_weight: 10.0
+    translation_loss_weight: 1.0
+    eval_metric: bleu
     optimizer: adam
     learning_rate: 0.001
     batch_size: 32
@@ -67,11 +68,11 @@ training:
     overwrite: true
     shuffle: true
     use_cuda: true
-    translation_max_output_length: 1
+    translation_max_output_length: 30
     keep_last_ckpts: 1
     batch_multiplier: 1
     logging_freq: 100
-    validation_freq: 400
+    validation_freq: 100
     betas:
     - 0.9
     - 0.998

@@ -34,10 +34,12 @@ def make_model_dir(model_dir: str, overwrite: bool = False) -> str:
     :return: path to model directory
     """
     if os.path.isdir(model_dir):
+
         if not overwrite:
             raise FileExistsError("Model directory exists and overwriting is disabled.")
         # delete previous directory to start with empty dir again
         shutil.rmtree(model_dir)
+
     os.makedirs(model_dir)
     return model_dir
 
@@ -51,18 +53,23 @@ def make_logger(model_dir: str, log_file: str = "train.log") -> Logger:
     :return: logger object
     """
     logger = logging.getLogger(__name__)
+
     if not logger.handlers:
+
         logger.setLevel(level=logging.DEBUG)
         fh = logging.FileHandler("{}/{}".format(model_dir, log_file))
         fh.setLevel(level=logging.DEBUG)
         logger.addHandler(fh)
+
         formatter = logging.Formatter("%(asctime)s %(message)s")
         fh.setFormatter(formatter)
+
         if platform == "linux":
             sh = logging.StreamHandler()
             sh.setLevel(logging.INFO)
             sh.setFormatter(formatter)
             logging.getLogger("").addHandler(sh)
+
         logger.info("Hello! This is Joey-NMT.")
         return logger
 
@@ -232,6 +239,7 @@ def tile(x: Tensor, count: int, dim=0) -> Tensor:
     if dim != 0:
         perm[0], perm[dim] = perm[dim], perm[0]
         x = x.permute(perm).contiguous()
+
     out_size = list(x.size())
     out_size[0] *= count
     batch = x.size(0)
@@ -245,6 +253,7 @@ def tile(x: Tensor, count: int, dim=0) -> Tensor:
     )
     if dim != 0:
         x = x.permute(perm).contiguous()
+
     return x
 
 

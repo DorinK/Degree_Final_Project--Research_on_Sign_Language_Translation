@@ -82,7 +82,6 @@ class TrainManager:
 
         # model
         self.model = model
-        # self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True) # Adding the image encoder.
         self.txt_pad_index = self.model.txt_pad_index
         self.txt_bos_index = self.model.txt_bos_index
         self._log_parameters_list()
@@ -328,7 +327,6 @@ class TrainManager:
         if self.use_cuda:
             self.model.cuda(DEVICE)
 
-    # def train_and_validate(self, train_data: Dataset, valid_data: Dataset) -> None:
     def train_and_validate_phoenix(self, train_data: Dataset, valid_data: Dataset) -> None:
         """
         Train the model and validate it from time to time on the validation set.
@@ -678,7 +676,6 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             index = 0
-
             while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
 
                 batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
@@ -700,13 +697,11 @@ class TrainManager:
                             Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                                 datum['video'].shape[2]))
                         sgn_lengths.append(datum['video'].shape[0])
-                        # gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
                         gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                         valid += 1
                     total += 1
 
-                # if index + batch_size >= len(
-                #         train_data):  # TODO: handle no more examples and or valid examples to complete batch size.
+                # if index + batch_size >= len(train_data):  # TODO: handle no more examples and or valid examples to complete batch size.
                 #     if valid < batch_size:
                 #         gls_lengths = [int(1)] * valid
 
@@ -716,16 +711,13 @@ class TrainManager:
                         if datum['video'].shape[0] <= 115:
                             sequence.append(datum['id'].numpy().decode('utf-8'))
                             signer.append(datum["signer"].numpy())
-                            samples.append(
-                                Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
-                                                                    datum['video'].shape[1],
-                                                                    datum['video'].shape[2]))
+                            samples.append(Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3],
+                                                                               datum['video'].shape[1],
+                                                                               datum['video'].shape[2]))
                             sgn_lengths.append(datum['video'].shape[0])
-                            # gls.append([int(self.model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
                             gls.append([int(self.model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                             valid += 1
                         total += 1
-                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
                     if index + total + (batch_size - valid) >= len(train_data):
                         if valid < batch_size:
@@ -750,6 +742,7 @@ class TrainManager:
 
                 sgn = []
                 for k, sample in enumerate(samples, 1):
+
                     # print('index:', k)
                     # print('sequence:', sequence[k - 1])
                     # print('sgn_lengths:', sgn_lengths[k - 1])
@@ -757,11 +750,7 @@ class TrainManager:
                     # print('gls:', gls[k - 1])
                     # print()
 
-                    # sample.cuda()
                     out = self.model.image_encoder(sample.cuda(DEVICE))
-                    # out = self.model.image_encoder(sample)
-                    # sgn.append(out)
-                    # out.detach().cpu()
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
                     del sample, out
@@ -833,9 +822,6 @@ class TrainManager:
                         processed_gls_tokens = self.total_gls_tokens
                         log_out += "Batch Recognition Loss: {:10.6f} => ".format(recognition_loss)
                         log_out += "Gls Tokens per Sec: {:8.0f} || ".format(elapsed_gls_tokens / elapsed)
-                        # log_out += "elapsed_gls_tokens: {:10.6f}, {}, {} => ".format(
-                        #     self.total_gls_tokens - processed_gls_tokens, self.total_gls_tokens, processed_gls_tokens
-                        # )
 
                     if self.do_translation:
                         elapsed_txt_tokens = (self.total_txt_tokens - processed_txt_tokens)
@@ -1004,8 +990,7 @@ class TrainManager:
                     )
 
                     # TODO: Adjust. V
-                    valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
-                                 itertools.islice(valid_data, len(valid_data))]
+                    valid_seq = [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
                         sequences=valid_seq,  # TODO: Problem here. Update: Fixed.  V
@@ -1102,7 +1087,6 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             index = 0
-
             while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
 
                 batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
@@ -1114,7 +1098,7 @@ class TrainManager:
                 samples = []
                 sgn_lengths = []
                 txt = []
-                txt_lengths = []  # [int(1)] * batch_size
+                txt_lengths = []
 
                 for i, datum in enumerate(itertools.islice(train_data, index, index + batch_size)):
                     if datum['video'].shape[0] <= 131:
@@ -1124,30 +1108,15 @@ class TrainManager:
                             Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                                 datum['video'].shape[2]))
                         sgn_lengths.append(datum['video'].shape[0])
-
-                        # words = datum['text'].numpy().decode('utf-8').split()
-                        # tokens = []
-                        # for word in words:
-                        #     chars = [char for char in word] + [' ']
-                        #     tokens += chars
-                        # tokens = tokens[:-1]
-                        # tokens = [int(self.model.txt_vocab.stoi[t]) for t in tokens]
-                        # txt.append([2] + tokens+([1] * (40 - len(tokens) - 1)))
-                        # txt_lengths.append(len(tokens))
-
                         sample_txt = datum['text'].numpy().decode('utf-8').split()
                         txt.append(
                             [2] + [int(self.model.txt_vocab.stoi[t]) for t in sample_txt] + (
                                     [1] * (10 - len(sample_txt) - 1)))
                         txt_lengths.append(len(sample_txt))
-
-                        # txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
-                        #             1])  # ???.decode('utf-8')
                         valid += 1
                     total += 1
 
-                # if index + batch_size >= len(
-                #         train_data):  # TODO: handle no more examples and or valid examples to complete batch size
+                # if index + batch_size >= len(train_data):  # TODO: handle no more examples and or valid examples to complete batch size
                 #     if valid < batch_size:
                 #         txt_lengths = [int(1)] * valid
 
@@ -1162,24 +1131,11 @@ class TrainManager:
                                                                     datum['video'].shape[1],
                                                                     datum['video'].shape[2]))
                             sgn_lengths.append(datum['video'].shape[0])
-
-                            # words = datum['text'].numpy().decode('utf-8').split()
-                            # tokens = []
-                            # for word in words:
-                            #     chars = [char for char in word] + [' ']
-                            #     tokens += chars
-                            # tokens = tokens[:-1]
-                            # tokens = [int(self.model.txt_vocab.stoi[t]) for t in tokens]
-                            # txt.append([2] + tokens + ([1] * (40 - len(tokens) - 1)))
-                            # txt_lengths.append(len(tokens))
-
                             sample_txt = datum['text'].numpy().decode('utf-8').split()
                             txt.append(
                                 [2] + [int(self.model.txt_vocab.stoi[t]) for t in sample_txt] + (
                                         [1] * (10 - len(sample_txt) - 1)))
                             txt_lengths.append(len(sample_txt))
-
-                            # txt.append([2, int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])
                             valid += 1
                         total += 1
                     # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
@@ -1216,11 +1172,7 @@ class TrainManager:
                     # print('txt:', txt[k - 1])
                     # print('txt_lengths:', txt_lengths[k - 1])
                     # print()
-                    # sample.cuda()
                     out = self.model.image_encoder(sample.cuda(DEVICE))
-                    # out = self.model.image_encoder(sample)
-                    # sgn.append(out)
-                    # out.detach().cpu()
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
                     del sample, out
@@ -1233,9 +1185,7 @@ class TrainManager:
                 index += total
                 if self.steps % self.logging_freq == 0:
                     print('so far:', index)
-                # print(index)
-                # print(sequence)
-                # print(sgn_lengths)
+
                 del sequence, signer, samples, sgn_lengths, txt, txt_lengths, sgn, pad_sgn
                 gc.collect()
 
@@ -1373,20 +1323,6 @@ class TrainManager:
                         self.tb_writer.add_scalar(
                             "valid/seq_accuracy", val_res["valid_scores"]["seq_accuracy"], self.steps
                         )
-                        # self.tb_writer.add_scalar(
-                        #     "valid/chrf", val_res["valid_scores"]["chrf"], self.steps
-                        # )
-                        # self.tb_writer.add_scalar(
-                        #     "valid/rouge", val_res["valid_scores"]["rouge"], self.steps
-                        # )
-                        # self.tb_writer.add_scalar(
-                        #     "valid/bleu", val_res["valid_scores"]["bleu"], self.steps
-                        # )
-                        # self.tb_writer.add_scalars(
-                        #     "valid/bleu_scores",
-                        #     val_res["valid_scores"]["bleu_scores"],
-                        #     self.steps,
-                        # )
 
                     if self.early_stopping_metric == "recognition_loss":
                         assert self.do_recognition
@@ -1445,11 +1381,7 @@ class TrainManager:
                         "PPL: %4.5f\n\t"
                         "Eval Metric: %s\n\t"
                         "WAcc (Word Accuracy Rate) %3.2f\t(DEL: %3.2f,\tINS: %3.2f,\tSUB: %3.2f)\n\t"
-                        # "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
                         "Sequence Accuracy %.2f",
-                        # "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
-                        # "CHRF %.2f\t"
-                        # "ROUGE %.2f",
                         epoch_no + 1,
                         self.steps,
                         valid_duration,
@@ -1465,29 +1397,11 @@ class TrainManager:
                         val_res["valid_scores"]["wer_scores"]["del_rate"] if self.do_translation else -1,
                         val_res["valid_scores"]["wer_scores"]["ins_rate"] if self.do_translation else -1,
                         val_res["valid_scores"]["wer_scores"]["sub_rate"] if self.do_translation else -1,
-                        # # BLEU
-                        # val_res["valid_scores"]["bleu"] if self.do_translation else -1,
-                        # val_res["valid_scores"]["bleu_scores"]["bleu1"]
-                        # if self.do_translation
-                        # else -1,
-                        # val_res["valid_scores"]["bleu_scores"]["bleu2"]
-                        # if self.do_translation
-                        # else -1,
-                        # val_res["valid_scores"]["bleu_scores"]["bleu3"]
-                        # if self.do_translation
-                        # else -1,
-                        # val_res["valid_scores"]["bleu_scores"]["bleu4"]
-                        # if self.do_translation
-                        # else -1,
                         val_res["valid_scores"]["seq_accuracy"] if self.do_translation else -1,
-                        # # Other
-                        # val_res["valid_scores"]["chrf"] if self.do_translation else -1,
-                        # val_res["valid_scores"]["rouge"] if self.do_translation else -1,
                     )
 
                     # TODO: Adjusted.   V
-                    valid_seq = [datum['id'].numpy().decode('utf-8') for datum in
-                                 itertools.islice(valid_data, len(valid_data))]
+                    valid_seq = [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
                         sequences=valid_seq,  # TODO: Problem here. Update: Fixed.  V
@@ -1658,7 +1572,6 @@ class TrainManager:
                     "PPL: {:.5f}\t"
                     "Eval Metric: {}\t"
                     "WAcc (Word Accuracy Rate) {:.2f}\t(DEL: {:.2f},\tINS: {:.2f},\tSUB: {:.2f})\t"
-                    # "BLEU-4 {:.2f}\t(BLEU-1: {:.2f},\tBLEU-2: {:.2f},\tBLEU-3: {:.2f},\tBLEU-4: {:.2f})\t"
                     "Sequence Accuracy {:.2f}\t"
                     "LR: {:.8f}\t{}\n".format(
                         self.steps,
@@ -1671,12 +1584,6 @@ class TrainManager:
                         valid_scores["wer_scores"]["del_rate"] if self.do_translation else -1,
                         valid_scores["wer_scores"]["ins_rate"] if self.do_translation else -1,
                         valid_scores["wer_scores"]["sub_rate"] if self.do_translation else -1,
-                        # # BLEU
-                        # valid_scores["bleu"] if self.do_translation else -1,
-                        # valid_scores["bleu_scores"]["bleu1"] if self.do_translation else -1,
-                        # valid_scores["bleu_scores"]["bleu2"] if self.do_translation else -1,
-                        # valid_scores["bleu_scores"]["bleu3"] if self.do_translation else -1,
-                        # valid_scores["bleu_scores"]["bleu4"] if self.do_translation else -1,
                         valid_scores["seq_accuracy"] if self.do_translation else -1,
                         # Other
                         current_lr,
@@ -1767,6 +1674,7 @@ class TrainManager:
         self.logger.info("=" * 120)
 
         for ri in rand_idx:
+
             self.logger.info("Logging Sequence: %s", sequences[ri])
 
             if self.do_recognition:
@@ -1817,6 +1725,7 @@ def train(cfg_file: str) -> None:
 
     :param cfg_file: path to configuration yaml file
     """
+
     # Load the configuration file.
     cfg = load_config(cfg_file)
 
@@ -1855,7 +1764,6 @@ def train(cfg_file: str) -> None:
             dataset=train_data,
             vocab_file=gls_vocab_file,
         )
-        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)   # TODO: Remove parameter?    V
 
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?    V
@@ -1937,15 +1845,6 @@ def train(cfg_file: str) -> None:
             txt_vocab=txt_vocab,
             logging_function=trainer.logger.info,
         )
-    # else:
-    #     log_data_info(
-    #         train_data=train_data,
-    #         valid_data=dev_data,
-    #         test_data=test_data,
-    #         gls_vocab=gls_vocab,
-    #         txt_vocab=txt_vocab,
-    #         logging_function=trainer.logger.info,
-    #     )
 
     trainer.logger.info(str(model))
 
@@ -1973,8 +1872,7 @@ def train(cfg_file: str) -> None:
     del train_data, dev_data, test_data
 
     # TODO: Maybe should be updated according to the changes in trainer.    V
-    # predict with the best model on validation and test
-    # (if test data is available)
+    # predict with the best model on validation and test (if test data is available)
     ckpt = "{}/{}.ckpt".format(trainer.model_dir, trainer.best_ckpt_iteration)
     output_name = "best.IT_{:08d}".format(trainer.best_ckpt_iteration)
     output_path = os.path.join(trainer.model_dir, output_name)
@@ -1984,7 +1882,9 @@ def train(cfg_file: str) -> None:
 
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser("Joey-NMT")
+
     parser.add_argument(
         "config",
         default="configs/default.yaml",
@@ -1994,6 +1894,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--gpu_id", type=str, default="0", help="gpu to run your job on"
     )
+
     args = parser.parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
+
     train(cfg_file=args.config)

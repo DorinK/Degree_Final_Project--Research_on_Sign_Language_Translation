@@ -31,9 +31,11 @@ def bleu(references, hypotheses):
     :return:
     """
     bleu_scores = sacrebleu.raw_corpus_bleu(sys_stream=hypotheses, ref_streams=[references]).scores
+
     scores = {}
     for n in range(len(bleu_scores)):
         scores["bleu" + str(n + 1)] = bleu_scores[n]
+
     return scores
 
 
@@ -59,6 +61,7 @@ def token_accuracy(references, hypotheses, level="word"):
             # min(len(h), len(r)) tokens considered
             if h_i == r_i:
                 correct_tokens += 1
+
     return (correct_tokens / all_tokens) * 100 if all_tokens > 0 else 0.0
 
 
@@ -72,6 +75,7 @@ def sequence_accuracy(references, hypotheses):
     :return:
     """
     assert len(hypotheses) == len(references)
+
     correct_sequences = sum([1 for (hyp, ref) in zip(hypotheses, references) if hyp == ref])
     return (correct_sequences / len(hypotheses)) * 100 if hypotheses else 0.0
 
@@ -168,6 +172,7 @@ def edit_distance(r, h):
                 insert = d[i][j - 1] + WER_COST_INS
                 delete = d[i - 1][j] + WER_COST_DEL
                 d[i][j] = min(substitute, insert, delete)
+
     return d
 
 
@@ -317,6 +322,7 @@ def edit_distance_wacc(r, h):  # TODO: Create edit_distance_wacc function.  V
                 insert = d[i][j - 1] + 1
                 delete = d[i - 1][j] + 1
                 d[i][j] = min(substitute, insert, delete)
+
     return d
 
 

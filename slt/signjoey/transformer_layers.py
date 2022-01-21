@@ -80,7 +80,6 @@ class MultiHeadedAttention(nn.Module):
         context = (context.transpose(1, 2).contiguous().view(batch_size, -1, num_heads * self.head_size))
 
         output = self.output_layer(context)
-
         return output
 
 
@@ -145,7 +144,8 @@ class PositionalEncoding(nn.Module):
         self.dim = size
 
     def forward(self, emb):
-        """Embed inputs.
+        """
+        Embed inputs.
         Args:
             emb (FloatTensor): Sequence of word vectors
                 ``(seq_len, batch_size, self.dim)``
@@ -255,5 +255,4 @@ class TransformerDecoderLayer(nn.Module):
 
         # final position-wise feed-forward layer
         o = self.feed_forward(self.dropout(h2) + h1)
-
         return o

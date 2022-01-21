@@ -66,7 +66,6 @@ class SignModel(nn.Module):
 
         self.gls_vocab = gls_vocab
         self.txt_vocab = txt_vocab
-
         self.txt_bos_index = self.txt_vocab.stoi[BOS_TOKEN]
         self.txt_pad_index = self.txt_vocab.stoi[PAD_TOKEN]
         self.txt_eos_index = self.txt_vocab.stoi[EOS_TOKEN]
@@ -211,8 +210,8 @@ class SignModel(nn.Module):
             # print(batch.gls)
             # print(batch.sgn_lengths.long())
             # print(batch.gls_lengths.long())
-            # Calculate Recognition Loss
 
+            # Calculate Recognition Loss
             recognition_loss = (
                     recognition_loss_function(
                         gloss_probabilities,
@@ -222,6 +221,7 @@ class SignModel(nn.Module):
                     )
                     * recognition_loss_weight
             )
+
         else:
             recognition_loss = None
 

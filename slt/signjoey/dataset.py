@@ -31,12 +31,12 @@ class SignTranslationDataset(Dataset):
 
     def __init__(
             self,
-            dataset_type: str,  # TODO: Mine.
             path: str,
             fields: Tuple[RawField, RawField, Field, Field, Field],
             **kwargs
     ):
-        """Create a SignTranslationDataset given paths and fields.
+        """
+        Create a SignTranslationDataset given paths and fields.
 
         Arguments:
             path: Common prefix of paths to the data files for both languages.

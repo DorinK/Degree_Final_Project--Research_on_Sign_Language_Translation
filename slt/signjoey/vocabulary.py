@@ -1,5 +1,4 @@
 import numpy as np
-
 from collections import defaultdict, Counter
 from typing import List
 # from torchtext.data import Dataset
@@ -13,7 +12,9 @@ EOS_TOKEN = "</s>"
 
 
 class Vocabulary:  # TODO: Update accordingly.  VVV
-    """ Vocabulary represents mapping between tokens and indices. """
+    """
+    Vocabulary represents mapping between tokens and indices.
+    """
 
     def __init__(self):
         # don't rename stoi and itos since needed for torchtext
@@ -93,6 +94,7 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
 
 
 class TextVocabulary(Vocabulary):
+
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
         Create vocabulary from list of tokens or file.
@@ -104,6 +106,7 @@ class TextVocabulary(Vocabulary):
         :param file: file to load vocabulary from
         """
         super().__init__()
+
         self.specials = [UNK_TOKEN, PAD_TOKEN, BOS_TOKEN, EOS_TOKEN]
         self.DEFAULT_UNK_ID = lambda: 0
         self.stoi = defaultdict(self.DEFAULT_UNK_ID)
@@ -145,6 +148,7 @@ class TextVocabulary(Vocabulary):
 
 
 class GlossVocabulary(Vocabulary):  # TODO: Update to suite to a gloss ids format.  VVV
+
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
         Create vocabulary from list of tokens or file.
@@ -156,6 +160,7 @@ class GlossVocabulary(Vocabulary):  # TODO: Update to suite to a gloss ids forma
         :param file: file to load vocabulary from
         """
         super().__init__()
+
         self.specials = [SIL_TOKEN, UNK_TOKEN, PAD_TOKEN]
         self.DEFAULT_UNK_ID = lambda: 1
         self.stoi = defaultdict(self.DEFAULT_UNK_ID)
@@ -182,17 +187,23 @@ class GlossVocabulary(Vocabulary):  # TODO: Update to suite to a gloss ids forma
 
 # TODO: Okay.   V
 def filter_min(counter: Counter, minimum_freq: int):
-    """ Filter counter by min frequency """
+    """
+    Filter counter by min frequency
+    """
     filtered_counter = Counter({t: c for t, c in counter.items() if c >= minimum_freq})
     return filtered_counter
 
 
 # TODO: Okay.   V
 def sort_and_cut(counter: Counter, limit: int):
-    """ Cut counter to most frequent, sorted numerically and alphabetically"""
+    """
+    Cut counter to most frequent, sorted numerically and alphabetically
+    """
+
     # sort by frequency, then alphabetically
     tokens_and_frequencies = sorted(counter.items(), key=lambda tup: tup[0])
     tokens_and_frequencies.sort(key=lambda tup: tup[1], reverse=True)
+
     vocab_tokens = [i[0] for i in tokens_and_frequencies[:limit]]
     return vocab_tokens
 
@@ -212,7 +223,6 @@ def build_vocab(
         if not None, load vocabulary from here
     :return: Vocabulary created from either `dataset` or `vocab_file`
     """
-
     if vocab_file is not None:  # TODO: Okay.   V
         # load it from file
         if field == "gls":
@@ -221,6 +231,7 @@ def build_vocab(
             vocab = TextVocabulary(file=vocab_file)
         else:
             raise ValueError("Unknown vocabulary type")
+
     else:
         tokens = []
         if version == 'phoenix_2014_trans':  # TODO: Match to the asynchronous loader.  V
@@ -231,30 +242,19 @@ def build_vocab(
                     tokens.extend(i.txt)
                 else:
                     raise ValueError("Unknown field type")
-
         elif version == 'autsl':  # TODO: Mine - Check it is working.  VVV
-
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
-                    # tokens.append(int(i['gloss_id'].numpy()))
                     tokens.append(i['gloss_id'].numpy())
-                # elif field == "txt":
-                #     tokens.append(int(i['text'].numpy()))
-                else:   # TODO: Mine.
+                else:  # TODO: Mine.
                     raise ValueError("Unknown field type")
         else:  # TODO: Mine.
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     break
                 if field == "txt":  # TODO: Break the text reference into word tokens.  V
-                    # tokens += [char for word in words for char in word]
-                    words=i['text'].numpy().decode('utf-8').split()
-                    # for word in words:
-                    #     chars = [char for char in word] +[' ']
-                    #     tokens+= chars
-                    # tokens.append(i['text'].numpy().decode('utf-8'))
-                    # tokens.append(i['text'].numpy().decode('utf-8'))
-                    tokens+=words
+                    words = i['text'].numpy().decode('utf-8').split()
+                    tokens += words
                 else:
                     raise ValueError("Unknown field type")
 

@@ -18,7 +18,6 @@ class Decoder(nn.Module):
     """
     Base decoder class.
     """
-
     @property
     def output_size(self):
         """
@@ -35,7 +34,6 @@ class RecurrentDecoder(Decoder):
     """
     A conditional RNN decoder with attention.
     """
-
     def __init__(
             self,
             rnn_type: str = "gru",
@@ -75,7 +73,6 @@ class RecurrentDecoder(Decoder):
         :param freeze: Freeze the parameters of the decoder during training.
         :param kwargs:
         """
-
         super(RecurrentDecoder, self).__init__()
 
         self.emb_dropout = torch.nn.Dropout(p=emb_dropout, inplace=False)
@@ -142,6 +139,7 @@ class RecurrentDecoder(Decoder):
                             encoder.output_size, self.hidden_size
                         )
                     )
+
         if freeze:
             freeze_params(self)
 
@@ -171,8 +169,10 @@ class RecurrentDecoder(Decoder):
         assert src_mask.shape[0] == prev_embed.shape[0]
         assert src_mask.shape[1] == 1
         assert src_mask.shape[2] == encoder_output.shape[1]
+
         if isinstance(hidden, tuple):  # for lstm
             hidden = hidden[0]
+
         assert hidden.shape[0] == self.num_layers
         assert hidden.shape[1] == prev_embed.shape[0]
         assert hidden.shape[2] == self.hidden_size
@@ -205,11 +205,13 @@ class RecurrentDecoder(Decoder):
         assert src_mask.shape[2] == encoder_output.shape[1]
         assert trg_embed.shape[0] == encoder_output.shape[0]
         assert trg_embed.shape[2] == self.emb_size
+
         if hidden is not None:
             if isinstance(hidden, tuple):  # for lstm
                 hidden = hidden[0]
             assert hidden.shape[1] == encoder_output.shape[0]
             assert hidden.shape[2] == self.hidden_size
+
         if prev_att_vector is not None:
             assert prev_att_vector.shape[0] == encoder_output.shape[0]
             assert prev_att_vector.shape[2] == self.hidden_size
@@ -262,7 +264,6 @@ class RecurrentDecoder(Decoder):
             rnn_input = prev_embed
 
         rnn_input = self.emb_dropout(rnn_input)
-
         # rnn_input: batch x 1 x emb+2*enc_size
         _, hidden = self.rnn(rnn_input, hidden)
 
@@ -281,10 +282,9 @@ class RecurrentDecoder(Decoder):
         att_vector_input = torch.cat([query, context], dim=2)
         # batch x 1 x 2*enc_size+hidden_size
         att_vector_input = self.hidden_dropout(att_vector_input)
-
         att_vector = torch.tanh(self.att_vector_layer(att_vector_input))
-
         # output: batch x 1 x hidden_size
+
         return att_vector, hidden, att_probs
 
     def forward(
@@ -368,7 +368,6 @@ class RecurrentDecoder(Decoder):
         att_probs = []
 
         batch_size = encoder_output.size(0)
-
         if prev_att_vector is None:
             with torch.no_grad():
                 prev_att_vector = encoder_output.new_zeros([batch_size, 1, self.hidden_size])
@@ -392,6 +391,7 @@ class RecurrentDecoder(Decoder):
         # att_probs: batch, unroll_steps, src_length
         outputs = self.output_layer(att_vectors)
         # outputs: batch, unroll_steps, vocab_size
+
         return outputs, hidden, att_probs, att_vectors
 
     def _init_hidden(self, encoder_final: Tensor = None) -> (Tensor, Optional[Tensor]):
@@ -446,7 +446,6 @@ class TransformerDecoder(Decoder):
     A transformer decoder with N masked layers.
     Decoder layers are masked so that an attention head cannot see the future.
     """
-
     def __init__(
             self,
             num_layers: int = 4,
@@ -540,6 +539,7 @@ class TransformerDecoder(Decoder):
         return output, x, None, None
 
     def __repr__(self):
+
         return "%s(num_layers=%r, num_heads=%r)" % (
             self.__class__.__name__,
             len(self.layers),

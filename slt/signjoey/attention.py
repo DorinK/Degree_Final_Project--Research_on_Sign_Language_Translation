@@ -32,7 +32,6 @@ class BahdanauAttention(AttentionMechanism):
         :param key_size: size of the attention input keys
         :param query_size: size of the query
         """
-
         super(BahdanauAttention, self).__init__()
 
         self.key_layer = nn.Linear(key_size, hidden_size, bias=False)
@@ -70,16 +69,13 @@ class BahdanauAttention(AttentionMechanism):
         # proj_query: batch x 1 x hidden_size
         scores = self.energy_layer(torch.tanh(self.proj_query + self.proj_keys))
         # scores: batch x sgn_len x 1
-
         scores = scores.squeeze(2).unsqueeze(1)
         # scores: batch x 1 x time
-
         # mask out invalid positions by filling the masked out parts with -inf
         scores = torch.where(mask, scores, scores.new_full([1], float("-inf")))
 
         # turn scores to probabilities
         alphas = F.softmax(scores, dim=-1)  # batch x 1 x time
-
         # the context vector is the weighted sum of the values
         context = alphas @ values  # batch x 1 x value_size
 
@@ -140,7 +136,6 @@ class LuongAttention(AttentionMechanism):
         :param hidden_size: size of the key projection layer, has to be equal to decoder hidden size
         :param key_size: size of the attention input keys
         """
-
         super(LuongAttention, self).__init__()
         self.key_layer = nn.Linear(in_features=key_size, out_features=hidden_size, bias=False)
         self.proj_keys = None  # projected keys
@@ -172,13 +167,11 @@ class LuongAttention(AttentionMechanism):
 
         # scores: batch_size x 1 x sgn_length
         scores = query @ self.proj_keys.transpose(1, 2)
-
         # mask out invalid positions by filling the masked out parts with -inf
         scores = torch.where(mask, scores, scores.new_full([1], float("-inf")))
 
         # turn scores to probabilities
         alphas = F.softmax(scores, dim=-1)  # batch x 1 x sgn_len
-
         # the context vector is the weighted sum of the values
         context = alphas @ values  # batch x 1 x values_size
 

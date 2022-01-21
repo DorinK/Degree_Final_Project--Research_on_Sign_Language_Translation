@@ -199,8 +199,8 @@ def validate_on_data(
                 )
 
         elif dataset_version == 'autsl':  # TODO: Mine.
-            index = 0
 
+            index = 0
             while index < len(data):  # TODO: Handle last chunk of train_data.  V
 
                 batch_size_upd = batch_size if len(data) - index >= batch_size else len(data) - index
@@ -222,7 +222,6 @@ def validate_on_data(
                             Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                                 datum['video'].shape[2]))
                         sgn_lengths.append(datum['video'].shape[0])
-                        # gls.append([int(model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
                         gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                         gls_refs.append(datum['gloss_id'].numpy())
                         valid += 1
@@ -235,8 +234,7 @@ def validate_on_data(
                 # print("total: ", total)
                 # print()
 
-                # if index + batch_size_upd >= len(
-                #     data):  # TODO: handle no more examples and or valid examples to complete batch size.
+                # if index + batch_size_upd >= len(data):  # TODO: handle no more examples and or valid examples to complete batch size.
                 # if valid < batch_size_upd:
                 #     gls_lengths = [int(1)] * valid
 
@@ -251,12 +249,10 @@ def validate_on_data(
                                                                     datum['video'].shape[1],
                                                                     datum['video'].shape[2]))
                             sgn_lengths.append(datum['video'].shape[0])
-                            # gls.append([int(model.gls_vocab.stoi[str(datum['gloss_id'].numpy())])])
                             gls.append([int(model.gls_vocab.stoi[datum['gloss_id'].numpy()])])
                             gls_refs.append(datum['gloss_id'].numpy())
                             valid += 1
                         total += 1
-                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
                     if index + total + (batch_size_upd - valid) >= len(data):
                         if valid < batch_size_upd:
@@ -288,8 +284,6 @@ def validate_on_data(
                     # print('gls:', gls[k - 1])
                     # print()
                     out = model.image_encoder(sample.cuda(DEVICE))
-                    # sgn.append(out)
-                    # sgn.append(out.detach())
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
                     del sample, out
@@ -359,7 +353,6 @@ def validate_on_data(
         else:  # TODO: Mine.
 
             index = 0
-
             while index < len(data):
 
                 batch_size_upd = batch_size if len(data) - index >= batch_size else len(data) - index
@@ -371,7 +364,7 @@ def validate_on_data(
                 samples = []
                 sgn_lengths = []
                 txt = []
-                txt_lengths = []  # [int(1)] * batch_size_upd
+                txt_lengths = []
 
                 for i, datum in enumerate(itertools.islice(data, index, index + batch_size_upd)):
                     if datum['video'].shape[0] <= 131:
@@ -381,31 +374,11 @@ def validate_on_data(
                             Tensor(datum['video'].numpy()).view(-1, datum['video'].shape[3], datum['video'].shape[1],
                                                                 datum['video'].shape[2]))
                         sgn_lengths.append(datum['video'].shape[0])
-
-                        # words = datum['text'].numpy().decode('utf-8').split()
-                        # tokens = []
-                        # for word in words:
-                        #     chars = [char for char in word] + [' ']
-                        #     tokens += chars
-                        # tokens = tokens[:-1]
-                        # tokens = [int(model.txt_vocab.stoi[t]) for t in tokens]
-                        # txt.append([2] + tokens+([1] * (40 - len(tokens) - 1)))
-                        # txt_lengths.append(len(tokens))
-                        # txt_refs.append(datum['text'].numpy().decode('utf-8'))
-
                         sample_txt = datum['text'].numpy().decode('utf-8')
-                        txt.append(
-                            [2] + [int(model.txt_vocab.stoi[t]) for t in sample_txt.split()] + (
+                        txt.append([2] + [int(model.txt_vocab.stoi[t]) for t in sample_txt.split()] + (
                                     [1] * (10 - len(sample_txt.split()) - 1)))
                         txt_lengths.append(len(sample_txt.split()))
                         txt_refs.append(sample_txt)
-
-                        # txt.append([2] + [int(model.txt_vocab.stoi[t]) for t in
-                        #                   datum['text'].numpy().decode('utf-8').split()] + [1])
-                        # txt_lengths.append(len(datum['text'].numpy().decode('utf-8').split()))
-                        # txt.append([2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),
-                        #             1])  # ???.decode('utf-8')
-
                         valid += 1
                     total += 1
 
@@ -416,8 +389,7 @@ def validate_on_data(
                 # print("total: ", total)
                 # print()
 
-                # if index + batch_size_upd >= len(
-                #         data):  # TODO: handle no more examples and or valid examples to complete batch size.
+                # if index + batch_size_upd >= len(data):  # TODO: handle no more examples and or valid examples to complete batch size.
                 #     if valid < batch_size_upd:
                 #         print(len(txt_lengths))
                 #         txt_lengths = [int(1)] * valid
@@ -435,29 +407,13 @@ def validate_on_data(
                                                                     datum['video'].shape[1],
                                                                     datum['video'].shape[2]))
                             sgn_lengths.append(datum['video'].shape[0])
-
-                            # words = datum['text'].numpy().decode('utf-8').split()
-                            # tokens = []
-                            # for word in words:
-                            #     chars = [char for char in word] + [' ']
-                            #     tokens += chars
-                            # tokens = tokens[:-1]
-                            # tokens = [int(model.txt_vocab.stoi[t]) for t in tokens]
-                            # txt.append([2] + tokens + ([1] * (40 - len(tokens) - 1)))
-                            # txt_lengths.append(len(tokens))
-                            # txt_refs.append(datum['text'].numpy().decode('utf-8'))
-
                             sample_txt = datum['text'].numpy().decode('utf-8')
-                            txt.append(
-                                [2] + [int(model.txt_vocab.stoi[t]) for t in sample_txt.split()] + (
+                            txt.append([2] + [int(model.txt_vocab.stoi[t]) for t in sample_txt.split()] + (
                                         [1] * (10 - len(sample_txt.split()) - 1)))
                             txt_lengths.append(len(sample_txt.split()))
                             txt_refs.append(sample_txt)
-
-                            # txt.append([2, int(model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]), 1])
                             valid += 1
                         total += 1
-                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
                     if index + total + (batch_size_upd - valid) >= len(data):
                         if valid < batch_size_upd:
@@ -492,8 +448,6 @@ def validate_on_data(
                     # print('txt_lengths:', txt_lengths[k - 1])
                     # print()
                     out = model.image_encoder(sample.cuda(DEVICE))
-                    # sgn.append(out)
-                    # sgn.append(out.detach())
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
                     del sample, out
@@ -598,7 +552,7 @@ def validate_on_data(
                            for t in itertools.islice(data, len(data))
                            if t['video'].shape[0] <= 115]
                 gls_hyp = [" ".join(t) for t in decoded_gls]
-            # assert len(gls_ref) == len(gls_hyp) #TODO: Uncomment
+            # assert len(gls_ref) == len(gls_hyp) #TODO: Uncomment. V
 
             # GLS Metrics
             gls_ref = gls_ref if dataset_version == "phoenix_2014_trans" else gls_refs  # TODO: Mine.
@@ -648,7 +602,6 @@ def validate_on_data(
             if dataset_version == "ChicagoFSWild":
                 wacc = wacc_list(hypotheses=txt_hyp, references=txt_ref)
                 seq_accuracy = sequence_accuracy(references=txt_ref, hypotheses=txt_hyp)
-                # txt_bleu = bleu(references=txt_ref, hypotheses=txt_hyp)
             else:
                 # TXT Metrics
                 txt_bleu = bleu(references=txt_ref, hypotheses=txt_hyp)
@@ -662,13 +615,11 @@ def validate_on_data(
             valid_scores["wer_scores"] = gls_wer_score
 
         if do_translation:  # TODO: Update evaluation metrics for the ChicagoFSWild dataset.    V
+
             if dataset_version == "ChicagoFSWild":
                 valid_scores["wacc"] = wacc["wacc"]
                 valid_scores["wer_scores"] = wacc
                 valid_scores["seq_accuracy"] = seq_accuracy
-                # valid_scores["bleu"] = txt_bleu["bleu4"]
-                # valid_scores["bleu_scores"] = txt_bleu
-
             else:
                 valid_scores["bleu"] = txt_bleu["bleu4"]
                 valid_scores["bleu_scores"] = txt_bleu
@@ -764,7 +715,6 @@ def test(
             dataset=train_data,
             vocab_file=gls_vocab_file,
         )
-        # gls_vocab = GlossVocabulary(tokens=gls_vocab_file)   # TODO: Remove parameter?    V
 
         # Next, build the text vocab based on the training set.
         txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?    V
@@ -962,7 +912,6 @@ def test(
                             "[DEV] partition [Translation] results:\n\t"
                             "New Best Translation Beam Size: %d and Alpha: %d\n\t"
                             "WAcc (Word Accuracy Rate) %3.2f\t(DEL: %3.2f,\tINS: %3.2f,\tSUB: %3.2f)\n\t"
-                            # "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
                             "Sequence Accuracy %.2f",
                             dev_best_translation_beam_size,
                             dev_best_translation_alpha,
@@ -970,11 +919,6 @@ def test(
                             dev_best_translation_result["valid_scores"]["wer_scores"]["del_rate"],
                             dev_best_translation_result["valid_scores"]["wer_scores"]["ins_rate"],
                             dev_best_translation_result["valid_scores"]["wer_scores"]["sub_rate"],
-                            # dev_best_translation_result["valid_scores"]["bleu"],
-                            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu1"],
-                            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu2"],
-                            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu3"],
-                            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu4"],
                             dev_best_translation_result["valid_scores"]["seq_accuracy"],
                         )
                         logger.info("-" * 60)
@@ -1011,7 +955,6 @@ def test(
             "Best CTC Decode Beam Size: %d\n\t"
             "Best Translation Beam Size: %d and Alpha: %d\n\t"
             "WAcc (Word Accuracy Rate) %3.2f\t(DEL: %3.2f,\tINS: %3.2f,\tSUB: %3.2f)\n\t"
-            # "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
             "Sequence Accuracy %.2f",
             dev_best_recognition_beam_size if do_recognition else -1,
             dev_best_translation_beam_size if do_translation else -1,
@@ -1020,11 +963,6 @@ def test(
             dev_best_translation_result["valid_scores"]["wer_scores"]["del_rate"] if do_translation else -1,
             dev_best_translation_result["valid_scores"]["wer_scores"]["ins_rate"] if do_translation else -1,
             dev_best_translation_result["valid_scores"]["wer_scores"]["sub_rate"] if do_translation else -1,
-            # dev_best_translation_result["valid_scores"]["bleu"] if do_translation else -1,
-            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu1"] if do_translation else -1,
-            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu2"] if do_translation else -1,
-            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu3"] if do_translation else -1,
-            # dev_best_translation_result["valid_scores"]["bleu_scores"]["bleu4"] if do_translation else -1,
             dev_best_translation_result["valid_scores"]["seq_accuracy"] if do_translation else -1,
         )
     else:
@@ -1084,7 +1022,6 @@ def test(
             "Best CTC Decode Beam Size: %d\n\t"
             "Best Translation Beam Size: %d and Alpha: %d\n\t"
             "WAcc (Word Accuracy Rate) %3.2f\t(DEL: %3.2f,\tINS: %3.2f,\tSUB: %3.2f)\n\t"
-            # "BLEU-4 %.2f\t(BLEU-1: %.2f,\tBLEU-2: %.2f,\tBLEU-3: %.2f,\tBLEU-4: %.2f)\n\t"
             "Sequence Accuracy %.2f",
             dev_best_recognition_beam_size if do_recognition else -1,
             dev_best_translation_beam_size if do_translation else -1,
@@ -1093,11 +1030,6 @@ def test(
             test_best_result["valid_scores"]["wer_scores"]["del_rate"] if do_translation else -1,
             test_best_result["valid_scores"]["wer_scores"]["ins_rate"] if do_translation else -1,
             test_best_result["valid_scores"]["wer_scores"]["sub_rate"] if do_translation else -1,
-            # test_best_result["valid_scores"]["bleu"] if do_translation else -1,
-            # test_best_result["valid_scores"]["bleu_scores"]["bleu1"] if do_translation else -1,
-            # test_best_result["valid_scores"]["bleu_scores"]["bleu2"] if do_translation else -1,
-            # test_best_result["valid_scores"]["bleu_scores"]["bleu3"] if do_translation else -1,
-            # test_best_result["valid_scores"]["bleu_scores"]["bleu4"] if do_translation else -1,
             test_best_result["valid_scores"]["seq_accuracy"] if do_translation else -1,
         )
     else:

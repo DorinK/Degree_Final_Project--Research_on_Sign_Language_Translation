@@ -42,6 +42,7 @@ class MaskedNorm(nn.Module):
 
     def __init__(self, norm_type, num_groups, num_features):
         super().__init__()
+
         self.norm_type = norm_type
         if self.norm_type == "batch":
             self.norm = nn.BatchNorm1d(num_features=num_features)
@@ -133,12 +134,10 @@ class Embeddings(nn.Module):
         :param x: index in the vocabulary
         :return: embedded representation for `x`
         """
-
         x = self.lut(x)
 
         if self.norm_type:
             x = self.norm(x, mask)
-
         if self.activation_type:
             x = self.activation(x)
 
@@ -148,6 +147,7 @@ class Embeddings(nn.Module):
             return x
 
     def __repr__(self):
+
         return "%s(embedding_dim=%d, vocab_size=%d)" % (
             self.__class__.__name__,
             self.embedding_dim,
@@ -212,12 +212,10 @@ class SpatialEmbeddings(nn.Module):
         :param x: input frame features
         :return: embedded representation for `x`
         """
-
         x = self.ln(x)
 
         if self.norm_type:
             x = self.norm(x, mask)
-
         if self.activation_type:
             x = self.activation(x)
 
@@ -227,6 +225,7 @@ class SpatialEmbeddings(nn.Module):
             return x
 
     def __repr__(self):
+
         return "%s(embedding_dim=%d, input_size=%d)" % (
             self.__class__.__name__,
             self.embedding_dim,

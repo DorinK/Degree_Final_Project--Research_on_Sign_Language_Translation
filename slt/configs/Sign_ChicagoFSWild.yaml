@@ -1,15 +1,11 @@
-name: sign_experiment
+name: ChicagoFSWild Experiment
 data:
     data_path: ./data/
     version: ChicagoFSWild
     sgn: sign
     gls: gloss
-#    train: phoenix14t.pami0.train
-#    dev: phoenix14t.pami0.dev
-#    test: phoenix14t.pami0.test
     feature_size: 1000
     level: word
-#    txt_lowercase: true
     max_sent_length: 400
     random_train_subset: -1
     random_dev_subset: -1
@@ -49,7 +45,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./ChicagoFSWild_model__24"
+    model_dir: "./ChicagoFSWild Experiments/ChicagoFSWild_experiment_20"
     recognition_loss_weight: 0.0
     translation_loss_weight: 1.0
     eval_metric: wacc

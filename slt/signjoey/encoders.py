@@ -12,7 +12,6 @@ class Encoder(nn.Module):
     """
     Base encoder class.
     """
-
     @property
     def output_size(self):
         """
@@ -27,7 +26,6 @@ class RecurrentEncoder(Encoder):
     """
     Encodes a sequence of word embeddings.
     """
-
     # pylint: disable=unused-argument
     def __init__(
             self,
@@ -54,7 +52,6 @@ class RecurrentEncoder(Encoder):
         :param freeze: freeze the parameters of the encoder during training
         :param kwargs:
         """
-
         super(RecurrentEncoder, self).__init__()
 
         self.emb_dropout = torch.nn.Dropout(p=emb_dropout, inplace=False)
@@ -148,6 +145,7 @@ class RecurrentEncoder(Encoder):
         # only feed the final state of the top-most layer to the decoder
         # pylint: disable=no-member
         hidden_concat = torch.cat([fwd_hidden_last, bwd_hidden_last], dim=2).squeeze(0)
+
         # final: batch x directions*hidden
         return output, hidden_concat
 
@@ -159,7 +157,6 @@ class TransformerEncoder(Encoder):
     """
     Transformer Encoder.
     """
-
     # pylint: disable=unused-argument
     def __init__(
             self,
@@ -203,7 +200,6 @@ class TransformerEncoder(Encoder):
         self.layer_norm = nn.LayerNorm(hidden_size, eps=1e-6)
         self.pe = PositionalEncoding(hidden_size)
         self.emb_dropout = nn.Dropout(p=emb_dropout)
-
         self._output_size = hidden_size
 
         if freeze:
@@ -236,9 +232,11 @@ class TransformerEncoder(Encoder):
 
         for layer in self.layers:
             x = layer(x, mask)
+
         return self.layer_norm(x), None
 
     def __repr__(self):
+
         return "%s(num_layers=%r, num_heads=%r)" % (
             self.__class__.__name__,
             len(self.layers),

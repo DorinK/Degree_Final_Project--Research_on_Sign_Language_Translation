@@ -130,7 +130,6 @@ def initialize_model(model: nn.Module, cfg: dict, txt_padding_idx: int) -> None:
                 bias_init_fn_(p)
 
             elif len(p.size()) > 1:
-
                 # RNNs combine multiple matrices is one, which messes up xavier initialization
                 if init == "xavier" and "rnn" in name:
                     n = 1
