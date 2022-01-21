@@ -1,0 +1,96 @@
+2021-12-22 17:08:21,728 Hello! This is Joey-NMT.
+2021-12-22 17:08:21,791 Total params: 12632045
+2021-12-22 17:08:21,793 Trainable parameters: ['encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight']
+2021-12-22 17:08:26,206 cfg.name                           : AUTSL Experiment
+2021-12-22 17:08:26,206 cfg.data.data_path                 : ./data/
+2021-12-22 17:08:26,206 cfg.data.version                   : autsl
+2021-12-22 17:08:26,206 cfg.data.sgn                       : sign
+2021-12-22 17:08:26,206 cfg.data.gls                       : gloss
+2021-12-22 17:08:26,206 cfg.data.feature_size              : 1000
+2021-12-22 17:08:26,206 cfg.data.level                     : word
+2021-12-22 17:08:26,206 cfg.data.max_sent_length           : 400
+2021-12-22 17:08:26,206 cfg.data.random_train_subset       : -1
+2021-12-22 17:08:26,207 cfg.data.random_dev_subset         : -1
+2021-12-22 17:08:26,207 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-22 17:08:26,207 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-22 17:08:26,207 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2021-12-22 17:08:26,207 cfg.training.reset_best_ckpt       : False
+2021-12-22 17:08:26,207 cfg.training.reset_scheduler       : False
+2021-12-22 17:08:26,207 cfg.training.reset_optimizer       : False
+2021-12-22 17:08:26,207 cfg.training.random_seed           : 42
+2021-12-22 17:08:26,207 cfg.training.model_dir             : ./AUTSL Experiments/AUTSL_experiment_04
+2021-12-22 17:08:26,207 cfg.training.recognition_loss_weight : 1.0
+2021-12-22 17:08:26,207 cfg.training.translation_loss_weight : 0.0
+2021-12-22 17:08:26,207 cfg.training.eval_metric           : wer
+2021-12-22 17:08:26,207 cfg.training.optimizer             : adam
+2021-12-22 17:08:26,207 cfg.training.learning_rate         : 0.001
+2021-12-22 17:08:26,207 cfg.training.batch_size            : 32
+2021-12-22 17:08:26,207 cfg.training.num_valid_log         : 5
+2021-12-22 17:08:26,207 cfg.training.epochs                : 5000000
+2021-12-22 17:08:26,208 cfg.training.early_stopping_metric : eval_metric
+2021-12-22 17:08:26,208 cfg.training.batch_type            : batch
+2021-12-22 17:08:26,208 cfg.training.translation_normalization : batch
+2021-12-22 17:08:26,208 cfg.training.eval_recognition_beam_size : 9
+2021-12-22 17:08:26,208 cfg.training.eval_translation_beam_size : 9
+2021-12-22 17:08:26,208 cfg.training.eval_translation_beam_alpha : 1
+2021-12-22 17:08:26,208 cfg.training.overwrite             : True
+2021-12-22 17:08:26,208 cfg.training.shuffle               : True
+2021-12-22 17:08:26,208 cfg.training.use_cuda              : True
+2021-12-22 17:08:26,208 cfg.training.translation_max_output_length : 30
+2021-12-22 17:08:26,208 cfg.training.keep_last_ckpts       : 1
+2021-12-22 17:08:26,208 cfg.training.batch_multiplier      : 1
+2021-12-22 17:08:26,208 cfg.training.logging_freq          : 1
+2021-12-22 17:08:26,208 cfg.training.validation_freq       : 100
+2021-12-22 17:08:26,208 cfg.training.betas                 : [0.9, 0.998]
+2021-12-22 17:08:26,208 cfg.training.scheduling            : plateau
+2021-12-22 17:08:26,208 cfg.training.learning_rate_min     : 1e-06
+2021-12-22 17:08:26,208 cfg.training.weight_decay          : 0.001
+2021-12-22 17:08:26,208 cfg.training.patience              : 8
+2021-12-22 17:08:26,208 cfg.training.decrease_factor       : 0.7
+2021-12-22 17:08:26,208 cfg.training.label_smoothing       : 0.0
+2021-12-22 17:08:26,208 cfg.model.initializer              : xavier
+2021-12-22 17:08:26,209 cfg.model.bias_initializer         : zeros
+2021-12-22 17:08:26,209 cfg.model.init_gain                : 1.0
+2021-12-22 17:08:26,209 cfg.model.embed_initializer        : xavier
+2021-12-22 17:08:26,209 cfg.model.embed_init_gain          : 1.0
+2021-12-22 17:08:26,209 cfg.model.tied_softmax             : False
+2021-12-22 17:08:26,209 cfg.model.encoder.type             : transformer
+2021-12-22 17:08:26,209 cfg.model.encoder.num_layers       : 3
+2021-12-22 17:08:26,209 cfg.model.encoder.num_heads        : 8
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.embedding_dim : 512
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.scale : False
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.dropout : 0.1
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.norm_type : batch
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.activation_type : softsign
+2021-12-22 17:08:26,209 cfg.model.encoder.hidden_size      : 512
+2021-12-22 17:08:26,209 cfg.model.encoder.ff_size          : 2048
+2021-12-22 17:08:26,209 cfg.model.encoder.dropout          : 0.1
+2021-12-22 17:08:26,209 cfg.model.decoder.type             : transformer
+2021-12-22 17:08:26,209 cfg.model.decoder.num_layers       : 3
+2021-12-22 17:08:26,209 cfg.model.decoder.num_heads        : 8
+2021-12-22 17:08:26,209 cfg.model.decoder.embeddings.embedding_dim : 512
+2021-12-22 17:08:26,209 cfg.model.decoder.embeddings.scale : False
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.dropout : 0.1
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.norm_type : batch
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.activation_type : softsign
+2021-12-22 17:08:26,210 cfg.model.decoder.hidden_size      : 512
+2021-12-22 17:08:26,210 cfg.model.decoder.ff_size          : 2048
+2021-12-22 17:08:26,210 cfg.model.decoder.dropout          : 0.1
+2021-12-22 17:08:26,210 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=None,
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=None)
+2021-12-22 17:08:26,213 EPOCH 1
+2021-12-22 17:09:23,384 [Epoch: 001 Step: 00000001] Batch Recognition Loss: 326.347717 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:10:19,853 [Epoch: 001 Step: 00000002] Batch Recognition Loss:  15.528239 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:11:17,967 [Epoch: 001 Step: 00000003] Batch Recognition Loss:  15.361626 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:12:13,342 [Epoch: 001 Step: 00000004] Batch Recognition Loss:  14.725839 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:13:06,158 [Epoch: 001 Step: 00000005] Batch Recognition Loss:  12.839202 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:14:05,541 [Epoch: 001 Step: 00000006] Batch Recognition Loss:  11.677307 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:14:56,484 [Epoch: 001 Step: 00000007] Batch Recognition Loss:   9.994520 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:15:50,332 [Epoch: 001 Step: 00000008] Batch Recognition Loss:   7.860531 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:16:39,523 [Epoch: 001 Step: 00000009] Batch Recognition Loss:   7.285494 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:17:30,397 [Epoch: 001 Step: 00000010] Batch Recognition Loss:   9.493317 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:18:28,815 [Epoch: 001 Step: 00000011] Batch Recognition Loss:   6.653948 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:19:23,689 [Epoch: 001 Step: 00000012] Batch Recognition Loss:   7.236013 => Gls Tokens per Sec:        1 || Lr: 0.001000

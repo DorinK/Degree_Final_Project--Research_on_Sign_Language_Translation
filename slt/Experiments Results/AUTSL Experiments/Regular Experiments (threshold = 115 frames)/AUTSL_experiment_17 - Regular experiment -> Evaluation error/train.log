@@ -1,0 +1,331 @@
+2021-12-31 13:50:51,467 Hello! This is Joey-NMT.
+2021-12-31 13:50:53,322 Total params: 12632045
+2021-12-31 13:50:53,323 Trainable parameters: ['encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight']
+2021-12-31 13:51:09,043 cfg.name                           : AUTSL Experiment
+2021-12-31 13:51:09,044 cfg.data.data_path                 : ./data/
+2021-12-31 13:51:09,044 cfg.data.version                   : autsl
+2021-12-31 13:51:09,044 cfg.data.sgn                       : sign
+2021-12-31 13:51:09,044 cfg.data.gls                       : gloss
+2021-12-31 13:51:09,045 cfg.data.feature_size              : 1000
+2021-12-31 13:51:09,045 cfg.data.level                     : word
+2021-12-31 13:51:09,045 cfg.data.max_sent_length           : 400
+2021-12-31 13:51:09,045 cfg.data.random_train_subset       : -1
+2021-12-31 13:51:09,045 cfg.data.random_dev_subset         : -1
+2021-12-31 13:51:09,045 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-31 13:51:09,045 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-31 13:51:09,045 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2021-12-31 13:51:09,045 cfg.training.reset_best_ckpt       : False
+2021-12-31 13:51:09,046 cfg.training.reset_scheduler       : False
+2021-12-31 13:51:09,046 cfg.training.reset_optimizer       : False
+2021-12-31 13:51:09,046 cfg.training.random_seed           : 42
+2021-12-31 13:51:09,046 cfg.training.model_dir             : ./AUTSL Experiments/AUTSL_experiment_17
+2021-12-31 13:51:09,046 cfg.training.recognition_loss_weight : 1.0
+2021-12-31 13:51:09,046 cfg.training.translation_loss_weight : 0.0
+2021-12-31 13:51:09,046 cfg.training.eval_metric           : wer
+2021-12-31 13:51:09,046 cfg.training.optimizer             : adam
+2021-12-31 13:51:09,046 cfg.training.learning_rate         : 0.001
+2021-12-31 13:51:09,047 cfg.training.batch_size            : 32
+2021-12-31 13:51:09,047 cfg.training.num_valid_log         : 5
+2021-12-31 13:51:09,047 cfg.training.epochs                : 5000000
+2021-12-31 13:51:09,047 cfg.training.early_stopping_metric : eval_metric
+2021-12-31 13:51:09,047 cfg.training.batch_type            : sentence
+2021-12-31 13:51:09,047 cfg.training.translation_normalization : batch
+2021-12-31 13:51:09,047 cfg.training.eval_recognition_beam_size : 9
+2021-12-31 13:51:09,047 cfg.training.eval_translation_beam_size : 9
+2021-12-31 13:51:09,047 cfg.training.eval_translation_beam_alpha : 1
+2021-12-31 13:51:09,048 cfg.training.overwrite             : True
+2021-12-31 13:51:09,048 cfg.training.shuffle               : True
+2021-12-31 13:51:09,048 cfg.training.use_cuda              : True
+2021-12-31 13:51:09,048 cfg.training.translation_max_output_length : 1
+2021-12-31 13:51:09,048 cfg.training.keep_last_ckpts       : 1
+2021-12-31 13:51:09,048 cfg.training.batch_multiplier      : 1
+2021-12-31 13:51:09,048 cfg.training.logging_freq          : 1
+2021-12-31 13:51:09,048 cfg.training.validation_freq       : 1
+2021-12-31 13:51:09,048 cfg.training.betas                 : [0.9, 0.998]
+2021-12-31 13:51:09,048 cfg.training.scheduling            : plateau
+2021-12-31 13:51:09,049 cfg.training.learning_rate_min     : 1e-06
+2021-12-31 13:51:09,049 cfg.training.weight_decay          : 0.001
+2021-12-31 13:51:09,049 cfg.training.patience              : 8
+2021-12-31 13:51:09,049 cfg.training.decrease_factor       : 0.7
+2021-12-31 13:51:09,049 cfg.training.label_smoothing       : 0.0
+2021-12-31 13:51:09,049 cfg.model.initializer              : xavier
+2021-12-31 13:51:09,049 cfg.model.bias_initializer         : zeros
+2021-12-31 13:51:09,050 cfg.model.init_gain                : 1.0
+2021-12-31 13:51:09,050 cfg.model.embed_initializer        : xavier
+2021-12-31 13:51:09,050 cfg.model.embed_init_gain          : 1.0
+2021-12-31 13:51:09,050 cfg.model.tied_softmax             : False
+2021-12-31 13:51:09,050 cfg.model.encoder.type             : transformer
+2021-12-31 13:51:09,050 cfg.model.encoder.num_layers       : 3
+2021-12-31 13:51:09,051 cfg.model.encoder.num_heads        : 8
+2021-12-31 13:51:09,051 cfg.model.encoder.embeddings.embedding_dim : 512
+2021-12-31 13:51:09,051 cfg.model.encoder.embeddings.scale : False
+2021-12-31 13:51:09,051 cfg.model.encoder.embeddings.dropout : 0.1
+2021-12-31 13:51:09,051 cfg.model.encoder.embeddings.norm_type : batch
+2021-12-31 13:51:09,051 cfg.model.encoder.embeddings.activation_type : softsign
+2021-12-31 13:51:09,051 cfg.model.encoder.hidden_size      : 512
+2021-12-31 13:51:09,052 cfg.model.encoder.ff_size          : 2048
+2021-12-31 13:51:09,052 cfg.model.encoder.dropout          : 0.1
+2021-12-31 13:51:09,052 cfg.model.decoder.type             : transformer
+2021-12-31 13:51:09,052 cfg.model.decoder.num_layers       : 3
+2021-12-31 13:51:09,052 cfg.model.decoder.num_heads        : 8
+2021-12-31 13:51:09,052 cfg.model.decoder.embeddings.embedding_dim : 512
+2021-12-31 13:51:09,053 cfg.model.decoder.embeddings.scale : False
+2021-12-31 13:51:09,053 cfg.model.decoder.embeddings.dropout : 0.1
+2021-12-31 13:51:09,053 cfg.model.decoder.embeddings.norm_type : batch
+2021-12-31 13:51:09,053 cfg.model.decoder.embeddings.activation_type : softsign
+2021-12-31 13:51:09,053 cfg.model.decoder.hidden_size      : 512
+2021-12-31 13:51:09,053 cfg.model.decoder.ff_size          : 2048
+2021-12-31 13:51:09,053 cfg.model.decoder.dropout          : 0.1
+2021-12-31 13:51:09,053 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=None,
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=None)
+2021-12-31 13:51:09,059 EPOCH 1
+2021-12-31 13:52:35,216 [Epoch: 001 Step: 00000001] Batch Recognition Loss: 317.232605 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-01 10:45:46,798 Hooray! New best validation result [eval_metric]!
+2022-01-01 10:45:46,880 Saving new checkpoint.
+2022-01-01 10:45:51,731 Validation result at epoch   1, step        1: duration: 75196.2431s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 2199.32178	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-01 11:02:06,742 Logging Recognition and Translation Outputs
+2022-01-01 11:02:06,808 ========================================================================================================================
+2022-01-01 11:02:06,808 Logging Sequence: signer25_sample335
+2022-01-01 11:02:06,809 	Gloss Reference :	4
+2022-01-01 11:02:06,809 	Gloss Hypothesis:	*
+2022-01-01 11:02:06,809 	Gloss Alignment :	D
+2022-01-01 11:02:06,809 ========================================================================================================================
+2022-01-01 11:02:06,810 Logging Sequence: signer16_sample179
+2022-01-01 11:02:06,810 	Gloss Reference :	177
+2022-01-01 11:02:06,810 	Gloss Hypothesis:	***
+2022-01-01 11:02:06,811 	Gloss Alignment :	D  
+2022-01-01 11:02:06,811 ========================================================================================================================
+2022-01-01 11:02:06,811 Logging Sequence: signer16_sample160
+2022-01-01 11:02:06,811 	Gloss Reference :	56
+2022-01-01 11:02:06,812 	Gloss Hypothesis:	**
+2022-01-01 11:02:06,812 	Gloss Alignment :	D 
+2022-01-01 11:02:06,812 ========================================================================================================================
+2022-01-01 11:02:06,812 Logging Sequence: signer1_sample822
+2022-01-01 11:02:06,812 	Gloss Reference :	217
+2022-01-01 11:02:06,813 	Gloss Hypothesis:	***
+2022-01-01 11:02:06,813 	Gloss Alignment :	D  
+2022-01-01 11:02:06,813 ========================================================================================================================
+2022-01-01 11:02:06,813 Logging Sequence: signer1_sample486
+2022-01-01 11:02:06,813 	Gloss Reference :	68
+2022-01-01 11:02:06,813 	Gloss Hypothesis:	**
+2022-01-01 11:02:06,814 	Gloss Alignment :	D 
+2022-01-01 11:02:06,814 ========================================================================================================================
+2022-01-01 11:05:02,418 [Epoch: 001 Step: 00000002] Batch Recognition Loss:  15.367599 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-02 05:34:53,156 Validation result at epoch   1, step        2: duration: 66590.5970s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 2181.40674	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-02 05:39:14,926 Logging Recognition and Translation Outputs
+2022-01-02 05:39:14,959 ========================================================================================================================
+2022-01-02 05:39:14,960 Logging Sequence: signer11_sample311
+2022-01-02 05:39:14,971 	Gloss Reference :	134
+2022-01-02 05:39:14,971 	Gloss Hypothesis:	***
+2022-01-02 05:39:14,971 	Gloss Alignment :	D  
+2022-01-02 05:39:14,971 ========================================================================================================================
+2022-01-02 05:39:14,972 Logging Sequence: signer18_sample553
+2022-01-02 05:39:14,972 	Gloss Reference :	204
+2022-01-02 05:39:14,972 	Gloss Hypothesis:	***
+2022-01-02 05:39:14,972 	Gloss Alignment :	D  
+2022-01-02 05:39:14,972 ========================================================================================================================
+2022-01-02 05:39:14,973 Logging Sequence: signer35_sample325
+2022-01-02 05:39:14,973 	Gloss Reference :	0
+2022-01-02 05:39:14,973 	Gloss Hypothesis:	*
+2022-01-02 05:39:14,973 	Gloss Alignment :	D
+2022-01-02 05:39:14,973 ========================================================================================================================
+2022-01-02 05:39:14,974 Logging Sequence: signer11_sample251
+2022-01-02 05:39:14,974 	Gloss Reference :	72
+2022-01-02 05:39:14,974 	Gloss Hypothesis:	**
+2022-01-02 05:39:14,974 	Gloss Alignment :	D 
+2022-01-02 05:39:14,974 ========================================================================================================================
+2022-01-02 05:39:14,974 Logging Sequence: signer1_sample179
+2022-01-02 05:39:14,975 	Gloss Reference :	122
+2022-01-02 05:39:14,975 	Gloss Hypothesis:	***
+2022-01-02 05:39:14,975 	Gloss Alignment :	D  
+2022-01-02 05:39:14,975 ========================================================================================================================
+2022-01-02 05:41:26,549 [Epoch: 001 Step: 00000003] Batch Recognition Loss:  15.161544 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-02 11:40:07,340 Validation result at epoch   1, step        3: duration: 21520.7366s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 2039.18787	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-02 11:44:40,544 Logging Recognition and Translation Outputs
+2022-01-02 11:44:40,546 ========================================================================================================================
+2022-01-02 11:44:40,546 Logging Sequence: signer1_sample411
+2022-01-02 11:44:40,547 	Gloss Reference :	11
+2022-01-02 11:44:40,547 	Gloss Hypothesis:	**
+2022-01-02 11:44:40,547 	Gloss Alignment :	D 
+2022-01-02 11:44:40,548 ========================================================================================================================
+2022-01-02 11:44:40,565 Logging Sequence: signer1_sample727
+2022-01-02 11:44:40,565 	Gloss Reference :	143
+2022-01-02 11:44:40,566 	Gloss Hypothesis:	***
+2022-01-02 11:44:40,566 	Gloss Alignment :	D  
+2022-01-02 11:44:40,566 ========================================================================================================================
+2022-01-02 11:44:40,566 Logging Sequence: signer25_sample539
+2022-01-02 11:44:40,567 	Gloss Reference :	144
+2022-01-02 11:44:40,567 	Gloss Hypothesis:	***
+2022-01-02 11:44:40,567 	Gloss Alignment :	D  
+2022-01-02 11:44:40,567 ========================================================================================================================
+2022-01-02 11:44:40,567 Logging Sequence: signer1_sample542
+2022-01-02 11:44:40,568 	Gloss Reference :	110
+2022-01-02 11:44:40,568 	Gloss Hypothesis:	***
+2022-01-02 11:44:40,568 	Gloss Alignment :	D  
+2022-01-02 11:44:40,568 ========================================================================================================================
+2022-01-02 11:44:40,568 Logging Sequence: signer1_sample566
+2022-01-02 11:44:40,569 	Gloss Reference :	157
+2022-01-02 11:44:40,569 	Gloss Hypothesis:	***
+2022-01-02 11:44:40,569 	Gloss Alignment :	D  
+2022-01-02 11:44:40,569 ========================================================================================================================
+2022-01-02 11:45:52,150 [Epoch: 001 Step: 00000004] Batch Recognition Loss:  14.463678 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-02 18:39:19,354 Validation result at epoch   1, step        4: duration: 24807.2025s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 1852.47900	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-02 18:44:41,666 Logging Recognition and Translation Outputs
+2022-01-02 18:44:41,668 ========================================================================================================================
+2022-01-02 18:44:41,668 Logging Sequence: signer1_sample251
+2022-01-02 18:44:41,669 	Gloss Reference :	212
+2022-01-02 18:44:41,669 	Gloss Hypothesis:	***
+2022-01-02 18:44:41,669 	Gloss Alignment :	D  
+2022-01-02 18:44:41,669 ========================================================================================================================
+2022-01-02 18:44:41,669 Logging Sequence: signer1_sample234
+2022-01-02 18:44:41,670 	Gloss Reference :	111
+2022-01-02 18:44:41,670 	Gloss Hypothesis:	***
+2022-01-02 18:44:41,670 	Gloss Alignment :	D  
+2022-01-02 18:44:41,670 ========================================================================================================================
+2022-01-02 18:44:41,670 Logging Sequence: signer11_sample187
+2022-01-02 18:44:41,670 	Gloss Reference :	17
+2022-01-02 18:44:41,671 	Gloss Hypothesis:	**
+2022-01-02 18:44:41,671 	Gloss Alignment :	D 
+2022-01-02 18:44:41,671 ========================================================================================================================
+2022-01-02 18:44:41,671 Logging Sequence: signer11_sample205
+2022-01-02 18:44:41,672 	Gloss Reference :	54
+2022-01-02 18:44:41,672 	Gloss Hypothesis:	**
+2022-01-02 18:44:41,672 	Gloss Alignment :	D 
+2022-01-02 18:44:41,672 ========================================================================================================================
+2022-01-02 18:44:41,672 Logging Sequence: signer25_sample242
+2022-01-02 18:44:41,672 	Gloss Reference :	189
+2022-01-02 18:44:41,672 	Gloss Hypothesis:	***
+2022-01-02 18:44:41,673 	Gloss Alignment :	D  
+2022-01-02 18:44:41,673 ========================================================================================================================
+2022-01-02 18:48:23,286 [Epoch: 001 Step: 00000005] Batch Recognition Loss:  13.031944 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 00:15:52,058 Validation result at epoch   1, step        5: duration: 19648.7364s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 1610.50659	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-03 00:18:13,341 Logging Recognition and Translation Outputs
+2022-01-03 00:18:13,427 ========================================================================================================================
+2022-01-03 00:18:13,427 Logging Sequence: signer1_sample816
+2022-01-03 00:18:13,428 	Gloss Reference :	159
+2022-01-03 00:18:13,428 	Gloss Hypothesis:	***
+2022-01-03 00:18:13,428 	Gloss Alignment :	D  
+2022-01-03 00:18:13,428 ========================================================================================================================
+2022-01-03 00:18:13,429 Logging Sequence: signer25_sample626
+2022-01-03 00:18:13,429 	Gloss Reference :	54
+2022-01-03 00:18:13,429 	Gloss Hypothesis:	**
+2022-01-03 00:18:13,429 	Gloss Alignment :	D 
+2022-01-03 00:18:13,430 ========================================================================================================================
+2022-01-03 00:18:13,430 Logging Sequence: signer25_sample176
+2022-01-03 00:18:13,430 	Gloss Reference :	52
+2022-01-03 00:18:13,430 	Gloss Hypothesis:	**
+2022-01-03 00:18:13,431 	Gloss Alignment :	D 
+2022-01-03 00:18:13,431 ========================================================================================================================
+2022-01-03 00:18:13,431 Logging Sequence: signer16_sample183
+2022-01-03 00:18:13,431 	Gloss Reference :	212
+2022-01-03 00:18:13,431 	Gloss Hypothesis:	***
+2022-01-03 00:18:13,432 	Gloss Alignment :	D  
+2022-01-03 00:18:13,432 ========================================================================================================================
+2022-01-03 00:18:13,432 Logging Sequence: signer1_sample1120
+2022-01-03 00:18:13,432 	Gloss Reference :	142
+2022-01-03 00:18:13,433 	Gloss Hypothesis:	***
+2022-01-03 00:18:13,433 	Gloss Alignment :	D  
+2022-01-03 00:18:13,433 ========================================================================================================================
+2022-01-03 00:19:16,992 [Epoch: 001 Step: 00000006] Batch Recognition Loss:  11.295391 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 19:00:30,841 Validation result at epoch   1, step        6: duration: 67273.8379s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 1321.76221	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-03 19:05:23,836 Logging Recognition and Translation Outputs
+2022-01-03 19:05:23,837 ========================================================================================================================
+2022-01-03 19:05:23,838 Logging Sequence: signer16_sample265
+2022-01-03 19:05:23,839 	Gloss Reference :	138
+2022-01-03 19:05:23,840 	Gloss Hypothesis:	***
+2022-01-03 19:05:23,840 	Gloss Alignment :	D  
+2022-01-03 19:05:23,840 ========================================================================================================================
+2022-01-03 19:05:23,840 Logging Sequence: signer11_sample662
+2022-01-03 19:05:23,841 	Gloss Reference :	131
+2022-01-03 19:05:23,841 	Gloss Hypothesis:	***
+2022-01-03 19:05:23,841 	Gloss Alignment :	D  
+2022-01-03 19:05:23,841 ========================================================================================================================
+2022-01-03 19:05:23,841 Logging Sequence: signer1_sample800
+2022-01-03 19:05:23,841 	Gloss Reference :	128
+2022-01-03 19:05:23,842 	Gloss Hypothesis:	***
+2022-01-03 19:05:23,842 	Gloss Alignment :	D  
+2022-01-03 19:05:23,842 ========================================================================================================================
+2022-01-03 19:05:23,842 Logging Sequence: signer25_sample388
+2022-01-03 19:05:23,842 	Gloss Reference :	38
+2022-01-03 19:05:23,843 	Gloss Hypothesis:	**
+2022-01-03 19:05:23,843 	Gloss Alignment :	D 
+2022-01-03 19:05:23,843 ========================================================================================================================
+2022-01-03 19:05:23,843 Logging Sequence: signer35_sample44
+2022-01-03 19:05:23,843 	Gloss Reference :	213
+2022-01-03 19:05:23,844 	Gloss Hypothesis:	***
+2022-01-03 19:05:23,844 	Gloss Alignment :	D  
+2022-01-03 19:05:23,844 ========================================================================================================================
+2022-01-03 19:07:05,052 [Epoch: 001 Step: 00000007] Batch Recognition Loss:   9.483107 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-04 01:59:52,805 Validation result at epoch   1, step        7: duration: 24767.7237s
+	Recognition Beam Size: 9	Translation Beam Size: -1	Translation Beam Alpha: -1
+	Recognition Loss: 1041.89160	Translation Loss: -1.00000	PPL: -1.00000
+	Eval Metric: WER
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 -1.00	(BLEU-1: -1.00,	BLEU-2: -1.00,	BLEU-3: -1.00,	BLEU-4: -1.00)
+	CHRF -1.00	ROUGE -1.00
+2022-01-04 02:04:54,921 Logging Recognition and Translation Outputs
+2022-01-04 02:04:54,955 ========================================================================================================================
+2022-01-04 02:04:54,955 Logging Sequence: signer11_sample500
+2022-01-04 02:04:54,955 	Gloss Reference :	177
+2022-01-04 02:04:54,955 	Gloss Hypothesis:	***
+2022-01-04 02:04:54,956 	Gloss Alignment :	D  
+2022-01-04 02:04:54,956 ========================================================================================================================
+2022-01-04 02:04:54,956 Logging Sequence: signer25_sample352
+2022-01-04 02:04:54,956 	Gloss Reference :	171
+2022-01-04 02:04:54,956 	Gloss Hypothesis:	***
+2022-01-04 02:04:54,956 	Gloss Alignment :	D  
+2022-01-04 02:04:54,956 ========================================================================================================================
+2022-01-04 02:04:54,956 Logging Sequence: signer18_sample265
+2022-01-04 02:04:54,957 	Gloss Reference :	80
+2022-01-04 02:04:54,957 	Gloss Hypothesis:	**
+2022-01-04 02:04:54,957 	Gloss Alignment :	D 
+2022-01-04 02:04:54,957 ========================================================================================================================
+2022-01-04 02:04:54,957 Logging Sequence: signer25_sample527
+2022-01-04 02:04:54,957 	Gloss Reference :	91
+2022-01-04 02:04:54,958 	Gloss Hypothesis:	**
+2022-01-04 02:04:54,958 	Gloss Alignment :	D 
+2022-01-04 02:04:54,958 ========================================================================================================================
+2022-01-04 02:04:54,958 Logging Sequence: signer11_sample616
+2022-01-04 02:04:54,958 	Gloss Reference :	215
+2022-01-04 02:04:54,958 	Gloss Hypothesis:	***
+2022-01-04 02:04:54,958 	Gloss Alignment :	D  
+2022-01-04 02:04:54,958 ========================================================================================================================

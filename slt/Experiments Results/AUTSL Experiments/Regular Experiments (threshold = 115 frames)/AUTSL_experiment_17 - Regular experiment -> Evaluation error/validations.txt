@@ -1,0 +1,7 @@
+Steps: 1	Recognition Loss: 2199.32178	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	*
+Steps: 2	Recognition Loss: 2181.40674	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	
+Steps: 3	Recognition Loss: 2039.18787	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	
+Steps: 4	Recognition Loss: 1852.47900	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	
+Steps: 5	Recognition Loss: 1610.50659	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	
+Steps: 6	Recognition Loss: 1321.76221	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	
+Steps: 7	Recognition Loss: 1041.89160	Translation Loss: -1.00000	PPL: -1.00000	Eval Metric: wer	WAcc (Word Accuracy Rate) -1.00	(DEL: -1.00,	INS: -1.00,	SUB: -1.00)	Sequence Accuracy -1.00	LR: 0.00100000	

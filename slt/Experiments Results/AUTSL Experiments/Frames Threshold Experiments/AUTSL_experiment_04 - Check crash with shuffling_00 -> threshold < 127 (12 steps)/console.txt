@@ -1,0 +1,2677 @@
+ssh://dorink@nlp15:22/home/nlp/dorink/anaconda3/envs/slt_env/bin/python3 -u /home/nlp/dorink/project/slt/signjoey/__main__.py train /home/nlp/dorink/project/slt/configs/sign_autsl.yaml
+2021-12-22 16:52:00.696867: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2021-12-22 16:52:37.263073: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcuda.so.1
+2021-12-22 16:52:38.037411: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
+pciBusID: 0000:3b:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-22 16:52:38.039308: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 1 with properties:
+pciBusID: 0000:5e:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-22 16:52:38.041141: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 2 with properties:
+pciBusID: 0000:86:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-22 16:52:38.042851: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 3 with properties:
+pciBusID: 0000:af:00.0 name: NVIDIA GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2021-12-22 16:52:38.042940: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2021-12-22 16:52:38.043008: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
+2021-12-22 16:52:38.043055: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
+2021-12-22 16:52:38.043146: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcufft.so.10
+2021-12-22 16:52:38.043235: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcurand.so.10
+2021-12-22 16:52:38.043284: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusolver.so.11
+2021-12-22 16:52:38.043330: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusparse.so.11
+2021-12-22 16:52:38.064969: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudnn.so.8
+2021-12-22 16:52:38.077157: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0, 1, 2, 3
+WARNING:absl:Using custom data configuration include-videos
+2021-12-22 16:52:54.287563: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-12-22 16:52:54.300587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1258] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-12-22 16:52:54.300644: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]
+2021-12-22 16:52:54.930107: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+2021-12-22 16:52:54.931527: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2100000000 Hz
+INFO:slt.signjoey.helpers:Hello! This is Joey-NMT.
+2021-12-22 17:08:21,728 Hello! This is Joey-NMT.
+INFO:slt.signjoey.helpers:Total params: 12632045
+2021-12-22 17:08:21,791 Total params: 12632045
+INFO:slt.signjoey.helpers:Trainable parameters: ['encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight']
+2021-12-22 17:08:21,793 Trainable parameters: ['encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight']
+INFO:slt.signjoey.helpers:cfg.name                           : sign_experiment
+2021-12-22 17:08:26,206 cfg.name                           : sign_experiment
+INFO:slt.signjoey.helpers:cfg.data.data_path                 : ./data/
+2021-12-22 17:08:26,206 cfg.data.data_path                 : ./data/
+INFO:slt.signjoey.helpers:cfg.data.version                   : autsl
+2021-12-22 17:08:26,206 cfg.data.version                   : autsl
+INFO:slt.signjoey.helpers:cfg.data.sgn                       : sign
+2021-12-22 17:08:26,206 cfg.data.sgn                       : sign
+INFO:slt.signjoey.helpers:cfg.data.gls                       : gloss
+2021-12-22 17:08:26,206 cfg.data.gls                       : gloss
+INFO:slt.signjoey.helpers:cfg.data.feature_size              : 1000
+2021-12-22 17:08:26,206 cfg.data.feature_size              : 1000
+INFO:slt.signjoey.helpers:cfg.data.level                     : word
+2021-12-22 17:08:26,206 cfg.data.level                     : word
+INFO:slt.signjoey.helpers:cfg.data.max_sent_length           : 400
+2021-12-22 17:08:26,206 cfg.data.max_sent_length           : 400
+INFO:slt.signjoey.helpers:cfg.data.random_train_subset       : -1
+2021-12-22 17:08:26,206 cfg.data.random_train_subset       : -1
+INFO:slt.signjoey.helpers:cfg.data.random_dev_subset         : -1
+2021-12-22 17:08:26,207 cfg.data.random_dev_subset         : -1
+INFO:slt.signjoey.helpers:cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-22 17:08:26,207 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+INFO:slt.signjoey.helpers:cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2021-12-22 17:08:26,207 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+INFO:slt.signjoey.helpers:cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2021-12-22 17:08:26,207 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+INFO:slt.signjoey.helpers:cfg.training.reset_best_ckpt       : False
+2021-12-22 17:08:26,207 cfg.training.reset_best_ckpt       : False
+INFO:slt.signjoey.helpers:cfg.training.reset_scheduler       : False
+2021-12-22 17:08:26,207 cfg.training.reset_scheduler       : False
+INFO:slt.signjoey.helpers:cfg.training.reset_optimizer       : False
+2021-12-22 17:08:26,207 cfg.training.reset_optimizer       : False
+INFO:slt.signjoey.helpers:cfg.training.random_seed           : 42
+2021-12-22 17:08:26,207 cfg.training.random_seed           : 42
+INFO:slt.signjoey.helpers:cfg.training.model_dir             : ./autsl_model__2
+2021-12-22 17:08:26,207 cfg.training.model_dir             : ./autsl_model__2
+INFO:slt.signjoey.helpers:cfg.training.recognition_loss_weight : 1.0
+2021-12-22 17:08:26,207 cfg.training.recognition_loss_weight : 1.0
+INFO:slt.signjoey.helpers:cfg.training.translation_loss_weight : 0.0
+2021-12-22 17:08:26,207 cfg.training.translation_loss_weight : 0.0
+INFO:slt.signjoey.helpers:cfg.training.eval_metric           : wer
+2021-12-22 17:08:26,207 cfg.training.eval_metric           : wer
+INFO:slt.signjoey.helpers:cfg.training.optimizer             : adam
+2021-12-22 17:08:26,207 cfg.training.optimizer             : adam
+INFO:slt.signjoey.helpers:cfg.training.learning_rate         : 0.001
+2021-12-22 17:08:26,207 cfg.training.learning_rate         : 0.001
+INFO:slt.signjoey.helpers:cfg.training.batch_size            : 32
+2021-12-22 17:08:26,207 cfg.training.batch_size            : 32
+INFO:slt.signjoey.helpers:cfg.training.num_valid_log         : 5
+2021-12-22 17:08:26,207 cfg.training.num_valid_log         : 5
+INFO:slt.signjoey.helpers:cfg.training.epochs                : 5000000
+2021-12-22 17:08:26,207 cfg.training.epochs                : 5000000
+INFO:slt.signjoey.helpers:cfg.training.early_stopping_metric : eval_metric
+2021-12-22 17:08:26,208 cfg.training.early_stopping_metric : eval_metric
+INFO:slt.signjoey.helpers:cfg.training.batch_type            : batch
+2021-12-22 17:08:26,208 cfg.training.batch_type            : batch
+INFO:slt.signjoey.helpers:cfg.training.translation_normalization : batch
+2021-12-22 17:08:26,208 cfg.training.translation_normalization : batch
+INFO:slt.signjoey.helpers:cfg.training.eval_recognition_beam_size : 9
+2021-12-22 17:08:26,208 cfg.training.eval_recognition_beam_size : 9
+INFO:slt.signjoey.helpers:cfg.training.eval_translation_beam_size : 9
+2021-12-22 17:08:26,208 cfg.training.eval_translation_beam_size : 9
+INFO:slt.signjoey.helpers:cfg.training.eval_translation_beam_alpha : 1
+2021-12-22 17:08:26,208 cfg.training.eval_translation_beam_alpha : 1
+INFO:slt.signjoey.helpers:cfg.training.overwrite             : True
+2021-12-22 17:08:26,208 cfg.training.overwrite             : True
+INFO:slt.signjoey.helpers:cfg.training.shuffle               : True
+2021-12-22 17:08:26,208 cfg.training.shuffle               : True
+INFO:slt.signjoey.helpers:cfg.training.use_cuda              : True
+2021-12-22 17:08:26,208 cfg.training.use_cuda              : True
+INFO:slt.signjoey.helpers:cfg.training.translation_max_output_length : 30
+2021-12-22 17:08:26,208 cfg.training.translation_max_output_length : 30
+INFO:slt.signjoey.helpers:cfg.training.keep_last_ckpts       : 1
+2021-12-22 17:08:26,208 cfg.training.keep_last_ckpts       : 1
+INFO:slt.signjoey.helpers:cfg.training.batch_multiplier      : 1
+2021-12-22 17:08:26,208 cfg.training.batch_multiplier      : 1
+INFO:slt.signjoey.helpers:cfg.training.logging_freq          : 1
+2021-12-22 17:08:26,208 cfg.training.logging_freq          : 1
+INFO:slt.signjoey.helpers:cfg.training.validation_freq       : 100
+2021-12-22 17:08:26,208 cfg.training.validation_freq       : 100
+INFO:slt.signjoey.helpers:cfg.training.betas                 : [0.9, 0.998]
+2021-12-22 17:08:26,208 cfg.training.betas                 : [0.9, 0.998]
+INFO:slt.signjoey.helpers:cfg.training.scheduling            : plateau
+2021-12-22 17:08:26,208 cfg.training.scheduling            : plateau
+INFO:slt.signjoey.helpers:cfg.training.learning_rate_min     : 1e-06
+2021-12-22 17:08:26,208 cfg.training.learning_rate_min     : 1e-06
+INFO:slt.signjoey.helpers:cfg.training.weight_decay          : 0.001
+2021-12-22 17:08:26,208 cfg.training.weight_decay          : 0.001
+INFO:slt.signjoey.helpers:cfg.training.patience              : 8
+2021-12-22 17:08:26,208 cfg.training.patience              : 8
+INFO:slt.signjoey.helpers:cfg.training.decrease_factor       : 0.7
+2021-12-22 17:08:26,208 cfg.training.decrease_factor       : 0.7
+INFO:slt.signjoey.helpers:cfg.training.label_smoothing       : 0.0
+2021-12-22 17:08:26,208 cfg.training.label_smoothing       : 0.0
+INFO:slt.signjoey.helpers:cfg.model.initializer              : xavier
+2021-12-22 17:08:26,208 cfg.model.initializer              : xavier
+INFO:slt.signjoey.helpers:cfg.model.bias_initializer         : zeros
+2021-12-22 17:08:26,209 cfg.model.bias_initializer         : zeros
+INFO:slt.signjoey.helpers:cfg.model.init_gain                : 1.0
+2021-12-22 17:08:26,209 cfg.model.init_gain                : 1.0
+INFO:slt.signjoey.helpers:cfg.model.embed_initializer        : xavier
+2021-12-22 17:08:26,209 cfg.model.embed_initializer        : xavier
+INFO:slt.signjoey.helpers:cfg.model.embed_init_gain          : 1.0
+2021-12-22 17:08:26,209 cfg.model.embed_init_gain          : 1.0
+INFO:slt.signjoey.helpers:cfg.model.tied_softmax             : False
+2021-12-22 17:08:26,209 cfg.model.tied_softmax             : False
+INFO:slt.signjoey.helpers:cfg.model.encoder.type             : transformer
+2021-12-22 17:08:26,209 cfg.model.encoder.type             : transformer
+INFO:slt.signjoey.helpers:cfg.model.encoder.num_layers       : 3
+2021-12-22 17:08:26,209 cfg.model.encoder.num_layers       : 3
+INFO:slt.signjoey.helpers:cfg.model.encoder.num_heads        : 8
+2021-12-22 17:08:26,209 cfg.model.encoder.num_heads        : 8
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.embedding_dim : 512
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.embedding_dim : 512
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.scale : False
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.scale : False
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.dropout : 0.1
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.dropout : 0.1
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.norm_type : batch
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.norm_type : batch
+INFO:slt.signjoey.helpers:cfg.model.encoder.embeddings.activation_type : softsign
+2021-12-22 17:08:26,209 cfg.model.encoder.embeddings.activation_type : softsign
+INFO:slt.signjoey.helpers:cfg.model.encoder.hidden_size      : 512
+2021-12-22 17:08:26,209 cfg.model.encoder.hidden_size      : 512
+INFO:slt.signjoey.helpers:cfg.model.encoder.ff_size          : 2048
+2021-12-22 17:08:26,209 cfg.model.encoder.ff_size          : 2048
+INFO:slt.signjoey.helpers:cfg.model.encoder.dropout          : 0.1
+2021-12-22 17:08:26,209 cfg.model.encoder.dropout          : 0.1
+INFO:slt.signjoey.helpers:cfg.model.decoder.type             : transformer
+2021-12-22 17:08:26,209 cfg.model.decoder.type             : transformer
+INFO:slt.signjoey.helpers:cfg.model.decoder.num_layers       : 3
+2021-12-22 17:08:26,209 cfg.model.decoder.num_layers       : 3
+INFO:slt.signjoey.helpers:cfg.model.decoder.num_heads        : 8
+2021-12-22 17:08:26,209 cfg.model.decoder.num_heads        : 8
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.embedding_dim : 512
+2021-12-22 17:08:26,209 cfg.model.decoder.embeddings.embedding_dim : 512
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.scale : False
+2021-12-22 17:08:26,209 cfg.model.decoder.embeddings.scale : False
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.dropout : 0.1
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.dropout : 0.1
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.norm_type : batch
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.norm_type : batch
+INFO:slt.signjoey.helpers:cfg.model.decoder.embeddings.activation_type : softsign
+2021-12-22 17:08:26,210 cfg.model.decoder.embeddings.activation_type : softsign
+INFO:slt.signjoey.helpers:cfg.model.decoder.hidden_size      : 512
+2021-12-22 17:08:26,210 cfg.model.decoder.hidden_size      : 512
+INFO:slt.signjoey.helpers:cfg.model.decoder.ff_size          : 2048
+2021-12-22 17:08:26,210 cfg.model.decoder.ff_size          : 2048
+INFO:slt.signjoey.helpers:cfg.model.decoder.dropout          : 0.1
+2021-12-22 17:08:26,210 cfg.model.decoder.dropout          : 0.1
+INFO:slt.signjoey.helpers:SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=None,
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=None)
+2021-12-22 17:08:26,210 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=None,
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=None)
+SLT_total_params: 12632045
+SLT_total_trained_params: 12632045
+INFO:slt.signjoey.helpers:EPOCH 1
+2021-12-22 17:08:26,213 EPOCH 1
+index: 1
+sequence: signer7_sample961
+sgn_lengths: 58
+signer: 7
+gls: [102]
+
+index: 2
+sequence: signer23_sample66
+sgn_lengths: 53
+signer: 23
+gls: [49]
+
+index: 3
+sequence: signer2_sample1153
+sgn_lengths: 67
+signer: 2
+gls: [178]
+
+index: 4
+sequence: signer7_sample6
+sgn_lengths: 75
+signer: 7
+gls: [94]
+
+index: 5
+sequence: signer0_sample1155
+sgn_lengths: 54
+signer: 0
+gls: [84]
+
+index: 6
+sequence: signer41_sample329
+sgn_lengths: 49
+signer: 41
+gls: [9]
+
+index: 7
+sequence: signer2_sample783
+sgn_lengths: 70
+signer: 2
+gls: [118]
+
+index: 8
+sequence: signer0_sample1202
+sgn_lengths: 48
+signer: 0
+gls: [197]
+
+index: 9
+sequence: signer40_sample62
+sgn_lengths: 100
+signer: 40
+gls: [46]
+
+index: 10
+sequence: signer28_sample488
+sgn_lengths: 68
+signer: 28
+gls: [58]
+
+index: 11
+sequence: signer7_sample1627
+sgn_lengths: 77
+signer: 7
+gls: [89]
+
+index: 12
+sequence: signer17_sample127
+sgn_lengths: 52
+signer: 17
+gls: [56]
+
+index: 13
+sequence: signer8_sample1251
+sgn_lengths: 44
+signer: 8
+gls: [105]
+
+index: 14
+sequence: signer33_sample649
+sgn_lengths: 66
+signer: 33
+gls: [159]
+
+index: 15
+sequence: signer19_sample492
+sgn_lengths: 70
+signer: 19
+gls: [199]
+
+index: 16
+sequence: signer12_sample1892
+sgn_lengths: 65
+signer: 12
+gls: [17]
+
+index: 17
+sequence: signer10_sample341
+sgn_lengths: 55
+signer: 10
+gls: [176]
+
+index: 18
+sequence: signer8_sample416
+sgn_lengths: 73
+signer: 8
+gls: [207]
+
+index: 19
+sequence: signer7_sample2437
+sgn_lengths: 71
+signer: 7
+gls: [213]
+
+index: 20
+sequence: signer7_sample338
+sgn_lengths: 56
+signer: 7
+gls: [200]
+
+index: 21
+sequence: signer4_sample468
+sgn_lengths: 77
+signer: 4
+gls: [216]
+
+index: 22
+sequence: signer12_sample415
+sgn_lengths: 68
+signer: 12
+gls: [181]
+
+index: 23
+sequence: signer10_sample140
+sgn_lengths: 51
+signer: 10
+gls: [170]
+
+index: 24
+sequence: signer12_sample943
+sgn_lengths: 54
+signer: 12
+gls: [123]
+
+index: 25
+sequence: signer13_sample108
+sgn_lengths: 51
+signer: 13
+gls: [171]
+
+index: 26
+sequence: signer3_sample655
+sgn_lengths: 70
+signer: 3
+gls: [226]
+
+index: 27
+sequence: signer7_sample1904
+sgn_lengths: 65
+signer: 7
+gls: [157]
+
+index: 28
+sequence: signer8_sample664
+sgn_lengths: 47
+signer: 8
+gls: [154]
+
+index: 29
+sequence: signer31_sample495
+sgn_lengths: 74
+signer: 31
+gls: [18]
+
+index: 30
+sequence: signer8_sample235
+sgn_lengths: 63
+signer: 8
+gls: [84]
+
+index: 31
+sequence: signer4_sample325
+sgn_lengths: 81
+signer: 4
+gls: [137]
+
+index: 32
+sequence: signer13_sample878
+sgn_lengths: 51
+signer: 13
+gls: [30]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000001] Batch Recognition Loss: 326.347717 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:09:23,384 [Epoch: 001 Step: 00000001] Batch Recognition Loss: 326.347717 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer19_sample261
+sgn_lengths: 77
+signer: 19
+gls: [69]
+
+index: 2
+sequence: signer0_sample769
+sgn_lengths: 41
+signer: 0
+gls: [162]
+
+index: 3
+sequence: signer8_sample1417
+sgn_lengths: 50
+signer: 8
+gls: [127]
+
+index: 4
+sequence: signer15_sample242
+sgn_lengths: 65
+signer: 15
+gls: [57]
+
+index: 5
+sequence: signer33_sample81
+sgn_lengths: 45
+signer: 33
+gls: [19]
+
+index: 6
+sequence: signer8_sample1684
+sgn_lengths: 57
+signer: 8
+gls: [226]
+
+index: 7
+sequence: signer8_sample2346
+sgn_lengths: 56
+signer: 8
+gls: [70]
+
+index: 8
+sequence: signer36_sample192
+sgn_lengths: 65
+signer: 36
+gls: [59]
+
+index: 9
+sequence: signer17_sample361
+sgn_lengths: 63
+signer: 17
+gls: [38]
+
+index: 10
+sequence: signer32_sample367
+sgn_lengths: 45
+signer: 32
+gls: [49]
+
+index: 11
+sequence: signer37_sample440
+sgn_lengths: 70
+signer: 37
+gls: [96]
+
+index: 12
+sequence: signer0_sample205
+sgn_lengths: 66
+signer: 0
+gls: [77]
+
+index: 13
+sequence: signer8_sample2204
+sgn_lengths: 73
+signer: 8
+gls: [132]
+
+index: 14
+sequence: signer5_sample16
+sgn_lengths: 68
+signer: 5
+gls: [208]
+
+index: 15
+sequence: signer13_sample1598
+sgn_lengths: 52
+signer: 13
+gls: [107]
+
+index: 16
+sequence: signer24_sample445
+sgn_lengths: 64
+signer: 24
+gls: [81]
+
+index: 17
+sequence: signer4_sample490
+sgn_lengths: 77
+signer: 4
+gls: [11]
+
+index: 18
+sequence: signer7_sample48
+sgn_lengths: 49
+signer: 7
+gls: [23]
+
+index: 19
+sequence: signer12_sample1872
+sgn_lengths: 81
+signer: 12
+gls: [173]
+
+index: 20
+sequence: signer8_sample1841
+sgn_lengths: 55
+signer: 8
+gls: [220]
+
+index: 21
+sequence: signer8_sample1411
+sgn_lengths: 57
+signer: 8
+gls: [213]
+
+index: 22
+sequence: signer10_sample656
+sgn_lengths: 50
+signer: 10
+gls: [107]
+
+index: 23
+sequence: signer4_sample407
+sgn_lengths: 65
+signer: 4
+gls: [174]
+
+index: 24
+sequence: signer3_sample292
+sgn_lengths: 58
+signer: 3
+gls: [121]
+
+index: 25
+sequence: signer31_sample377
+sgn_lengths: 59
+signer: 31
+gls: [104]
+
+index: 26
+sequence: signer29_sample281
+sgn_lengths: 52
+signer: 29
+gls: [168]
+
+index: 27
+sequence: signer26_sample161
+sgn_lengths: 53
+signer: 26
+gls: [36]
+
+index: 28
+sequence: signer37_sample618
+sgn_lengths: 53
+signer: 37
+gls: [17]
+
+index: 29
+sequence: signer7_sample2533
+sgn_lengths: 56
+signer: 7
+gls: [70]
+
+index: 30
+sequence: signer8_sample1293
+sgn_lengths: 59
+signer: 8
+gls: [90]
+
+index: 31
+sequence: signer7_sample2371
+sgn_lengths: 64
+signer: 7
+gls: [8]
+
+index: 32
+sequence: signer24_sample107
+sgn_lengths: 51
+signer: 24
+gls: [154]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000002] Batch Recognition Loss:  15.528239 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:10:19,853 [Epoch: 001 Step: 00000002] Batch Recognition Loss:  15.528239 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer0_sample424
+sgn_lengths: 47
+signer: 0
+gls: [155]
+
+index: 2
+sequence: signer2_sample771
+sgn_lengths: 73
+signer: 2
+gls: [136]
+
+index: 3
+sequence: signer40_sample283
+sgn_lengths: 67
+signer: 40
+gls: [21]
+
+index: 4
+sequence: signer12_sample1492
+sgn_lengths: 65
+signer: 12
+gls: [104]
+
+index: 5
+sequence: signer13_sample1481
+sgn_lengths: 74
+signer: 13
+gls: [161]
+
+index: 6
+sequence: signer10_sample305
+sgn_lengths: 43
+signer: 10
+gls: [57]
+
+index: 7
+sequence: signer0_sample742
+sgn_lengths: 46
+signer: 0
+gls: [100]
+
+index: 8
+sequence: signer9_sample515
+sgn_lengths: 55
+signer: 9
+gls: [91]
+
+index: 9
+sequence: signer41_sample98
+sgn_lengths: 61
+signer: 41
+gls: [89]
+
+index: 10
+sequence: signer12_sample977
+sgn_lengths: 59
+signer: 12
+gls: [95]
+
+index: 11
+sequence: signer0_sample1010
+sgn_lengths: 65
+signer: 0
+gls: [196]
+
+index: 12
+sequence: signer7_sample1937
+sgn_lengths: 84
+signer: 7
+gls: [46]
+
+index: 13
+sequence: signer7_sample493
+sgn_lengths: 58
+signer: 7
+gls: [15]
+
+index: 14
+sequence: signer13_sample188
+sgn_lengths: 65
+signer: 13
+gls: [92]
+
+index: 15
+sequence: signer17_sample231
+sgn_lengths: 69
+signer: 17
+gls: [117]
+
+index: 16
+sequence: signer13_sample1763
+sgn_lengths: 60
+signer: 13
+gls: [10]
+
+index: 17
+sequence: signer7_sample2004
+sgn_lengths: 55
+signer: 7
+gls: [203]
+
+index: 18
+sequence: signer29_sample189
+sgn_lengths: 68
+signer: 29
+gls: [187]
+
+index: 19
+sequence: signer12_sample1964
+sgn_lengths: 72
+signer: 12
+gls: [188]
+
+index: 20
+sequence: signer7_sample2532
+sgn_lengths: 48
+signer: 7
+gls: [34]
+
+index: 21
+sequence: signer20_sample410
+sgn_lengths: 74
+signer: 20
+gls: [32]
+
+index: 22
+sequence: signer8_sample2584
+sgn_lengths: 74
+signer: 8
+gls: [140]
+
+index: 23
+sequence: signer9_sample461
+sgn_lengths: 52
+signer: 9
+gls: [19]
+
+index: 24
+sequence: signer4_sample497
+sgn_lengths: 73
+signer: 4
+gls: [179]
+
+index: 25
+sequence: signer12_sample670
+sgn_lengths: 71
+signer: 12
+gls: [177]
+
+index: 26
+sequence: signer19_sample29
+sgn_lengths: 71
+signer: 19
+gls: [96]
+
+index: 27
+sequence: signer10_sample268
+sgn_lengths: 50
+signer: 10
+gls: [103]
+
+index: 28
+sequence: signer23_sample343
+sgn_lengths: 72
+signer: 23
+gls: [189]
+
+index: 29
+sequence: signer7_sample1028
+sgn_lengths: 60
+signer: 7
+gls: [160]
+
+index: 30
+sequence: signer7_sample2369
+sgn_lengths: 67
+signer: 7
+gls: [151]
+
+index: 31
+sequence: signer7_sample315
+sgn_lengths: 56
+signer: 7
+gls: [48]
+
+index: 32
+sequence: signer15_sample370
+sgn_lengths: 51
+signer: 15
+gls: [19]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000003] Batch Recognition Loss:  15.361626 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:11:17,967 [Epoch: 001 Step: 00000003] Batch Recognition Loss:  15.361626 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer10_sample156
+sgn_lengths: 54
+signer: 10
+gls: [126]
+
+index: 2
+sequence: signer8_sample449
+sgn_lengths: 48
+signer: 8
+gls: [190]
+
+index: 3
+sequence: signer20_sample534
+sgn_lengths: 75
+signer: 20
+gls: [19]
+
+index: 4
+sequence: signer0_sample1293
+sgn_lengths: 61
+signer: 0
+gls: [188]
+
+index: 5
+sequence: signer32_sample537
+sgn_lengths: 38
+signer: 32
+gls: [102]
+
+index: 6
+sequence: signer8_sample2589
+sgn_lengths: 60
+signer: 8
+gls: [211]
+
+index: 7
+sequence: signer8_sample787
+sgn_lengths: 73
+signer: 8
+gls: [6]
+
+index: 8
+sequence: signer20_sample344
+sgn_lengths: 80
+signer: 20
+gls: [185]
+
+index: 9
+sequence: signer20_sample150
+sgn_lengths: 75
+signer: 20
+gls: [209]
+
+index: 10
+sequence: signer8_sample721
+sgn_lengths: 48
+signer: 8
+gls: [205]
+
+index: 11
+sequence: signer42_sample17
+sgn_lengths: 69
+signer: 42
+gls: [202]
+
+index: 12
+sequence: signer17_sample214
+sgn_lengths: 59
+signer: 17
+gls: [172]
+
+index: 13
+sequence: signer13_sample331
+sgn_lengths: 62
+signer: 13
+gls: [40]
+
+index: 14
+sequence: signer41_sample665
+sgn_lengths: 66
+signer: 41
+gls: [144]
+
+index: 15
+sequence: signer40_sample496
+sgn_lengths: 64
+signer: 40
+gls: [223]
+
+index: 16
+sequence: signer12_sample951
+sgn_lengths: 64
+signer: 12
+gls: [63]
+
+index: 17
+sequence: signer37_sample208
+sgn_lengths: 48
+signer: 37
+gls: [38]
+
+index: 18
+sequence: signer23_sample217
+sgn_lengths: 57
+signer: 23
+gls: [218]
+
+index: 19
+sequence: signer32_sample77
+sgn_lengths: 36
+signer: 32
+gls: [11]
+
+index: 20
+sequence: signer37_sample355
+sgn_lengths: 61
+signer: 37
+gls: [44]
+
+index: 21
+sequence: signer5_sample240
+sgn_lengths: 78
+signer: 5
+gls: [159]
+
+index: 22
+sequence: signer10_sample533
+sgn_lengths: 51
+signer: 10
+gls: [8]
+
+index: 23
+sequence: signer41_sample502
+sgn_lengths: 57
+signer: 41
+gls: [54]
+
+index: 24
+sequence: signer12_sample1671
+sgn_lengths: 57
+signer: 12
+gls: [116]
+
+index: 25
+sequence: signer13_sample1272
+sgn_lengths: 60
+signer: 13
+gls: [152]
+
+index: 26
+sequence: signer10_sample307
+sgn_lengths: 44
+signer: 10
+gls: [63]
+
+index: 27
+sequence: signer2_sample315
+sgn_lengths: 79
+signer: 2
+gls: [195]
+
+index: 28
+sequence: signer31_sample361
+sgn_lengths: 67
+signer: 31
+gls: [140]
+
+index: 29
+sequence: signer13_sample1015
+sgn_lengths: 65
+signer: 13
+gls: [32]
+
+index: 30
+sequence: signer22_sample396
+sgn_lengths: 58
+signer: 22
+gls: [102]
+
+index: 31
+sequence: signer12_sample987
+sgn_lengths: 52
+signer: 12
+gls: [222]
+
+index: 32
+sequence: signer10_sample69
+sgn_lengths: 44
+signer: 10
+gls: [121]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000004] Batch Recognition Loss:  14.725839 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:12:13,342 [Epoch: 001 Step: 00000004] Batch Recognition Loss:  14.725839 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer37_sample20
+sgn_lengths: 70
+signer: 37
+gls: [141]
+
+index: 2
+sequence: signer9_sample637
+sgn_lengths: 64
+signer: 9
+gls: [70]
+
+index: 3
+sequence: signer29_sample601
+sgn_lengths: 64
+signer: 29
+gls: [155]
+
+index: 4
+sequence: signer15_sample255
+sgn_lengths: 61
+signer: 15
+gls: [66]
+
+index: 5
+sequence: signer15_sample1
+sgn_lengths: 69
+signer: 15
+gls: [48]
+
+index: 6
+sequence: signer5_sample450
+sgn_lengths: 100
+signer: 5
+gls: [7]
+
+index: 7
+sequence: signer26_sample353
+sgn_lengths: 82
+signer: 26
+gls: [210]
+
+index: 8
+sequence: signer23_sample38
+sgn_lengths: 100
+signer: 23
+gls: [69]
+
+index: 9
+sequence: signer23_sample649
+sgn_lengths: 70
+signer: 23
+gls: [94]
+
+index: 10
+sequence: signer13_sample1806
+sgn_lengths: 76
+signer: 13
+gls: [143]
+
+index: 11
+sequence: signer23_sample278
+sgn_lengths: 54
+signer: 23
+gls: [88]
+
+index: 12
+sequence: signer38_sample132
+sgn_lengths: 80
+signer: 38
+gls: [174]
+
+index: 13
+sequence: signer13_sample1811
+sgn_lengths: 53
+signer: 13
+gls: [39]
+
+index: 14
+sequence: signer2_sample281
+sgn_lengths: 57
+signer: 2
+gls: [119]
+
+index: 15
+sequence: signer29_sample556
+sgn_lengths: 59
+signer: 29
+gls: [91]
+
+index: 16
+sequence: signer8_sample2310
+sgn_lengths: 66
+signer: 8
+gls: [215]
+
+index: 17
+sequence: signer22_sample615
+sgn_lengths: 61
+signer: 22
+gls: [55]
+
+index: 18
+sequence: signer5_sample449
+sgn_lengths: 69
+signer: 5
+gls: [192]
+
+index: 19
+sequence: signer22_sample244
+sgn_lengths: 71
+signer: 22
+gls: [66]
+
+index: 20
+sequence: signer7_sample1017
+sgn_lengths: 67
+signer: 7
+gls: [11]
+
+index: 21
+sequence: signer5_sample146
+sgn_lengths: 72
+signer: 5
+gls: [36]
+
+index: 22
+sequence: signer19_sample182
+sgn_lengths: 77
+signer: 19
+gls: [211]
+
+index: 23
+sequence: signer7_sample1313
+sgn_lengths: 70
+signer: 7
+gls: [226]
+
+index: 24
+sequence: signer0_sample886
+sgn_lengths: 55
+signer: 0
+gls: [178]
+
+index: 25
+sequence: signer21_sample426
+sgn_lengths: 54
+signer: 21
+gls: [172]
+
+index: 26
+sequence: signer17_sample32
+sgn_lengths: 60
+signer: 17
+gls: [194]
+
+index: 27
+sequence: signer7_sample2691
+sgn_lengths: 54
+signer: 7
+gls: [119]
+
+index: 28
+sequence: signer20_sample107
+sgn_lengths: 79
+signer: 20
+gls: [216]
+
+index: 29
+sequence: signer4_sample517
+sgn_lengths: 72
+signer: 4
+gls: [112]
+
+index: 30
+sequence: signer4_sample555
+sgn_lengths: 73
+signer: 4
+gls: [117]
+
+index: 31
+sequence: signer8_sample2107
+sgn_lengths: 60
+signer: 8
+gls: [225]
+
+index: 32
+sequence: signer29_sample311
+sgn_lengths: 59
+signer: 29
+gls: [90]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000005] Batch Recognition Loss:  12.839202 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:13:06,158 [Epoch: 001 Step: 00000005] Batch Recognition Loss:  12.839202 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer24_sample228
+sgn_lengths: 69
+signer: 24
+gls: [143]
+
+index: 2
+sequence: signer13_sample1639
+sgn_lengths: 60
+signer: 13
+gls: [201]
+
+index: 3
+sequence: signer12_sample1817
+sgn_lengths: 59
+signer: 12
+gls: [122]
+
+index: 4
+sequence: signer21_sample517
+sgn_lengths: 66
+signer: 21
+gls: [102]
+
+index: 5
+sequence: signer13_sample815
+sgn_lengths: 67
+signer: 13
+gls: [158]
+
+index: 6
+sequence: signer40_sample80
+sgn_lengths: 86
+signer: 40
+gls: [173]
+
+index: 7
+sequence: signer23_sample175
+sgn_lengths: 72
+signer: 23
+gls: [144]
+
+index: 8
+sequence: signer7_sample1955
+sgn_lengths: 64
+signer: 7
+gls: [174]
+
+index: 9
+sequence: signer41_sample476
+sgn_lengths: 52
+signer: 41
+gls: [58]
+
+index: 10
+sequence: signer13_sample966
+sgn_lengths: 62
+signer: 13
+gls: [226]
+
+index: 11
+sequence: signer7_sample1469
+sgn_lengths: 60
+signer: 7
+gls: [145]
+
+index: 12
+sequence: signer12_sample162
+sgn_lengths: 56
+signer: 12
+gls: [28]
+
+index: 13
+sequence: signer2_sample815
+sgn_lengths: 88
+signer: 2
+gls: [17]
+
+index: 14
+sequence: signer26_sample642
+sgn_lengths: 57
+signer: 26
+gls: [28]
+
+index: 15
+sequence: signer37_sample342
+sgn_lengths: 69
+signer: 37
+gls: [133]
+
+index: 16
+sequence: signer37_sample21
+sgn_lengths: 56
+signer: 37
+gls: [39]
+
+index: 17
+sequence: signer24_sample608
+sgn_lengths: 44
+signer: 24
+gls: [182]
+
+index: 18
+sequence: signer32_sample207
+sgn_lengths: 68
+signer: 32
+gls: [55]
+
+index: 19
+sequence: signer8_sample1563
+sgn_lengths: 70
+signer: 8
+gls: [179]
+
+index: 20
+sequence: signer8_sample1266
+sgn_lengths: 54
+signer: 8
+gls: [218]
+
+index: 21
+sequence: signer42_sample373
+sgn_lengths: 53
+signer: 42
+gls: [204]
+
+index: 22
+sequence: signer12_sample1642
+sgn_lengths: 54
+signer: 12
+gls: [15]
+
+index: 23
+sequence: signer26_sample6
+sgn_lengths: 70
+signer: 26
+gls: [109]
+
+index: 24
+sequence: signer12_sample643
+sgn_lengths: 65
+signer: 12
+gls: [106]
+
+index: 25
+sequence: signer24_sample616
+sgn_lengths: 57
+signer: 24
+gls: [74]
+
+index: 26
+sequence: signer13_sample540
+sgn_lengths: 58
+signer: 13
+gls: [96]
+
+index: 27
+sequence: signer41_sample225
+sgn_lengths: 53
+signer: 41
+gls: [26]
+
+index: 28
+sequence: signer4_sample443
+sgn_lengths: 71
+signer: 4
+gls: [153]
+
+index: 29
+sequence: signer12_sample513
+sgn_lengths: 70
+signer: 12
+gls: [75]
+
+index: 30
+sequence: signer15_sample401
+sgn_lengths: 63
+signer: 15
+gls: [184]
+
+index: 31
+sequence: signer10_sample354
+sgn_lengths: 48
+signer: 10
+gls: [96]
+
+index: 32
+sequence: signer3_sample476
+sgn_lengths: 69
+signer: 3
+gls: [144]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000006] Batch Recognition Loss:  11.677307 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:14:05,541 [Epoch: 001 Step: 00000006] Batch Recognition Loss:  11.677307 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer7_sample2598
+sgn_lengths: 54
+signer: 7
+gls: [135]
+
+index: 2
+sequence: signer7_sample1271
+sgn_lengths: 53
+signer: 7
+gls: [129]
+
+index: 3
+sequence: signer38_sample311
+sgn_lengths: 82
+signer: 38
+gls: [114]
+
+index: 4
+sequence: signer2_sample830
+sgn_lengths: 79
+signer: 2
+gls: [23]
+
+index: 5
+sequence: signer9_sample317
+sgn_lengths: 49
+signer: 9
+gls: [60]
+
+index: 6
+sequence: signer24_sample586
+sgn_lengths: 50
+signer: 24
+gls: [83]
+
+index: 7
+sequence: signer4_sample89
+sgn_lengths: 78
+signer: 4
+gls: [15]
+
+index: 8
+sequence: signer8_sample667
+sgn_lengths: 57
+signer: 8
+gls: [141]
+
+index: 9
+sequence: signer28_sample23
+sgn_lengths: 50
+signer: 28
+gls: [87]
+
+index: 10
+sequence: signer9_sample15
+sgn_lengths: 61
+signer: 9
+gls: [98]
+
+index: 11
+sequence: signer40_sample109
+sgn_lengths: 73
+signer: 40
+gls: [149]
+
+index: 12
+sequence: signer8_sample1624
+sgn_lengths: 47
+signer: 8
+gls: [62]
+
+index: 13
+sequence: signer7_sample900
+sgn_lengths: 63
+signer: 7
+gls: [90]
+
+index: 14
+sequence: signer37_sample288
+sgn_lengths: 68
+signer: 37
+gls: [189]
+
+index: 15
+sequence: signer32_sample351
+sgn_lengths: 76
+signer: 32
+gls: [207]
+
+index: 16
+sequence: signer0_sample373
+sgn_lengths: 62
+signer: 0
+gls: [151]
+
+index: 17
+sequence: signer9_sample162
+sgn_lengths: 48
+signer: 9
+gls: [58]
+
+index: 18
+sequence: signer2_sample1012
+sgn_lengths: 75
+signer: 2
+gls: [109]
+
+index: 19
+sequence: signer13_sample35
+sgn_lengths: 56
+signer: 13
+gls: [106]
+
+index: 20
+sequence: signer41_sample521
+sgn_lengths: 52
+signer: 41
+gls: [18]
+
+index: 21
+sequence: signer8_sample2611
+sgn_lengths: 47
+signer: 8
+gls: [58]
+
+index: 22
+sequence: signer8_sample1511
+sgn_lengths: 47
+signer: 8
+gls: [116]
+
+index: 23
+sequence: signer37_sample343
+sgn_lengths: 71
+signer: 37
+gls: [167]
+
+index: 24
+sequence: signer24_sample109
+sgn_lengths: 56
+signer: 24
+gls: [187]
+
+index: 25
+sequence: signer7_sample2618
+sgn_lengths: 69
+signer: 7
+gls: [153]
+
+index: 26
+sequence: signer12_sample1231
+sgn_lengths: 69
+signer: 12
+gls: [197]
+
+index: 27
+sequence: signer36_sample254
+sgn_lengths: 68
+signer: 36
+gls: [130]
+
+index: 28
+sequence: signer13_sample84
+sgn_lengths: 57
+signer: 13
+gls: [178]
+
+index: 29
+sequence: signer24_sample194
+sgn_lengths: 70
+signer: 24
+gls: [97]
+
+index: 30
+sequence: signer17_sample269
+sgn_lengths: 61
+signer: 17
+gls: [162]
+
+index: 31
+sequence: signer17_sample105
+sgn_lengths: 54
+signer: 17
+gls: [5]
+
+index: 32
+sequence: signer23_sample620
+sgn_lengths: 38
+signer: 23
+gls: [99]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000007] Batch Recognition Loss:   9.994520 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:14:56,484 [Epoch: 001 Step: 00000007] Batch Recognition Loss:   9.994520 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer36_sample329
+sgn_lengths: 64
+signer: 36
+gls: [132]
+
+index: 2
+sequence: signer32_sample168
+sgn_lengths: 55
+signer: 32
+gls: [49]
+
+index: 3
+sequence: signer33_sample184
+sgn_lengths: 71
+signer: 33
+gls: [27]
+
+index: 4
+sequence: signer7_sample899
+sgn_lengths: 61
+signer: 7
+gls: [64]
+
+index: 5
+sequence: signer2_sample943
+sgn_lengths: 79
+signer: 2
+gls: [11]
+
+index: 6
+sequence: signer31_sample199
+sgn_lengths: 81
+signer: 31
+gls: [143]
+
+index: 7
+sequence: signer24_sample217
+sgn_lengths: 56
+signer: 24
+gls: [13]
+
+index: 8
+sequence: signer41_sample512
+sgn_lengths: 49
+signer: 41
+gls: [44]
+
+index: 9
+sequence: signer2_sample116
+sgn_lengths: 74
+signer: 2
+gls: [80]
+
+index: 10
+sequence: signer3_sample586
+sgn_lengths: 58
+signer: 3
+gls: [67]
+
+index: 11
+sequence: signer7_sample1308
+sgn_lengths: 55
+signer: 7
+gls: [87]
+
+index: 12
+sequence: signer8_sample1615
+sgn_lengths: 56
+signer: 8
+gls: [97]
+
+index: 13
+sequence: signer12_sample1296
+sgn_lengths: 58
+signer: 12
+gls: [52]
+
+index: 14
+sequence: signer2_sample557
+sgn_lengths: 92
+signer: 2
+gls: [215]
+
+index: 15
+sequence: signer13_sample427
+sgn_lengths: 84
+signer: 13
+gls: [149]
+
+index: 16
+sequence: signer13_sample809
+sgn_lengths: 58
+signer: 13
+gls: [114]
+
+index: 17
+sequence: signer41_sample44
+sgn_lengths: 60
+signer: 41
+gls: [78]
+
+index: 18
+sequence: signer19_sample448
+sgn_lengths: 49
+signer: 19
+gls: [22]
+
+index: 19
+sequence: signer13_sample591
+sgn_lengths: 57
+signer: 13
+gls: [15]
+
+index: 20
+sequence: signer8_sample329
+sgn_lengths: 57
+signer: 8
+gls: [96]
+
+index: 21
+sequence: signer7_sample1261
+sgn_lengths: 57
+signer: 7
+gls: [186]
+
+index: 22
+sequence: signer12_sample1591
+sgn_lengths: 63
+signer: 12
+gls: [84]
+
+index: 23
+sequence: signer37_sample356
+sgn_lengths: 58
+signer: 37
+gls: [155]
+
+index: 24
+sequence: signer19_sample530
+sgn_lengths: 57
+signer: 19
+gls: [25]
+
+index: 25
+sequence: signer9_sample233
+sgn_lengths: 59
+signer: 9
+gls: [189]
+
+index: 26
+sequence: signer7_sample712
+sgn_lengths: 67
+signer: 7
+gls: [175]
+
+index: 27
+sequence: signer8_sample1766
+sgn_lengths: 57
+signer: 8
+gls: [141]
+
+index: 28
+sequence: signer13_sample1082
+sgn_lengths: 71
+signer: 13
+gls: [80]
+
+index: 29
+sequence: signer42_sample458
+sgn_lengths: 55
+signer: 42
+gls: [170]
+
+index: 30
+sequence: signer0_sample969
+sgn_lengths: 59
+signer: 0
+gls: [22]
+
+index: 31
+sequence: signer8_sample1326
+sgn_lengths: 53
+signer: 8
+gls: [22]
+
+index: 32
+sequence: signer20_sample217
+sgn_lengths: 63
+signer: 20
+gls: [42]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000008] Batch Recognition Loss:   7.860531 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:15:50,332 [Epoch: 001 Step: 00000008] Batch Recognition Loss:   7.860531 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer7_sample13
+sgn_lengths: 60
+signer: 7
+gls: [25]
+
+index: 2
+sequence: signer22_sample433
+sgn_lengths: 55
+signer: 22
+gls: [38]
+
+index: 3
+sequence: signer37_sample175
+sgn_lengths: 56
+signer: 37
+gls: [227]
+
+index: 4
+sequence: signer36_sample591
+sgn_lengths: 62
+signer: 36
+gls: [117]
+
+index: 5
+sequence: signer21_sample479
+sgn_lengths: 62
+signer: 21
+gls: [209]
+
+index: 6
+sequence: signer4_sample405
+sgn_lengths: 71
+signer: 4
+gls: [44]
+
+index: 7
+sequence: signer38_sample164
+sgn_lengths: 66
+signer: 38
+gls: [198]
+
+index: 8
+sequence: signer10_sample153
+sgn_lengths: 53
+signer: 10
+gls: [120]
+
+index: 9
+sequence: signer2_sample1297
+sgn_lengths: 68
+signer: 2
+gls: [108]
+
+index: 10
+sequence: signer24_sample327
+sgn_lengths: 61
+signer: 24
+gls: [48]
+
+index: 11
+sequence: signer23_sample197
+sgn_lengths: 41
+signer: 23
+gls: [111]
+
+index: 12
+sequence: signer32_sample313
+sgn_lengths: 71
+signer: 32
+gls: [89]
+
+index: 13
+sequence: signer20_sample330
+sgn_lengths: 70
+signer: 20
+gls: [78]
+
+index: 14
+sequence: signer4_sample339
+sgn_lengths: 71
+signer: 4
+gls: [116]
+
+index: 15
+sequence: signer10_sample624
+sgn_lengths: 53
+signer: 10
+gls: [167]
+
+index: 16
+sequence: signer23_sample524
+sgn_lengths: 69
+signer: 23
+gls: [37]
+
+index: 17
+sequence: signer12_sample580
+sgn_lengths: 68
+signer: 12
+gls: [188]
+
+index: 18
+sequence: signer31_sample206
+sgn_lengths: 64
+signer: 31
+gls: [218]
+
+index: 19
+sequence: signer8_sample1535
+sgn_lengths: 47
+signer: 8
+gls: [155]
+
+index: 20
+sequence: signer7_sample2332
+sgn_lengths: 57
+signer: 7
+gls: [151]
+
+index: 21
+sequence: signer13_sample1046
+sgn_lengths: 61
+signer: 13
+gls: [106]
+
+index: 22
+sequence: signer33_sample42
+sgn_lengths: 43
+signer: 33
+gls: [9]
+
+index: 23
+sequence: signer13_sample1142
+sgn_lengths: 53
+signer: 13
+gls: [28]
+
+index: 24
+sequence: signer0_sample651
+sgn_lengths: 59
+signer: 0
+gls: [35]
+
+index: 25
+sequence: signer20_sample429
+sgn_lengths: 63
+signer: 20
+gls: [111]
+
+index: 26
+sequence: signer2_sample328
+sgn_lengths: 52
+signer: 2
+gls: [183]
+
+index: 27
+sequence: signer37_sample286
+sgn_lengths: 58
+signer: 37
+gls: [223]
+
+index: 28
+sequence: signer13_sample1794
+sgn_lengths: 58
+signer: 13
+gls: [205]
+
+index: 29
+sequence: signer4_sample532
+sgn_lengths: 73
+signer: 4
+gls: [199]
+
+index: 30
+sequence: signer2_sample337
+sgn_lengths: 68
+signer: 2
+gls: [194]
+
+index: 31
+sequence: signer20_sample500
+sgn_lengths: 67
+signer: 20
+gls: [171]
+
+index: 32
+sequence: signer36_sample67
+sgn_lengths: 61
+signer: 36
+gls: [200]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000009] Batch Recognition Loss:   7.285494 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:16:39,523 [Epoch: 001 Step: 00000009] Batch Recognition Loss:   7.285494 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer15_sample60
+sgn_lengths: 55
+signer: 15
+gls: [103]
+
+index: 2
+sequence: signer13_sample1816
+sgn_lengths: 57
+signer: 13
+gls: [27]
+
+index: 3
+sequence: signer13_sample42
+sgn_lengths: 53
+signer: 13
+gls: [19]
+
+index: 4
+sequence: signer29_sample135
+sgn_lengths: 60
+signer: 29
+gls: [8]
+
+index: 5
+sequence: signer7_sample520
+sgn_lengths: 55
+signer: 7
+gls: [163]
+
+index: 6
+sequence: signer12_sample1320
+sgn_lengths: 58
+signer: 12
+gls: [150]
+
+index: 7
+sequence: signer12_sample1166
+sgn_lengths: 57
+signer: 12
+gls: [26]
+
+index: 8
+sequence: signer28_sample455
+sgn_lengths: 56
+signer: 28
+gls: [53]
+
+index: 9
+sequence: signer22_sample188
+sgn_lengths: 78
+signer: 22
+gls: [124]
+
+index: 10
+sequence: signer13_sample1263
+sgn_lengths: 60
+signer: 13
+gls: [121]
+
+index: 11
+sequence: signer2_sample1044
+sgn_lengths: 71
+signer: 2
+gls: [150]
+
+index: 12
+sequence: signer7_sample1178
+sgn_lengths: 53
+signer: 7
+gls: [119]
+
+index: 13
+sequence: signer12_sample1065
+sgn_lengths: 67
+signer: 12
+gls: [140]
+
+index: 14
+sequence: signer4_sample639
+sgn_lengths: 72
+signer: 4
+gls: [106]
+
+index: 15
+sequence: signer24_sample126
+sgn_lengths: 67
+signer: 24
+gls: [200]
+
+index: 16
+sequence: signer36_sample501
+sgn_lengths: 57
+signer: 36
+gls: [18]
+
+index: 17
+sequence: signer17_sample97
+sgn_lengths: 57
+signer: 17
+gls: [53]
+
+index: 18
+sequence: signer7_sample1627
+sgn_lengths: 77
+signer: 7
+gls: [89]
+
+index: 19
+sequence: signer7_sample1904
+sgn_lengths: 65
+signer: 7
+gls: [157]
+
+index: 20
+sequence: signer13_sample1778
+sgn_lengths: 73
+signer: 13
+gls: [141]
+
+index: 21
+sequence: signer33_sample189
+sgn_lengths: 82
+signer: 33
+gls: [219]
+
+index: 22
+sequence: signer40_sample194
+sgn_lengths: 72
+signer: 40
+gls: [192]
+
+index: 23
+sequence: signer37_sample485
+sgn_lengths: 79
+signer: 37
+gls: [170]
+
+index: 24
+sequence: signer24_sample616
+sgn_lengths: 57
+signer: 24
+gls: [74]
+
+index: 25
+sequence: signer4_sample553
+sgn_lengths: 74
+signer: 4
+gls: [210]
+
+index: 26
+sequence: signer12_sample1340
+sgn_lengths: 62
+signer: 12
+gls: [20]
+
+index: 27
+sequence: signer8_sample1594
+sgn_lengths: 50
+signer: 8
+gls: [100]
+
+index: 28
+sequence: signer3_sample63
+sgn_lengths: 53
+signer: 3
+gls: [160]
+
+index: 29
+sequence: signer2_sample111
+sgn_lengths: 67
+signer: 2
+gls: [27]
+
+index: 30
+sequence: signer29_sample401
+sgn_lengths: 58
+signer: 29
+gls: [158]
+
+index: 31
+sequence: signer4_sample570
+sgn_lengths: 65
+signer: 4
+gls: [26]
+
+index: 32
+sequence: signer12_sample1288
+sgn_lengths: 58
+signer: 12
+gls: [116]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000010] Batch Recognition Loss:   9.493317 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:17:30,397 [Epoch: 001 Step: 00000010] Batch Recognition Loss:   9.493317 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer8_sample718
+sgn_lengths: 55
+signer: 8
+gls: [212]
+
+index: 2
+sequence: signer38_sample609
+sgn_lengths: 70
+signer: 38
+gls: [7]
+
+index: 3
+sequence: signer37_sample159
+sgn_lengths: 84
+signer: 37
+gls: [215]
+
+index: 4
+sequence: signer8_sample621
+sgn_lengths: 49
+signer: 8
+gls: [101]
+
+index: 5
+sequence: signer42_sample290
+sgn_lengths: 62
+signer: 42
+gls: [102]
+
+index: 6
+sequence: signer3_sample651
+sgn_lengths: 71
+signer: 3
+gls: [172]
+
+index: 7
+sequence: signer24_sample301
+sgn_lengths: 89
+signer: 24
+gls: [7]
+
+index: 8
+sequence: signer7_sample759
+sgn_lengths: 58
+signer: 7
+gls: [190]
+
+index: 9
+sequence: signer12_sample900
+sgn_lengths: 60
+signer: 12
+gls: [87]
+
+index: 10
+sequence: signer38_sample146
+sgn_lengths: 105
+signer: 38
+gls: [94]
+
+index: 11
+sequence: signer31_sample274
+sgn_lengths: 62
+signer: 31
+gls: [205]
+
+index: 12
+sequence: signer33_sample587
+sgn_lengths: 58
+signer: 33
+gls: [191]
+
+index: 13
+sequence: signer38_sample210
+sgn_lengths: 94
+signer: 38
+gls: [137]
+
+index: 14
+sequence: signer21_sample435
+sgn_lengths: 48
+signer: 21
+gls: [111]
+
+index: 15
+sequence: signer24_sample338
+sgn_lengths: 59
+signer: 24
+gls: [228]
+
+index: 16
+sequence: signer13_sample1941
+sgn_lengths: 71
+signer: 13
+gls: [86]
+
+index: 17
+sequence: signer42_sample15
+sgn_lengths: 63
+signer: 42
+gls: [101]
+
+index: 18
+sequence: signer36_sample386
+sgn_lengths: 57
+signer: 36
+gls: [6]
+
+index: 19
+sequence: signer42_sample25
+sgn_lengths: 51
+signer: 42
+gls: [34]
+
+index: 20
+sequence: signer38_sample412
+sgn_lengths: 70
+signer: 38
+gls: [10]
+
+index: 21
+sequence: signer15_sample37
+sgn_lengths: 57
+signer: 15
+gls: [123]
+
+index: 22
+sequence: signer19_sample603
+sgn_lengths: 72
+signer: 19
+gls: [16]
+
+index: 23
+sequence: signer28_sample150
+sgn_lengths: 57
+signer: 28
+gls: [37]
+
+index: 24
+sequence: signer31_sample421
+sgn_lengths: 69
+signer: 31
+gls: [93]
+
+index: 25
+sequence: signer13_sample1483
+sgn_lengths: 50
+signer: 13
+gls: [209]
+
+index: 26
+sequence: signer0_sample1143
+sgn_lengths: 61
+signer: 0
+gls: [220]
+
+index: 27
+sequence: signer0_sample1320
+sgn_lengths: 53
+signer: 0
+gls: [59]
+
+index: 28
+sequence: signer12_sample671
+sgn_lengths: 56
+signer: 12
+gls: [64]
+
+index: 29
+sequence: signer22_sample556
+sgn_lengths: 56
+signer: 22
+gls: [5]
+
+index: 30
+sequence: signer40_sample179
+sgn_lengths: 59
+signer: 40
+gls: [19]
+
+index: 31
+sequence: signer8_sample2309
+sgn_lengths: 57
+signer: 8
+gls: [90]
+
+index: 32
+sequence: signer9_sample256
+sgn_lengths: 65
+signer: 9
+gls: [106]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000011] Batch Recognition Loss:   6.653948 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:18:28,815 [Epoch: 001 Step: 00000011] Batch Recognition Loss:   6.653948 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer7_sample1741
+sgn_lengths: 48
+signer: 7
+gls: [15]
+
+index: 2
+sequence: signer13_sample716
+sgn_lengths: 68
+signer: 13
+gls: [68]
+
+index: 3
+sequence: signer21_sample260
+sgn_lengths: 71
+signer: 21
+gls: [94]
+
+index: 4
+sequence: signer32_sample106
+sgn_lengths: 58
+signer: 32
+gls: [130]
+
+index: 5
+sequence: signer12_sample481
+sgn_lengths: 71
+signer: 12
+gls: [152]
+
+index: 6
+sequence: signer17_sample293
+sgn_lengths: 56
+signer: 17
+gls: [32]
+
+index: 7
+sequence: signer3_sample661
+sgn_lengths: 62
+signer: 3
+gls: [39]
+
+index: 8
+sequence: signer22_sample452
+sgn_lengths: 60
+signer: 22
+gls: [194]
+
+index: 9
+sequence: signer37_sample101
+sgn_lengths: 71
+signer: 37
+gls: [96]
+
+index: 10
+sequence: signer0_sample655
+sgn_lengths: 65
+signer: 0
+gls: [51]
+
+index: 11
+sequence: signer7_sample1664
+sgn_lengths: 53
+signer: 7
+gls: [205]
+
+index: 12
+sequence: signer29_sample434
+sgn_lengths: 53
+signer: 29
+gls: [43]
+
+index: 13
+sequence: signer5_sample389
+sgn_lengths: 85
+signer: 5
+gls: [152]
+
+index: 14
+sequence: signer10_sample40
+sgn_lengths: 47
+signer: 10
+gls: [72]
+
+index: 15
+sequence: signer13_sample1429
+sgn_lengths: 68
+signer: 13
+gls: [175]
+
+index: 16
+sequence: signer8_sample1954
+sgn_lengths: 50
+signer: 8
+gls: [122]
+
+index: 17
+sequence: signer7_sample1293
+sgn_lengths: 58
+signer: 7
+gls: [101]
+
+index: 18
+sequence: signer36_sample153
+sgn_lengths: 67
+signer: 36
+gls: [90]
+
+index: 19
+sequence: signer12_sample1251
+sgn_lengths: 58
+signer: 12
+gls: [16]
+
+index: 20
+sequence: signer23_sample185
+sgn_lengths: 57
+signer: 23
+gls: [153]
+
+index: 21
+sequence: signer2_sample314
+sgn_lengths: 73
+signer: 2
+gls: [138]
+
+index: 22
+sequence: signer12_sample627
+sgn_lengths: 57
+signer: 12
+gls: [93]
+
+index: 23
+sequence: signer12_sample524
+sgn_lengths: 58
+signer: 12
+gls: [74]
+
+index: 24
+sequence: signer9_sample644
+sgn_lengths: 53
+signer: 9
+gls: [77]
+
+index: 25
+sequence: signer36_sample378
+sgn_lengths: 74
+signer: 36
+gls: [51]
+
+index: 26
+sequence: signer7_sample339
+sgn_lengths: 72
+signer: 7
+gls: [151]
+
+index: 27
+sequence: signer4_sample433
+sgn_lengths: 68
+signer: 4
+gls: [86]
+
+index: 28
+sequence: signer12_sample1415
+sgn_lengths: 77
+signer: 12
+gls: [80]
+
+index: 29
+sequence: signer8_sample1961
+sgn_lengths: 40
+signer: 8
+gls: [115]
+
+index: 30
+sequence: signer21_sample472
+sgn_lengths: 61
+signer: 21
+gls: [176]
+
+index: 31
+sequence: signer8_sample2174
+sgn_lengths: 69
+signer: 8
+gls: [12]
+
+index: 32
+sequence: signer24_sample269
+sgn_lengths: 52
+signer: 24
+gls: [138]
+
+INFO:slt.signjoey.helpers:[Epoch: 001 Step: 00000012] Batch Recognition Loss:   7.236013 => Gls Tokens per Sec:        1 || Lr: 0.001000
+2021-12-22 17:19:23,689 [Epoch: 001 Step: 00000012] Batch Recognition Loss:   7.236013 => Gls Tokens per Sec:        1 || Lr: 0.001000
+index: 1
+sequence: signer7_sample1240
+sgn_lengths: 60
+signer: 7
+gls: [10]
+
+index: 2
+sequence: signer7_sample668
+sgn_lengths: 60
+signer: 7
+gls: [65]
+
+index: 3
+sequence: signer24_sample349
+sgn_lengths: 64
+signer: 24
+gls: [199]
+
+index: 4
+sequence: signer28_sample188
+sgn_lengths: 55
+signer: 28
+gls: [220]
+
+index: 5
+sequence: signer42_sample583
+sgn_lengths: 90
+signer: 42
+gls: [51]
+
+index: 6
+sequence: signer31_sample31
+sgn_lengths: 61
+signer: 31
+gls: [41]
+
+index: 7
+sequence: signer4_sample214
+sgn_lengths: 61
+signer: 4
+gls: [76]
+
+index: 8
+sequence: signer3_sample72
+sgn_lengths: 72
+signer: 3
+gls: [83]
+
+index: 9
+sequence: signer0_sample1255
+sgn_lengths: 53
+signer: 0
+gls: [201]
+
+index: 10
+sequence: signer31_sample128
+sgn_lengths: 71
+signer: 31
+gls: [36]
+
+index: 11
+sequence: signer31_sample504
+sgn_lengths: 52
+signer: 31
+gls: [34]
+
+index: 12
+sequence: signer37_sample84
+sgn_lengths: 38
+signer: 37
+gls: [205]
+
+index: 13
+sequence: signer41_sample515
+sgn_lengths: 54
+signer: 41
+gls: [101]
+
+index: 14
+sequence: signer38_sample487
+sgn_lengths: 68
+signer: 38
+gls: [79]
+
+index: 15
+sequence: signer42_sample39
+sgn_lengths: 59
+signer: 42
+gls: [108]
+
+index: 16
+sequence: signer5_sample370
+sgn_lengths: 89
+signer: 5
+gls: [173]
+
+index: 17
+sequence: signer38_sample492
+sgn_lengths: 74
+signer: 38
+gls: [171]
+
+index: 18
+sequence: signer2_sample846
+sgn_lengths: 77
+signer: 2
+gls: [119]
+
+index: 19
+sequence: signer0_sample789
+sgn_lengths: 127
+signer: 0
+gls: [14]
+
+Traceback (most recent call last):
+  File "/home/nlp/dorink/project/slt/signjoey/__main__.py", line 41, in <module>
+    main()
+  File "/home/nlp/dorink/project/slt/signjoey/__main__.py", line 32, in main
+    train(cfg_file=args.config_path)
+  File "/home/nlp/dorink/project/slt/signjoey/training.py", line 2061, in train
+    trainer.train_and_validate_autsl(train_data=train_data, valid_data=dev_data)
+  File "/home/nlp/dorink/project/slt/signjoey/training.py", line 836, in train_and_validate_autsl
+    out = self.model.image_encoder(sample.cuda())
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torchvision/models/mobilenetv3.py", line 184, in forward
+    return self._forward_impl(x)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torchvision/models/mobilenetv3.py", line 174, in _forward_impl
+    x = self.features(x)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torchvision/models/mobilenetv3.py", line 95, in forward
+    result = self.block(input)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nlp/dorink/anaconda3/envs/slt_env/lib/python3.8/site-packages/torchvision/models/mobilenetv3.py", line 39, in forward
+    return scale * input
+RuntimeError: CUDA out of memory. Tried to allocate 72.00 MiB (GPU 0; 10.76 GiB total capacity; 9.43 GiB already allocated; 19.44 MiB free; 9.50 GiB reserved in total by PyTorch)
+
+Process finished with exit code 1

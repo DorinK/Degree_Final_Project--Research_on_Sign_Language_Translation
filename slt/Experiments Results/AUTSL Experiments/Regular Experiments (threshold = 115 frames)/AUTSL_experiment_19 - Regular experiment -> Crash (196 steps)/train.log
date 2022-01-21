@@ -1,0 +1,280 @@
+2022-01-03 01:04:18,059 Hello! This is Joey-NMT.
+2022-01-03 01:04:23,586 Total params: 12632045
+2022-01-03 01:04:23,676 Trainable parameters: ['encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'image_encoder.classifier.0.bias', 'image_encoder.classifier.0.weight', 'image_encoder.classifier.3.bias', 'image_encoder.classifier.3.weight', 'image_encoder.features.0.0.weight', 'image_encoder.features.0.1.bias', 'image_encoder.features.0.1.weight', 'image_encoder.features.1.block.0.0.weight', 'image_encoder.features.1.block.0.1.bias', 'image_encoder.features.1.block.0.1.weight', 'image_encoder.features.1.block.1.fc1.bias', 'image_encoder.features.1.block.1.fc1.weight', 'image_encoder.features.1.block.1.fc2.bias', 'image_encoder.features.1.block.1.fc2.weight', 'image_encoder.features.1.block.2.0.weight', 'image_encoder.features.1.block.2.1.bias', 'image_encoder.features.1.block.2.1.weight', 'image_encoder.features.10.block.0.0.weight', 'image_encoder.features.10.block.0.1.bias', 'image_encoder.features.10.block.0.1.weight', 'image_encoder.features.10.block.1.0.weight', 'image_encoder.features.10.block.1.1.bias', 'image_encoder.features.10.block.1.1.weight', 'image_encoder.features.10.block.2.fc1.bias', 'image_encoder.features.10.block.2.fc1.weight', 'image_encoder.features.10.block.2.fc2.bias', 'image_encoder.features.10.block.2.fc2.weight', 'image_encoder.features.10.block.3.0.weight', 'image_encoder.features.10.block.3.1.bias', 'image_encoder.features.10.block.3.1.weight', 'image_encoder.features.11.block.0.0.weight', 'image_encoder.features.11.block.0.1.bias', 'image_encoder.features.11.block.0.1.weight', 'image_encoder.features.11.block.1.0.weight', 'image_encoder.features.11.block.1.1.bias', 'image_encoder.features.11.block.1.1.weight', 'image_encoder.features.11.block.2.fc1.bias', 'image_encoder.features.11.block.2.fc1.weight', 'image_encoder.features.11.block.2.fc2.bias', 'image_encoder.features.11.block.2.fc2.weight', 'image_encoder.features.11.block.3.0.weight', 'image_encoder.features.11.block.3.1.bias', 'image_encoder.features.11.block.3.1.weight', 'image_encoder.features.12.0.weight', 'image_encoder.features.12.1.bias', 'image_encoder.features.12.1.weight', 'image_encoder.features.2.block.0.0.weight', 'image_encoder.features.2.block.0.1.bias', 'image_encoder.features.2.block.0.1.weight', 'image_encoder.features.2.block.1.0.weight', 'image_encoder.features.2.block.1.1.bias', 'image_encoder.features.2.block.1.1.weight', 'image_encoder.features.2.block.2.0.weight', 'image_encoder.features.2.block.2.1.bias', 'image_encoder.features.2.block.2.1.weight', 'image_encoder.features.3.block.0.0.weight', 'image_encoder.features.3.block.0.1.bias', 'image_encoder.features.3.block.0.1.weight', 'image_encoder.features.3.block.1.0.weight', 'image_encoder.features.3.block.1.1.bias', 'image_encoder.features.3.block.1.1.weight', 'image_encoder.features.3.block.2.0.weight', 'image_encoder.features.3.block.2.1.bias', 'image_encoder.features.3.block.2.1.weight', 'image_encoder.features.4.block.0.0.weight', 'image_encoder.features.4.block.0.1.bias', 'image_encoder.features.4.block.0.1.weight', 'image_encoder.features.4.block.1.0.weight', 'image_encoder.features.4.block.1.1.bias', 'image_encoder.features.4.block.1.1.weight', 'image_encoder.features.4.block.2.fc1.bias', 'image_encoder.features.4.block.2.fc1.weight', 'image_encoder.features.4.block.2.fc2.bias', 'image_encoder.features.4.block.2.fc2.weight', 'image_encoder.features.4.block.3.0.weight', 'image_encoder.features.4.block.3.1.bias', 'image_encoder.features.4.block.3.1.weight', 'image_encoder.features.5.block.0.0.weight', 'image_encoder.features.5.block.0.1.bias', 'image_encoder.features.5.block.0.1.weight', 'image_encoder.features.5.block.1.0.weight', 'image_encoder.features.5.block.1.1.bias', 'image_encoder.features.5.block.1.1.weight', 'image_encoder.features.5.block.2.fc1.bias', 'image_encoder.features.5.block.2.fc1.weight', 'image_encoder.features.5.block.2.fc2.bias', 'image_encoder.features.5.block.2.fc2.weight', 'image_encoder.features.5.block.3.0.weight', 'image_encoder.features.5.block.3.1.bias', 'image_encoder.features.5.block.3.1.weight', 'image_encoder.features.6.block.0.0.weight', 'image_encoder.features.6.block.0.1.bias', 'image_encoder.features.6.block.0.1.weight', 'image_encoder.features.6.block.1.0.weight', 'image_encoder.features.6.block.1.1.bias', 'image_encoder.features.6.block.1.1.weight', 'image_encoder.features.6.block.2.fc1.bias', 'image_encoder.features.6.block.2.fc1.weight', 'image_encoder.features.6.block.2.fc2.bias', 'image_encoder.features.6.block.2.fc2.weight', 'image_encoder.features.6.block.3.0.weight', 'image_encoder.features.6.block.3.1.bias', 'image_encoder.features.6.block.3.1.weight', 'image_encoder.features.7.block.0.0.weight', 'image_encoder.features.7.block.0.1.bias', 'image_encoder.features.7.block.0.1.weight', 'image_encoder.features.7.block.1.0.weight', 'image_encoder.features.7.block.1.1.bias', 'image_encoder.features.7.block.1.1.weight', 'image_encoder.features.7.block.2.fc1.bias', 'image_encoder.features.7.block.2.fc1.weight', 'image_encoder.features.7.block.2.fc2.bias', 'image_encoder.features.7.block.2.fc2.weight', 'image_encoder.features.7.block.3.0.weight', 'image_encoder.features.7.block.3.1.bias', 'image_encoder.features.7.block.3.1.weight', 'image_encoder.features.8.block.0.0.weight', 'image_encoder.features.8.block.0.1.bias', 'image_encoder.features.8.block.0.1.weight', 'image_encoder.features.8.block.1.0.weight', 'image_encoder.features.8.block.1.1.bias', 'image_encoder.features.8.block.1.1.weight', 'image_encoder.features.8.block.2.fc1.bias', 'image_encoder.features.8.block.2.fc1.weight', 'image_encoder.features.8.block.2.fc2.bias', 'image_encoder.features.8.block.2.fc2.weight', 'image_encoder.features.8.block.3.0.weight', 'image_encoder.features.8.block.3.1.bias', 'image_encoder.features.8.block.3.1.weight', 'image_encoder.features.9.block.0.0.weight', 'image_encoder.features.9.block.0.1.bias', 'image_encoder.features.9.block.0.1.weight', 'image_encoder.features.9.block.1.0.weight', 'image_encoder.features.9.block.1.1.bias', 'image_encoder.features.9.block.1.1.weight', 'image_encoder.features.9.block.2.fc1.bias', 'image_encoder.features.9.block.2.fc1.weight', 'image_encoder.features.9.block.2.fc2.bias', 'image_encoder.features.9.block.2.fc2.weight', 'image_encoder.features.9.block.3.0.weight', 'image_encoder.features.9.block.3.1.bias', 'image_encoder.features.9.block.3.1.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight']
+2022-01-03 01:04:46,029 cfg.name                           : AUTSL Experiment
+2022-01-03 01:04:46,029 cfg.data.data_path                 : ./data/
+2022-01-03 01:04:46,029 cfg.data.version                   : autsl
+2022-01-03 01:04:46,029 cfg.data.sgn                       : sign
+2022-01-03 01:04:46,029 cfg.data.gls                       : gloss
+2022-01-03 01:04:46,029 cfg.data.feature_size              : 1000
+2022-01-03 01:04:46,029 cfg.data.level                     : word
+2022-01-03 01:04:46,030 cfg.data.max_sent_length           : 400
+2022-01-03 01:04:46,030 cfg.data.random_train_subset       : -1
+2022-01-03 01:04:46,030 cfg.data.random_dev_subset         : -1
+2022-01-03 01:04:46,030 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-01-03 01:04:46,030 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-01-03 01:04:46,030 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2022-01-03 01:04:46,030 cfg.training.reset_best_ckpt       : False
+2022-01-03 01:04:46,030 cfg.training.reset_scheduler       : False
+2022-01-03 01:04:46,030 cfg.training.reset_optimizer       : False
+2022-01-03 01:04:46,030 cfg.training.random_seed           : 42
+2022-01-03 01:04:46,030 cfg.training.model_dir             : ./AUTSL Experiments/AUTSL_experiment_19
+2022-01-03 01:04:46,031 cfg.training.recognition_loss_weight : 1.0
+2022-01-03 01:04:46,031 cfg.training.translation_loss_weight : 0.0
+2022-01-03 01:04:46,031 cfg.training.eval_metric           : wer
+2022-01-03 01:04:46,031 cfg.training.optimizer             : adam
+2022-01-03 01:04:46,031 cfg.training.learning_rate         : 0.001
+2022-01-03 01:04:46,031 cfg.training.batch_size            : 32
+2022-01-03 01:04:46,031 cfg.training.num_valid_log         : 5
+2022-01-03 01:04:46,031 cfg.training.epochs                : 5000000
+2022-01-03 01:04:46,031 cfg.training.early_stopping_metric : eval_metric
+2022-01-03 01:04:46,031 cfg.training.batch_type            : sentence
+2022-01-03 01:04:46,031 cfg.training.translation_normalization : batch
+2022-01-03 01:04:46,031 cfg.training.eval_recognition_beam_size : 9
+2022-01-03 01:04:46,031 cfg.training.eval_translation_beam_size : 9
+2022-01-03 01:04:46,032 cfg.training.eval_translation_beam_alpha : 1
+2022-01-03 01:04:46,032 cfg.training.overwrite             : True
+2022-01-03 01:04:46,032 cfg.training.shuffle               : True
+2022-01-03 01:04:46,032 cfg.training.use_cuda              : True
+2022-01-03 01:04:46,032 cfg.training.translation_max_output_length : 1
+2022-01-03 01:04:46,032 cfg.training.keep_last_ckpts       : 1
+2022-01-03 01:04:46,032 cfg.training.batch_multiplier      : 1
+2022-01-03 01:04:46,032 cfg.training.logging_freq          : 1
+2022-01-03 01:04:46,032 cfg.training.validation_freq       : 400
+2022-01-03 01:04:46,032 cfg.training.betas                 : [0.9, 0.998]
+2022-01-03 01:04:46,032 cfg.training.scheduling            : plateau
+2022-01-03 01:04:46,032 cfg.training.learning_rate_min     : 1e-06
+2022-01-03 01:04:46,032 cfg.training.weight_decay          : 0.001
+2022-01-03 01:04:46,033 cfg.training.patience              : 8
+2022-01-03 01:04:46,033 cfg.training.decrease_factor       : 0.7
+2022-01-03 01:04:46,033 cfg.training.label_smoothing       : 0.0
+2022-01-03 01:04:46,033 cfg.model.initializer              : xavier
+2022-01-03 01:04:46,033 cfg.model.bias_initializer         : zeros
+2022-01-03 01:04:46,033 cfg.model.init_gain                : 1.0
+2022-01-03 01:04:46,033 cfg.model.embed_initializer        : xavier
+2022-01-03 01:04:46,033 cfg.model.embed_init_gain          : 1.0
+2022-01-03 01:04:46,033 cfg.model.tied_softmax             : False
+2022-01-03 01:04:46,033 cfg.model.encoder.type             : transformer
+2022-01-03 01:04:46,033 cfg.model.encoder.num_layers       : 3
+2022-01-03 01:04:46,033 cfg.model.encoder.num_heads        : 8
+2022-01-03 01:04:46,034 cfg.model.encoder.embeddings.embedding_dim : 512
+2022-01-03 01:04:46,034 cfg.model.encoder.embeddings.scale : False
+2022-01-03 01:04:46,034 cfg.model.encoder.embeddings.dropout : 0.1
+2022-01-03 01:04:46,034 cfg.model.encoder.embeddings.norm_type : batch
+2022-01-03 01:04:46,034 cfg.model.encoder.embeddings.activation_type : softsign
+2022-01-03 01:04:46,034 cfg.model.encoder.hidden_size      : 512
+2022-01-03 01:04:46,034 cfg.model.encoder.ff_size          : 2048
+2022-01-03 01:04:46,034 cfg.model.encoder.dropout          : 0.1
+2022-01-03 01:04:46,034 cfg.model.decoder.type             : transformer
+2022-01-03 01:04:46,034 cfg.model.decoder.num_layers       : 3
+2022-01-03 01:04:46,034 cfg.model.decoder.num_heads        : 8
+2022-01-03 01:04:46,034 cfg.model.decoder.embeddings.embedding_dim : 512
+2022-01-03 01:04:46,034 cfg.model.decoder.embeddings.scale : False
+2022-01-03 01:04:46,035 cfg.model.decoder.embeddings.dropout : 0.1
+2022-01-03 01:04:46,035 cfg.model.decoder.embeddings.norm_type : batch
+2022-01-03 01:04:46,035 cfg.model.decoder.embeddings.activation_type : softsign
+2022-01-03 01:04:46,035 cfg.model.decoder.hidden_size      : 512
+2022-01-03 01:04:46,035 cfg.model.decoder.ff_size          : 2048
+2022-01-03 01:04:46,035 cfg.model.decoder.dropout          : 0.1
+2022-01-03 01:04:46,035 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=None,
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1000),
+	txt_embed=None)
+2022-01-03 01:04:46,039 EPOCH 1
+2022-01-03 01:06:45,630 [Epoch: 001 Step: 00000001] Batch Recognition Loss: 326.662537 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:08:41,344 [Epoch: 001 Step: 00000002] Batch Recognition Loss:  15.645771 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:10:26,696 [Epoch: 001 Step: 00000003] Batch Recognition Loss:  15.402807 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:12:20,028 [Epoch: 001 Step: 00000004] Batch Recognition Loss:  14.185519 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:13:52,703 [Epoch: 001 Step: 00000005] Batch Recognition Loss:  13.179751 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:15:37,118 [Epoch: 001 Step: 00000006] Batch Recognition Loss:  11.741423 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:17:19,388 [Epoch: 001 Step: 00000007] Batch Recognition Loss:   9.929827 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:18:49,242 [Epoch: 001 Step: 00000008] Batch Recognition Loss:   8.133132 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:20:27,268 [Epoch: 001 Step: 00000009] Batch Recognition Loss:   7.804593 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:22:03,926 [Epoch: 001 Step: 00000010] Batch Recognition Loss:  10.686493 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:23:57,632 [Epoch: 001 Step: 00000011] Batch Recognition Loss:   6.875094 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:25:47,551 [Epoch: 001 Step: 00000012] Batch Recognition Loss:   6.859111 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:27:42,130 [Epoch: 001 Step: 00000013] Batch Recognition Loss:   8.352901 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:29:32,680 [Epoch: 001 Step: 00000014] Batch Recognition Loss:   8.319563 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:31:21,533 [Epoch: 001 Step: 00000015] Batch Recognition Loss:   8.434930 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:33:20,900 [Epoch: 001 Step: 00000016] Batch Recognition Loss:   8.345118 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:35:08,463 [Epoch: 001 Step: 00000017] Batch Recognition Loss:   8.120455 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:37:08,515 [Epoch: 001 Step: 00000018] Batch Recognition Loss:   7.776879 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:38:40,267 [Epoch: 001 Step: 00000019] Batch Recognition Loss:   7.491936 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:40:20,883 [Epoch: 001 Step: 00000020] Batch Recognition Loss:   7.054012 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:42:06,289 [Epoch: 001 Step: 00000021] Batch Recognition Loss:   6.802413 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:44:08,548 [Epoch: 001 Step: 00000022] Batch Recognition Loss:   6.553946 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:46:23,735 [Epoch: 001 Step: 00000023] Batch Recognition Loss:   7.122825 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:48:49,868 [Epoch: 001 Step: 00000024] Batch Recognition Loss:   7.320577 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:51:21,799 [Epoch: 001 Step: 00000025] Batch Recognition Loss:   7.042739 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:53:54,268 [Epoch: 001 Step: 00000026] Batch Recognition Loss:   7.183573 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:56:09,201 [Epoch: 001 Step: 00000027] Batch Recognition Loss:   6.798676 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 01:58:54,944 [Epoch: 001 Step: 00000028] Batch Recognition Loss:   6.747711 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:01:40,159 [Epoch: 001 Step: 00000029] Batch Recognition Loss:   6.659463 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:04:29,260 [Epoch: 001 Step: 00000030] Batch Recognition Loss:   6.985989 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:07:06,933 [Epoch: 001 Step: 00000031] Batch Recognition Loss:   6.903453 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:09:52,684 [Epoch: 001 Step: 00000032] Batch Recognition Loss:   6.783931 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:12:47,184 [Epoch: 001 Step: 00000033] Batch Recognition Loss:   6.813385 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:15:39,526 [Epoch: 001 Step: 00000034] Batch Recognition Loss:   6.464869 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:18:36,024 [Epoch: 001 Step: 00000035] Batch Recognition Loss:   6.809871 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:21:19,299 [Epoch: 001 Step: 00000036] Batch Recognition Loss:   6.578498 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:24:09,871 [Epoch: 001 Step: 00000037] Batch Recognition Loss:   6.537764 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:26:39,297 [Epoch: 001 Step: 00000038] Batch Recognition Loss:   6.557305 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:29:33,225 [Epoch: 001 Step: 00000039] Batch Recognition Loss:   6.690065 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:32:26,141 [Epoch: 001 Step: 00000040] Batch Recognition Loss:   6.841813 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:35:34,657 [Epoch: 001 Step: 00000041] Batch Recognition Loss:   6.646276 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:38:31,664 [Epoch: 001 Step: 00000042] Batch Recognition Loss:   6.634700 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:41:27,882 [Epoch: 001 Step: 00000043] Batch Recognition Loss:   6.746697 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:44:11,967 [Epoch: 001 Step: 00000044] Batch Recognition Loss:   6.749681 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:47:04,691 [Epoch: 001 Step: 00000045] Batch Recognition Loss:   6.453507 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:49:48,944 [Epoch: 001 Step: 00000046] Batch Recognition Loss:   6.607303 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:52:43,433 [Epoch: 001 Step: 00000047] Batch Recognition Loss:   6.532654 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:55:35,314 [Epoch: 001 Step: 00000048] Batch Recognition Loss:   6.810415 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 02:58:19,420 [Epoch: 001 Step: 00000049] Batch Recognition Loss:   6.663069 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:01:09,039 [Epoch: 001 Step: 00000050] Batch Recognition Loss:   6.733980 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:03:57,296 [Epoch: 001 Step: 00000051] Batch Recognition Loss:   6.705927 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:06:39,062 [Epoch: 001 Step: 00000052] Batch Recognition Loss:   6.916825 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:09:33,154 [Epoch: 001 Step: 00000053] Batch Recognition Loss:   6.522181 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:12:17,903 [Epoch: 001 Step: 00000054] Batch Recognition Loss:   6.686973 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:15:25,687 [Epoch: 001 Step: 00000055] Batch Recognition Loss:   6.685521 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:18:11,082 [Epoch: 001 Step: 00000056] Batch Recognition Loss:   6.643089 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:21:05,876 [Epoch: 001 Step: 00000057] Batch Recognition Loss:   6.513969 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:24:03,542 [Epoch: 001 Step: 00000058] Batch Recognition Loss:   6.689713 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:27:15,021 [Epoch: 001 Step: 00000059] Batch Recognition Loss:   6.492249 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:30:21,286 [Epoch: 001 Step: 00000060] Batch Recognition Loss:   6.599652 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:33:40,883 [Epoch: 001 Step: 00000061] Batch Recognition Loss:   6.490022 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:36:48,411 [Epoch: 001 Step: 00000062] Batch Recognition Loss:   6.477007 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:40:07,612 [Epoch: 001 Step: 00000063] Batch Recognition Loss:   6.657212 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:43:31,144 [Epoch: 001 Step: 00000064] Batch Recognition Loss:   6.611038 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:46:30,919 [Epoch: 001 Step: 00000065] Batch Recognition Loss:   6.722361 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:49:59,026 [Epoch: 001 Step: 00000066] Batch Recognition Loss:   6.832833 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:54:33,457 [Epoch: 001 Step: 00000067] Batch Recognition Loss:   6.570191 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 03:58:50,437 [Epoch: 001 Step: 00000068] Batch Recognition Loss:   6.564089 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:03:33,720 [Epoch: 001 Step: 00000069] Batch Recognition Loss:   6.868764 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:07:56,243 [Epoch: 001 Step: 00000070] Batch Recognition Loss:   6.426528 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:12:14,422 [Epoch: 001 Step: 00000071] Batch Recognition Loss:   6.598495 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:16:25,365 [Epoch: 001 Step: 00000072] Batch Recognition Loss:   6.490792 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:21:25,270 [Epoch: 001 Step: 00000073] Batch Recognition Loss:   6.739031 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:26:09,478 [Epoch: 001 Step: 00000074] Batch Recognition Loss:   6.625474 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:30:48,914 [Epoch: 001 Step: 00000075] Batch Recognition Loss:   6.558233 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:35:17,627 [Epoch: 001 Step: 00000076] Batch Recognition Loss:   6.742897 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:39:49,892 [Epoch: 001 Step: 00000077] Batch Recognition Loss:   6.482596 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:44:08,381 [Epoch: 001 Step: 00000078] Batch Recognition Loss:   6.661028 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:48:42,790 [Epoch: 001 Step: 00000079] Batch Recognition Loss:   6.670394 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:53:12,069 [Epoch: 001 Step: 00000080] Batch Recognition Loss:   6.664770 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 04:57:53,148 [Epoch: 001 Step: 00000081] Batch Recognition Loss:   6.783594 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:02:11,541 [Epoch: 001 Step: 00000082] Batch Recognition Loss:   6.573309 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:06:42,721 [Epoch: 001 Step: 00000083] Batch Recognition Loss:   6.642015 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:11:20,421 [Epoch: 001 Step: 00000084] Batch Recognition Loss:   6.632925 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:15:55,746 [Epoch: 001 Step: 00000085] Batch Recognition Loss:   6.542112 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:20:38,970 [Epoch: 001 Step: 00000086] Batch Recognition Loss:   6.744009 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:25:24,486 [Epoch: 001 Step: 00000087] Batch Recognition Loss:   6.905646 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:30:16,982 [Epoch: 001 Step: 00000088] Batch Recognition Loss:   6.532675 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:34:54,554 [Epoch: 001 Step: 00000089] Batch Recognition Loss:   6.591311 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:39:27,025 [Epoch: 001 Step: 00000090] Batch Recognition Loss:   6.580859 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:43:05,012 [Epoch: 001 Step: 00000091] Batch Recognition Loss:   6.648588 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:47:27,863 [Epoch: 001 Step: 00000092] Batch Recognition Loss:   6.691346 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:52:51,934 [Epoch: 001 Step: 00000093] Batch Recognition Loss:   6.910401 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 05:58:18,009 [Epoch: 001 Step: 00000094] Batch Recognition Loss:   6.524574 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:03:48,195 [Epoch: 001 Step: 00000095] Batch Recognition Loss:   6.689852 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:09:39,296 [Epoch: 001 Step: 00000096] Batch Recognition Loss:   6.657719 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:15:24,521 [Epoch: 001 Step: 00000097] Batch Recognition Loss:   6.416870 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:21:12,146 [Epoch: 001 Step: 00000098] Batch Recognition Loss:   6.543136 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:26:35,669 [Epoch: 001 Step: 00000099] Batch Recognition Loss:   6.572455 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:32:23,337 [Epoch: 001 Step: 00000100] Batch Recognition Loss:   6.475403 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:37:35,546 [Epoch: 001 Step: 00000101] Batch Recognition Loss:   6.563056 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:43:15,264 [Epoch: 001 Step: 00000102] Batch Recognition Loss:   6.707391 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:49:00,757 [Epoch: 001 Step: 00000103] Batch Recognition Loss:   6.666131 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:54:32,155 [Epoch: 001 Step: 00000104] Batch Recognition Loss:   6.642704 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 06:59:48,832 [Epoch: 001 Step: 00000105] Batch Recognition Loss:   6.601418 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:05:05,213 [Epoch: 001 Step: 00000106] Batch Recognition Loss:   6.641487 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:10:04,429 [Epoch: 001 Step: 00000107] Batch Recognition Loss:   6.420943 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:14:58,922 [Epoch: 001 Step: 00000108] Batch Recognition Loss:   6.593442 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:19:44,031 [Epoch: 001 Step: 00000109] Batch Recognition Loss:   6.790908 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:24:35,333 [Epoch: 001 Step: 00000110] Batch Recognition Loss:   6.533908 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:29:14,813 [Epoch: 001 Step: 00000111] Batch Recognition Loss:   6.475727 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:34:13,297 [Epoch: 001 Step: 00000112] Batch Recognition Loss:   6.947047 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:38:56,742 [Epoch: 001 Step: 00000113] Batch Recognition Loss:   6.868853 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:43:57,975 [Epoch: 001 Step: 00000114] Batch Recognition Loss:   6.596248 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:48:44,201 [Epoch: 001 Step: 00000115] Batch Recognition Loss:   6.403829 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:53:44,697 [Epoch: 001 Step: 00000116] Batch Recognition Loss:   6.608260 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 07:58:11,665 [Epoch: 001 Step: 00000117] Batch Recognition Loss:   6.577415 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:03:15,619 [Epoch: 001 Step: 00000118] Batch Recognition Loss:   6.680544 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:07:45,860 [Epoch: 001 Step: 00000119] Batch Recognition Loss:   6.422637 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:13:07,122 [Epoch: 001 Step: 00000120] Batch Recognition Loss:   6.630057 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:19:27,470 [Epoch: 001 Step: 00000121] Batch Recognition Loss:   6.731328 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:25:52,010 [Epoch: 001 Step: 00000122] Batch Recognition Loss:   6.489869 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:32:17,352 [Epoch: 001 Step: 00000123] Batch Recognition Loss:   6.706517 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:38:49,106 [Epoch: 001 Step: 00000124] Batch Recognition Loss:   6.713467 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:45:25,374 [Epoch: 001 Step: 00000125] Batch Recognition Loss:   6.701119 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:52:03,798 [Epoch: 001 Step: 00000126] Batch Recognition Loss:   6.610833 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 08:58:59,738 [Epoch: 001 Step: 00000127] Batch Recognition Loss:   6.697487 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:06:00,652 [Epoch: 001 Step: 00000128] Batch Recognition Loss:   6.708803 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:12:54,807 [Epoch: 001 Step: 00000129] Batch Recognition Loss:   6.785336 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:19:01,144 [Epoch: 001 Step: 00000130] Batch Recognition Loss:   6.566747 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:23:54,108 [Epoch: 001 Step: 00000131] Batch Recognition Loss:   6.616710 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:31:16,081 [Epoch: 001 Step: 00000132] Batch Recognition Loss:   6.526360 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:38:30,471 [Epoch: 001 Step: 00000133] Batch Recognition Loss:   6.550286 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:45:59,148 [Epoch: 001 Step: 00000134] Batch Recognition Loss:   6.490882 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 09:53:12,500 [Epoch: 001 Step: 00000135] Batch Recognition Loss:   6.667130 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:00:18,681 [Epoch: 001 Step: 00000136] Batch Recognition Loss:   6.793462 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:08:00,732 [Epoch: 001 Step: 00000137] Batch Recognition Loss:   6.779860 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:15:18,329 [Epoch: 001 Step: 00000138] Batch Recognition Loss:   6.615446 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:22:42,334 [Epoch: 001 Step: 00000139] Batch Recognition Loss:   6.579839 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:29:56,335 [Epoch: 001 Step: 00000140] Batch Recognition Loss:   6.785642 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:37:30,484 [Epoch: 001 Step: 00000141] Batch Recognition Loss:   6.675107 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:44:32,516 [Epoch: 001 Step: 00000142] Batch Recognition Loss:   6.647691 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:51:43,491 [Epoch: 001 Step: 00000143] Batch Recognition Loss:   6.708153 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 10:58:44,353 [Epoch: 001 Step: 00000144] Batch Recognition Loss:   6.587257 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:05:24,779 [Epoch: 001 Step: 00000145] Batch Recognition Loss:   6.853498 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:10:33,906 [Epoch: 001 Step: 00000146] Batch Recognition Loss:   6.485883 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:18:20,147 [Epoch: 001 Step: 00000147] Batch Recognition Loss:   6.720912 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:25:48,449 [Epoch: 001 Step: 00000148] Batch Recognition Loss:   6.892040 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:33:24,592 [Epoch: 001 Step: 00000149] Batch Recognition Loss:   6.642653 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:40:57,868 [Epoch: 001 Step: 00000150] Batch Recognition Loss:   6.509549 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:48:51,377 [Epoch: 001 Step: 00000151] Batch Recognition Loss:   6.575043 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 11:56:59,305 [Epoch: 001 Step: 00000152] Batch Recognition Loss:   6.697551 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:04:56,397 [Epoch: 001 Step: 00000153] Batch Recognition Loss:   6.643415 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:12:51,175 [Epoch: 001 Step: 00000154] Batch Recognition Loss:   6.601928 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:20:46,536 [Epoch: 001 Step: 00000155] Batch Recognition Loss:   6.708047 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:28:14,638 [Epoch: 001 Step: 00000156] Batch Recognition Loss:   6.827950 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:34:59,465 [Epoch: 001 Step: 00000157] Batch Recognition Loss:   6.650898 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:43:53,517 [Epoch: 001 Step: 00000158] Batch Recognition Loss:   6.755009 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 12:52:46,632 [Epoch: 001 Step: 00000159] Batch Recognition Loss:   6.799653 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:01:13,939 [Epoch: 001 Step: 00000160] Batch Recognition Loss:   6.837400 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:09:41,053 [Epoch: 001 Step: 00000161] Batch Recognition Loss:   6.482087 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:18:15,546 [Epoch: 001 Step: 00000162] Batch Recognition Loss:   6.448885 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:26:43,410 [Epoch: 001 Step: 00000163] Batch Recognition Loss:   6.671457 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:34:47,008 [Epoch: 001 Step: 00000164] Batch Recognition Loss:   6.474612 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:42:27,478 [Epoch: 001 Step: 00000165] Batch Recognition Loss:   6.587066 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:50:24,536 [Epoch: 001 Step: 00000166] Batch Recognition Loss:   6.413910 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 13:58:08,936 [Epoch: 001 Step: 00000167] Batch Recognition Loss:   6.600189 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:05:11,783 [Epoch: 001 Step: 00000168] Batch Recognition Loss:   6.700253 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:11:43,495 [Epoch: 001 Step: 00000169] Batch Recognition Loss:   6.631659 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:20:11,302 [Epoch: 001 Step: 00000170] Batch Recognition Loss:   6.482230 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:28:34,643 [Epoch: 001 Step: 00000171] Batch Recognition Loss:   6.723917 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:37:08,420 [Epoch: 001 Step: 00000172] Batch Recognition Loss:   6.751903 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:45:45,787 [Epoch: 001 Step: 00000173] Batch Recognition Loss:   6.687958 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 14:54:05,468 [Epoch: 001 Step: 00000174] Batch Recognition Loss:   6.899020 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:02:54,204 [Epoch: 001 Step: 00000175] Batch Recognition Loss:   6.643741 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:11:45,361 [Epoch: 001 Step: 00000176] Batch Recognition Loss:   6.827463 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:20:55,144 [Epoch: 001 Step: 00000177] Batch Recognition Loss:   6.612928 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:29:44,233 [Epoch: 001 Step: 00000178] Batch Recognition Loss:   6.770864 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:38:41,470 [Epoch: 001 Step: 00000179] Batch Recognition Loss:   6.537282 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:46:19,271 [Epoch: 001 Step: 00000180] Batch Recognition Loss:   6.487495 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 15:54:01,721 [Epoch: 001 Step: 00000181] Batch Recognition Loss:   6.502331 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:03:16,476 [Epoch: 001 Step: 00000182] Batch Recognition Loss:   6.721600 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:12:13,108 [Epoch: 001 Step: 00000183] Batch Recognition Loss:   6.598772 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:21:13,243 [Epoch: 001 Step: 00000184] Batch Recognition Loss:   6.690511 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:30:05,913 [Epoch: 001 Step: 00000185] Batch Recognition Loss:   6.734668 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:39:00,951 [Epoch: 001 Step: 00000186] Batch Recognition Loss:   6.613380 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:47:45,178 [Epoch: 001 Step: 00000187] Batch Recognition Loss:   6.685247 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 16:56:33,258 [Epoch: 001 Step: 00000188] Batch Recognition Loss:   6.693255 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:04:49,532 [Epoch: 001 Step: 00000189] Batch Recognition Loss:   6.618000 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:14:53,905 [Epoch: 001 Step: 00000190] Batch Recognition Loss:   6.813130 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:24:14,311 [Epoch: 001 Step: 00000191] Batch Recognition Loss:   6.808006 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:33:25,403 [Epoch: 001 Step: 00000192] Batch Recognition Loss:   6.548871 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:42:44,950 [Epoch: 001 Step: 00000193] Batch Recognition Loss:   6.689346 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 17:54:36,169 [Epoch: 001 Step: 00000194] Batch Recognition Loss:   6.459847 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 18:05:57,369 [Epoch: 001 Step: 00000195] Batch Recognition Loss:   6.796236 => Gls Tokens per Sec:        0 || Lr: 0.001000
+2022-01-03 18:16:03,269 [Epoch: 001 Step: 00000196] Batch Recognition Loss:   6.622530 => Gls Tokens per Sec:        0 || Lr: 0.001000
