@@ -1,9 +1,3 @@
-"""
-Demo on a single video input.
-Example usage:
-    python demo.py
-    python demo.py --topk 3 --confidence 0
-"""
 import os
 import sys
 import math
@@ -28,12 +22,18 @@ from utils.misc import to_torch
 from utils.imutils import im_to_numpy, im_to_torch, resize_generic
 from utils.transforms import color_normalize
 
+"""
+    Demo on a single video input.
+    Example usage:
+        python demo.py
+        python demo.py --topk 3 --confidence 0
+"""
+
 
 @beartype
 def load_rgb_video(video_path: Path, video_url: str, fps: int) -> torch.Tensor:
     """
-    Load frames of a video using cv2 (fetch from provided URL if file is not found
-    at given location).
+    Load frames of a video using cv2 (fetch from provided URL if file is not found at given location).
     """
     fetch_from_url(url=video_url, dest_path=video_path)
     cap = cv2.VideoCapture(str(video_path))
@@ -69,19 +69,21 @@ def load_rgb_video(video_path: Path, video_url: str, fps: int) -> torch.Tensor:
         rgb.append(rgb_t)
         f += 1
     cap.release()
+
     # (nframes, 3, cap_height, cap_width) => (3, nframes, cap_height, cap_width)
     rgb = torch.stack(rgb).permute(1, 0, 2, 3)
     print(f"Loaded video {video_path} with {f} frames [{cap_height}hx{cap_width}w] res. "
           f"at {cap_fps}")
+
     return rgb
 
 
 @beartype
 def prepare_input(
-    rgb: torch.Tensor,
-    resize_res: int = 256,
-    inp_res: int = 224,
-    mean: torch.Tensor = 0.5 * torch.ones(3), std=1.0 * torch.ones(3),
+        rgb: torch.Tensor,
+        resize_res: int = 256,
+        inp_res: int = 224,
+        mean: torch.Tensor = 0.5 * torch.ones(3), std=1.0 * torch.ones(3),
 ):
     """
     Process the video:
@@ -93,16 +95,16 @@ def prepare_input(
     rgb_resized = np.zeros((iF, resize_res, resize_res, iC))
     for t in range(iF):
         tmp = rgb[:, t, :, :]
-        tmp = resize_generic(
-            im_to_numpy(tmp), resize_res, resize_res, interp="bilinear", is_flow=False
-        )
+        tmp = resize_generic(im_to_numpy(tmp), resize_res, resize_res, interp="bilinear", is_flow=False)
         rgb_resized[t] = tmp
     rgb = np.transpose(rgb_resized, (3, 0, 1, 2))
+
     # Center crop coords
     ulx = int((resize_res - inp_res) / 2)
     uly = int((resize_res - inp_res) / 2)
+
     # Crop 256x256
-    rgb = rgb[:, :, uly : uly + inp_res, ulx : ulx + inp_res]
+    rgb = rgb[:, :, uly: uly + inp_res, ulx: ulx + inp_res]
     rgb = to_torch(rgb).float()
     assert rgb.max() <= 1
     rgb = color_normalize(rgb, mean, std)
@@ -130,8 +132,9 @@ def load_model(
         num_classes: int,
         num_in_frames: int,
 ) -> torch.nn.Module:
-    """Load pre-trained I3D checkpoint, put in eval mode.  Download checkpoint
-    from url if not found locally.
+    """
+    Load pre-trained I3D checkpoint, put in eval mode.
+    Download checkpoint from url if not found locally.
     """
     fetch_from_url(url=checkpoint_url, dest_path=checkpoint_path)
     model = models.InceptionI3d(
@@ -197,7 +200,7 @@ def sliding_windows(
         else:
             t_beg = nFrames - num_in_frames
         t_mid.append(t_beg + num_in_frames / 2)
-        rgb_slided[j] = rgb[:, t_beg : t_beg + num_in_frames, :, :]
+        rgb_slided[j] = rgb[:, t_beg: t_beg + num_in_frames, :, :]
     return rgb_slided, np.array(t_mid)
 
 
@@ -226,15 +229,18 @@ def viz_predictions(
         gt_text = "".join(gt_text)
         gt_text = f"GT: {gt_text}"
     print(f"Saving visualizations to {frame_dir}")
+
     num_frames = rgb.shape[1]
     height = rgb.shape[2]
     offset = height / 14
     vertical_sep = offset * 2
     for t in tqdm(range(num_frames)):
+
         t_ix = abs(t_mid - t).argmin()
         sign = word_topk[:, t_ix]
         sign_prob = prob_topk[:, t_ix]
         plt.imshow(im_to_numpy(rgb[:, t]))
+
         for k, s in enumerate(sign):
             if sign_prob[k] >= confidence:
                 pred_text = f"Pred: {s} ({100 * sign_prob[k]:.0f}%)"
@@ -248,6 +254,7 @@ def viz_predictions(
                     verticalalignment="top",
                     bbox=dict(facecolor="green", alpha=0.9),
                 )
+
         if gt_text != "":
             # Hard-coded
             plt.text(
@@ -260,29 +267,30 @@ def viz_predictions(
                 verticalalignment="top",
                 bbox=dict(facecolor="blue", alpha=0.9),
             )
+
         plt.axis("off")
         plt.savefig(frame_dir / f"frame_{t:03d}.png")
         plt.clf()
 
 
 def main(
-    checkpoint_path: Path,
-    word_data_pkl_path: Path,
-    video_path: Path,
-    save_path: Path,
-    gt_text: str,
-    video_url: str,
-    checkpoint_url: str,
-    word_data_pkl_url: str,
-    fps: int,
-    num_classes: int,
-    num_in_frames: int,
-    confidence: int,
-    batch_size: int,
-    stride: int,
-    topk: int,
-    viz: bool,
-    gen_gif: bool,
+        checkpoint_path: Path,
+        word_data_pkl_path: Path,
+        video_path: Path,
+        save_path: Path,
+        gt_text: str,
+        video_url: str,
+        checkpoint_url: str,
+        word_data_pkl_url: str,
+        fps: int,
+        num_classes: int,
+        num_in_frames: int,
+        confidence: int,
+        batch_size: int,
+        stride: int,
+        topk: int,
+        viz: bool,
+        gen_gif: bool,
 ):
     with BlockTimer("Loading model"):
         model = load_model(
@@ -291,17 +299,20 @@ def main(
             num_classes=num_classes,
             num_in_frames=num_in_frames,
         )
+
     with BlockTimer("Loading mapping to assign class indices to sign glosses"):
         word_data = load_vocab(
             word_data_pkl_path=word_data_pkl_path,
             word_data_pkl_url=word_data_pkl_url,
         )
+
     with BlockTimer("Loading video frames"):
         rgb_orig = load_rgb_video(
             video_path=video_path,
             video_url=video_url,
             fps=fps,
         )
+
     # Prepare: resize/crop/normalize
     rgb_input = prepare_input(rgb_orig)
     # Sliding window
@@ -310,13 +321,14 @@ def main(
         stride=stride,
         num_in_frames=num_in_frames,
     )
+
     # Number of windows/clips
     num_clips = rgb_slides.shape[0]
     # Group the clips into batches
     num_batches = math.ceil(num_clips / batch_size)
     raw_scores = np.empty((0, num_classes), dtype=float)
     for b in range(num_batches):
-        inp = rgb_slides[b * batch_size : (b + 1) * batch_size]
+        inp = rgb_slides[b * batch_size: (b + 1) * batch_size]
         # Forward pass
         out = model(inp)
         raw_scores = np.append(raw_scores, out["logits"].cpu().detach().numpy(), axis=0)
@@ -331,6 +343,7 @@ def main(
     prob_topk = prob_sorted[:, :topk].transpose()
     print("Predicted signs:")
     print(word_topk)
+
     # Visualize predictions
     if viz:
         save_path.parent.mkdir(exist_ok=True, parents=True)
@@ -361,6 +374,7 @@ def main(
 
 
 if __name__ == "__main__":
+
     p = argparse.ArgumentParser(description="Helper script to run demo.")
     p.add_argument(
         "--checkpoint_url",

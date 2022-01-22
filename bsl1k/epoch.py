@@ -17,7 +17,7 @@ from utils.vizutils import viz_gt_pred
 # ----------------------------------------------------------------
 # monkey patch for progress bar on SLURM
 if True:
-    #  disabling in interactive mode
+    #  disabling in interactive mode
     def writeln(self, line):
         on_slurm = os.environ.get("SLURM_JOB_ID", False)
         if self.file and (self.is_tty() or on_slurm):
@@ -51,12 +51,11 @@ def do_epoch(
         save_feature_dir="",
         save_fig_dir="",
 ):
-    assert setname == "train" or setname == "val" or setname == "test"  # TODO: Adjusting.  V
+    assert setname == "train" or setname == "val" or setname == "test"  # TODO: Add a test set option.  V
 
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = [AverageMeter()]
-
     perfs = []
     for k in topk:
         perfs.append(AverageMeter())  # TODO: AverageMeter() - Computes and stores the average and current value.
@@ -70,7 +69,7 @@ def do_epoch(
         model.train()
     elif setname == "val":
         model.eval()
-    elif setname == "test":  # TODO: Add test set option.   V
+    elif setname == "test":  # TODO: Add a test set option. V
         model.eval()
 
     end = time.time()
@@ -81,8 +80,7 @@ def do_epoch(
     for i, data in enumerate(loader):
 
         if data.get("gpu_collater", False):
-            #  We handle collation on the GPU to enable faster data augmentation
-
+            # We handle collation on the GPU to enable faster data augmentation
             with torch.no_grad():
                 data["rgb"] = data["rgb"].cuda()
                 collater_kwargs = {}
@@ -110,8 +108,8 @@ def do_epoch(
         # compute the loss
         logits = outputs_cuda["logits"].data.cpu()
         loss = criterion(outputs_cuda["logits"], targets_cuda)
-        topk_acc = performance(logits, targets, topk=topk)  # TODO: performance - Returns the accuracy at top-k over a batch.
-
+        # TODO: performance - Returns the accuracy at top-k over a batch.
+        topk_acc = performance(logits, targets, topk=topk)
         for ki, acc in enumerate(topk_acc):
             perfs[ki].update(acc, inputs.size(0))
 
@@ -121,7 +119,7 @@ def do_epoch(
         if save_logits:
             all_logits[data["index"]] = logits
         if save_features:
-            all_features[data["index"]] = outputs_cuda["embds"].squeeze().data.cpu()  # TODO
+            all_features[data["index"]] = outputs_cuda["embds"].squeeze().data.cpu()
 
         if (debug or is_show(num_figs, i, len(loader))):
             fname = "pred_%s_epoch%02d_iter%05d" % (setname, epochno, i)
@@ -165,11 +163,12 @@ def do_epoch(
 
     bar.finish()
 
+    # TODO: Mine - in the end these changes were not necessary.
     # from sklearn.preprocessing import MultiLabelBinarizer
     # mlb = MultiLabelBinarizer()
     # mlb.fit_transform([(1, 2), (3,)])
-    # save outputs
 
+    # save outputs
     if save_logits or save_features:
         meta = {
             "clip_gt": np.asarray(loader.dataset.get_set_classes()),
@@ -178,7 +177,7 @@ def do_epoch(
         }
 
     if save_logits:
-        save_pred( all_logits, checkpoint=save_feature_dir, filename="preds.mat", meta=meta)
+        save_pred(all_logits, checkpoint=save_feature_dir, filename="preds.mat", meta=meta)
     if save_features:
         save_pred(all_features, checkpoint=save_feature_dir, filename="features.mat", meta=meta)
 

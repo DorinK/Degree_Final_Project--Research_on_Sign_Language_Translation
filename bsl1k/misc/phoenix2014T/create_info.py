@@ -36,7 +36,6 @@ def _get_video_info(rgb_path):
             return [None] * 5
         else:
             video_duration_sec = float(video_res_t) / video_fps
-
         return video_res_t, video_res_w, video_res_h, video_fps, video_duration_sec
 
     else:
@@ -46,6 +45,7 @@ def _get_video_info(rgb_path):
 def main(data_path: Path):
 
     today_str = date.today().strftime("%y.%m.%d")
+    # TODO: Update the files paths accordingly. V
     info_file = '/home/nlp/dorink/project/bsl1k' / data_path / "info" / f"info_{today_str}.pkl"
     dict_file = open('/home/nlp/dorink/project/bsl1k' / data_path / "info" / f"words_{today_str}.txt", "w")
 
@@ -75,7 +75,7 @@ def main(data_path: Path):
 
     # Read all the sentences from the csvs to determine the vocab for each split
     all_glosses = {}
-    for s, v in sets.items():
+    for s, v in sets.items():  # TODO: Update the path accordingly. V
         annot_file = os.path.join("/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv")
         with open(annot_file, newline="") as f:
             reader = csv.reader(f)
@@ -98,11 +98,7 @@ def main(data_path: Path):
     # Training has 1085 / 1232 (simple / complex)
     words = list(sorted(all_glosses["train"]))
     # The combination has 1115 / 1266 words
-    # words = list(
-    #     sorted(
-    #         all_glosses["train"].union(all_glosses["dev"]).union(all_glosses["test"])
-    #     )
-    # )
+    # words = list(sorted(all_glosses["train"].union(all_glosses["dev"]).union(all_glosses["test"])))
 
     # Write to TXT file
     words_to_id = {}
@@ -116,6 +112,7 @@ def main(data_path: Path):
 
     for s, v in sets.items():
 
+        # TODO: Update the files paths accordingly. V
         annot_file = os.path.join("/home/nlp/dorink/project/bsl1k/data", annot_path, f"PHOENIX-2014-T.{v}.corpus.csv")
         videos_set = os.path.join("/home/nlp/dorink/project/bsl1k/data_phoenix", "videos", s)
 
@@ -137,7 +134,6 @@ def main(data_path: Path):
             v = f"{v}.mp4"  # append .mp4
             mp4_path = os.path.join(videos_set, v)
             assert os.path.exists(mp4_path)
-
             # Video resolution information
             (
                 video_res_t,
@@ -162,7 +158,6 @@ def main(data_path: Path):
                 data["videos"]["gloss_seq"].append(gloss_seq)
                 glosses = []
                 gloss_ids = []
-
                 for g in gloss_seq.split(" "):
                     glosses.append(g)
                     if g in words_to_id:
@@ -185,11 +180,13 @@ def main(data_path: Path):
 
 
 if __name__ == "__main__":
+
     description = "Helper script to create info.pkl for Phoenix data."
     p = argparse.ArgumentParser(description=description)
     p.add_argument(
         "--data_path",
         type=Path,
+        # TODO: Update the default path accordingly.    V
         default="data_phoenix",  # "data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T",
         help="Path to Phoenix data.",
     )

@@ -41,7 +41,6 @@ class MaxPool3dSamePadding(nn.MaxPool3d):
         # print x.size()
         # print pad
         x = F.pad(x, pad)
-
         return super(MaxPool3dSamePadding, self).forward(x)
 
 
@@ -61,7 +60,7 @@ class Unit3D(nn.Module):
             num_domains=1,
     ):
 
-        """Initializes Unit3D module."""
+        """ Initializes Unit3D module. """
         super(Unit3D, self).__init__()
 
         self._output_channels = output_channels
@@ -79,8 +78,7 @@ class Unit3D(nn.Module):
             out_channels=self._output_channels,
             kernel_size=self._kernel_shape,
             stride=self._stride,
-            padding=0,
-            # we always want padding to be 0 here. We will dynamically pad based on input size in forward function
+            padding=0,  # we always want padding to be 0 here. We will dynamically pad based on input size in forward function
             bias=self._use_bias,
         )
 
@@ -129,7 +127,6 @@ class Unit3D(nn.Module):
             x = self.bn(x)
         if self._activation_fn is not None:
             x = self._activation_fn(x)
-
         return x
 
 
@@ -407,7 +404,6 @@ class InceptionI3d(nn.Module):
 
         last_duration = int(math.ceil(num_in_frames / 8))  # 8
         last_size = 7  # int(math.ceil(sample_width / 32))  # this is for 224
-
         self.avgpool = nn.AvgPool3d((last_duration, last_size, last_size), stride=1)
 
         self.dropout = nn.Dropout(dropout_keep_prob)

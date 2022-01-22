@@ -1,9 +1,7 @@
-# coding: utf-8
-
-# From Necati Cihan Camgoz (https://github.com/neccam/slt/blob/master/signjoey/metrics.py)
-
-
 import numpy as np
+
+# coding: utf-8
+# From Necati Cihan Camgoz (https://github.com/neccam/slt/blob/master/signjoey/metrics.py)
 
 WER_COST_DEL = 3
 WER_COST_INS = 3
@@ -11,6 +9,7 @@ WER_COST_SUB = 4
 
 
 def wer_list(references, hypotheses):
+
     total_error = total_del = total_ins = total_sub = total_ref_len = 0
 
     for r, h in zip(references, hypotheses):
@@ -35,6 +34,7 @@ def wer_list(references, hypotheses):
 
 
 def wer_single(r, h):
+
     r = r.strip().split()
     h = h.strip().split()
     edit_distance_matrix = edit_distance(r=r, h=h)
@@ -68,9 +68,8 @@ def edit_distance(r, h):
         r -> the list of words produced by splitting reference sentence.
         h -> the list of words produced by splitting hypothesis sentence.
     """
-    d = np.zeros((len(r) + 1) * (len(h) + 1), dtype=np.uint8).reshape(
-        (len(r) + 1, len(h) + 1)
-    )
+    d = np.zeros((len(r) + 1) * (len(h) + 1), dtype=np.uint8).reshape( (len(r) + 1, len(h) + 1))
+
     for i in range(len(r) + 1):
         for j in range(len(h) + 1):
             if i == 0:
@@ -78,6 +77,7 @@ def edit_distance(r, h):
                 d[0][j] = j * WER_COST_INS
             elif j == 0:
                 d[i][0] = i * WER_COST_DEL
+
     for i in range(1, len(r) + 1):
         for j in range(1, len(h) + 1):
             if r[i - 1] == h[j - 1]:
@@ -87,6 +87,7 @@ def edit_distance(r, h):
                 insert = d[i][j - 1] + WER_COST_INS
                 delete = d[i - 1][j] + WER_COST_DEL
                 d[i][j] = min(substitute, insert, delete)
+
     return d
 
 

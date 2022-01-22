@@ -14,16 +14,17 @@
 
 from __future__ import print_function
 
-
 HIDE_CURSOR = "\x1b[?25l"
 SHOW_CURSOR = "\x1b[?25h"
 
 
 class WriteMixin(object):
+
     hide_cursor = False
 
     def __init__(self, message=None, **kwargs):
         super(WriteMixin, self).__init__(**kwargs)
+
         self._width = 0
         if message:
             self.message = message
@@ -48,10 +49,12 @@ class WriteMixin(object):
 
 
 class WritelnMixin(object):
+
     hide_cursor = False
 
     def __init__(self, message=None, **kwargs):
         super(WritelnMixin, self).__init__(**kwargs)
+
         if message:
             self.message = message
 
@@ -81,7 +84,9 @@ from sys import exit
 
 
 class SigIntMixin(object):
-    """Registers a signal handler that calls finish on SIGINT"""
+    """
+    Registers a signal handler that calls finish on SIGINT
+    """
 
     def __init__(self, *args, **kwargs):
         super(SigIntMixin, self).__init__(*args, **kwargs)

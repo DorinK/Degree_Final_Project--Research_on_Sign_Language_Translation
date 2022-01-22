@@ -311,12 +311,9 @@ def parse_opts(argv=None):
 
 
 def print_args(args):
-
     print("==== Options ====")
-
     for k, v in sorted(vars(args).items()):
         print(f"{k}: {v}")
-
     print("=================")
 
 
@@ -328,7 +325,6 @@ def save_args(args, save_folder, opt_prefix="opt", verbose=True):
     # Save to text
     opt_filename = f"{opt_prefix}.txt"
     opt_path = os.path.join(save_folder, opt_filename)
-
     with open(opt_path, "a") as opt_file:
         opt_file.write("====== Options ======\n")
         for k, v in sorted(opts.items()):
@@ -339,9 +335,7 @@ def save_args(args, save_folder, opt_prefix="opt", verbose=True):
     # Save as pickle
     opt_picklename = f"{opt_prefix}.pkl"
     opt_picklepath = os.path.join(save_folder, opt_picklename)
-
     with open(opt_picklepath, "wb") as opt_file:
         pickle.dump(opts, opt_file)
-
     if verbose:
         print(f"Saved options to {opt_path}")

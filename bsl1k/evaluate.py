@@ -8,30 +8,31 @@ import opts
 import datasets
 
 plt.switch_backend("agg")
-# from sklearn.preprocessing import MultiLabelBinarizer
 
+# TODO: Mine - in the end these changes were not necessary.
+# from sklearn.preprocessing import MultiLabelBinarizer
 # mlb = MultiLabelBinarizer()
 
 
 """
-Example usage:
-source activate pytorch1.3_env
-
-python evaluate.py \
-    --datasetname bsl1k \
-    --checkpoint checkpoint/bsl1k/c1064_16f_unfreezei3d_m9/test_050/ \
-    --num-classes 1064 --num_in_frames 16 --stride 0.5 \
-    --nperf 3 --topk 1 5 10 \
-    --word_data_pkl misc/bsldict/subtitles/data/words_mouthing0.8_1064_20.02.21.pkl \
-    --bsl1k_num_last_frames 20 \
-
-python evaluate.py \
-    --datasetname bsl1k \
-    --checkpoint data/checkpoint/bsl1k/c1064_16f_unfreezei3d_m5_last20_poseinit_cls_balanced_sampling/2020-06-29_07-48-03/test_050 \
-    --num-classes 1064 --num_in_frames 16 --stride 0.5 \
-    --nperf 3 --topk 1 5 10 \
-    --word_data_pkl misc/bsldict/subtitles/data/words_mouthing0.8_1064_20.02.21.pkl \
-    --bsl1k_num_last_frames 20
+    Example usage:
+    source activate pytorch1.3_env
+    
+    python evaluate.py \
+        --datasetname bsl1k \
+        --checkpoint checkpoint/bsl1k/c1064_16f_unfreezei3d_m9/test_050/ \
+        --num-classes 1064 --num_in_frames 16 --stride 0.5 \
+        --nperf 3 --topk 1 5 10 \
+        --word_data_pkl misc/bsldict/subtitles/data/words_mouthing0.8_1064_20.02.21.pkl \
+        --bsl1k_num_last_frames 20 \
+    
+    python evaluate.py \
+        --datasetname bsl1k \
+        --checkpoint data/checkpoint/bsl1k/c1064_16f_unfreezei3d_m5_last20_poseinit_cls_balanced_sampling/2020-06-29_07-48-03/test_050 \
+        --num-classes 1064 --num_in_frames 16 --stride 0.5 \
+        --nperf 3 --topk 1 5 10 \
+        --word_data_pkl misc/bsldict/subtitles/data/words_mouthing0.8_1064_20.02.21.pkl \
+        --bsl1k_num_last_frames 20
 """
 
 
@@ -47,9 +48,8 @@ def aggregate_clips(dataloader_val, topk=[1], scores=None, features=None):
     video_ix = np.unique(dataloader_val.valid)
     N = len(video_ix)
     maxk = max(topk)
-    gt = np.zeros(N, dtype=object)
-    # gt=mlb.fit_transform(dataloader_val.get_all_classes())
-    print("0")  # TODO: Delete. V
+    gt = np.zeros(N, dtype=object)  # TODO: The dtype should be mentioned -> Fixed. V
+    # gt=mlb.fit_transform(dataloader_val.get_all_classes())    # TODO: Mine - in the end it was not necessary.
     pred = np.zeros((N, maxk))
 
     if scores is not None:
@@ -65,9 +65,7 @@ def aggregate_clips(dataloader_val, topk=[1], scores=None, features=None):
         vid_features = None
 
     for i, vid in enumerate(video_ix):
-
         clip_ix = np.where(dataloader_val.valid == vid)
-
         if scores is not None:
             clip_score = scores[clip_ix]
             len_clip[i] = clip_score.shape[0]
@@ -76,7 +74,6 @@ def aggregate_clips(dataloader_val, topk=[1], scores=None, features=None):
             pred[i] = np.argsort(vid_score)[::-1][:maxk]
             # pred[i] = np.argmax(vid_score)
             gt[i] = dataloader_val.get_all_classes()[vid]  # dataloader_val.classes[vid]
-
         if features is not None:
             vid_features[i] = np.mean(features[clip_ix], axis=0)
 
@@ -109,11 +106,10 @@ def class_balanced_acc(gt, pred, num_classes, topk=[1]):
 
     save_test_classes = False
     if save_test_classes:
-
         import pickle as pkl
+
         word_data_pkl = "bsldict/subtitles/data/words_mouthing0.8_1064_20.02.21.pkl"
         word_data = pkl.load(open(word_data_pkl, "rb"))
-
         nonzero_test_classes = "bsldict/subtitles/data/test_words_m0.9.txt"
         with open(nonzero_test_classes, "w") as f:
             for c in existing_classes:
@@ -123,14 +119,15 @@ def class_balanced_acc(gt, pred, num_classes, topk=[1]):
     return acc
 
 
-def get_acc(dataloader, gt, pred, topk=[1]):
+def get_acc(dataloader, gt, pred, topk=[1]):  # TODO: Add the dataloader as a parameter.    V
 
     assert 1 in topk
     num_all = len(gt)
     accuracy = []
-    # gt_lst= mlb.inverse_transform(gt)
+    # gt_lst= mlb.inverse_transform(gt) # TODO: Mine - in the end it was not necessary.
 
     for k in topk:
+        # TODO: Mine - in the end these changes were not necessary.
         # a=[list(gt_lst[i]) in pred[i, :k] for i in range(5)]
         # is_correct = [list(gt_lst[i]) in pred[i, :k] for i in range(num_all)]
         # b=[gt_lst[i] in pred[i, :k] for i in range(5)]
@@ -142,10 +139,10 @@ def get_acc(dataloader, gt, pred, topk=[1]):
         accuracy.append(acc)
         if k == 1:
             num_correct1 = num_correct
-            # gt_mlb=mlb.fit_transform(dataloader.get_all_classes())
-            # confmat = sklearn.metrics.confusion_matrix(gt, pred[:, 0])
+            # gt_mlb=mlb.fit_transform(dataloader.get_all_classes())    # TODO: Mine - in the end it was not necessary.
+            # confmat = sklearn.metrics.confusion_matrix(gt, pred[:, 0])    # TODO: Uncomment.  V
 
-    return accuracy, num_correct1, num_all
+    return accuracy, num_correct1, num_all  # TODO: Adjust the return statement accordingly.    V
     # return accuracy, confmat, num_correct1, num_all
 
 
@@ -159,6 +156,7 @@ def viz_confmat(confmat, accuracy, categories, save_path=None):
     fig = plt.figure(figsize=(15, 15))
     plt.imshow(confmat)
     # plt.colorbar()
+
     plt.xticks(np.arange(len(categories)), categories, rotation="vertical", fontsize=8)
     plt.yticks(np.arange(len(categories)), categories, fontsize=8)
     plt.xlabel("predicted labels")
@@ -227,7 +225,6 @@ def evaluate(args, dataloader_val, plog):
     scores = None
 
     if with_scores:
-        print("-1")
         scores_file = f"{exp_root}/preds.mat"
         plog.info(f"Loading from {scores_file}")
         scores_dict = sio.loadmat(scores_file)
@@ -249,7 +246,6 @@ def evaluate(args, dataloader_val, plog):
 
     if vid_features is not None:
         plog.info("Saving vid_features.mat.")
-        print("2")  # TODO: Delete. V
         clip_gt = features_dict["clip_gt"]  # np.asarray(dataloader_val.classes)[dataloader_val.valid]
         clip_ix = features_dict["clip_ix"]  # dataloader_val.valid
         video_names = features_dict["video_names"]  # dataloader_val.videos
@@ -265,11 +261,9 @@ def evaluate(args, dataloader_val, plog):
         )
 
     if with_scores:
-
-        # accuracy, confmat, num_correct, num_all = get_acc(dataloader_val,gt, pred, topk=args.topk)
+        # accuracy, confmat, num_correct, num_all = get_acc(gt, pred, topk=args.topk)   # TODO: Adjust. V
         accuracy, num_correct, num_all = get_acc(dataloader_val, gt, pred, topk=args.topk)
         cb_acc = class_balanced_acc(gt, pred, args.num_classes, topk=args.topk)
-        print("3")  # TODO: Delete. V
 
         # Save to be able to reproduce
         results_file = f"{exp_root}/results.mat"
@@ -277,7 +271,7 @@ def evaluate(args, dataloader_val, plog):
 
         results_dict = {
             "accuracy": accuracy,
-            # "confmat": confmat,
+            # "confmat": confmat,   # TODO: Uncomment.  V
             "num_correct": num_correct,
             "num_all": num_all,
             "gt": gt,
@@ -288,23 +282,18 @@ def evaluate(args, dataloader_val, plog):
             "videos": scores_dict["video_names"],  # dataloader_val.videos,
             "cb_acc": cb_acc,
         }
-
         sio.savemat(results_file, results_dict)
 
         # Print to file for better readability
         with open(results_file.replace(".mat", ".txt"), "w") as f:
-
             f.write(f"Histogram of clip lengths ({scores.shape[0]} clips):\n")
             f.write(np.array2string(np.histogram(len_clip, bins=np.unique(len_clip))[0]) + "\n\n")
             f.write("Histogram of GT - Pred per category:\n")
-
             for i, classix in enumerate(np.unique(gt)):
                 f.write(f"{i} - {int(classix)}: G({(gt == classix).sum()}) - P({(pred[:, 0] == classix).sum()})\n")
-
             f.write("Confusion matrix:\n")
             # f.write(np.array2string(confmat, threshold=np.inf, max_line_width=np.inf) + '\n\n')
-            # f.write(np.array2string(confmat) + "\n\n")
-
+            # f.write(np.array2string(confmat) + "\n\n")    # TODO: Uncomment.  V
             for ki, k in enumerate(args.topk):
                 f.write(f"Accuracy-k{k}: {accuracy[ki]:.2f}% ({num_correct}/{num_all})\n")
                 f.write(f"Class-balanced Accuracy-k{k}: {cb_acc[ki]:.2f}%\n")
@@ -318,14 +307,13 @@ def evaluate(args, dataloader_val, plog):
             plog.info(f"{i} - {int(classix)}: G({(gt == classix).sum()}) - P({(pred[:, 0] == classix).sum()})")
 
         plog.info("Confusion matrix:")
-        # plog.info(confmat)
-
+        # plog.info(confmat)    # TODO: Uncomment.  V
         for ki, k in enumerate(args.topk):
             plog.info(f"Accuracy-k{k}: {accuracy[ki]:.2f}% ({num_correct}/{num_all})")
             plog.info(f"Class-balanced Accuracy-k{k}: {cb_acc[ki]:.2f}%")
 
         viz_confmat(
-            # confmat,
+            # confmat,  # TODO: Uncomment.  V
             accuracy,
             dataloader_val.class_names,
             save_path=f"{exp_root}/confmat.png",
@@ -341,6 +329,5 @@ if __name__ == "__main__":
     args.test_set = "test"
 
     plog = logging.getLogger("eval")
-
     dataloader_val = get_dataloader(args)
     evaluate(args, dataloader_val, plog)

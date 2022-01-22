@@ -14,12 +14,12 @@ from utils.evaluation.wer import wer_list, wer_single
 plt.switch_backend("agg")
 
 """
-# Example usage:
-source activate pytorch1.3
-python evaluate_seq.py --datasetname phoenix2014 \
-    --checkpoint checkpoint/phoenix2014/T_c1233_ctc_blank_unfreeze/test_002_stride0.50/ \
-    --num-classes 1233 --num_in_frames 16 --stride 0.5 \
-    --phoenix_path data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T \
+    # Example usage:
+    source activate pytorch1.3
+    python evaluate_seq.py --datasetname phoenix2014 \
+        --checkpoint checkpoint/phoenix2014/T_c1233_ctc_blank_unfreeze/test_002_stride0.50/ \
+        --num-classes 1233 --num_in_frames 16 --stride 0.5 \
+        --phoenix_path data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T \
 """
 
 
@@ -117,9 +117,7 @@ def get_dataloader(args):
 
 
 def save_wer_to_json(wer_result, result_file):
-
     print(f"Saving results to {result_file}")
-
     with open(result_file, "w") as f:
         f.write(json.dumps(wer_result, indent=2))
         f.write("\n")
@@ -127,13 +125,12 @@ def save_wer_to_json(wer_result, result_file):
 
 def evaluate(args, dataloader_val, plog):
 
-    if "phoenix2014t" in args.phoenix_path or True:  # TODO: Fix.   V
+    if "phoenix2014t" in args.phoenix_path or True:  # TODO: Name is inconsistent - should be 'phoenix2014t'.   V
         phoenix2014T = True
 
     with_scores = True
     with_features = args.save_features
-
-    # TODO: Remove this line, the dataloader_val is being received as parameter.    V
+    # TODO: Remove this line, the dataloader_val is received as a parameter.    V
     # dataloader_val = get_dataloader(args)
     exp_root = args.checkpoint
     scores = None
@@ -184,12 +181,11 @@ def evaluate(args, dataloader_val, plog):
     wer_result = wer_list(gt_list, pred_list)
     for k, v in wer_result.items():
         wer_result[k] = f"{v:.2f}"
-
     print("==> Python eval script results:")
     print(wer_result)
 
     if phoenix2014T:
-        eval_path = "data/evaluation/sign-recognition/"
+        eval_path = "data/evaluation/sign-recognition/"  # TODO: Update the evaluation path accordingly.    V
         eval_script = "evaluatePHOENIX-2014-T-signrecognition.sh"
     else:
         eval_path = "/users/gul/datasets/phoenix2014-release/phoenix-2014-multisigner/evaluation/"
@@ -200,7 +196,8 @@ def evaluate(args, dataloader_val, plog):
         output_file = "demo.ctm"
         phoenix_make_ctm(pred_glosses, names, output_file=f"{eval_path}/{output_file}")
         print("==> Official eval script results:")
-        # TODO: The Official script is not working at the moment, don't think it's crucial. V
+        # TODO: The official script is not working right now, do not think it is critical.  V
+        #  Tried to adjust the cmd command, but it did not work.
         # cmd = f"cd {eval_path} && PATH=$PATH:/users/gul/tools/sctk-2.4.10/bin ./{eval_script} {output_file} test"
         cmd = f"cd {eval_path} PATH=$PATH:home/nlp/dorink/project/bsl1k/checkpoint/phoenix2014t_i3d_pkinetics_new_Sep1/{eval_script} {output_file} test"
         # out = os.system(cmd)
@@ -215,7 +212,6 @@ def evaluate(args, dataloader_val, plog):
     # Write the results to json file
     result_file = f"{exp_root}/wer.json"
     save_wer_to_json(wer_result, result_file)
-
     return wer_result["wer"]
 
 
@@ -226,5 +222,4 @@ if __name__ == "__main__":
     args.test_set = "test"
 
     plog = logging.getLogger("eval")
-
     evaluate(args, plog)

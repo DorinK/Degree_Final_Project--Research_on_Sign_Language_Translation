@@ -19,6 +19,7 @@ def _imshow_pytorch(rgb, ax=None):
     if not ax:
         fig = plt.figure()
         ax = fig.add_subplot(111)
+
     ax.imshow(im_to_numpy(rgb * 255).astype(np.uint8))
     ax.axis("off")
 
@@ -39,8 +40,8 @@ def fig2data(fig):
 
 def viz_sample(img, out_torch, class_names=None, n=None, target=None):
     # Note: use class_names from the first batch because they are duplicates.
-    # It might become an issue when several datasets are concatenated,
-    # But usually same vocab are concatenated
+    # It might become an issue when several datasets are concatenated, but usually same vocab
+    # are concatenated
     if isinstance(out_torch, torch.FloatTensor):  # Prediction
         out = torch.nn.functional.softmax(out_torch, dim=0).data
         v, out = torch.max(out, 0)
@@ -55,50 +56,44 @@ def viz_sample(img, out_torch, class_names=None, n=None, target=None):
 
 
 def viz_batch(
-    inputs,
-    outputs,
-    mean=torch.Tensor([0.5, 0.5, 0.5]),
-    std=torch.Tensor([1.0, 1.0, 1.0]),
-    num_rows=2,
-    parts_to_show=None,
-    supervision=0,
-    meta=None,
-    target=None,
-    save_path="",
-    pose_rep="vector",
+        inputs,
+        outputs,
+        mean=torch.Tensor([0.5, 0.5, 0.5]),
+        std=torch.Tensor([1.0, 1.0, 1.0]),
+        num_rows=2,
+        parts_to_show=None,
+        supervision=0,
+        meta=None,
+        target=None,
+        save_path="",
+        pose_rep="vector",
 ):
     batch_img = []
     for n in range(min(inputs.size(0), 4)):
         inp = inputs[n]
         # Un-normalize
-        inp = (inp * std.view(3, 1, 1).expand_as(inp)) + mean.view(3, 1, 1).expand_as(
-            inp
-        )
+        inp = (inp * std.view(3, 1, 1).expand_as(inp)) + mean.view(3, 1, 1).expand_as(inp)
         # Torch to numpy
         inp = to_numpy(inp.clamp(0, 1) * 255)
         inp = inp.transpose(1, 2, 0).astype(np.uint8)
         # Resize 256x256 to 512x512 to be bigger
         # inp = scipy.misc.imresize(inp, [256, 256])
-        batch_img.append(
-            viz_sample(
-                inp, outputs[n], class_names=meta["class_names"], n=n, target=target
-            )
-        )
+        batch_img.append(viz_sample(inp, outputs[n], class_names=meta["class_names"], n=n, target=target))
     return np.concatenate(batch_img)
 
 
 def viz_gt_pred(
-    inputs,
-    outputs,
-    target,
-    mean,
-    std,
-    meta,
-    gt_win,
-    pred_win,
-    fig,
-    save_path=None,
-    show=False,
+        inputs,
+        outputs,
+        target,
+        mean,
+        std,
+        meta,
+        gt_win,
+        pred_win,
+        fig,
+        save_path=None,
+        show=False,
 ):
     if save_path is not None:
         mkdir_p(dirname(save_path))
@@ -114,6 +109,7 @@ def viz_gt_pred(
         # For each frame
         for t in range(0, nframes, 1):
             inp = data[:, :, t, :, :]
+
             # This was used to save the original-res inputs for the supmat
             if False:
                 # e.g. inp size [batch, 3, 224, 224]
@@ -125,6 +121,7 @@ def viz_gt_pred(
                     np_img = np_img.transpose(1, 2, 0).astype(np.uint8)
                     np_img = np_img[:, :, ::-1]
                     cv2.imwrite(img_file, np_img)
+
             gt_win, pred_win, fig = viz_gt_pred_single(
                 inp,
                 outputs,
@@ -138,21 +135,20 @@ def viz_gt_pred(
                 save_path,
                 show,
             )
+
             fig_img = fig2data(fig)
             # fig_img = scipy.misc.imresize(fig_img, [1000, 1000])
             fig_img = np.array(Image.fromarray(fig_img).resize([1000, 1000]))
             out.write(fig_img[:, :, (2, 1, 0)])
+
         out.release()
     return gt_win, pred_win, fig
 
 
-def viz_gt_pred_single(
-    inputs, outputs, target, mean, std, meta, gt_win, pred_win, fig, save_path, show
-):
+def viz_gt_pred_single(inputs, outputs, target, mean, std, meta, gt_win, pred_win, fig, save_path, show):
+
     # print(inputs[:, 0, :5, 0])  # inputs: [10, 3, 256, 256]
-    gt_batch_img = viz_batch(
-        inputs, target, mean=mean, std=std, meta=meta, save_path=dirname(save_path)
-    )
+    gt_batch_img = viz_batch(inputs, target, mean=mean, std=std, meta=meta, save_path=dirname(save_path))
     pred_batch_img = viz_batch(
         inputs,
         outputs,
@@ -162,6 +158,7 @@ def viz_gt_pred_single(
         target=target,
         save_path=dirname(save_path),
     )
+
     if not gt_win or not pred_win:
         fig = plt.figure(figsize=(20, 20))
         ax1 = plt.subplot(121)

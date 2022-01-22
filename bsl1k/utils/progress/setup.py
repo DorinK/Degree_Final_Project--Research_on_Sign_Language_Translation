@@ -4,7 +4,6 @@ from setuptools import setup
 
 import progress
 
-
 setup(
     name="progress",
     version=progress.__version__,

@@ -1,7 +1,9 @@
-# From Necati Cihan Camgoz (https://github.com/neccam/slt/blob/master/signjoey/phoenix_utils/phoenix_cleanup.py)
-
 from itertools import groupby
 import re
+
+"""
+From Necati Cihan Camgoz (https://github.com/neccam/slt/blob/master/signjoey/phoenix_utils/phoenix_cleanup.py)
+"""
 
 
 def clean_phoenix_2014(prediction):
@@ -43,9 +45,7 @@ def clean_phoenix_2014(prediction):
     assert not re.search("__EMOTION__", prediction)
 
     # Remove white spaces and repetitions
-    prediction = " ".join(
-        " ".join(i[0] for i in groupby(prediction.split(" "))).split()
-    )
+    prediction = " ".join(" ".join(i[0] for i in groupby(prediction.split(" "))).split())
     prediction = prediction.strip()
 
     return prediction
@@ -80,9 +80,7 @@ def clean_phoenix_2014_trans(prediction):
     prediction = re.sub(r" +", " ", prediction)
 
     # Remove white spaces and repetitions
-    prediction = " ".join(
-        " ".join(i[0] for i in groupby(prediction.split(" "))).split()
-    )
+    prediction = " ".join(" ".join(i[0] for i in groupby(prediction.split(" "))).split())
     prediction = prediction.strip()
 
     return prediction

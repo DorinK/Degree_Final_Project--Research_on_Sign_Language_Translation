@@ -8,6 +8,7 @@ def performance(output, target, topk=[1, 5]):
     maxk = max(topk)
     batch_size = target.size(0)
     _, pred = output.topk(maxk, 1, True, True)
+
     acc = []
     for k in topk:
         pos = 0.0
@@ -15,4 +16,5 @@ def performance(output, target, topk=[1, 5]):
             if target[b] in pred[b, :k]:
                 pos += 1
         acc.append(pos / batch_size)
+
     return acc

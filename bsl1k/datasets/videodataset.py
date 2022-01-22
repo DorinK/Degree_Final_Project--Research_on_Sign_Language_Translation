@@ -11,8 +11,8 @@ import torch
 import torch.utils.data as data
 from beartype import beartype
 
-from utils.imutils import (im_to_numpy, im_to_torch, im_to_video,resize_generic, video_to_im)
-from utils.transforms import (bbox_format, color_normalize, im_color_jitter,scale_yxyx_bbox)
+from utils.imutils import (im_to_numpy, im_to_torch, im_to_video, resize_generic, video_to_im)
+from utils.transforms import (bbox_format, color_normalize, im_color_jitter, scale_yxyx_bbox)
 
 cv2.setNumThreads(0)
 
@@ -25,7 +25,6 @@ DISABLE_CACHING = True
 class VideoDataset(data.Dataset):
 
     def __init__(self):
-
         self.mean = 0.5 * torch.ones(3)
         self.std = 1.0 * torch.ones(3)
         if not hasattr(self, "use_bbox"):
@@ -162,8 +161,9 @@ class VideoDataset(data.Dataset):
 
     def collate_fn(self, batch):
         """
-        Note: To enable usage with ConcatDataset, this must not rely on any attributes that are specific to
-        a current dataset (apart from `gpu_collation`), since a single collate_fn will be shared by all datasets.
+        Note: To enable usage with ConcatDataset, this must not rely on any attributes that are
+        specific to a current dataset (apart from `gpu_collation`), since a single collate_fn will
+        be shared by all datasets.
         """
         if not getattr(self, "gpu_collation", False):
             return torch.utils.data._utils.collate.default_collate(batch)
@@ -201,8 +201,8 @@ class VideoDataset(data.Dataset):
         if self.setname == "train":
             rgb = im_color_jitter(rgb, num_in_frames=self.num_in_frames, thr=0.2)
 
-        # For now, mimic the original pipeline.  If it's still a bottleneck, we should collapse the cropping,
-        # resizing etc. logic into a single sampling grid.
+        # For now, mimic the original pipeline.  If it's still a bottleneck, we should collapse the
+        # cropping, resizing etc. logic into a single sampling grid.
         iB, iC, iK, iH, iW = rgb.shape
         assert iK == self.num_in_frames, "unexpected number of frames per clip"
 
@@ -215,8 +215,8 @@ class VideoDataset(data.Dataset):
             else:
                 local_use_bbox = self.use_bbox
             if local_use_bbox:
-                # Until we patch ConcatDataset, we need to pass the dataset object
-                # explicitly to handle bbox selection
+                # Until we patch ConcatDataset, we need to pass the dataset object explicitly to
+                # handle bbox selection
                 if concat_datasets is not None:
                     get_bbox = concat_datasets[minibatch["dataset"][ii]]._get_bbox
                 else:
@@ -242,16 +242,16 @@ class VideoDataset(data.Dataset):
             rand_scale = 1 / rand_scale
             bbox_yxyx = scale_yxyx_bbox(bbox_yxyx, scale=rand_scale)
 
-        # apply random/center cropping to match the proportions used in the original code (the scaling is not
-        # quite identical, but close to it)
+        # apply random/center cropping to match the proportions used in the original code
+        # (the scaling is not quite identical, but close to it)
         if self.setname == "train":
             crop_box_sc = (self.inp_res / self.resize_res) * rand_scale
         else:
             crop_box_sc = self.inp_res / self.resize_res
         bbox_yxyx = scale_yxyx_bbox(bbox_yxyx, scale=crop_box_sc)
 
-        # If training, jitter the location such that it still lies within the appropriate region defined by
-        # the (optionally scaled) bounding box
+        # If training, jitter the location such that it still lies within the appropriate region
+        # defined by the (optionally scaled) bounding box
         if self.setname == "train":
             crop_bbox_cenhw = bbox_format(bbox_yxyx, src="yxyx", dest="cenhw")
             cropped_hw = crop_bbox_cenhw[:, 2:]
@@ -277,7 +277,8 @@ class VideoDataset(data.Dataset):
 
         # merge RGB and clip dimensions to use with grid sampler
         rgb = rgb.view(rgb.shape[0], 3 * self.num_in_frames, iH, iW)
-        rgb = torch.nn.functional.grid_sample(rgb, grid=grids, mode="bilinear", align_corners=False, padding_mode="zeros")
+        rgb = torch.nn.functional.grid_sample(rgb, grid=grids, mode="bilinear", align_corners=False,
+                                              padding_mode="zeros")
         # unflatten channel/clip dimension
         rgb = rgb.view(rgb.shape[0], 3, self.num_in_frames, self.inp_res, self.inp_res)
         rgb = color_normalize(rgb, self.mean, self.std)
@@ -294,6 +295,7 @@ class VideoDataset(data.Dataset):
         :param frame_ix: A list of frame indices to sample from the video
         :return data: Dictionary of input/output and other metadata
         """
+
         # If the input is pose (Pose->Sign experiments)
         if hasattr(self, "input_type") and self.input_type == "pose":
             data = {
@@ -358,8 +360,7 @@ class VideoDataset(data.Dataset):
 
         resol = self.resize_res  # 300 for 256, 130 for 112 etc.
         if self.setname == "train":
-            # Augment the scaled resolution between:
-            #     [1 - self.scale_factor, 1 + self.scale_factor)
+            # Augment the scaled resolution between:  [1 - self.scale_factor, 1 + self.scale_factor)
             rand_scale = random.random()
             resol *= 1 - self.scale_factor + 2 * self.scale_factor * rand_scale
             resol = int(resol)
@@ -457,17 +458,14 @@ class VideoDataset(data.Dataset):
         Assign the dataset class names, optionally filtering them with a pickle file of words.
         """
         if word_data_pkl is None:
-
             # All words
             subset_ix = range(len(data["videos"]["name"]))
             self.classes = data["videos"]["word_id"]
-
             with open(os.path.join(self.root_path, "info", "words.txt"), "r") as f:
                 self.class_names = f.read().splitlines()
 
         else:
             print(f"Using the words from {word_data_pkl}")
-
             word_data = pkl.load(open(word_data_pkl, "rb"))
             self.classes = []
             subset_ix = []
@@ -486,7 +484,6 @@ class VideoDataset(data.Dataset):
 
     @beartype
     def get_set_classes(self, is_train: bool = False):
-
         if is_train:
             return np.asarray(self.classes)[self.train]
         else:

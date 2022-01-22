@@ -2,7 +2,8 @@ import json
 import os
 
 
-def set_user_specific_vars(config="/home/nlp/dorink/project/bsl1k/exp/config.json"):
+def set_user_specific_vars(
+        config="/home/nlp/dorink/project/bsl1k/exp/config.json"):  # TODO: Update the config's path accordingly.    V
 
     with open(config, "r") as f:
         config_data = json.load(f)
@@ -28,9 +29,7 @@ def create_jobsub_str(jobname, expdir, num_gpus=1, mem=96, num_workers=8, durati
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:{num_gpus}
 # -------------------------------
-
 export PATH=$PATH
-
 """
     return jobsub_str
 
@@ -54,7 +53,6 @@ def create_cmd(
     if running_mode == "test":
         expdirroot = expdir
         expdir = os.path.join(expdir, f"test{modelno}{test_suffix}")
-
     os.makedirs(expdir, exist_ok=True)
 
     # {activate_env}
@@ -66,7 +64,9 @@ python main.py \\
     --num_gpus {num_gpus} \\
     -j {num_gpus * 8} \\"""
 
+    # TODO: Use the relevant directory. V
     ex = os.path.join(code_dir, "checkpoint", "phoenix2014t_i3d_pkinetics_bug_fix")
+
     if running_mode == "test":
         cmd_str += f"""
     -e --evaluate_video 1 \\
@@ -84,7 +84,6 @@ def write_script_file(expdir, cmd_str, refresh=False):
             or exits to avoid overwriting.
     """
     scriptfile = f"{expdir}/run.sh"
-
     if os.path.exists(scriptfile):
         if refresh:
             print(f"{scriptfile} exists, refreshing...")
@@ -93,10 +92,8 @@ def write_script_file(expdir, cmd_str, refresh=False):
             print(f"   rm {scriptfile}")
             exit()
     print(f"Creating script file {scriptfile}")
-
     with open(scriptfile, "w") as f:
         f.write(cmd_str)
-
     return scriptfile
 
 
@@ -128,7 +125,8 @@ def run_cmd(
             jobsub: If True, submits the bash script as a job to the slurm cluster
             refresh: If True, overwrites any existing bash script and relaunches
         Note:
-            This is optional. The training/testing code can be ran by directly typing `python main.py <args>` on terminal.
+            This is optional. The training/testing code can be ran by directly typing `python main.py
+            <args>` on terminal.
     """
     code_dir, activate_env = set_user_specific_vars()
     cmd_str, expdir = create_cmd(

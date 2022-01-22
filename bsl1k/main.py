@@ -12,7 +12,7 @@ import torch.nn.parallel
 import torch.optim
 
 import evaluate
-import evaluate_seq  # TODO: Mine.
+import evaluate_seq  # TODO: Use evaluate_seq script in order to evaluate the model.    V
 import models
 import opts
 from datasets.multidataloader import MultiDataLoader
@@ -21,6 +21,7 @@ from utils.logger import Logger, savefig, setup_verbose_logging
 from utils.misc import (adjust_learning_rate, load_checkpoint,
                         load_checkpoint_flexible, mkdir_p, save_checkpoint)
 
+# TODO: Tried to adapt the model to the AUTSL dataset.
 # import tensorflow_datasets as tfds
 # import tensorflow as tf
 # from sign_language_datasets.datasets.config import SignDatasetConfig
@@ -134,6 +135,7 @@ def main(args):
         for p in range(args.nperf):  # TODO: nperf = number of performance metrics.
             logger_names.append("train_perf%d" % p)
             logger_names.append("val_perf%d" % p)
+
         logger.set_names(logger_names)
 
     if args.pretrained:
@@ -144,7 +146,7 @@ def main(args):
     duration = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - tic))
     plog.info(f"Loaded parameters for model in {duration}")
 
-    # if args.dataset_name == "phoenix2014":
+    # if args.dataset_name == "phoenix2014":    # TODO: Tried to adapt the model to the AUTSL dataset.
     mdl = MultiDataLoader(train_datasets=args.datasetname, val_datasets=args.datasetname)
     train_loader, val_loader, meanstd = mdl._get_loaders(args)
 
@@ -153,7 +155,7 @@ def main(args):
     val_mean = meanstd[2]
     val_std = meanstd[3]
 
-    # else: # TODO: Trying to adjust the model to support the AUTSL dataset.
+    # else: # TODO: Tried to adapt the model to the AUTSL dataset.
     #     config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
     #     autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
     #                       shuffle_files=True)
@@ -185,7 +187,7 @@ def main(args):
 
         plog.info("\nEvaluation only")
         loss, acc = do_epoch(
-            # "val",    # TODO: Adjusting.  V
+            # "val",    # TODO: Evaluate on the test set.   V
             "test",
             val_loader,
             model,
@@ -210,8 +212,9 @@ def main(args):
 
         try:
             # Summarize/save results
-            evaluate.evaluate(args, val_loader.dataset, plog)  # TODO: Can be removed.  V
-        except:  # TODO: Redirecting - evaluate.py doesn't match to phoenix2014t, but evaluate_seq.py.  V
+            evaluate.evaluate(args, val_loader.dataset, plog)  # TODO: Can be removed.
+        except:
+            # TODO: Redirect - evaluate.py is not suitable for phoenix2014t evaluation, use evaluate_seq.py instead.    V
             print('IN EXCEPTION')
             evaluate_seq.evaluate(args, val_loader.dataset, plog)
 
@@ -226,6 +229,7 @@ def main(args):
 
         # append logger file
         logger.append(logger_epoch)
+
         return
 
     lr = args.lr

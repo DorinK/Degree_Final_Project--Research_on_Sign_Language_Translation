@@ -1,5 +1,3 @@
-# A simple tensorboard logger
-
 import getpass
 import json
 import logging.config
@@ -14,18 +12,24 @@ from utils.misc import Timer
 
 __all__ = ["Logger", "savefig"]
 
+"""""""""""""""""""""""""""""""""
+   A simple tensorboard logger
+"""""""""""""""""""""""""""""""""
+
 
 def savefig(fname, dpi=None):
     dpi = 150 if dpi == None else dpi
     plt.savefig(fname, dpi=dpi)
 
 
-def setup_verbose_logging(save_dir, log_config="utils/logger_config.json",
-                          default_level=logging.INFO):
-    """Setup logging configuration."""
+def setup_verbose_logging(save_dir, log_config="utils/logger_config.json", default_level=logging.INFO):
+    """
+    Setup logging configuration.
+    """
     print(os.getcwd())
     log_config = Path(log_config)
     print(f"log config: {log_config} exists: {log_config.exists()}")
+
     if log_config.is_file():
         with open(log_config, "r") as f:
             config = json.load(f)
@@ -37,19 +41,24 @@ def setup_verbose_logging(save_dir, log_config="utils/logger_config.json",
     else:
         print(f"Warning: logging configuration file is not found in {log_config}.")
         logging.basicConfig(level=default_level)
+
     return config["handlers"]["info_file_handler"]["filename"]
 
 
 class Logger(object):
-    """Save training process to log file with simple plot function."""
+    """
+    Save training process to log file with simple plot function.
+    """
 
     def __init__(self, fpath, title=None, resume=False):
+
         self.file = None
         self.resume = resume
         self.title = "" if title is None else title
         self.json_path = os.path.splitext(fpath)[0] + ".json"
 
         if fpath is not None:
+
             if resume and Path(fpath).exists() and Path(self.json_path).exists():
                 self.file = open(fpath, "r")
                 name = self.file.readline()
@@ -74,8 +83,10 @@ class Logger(object):
                 self.figures = {}
 
     def set_names(self, names):
+
         if self.resume:
             pass
+
         # initialize numbers as empty list
         self.numbers = {}
         self.names = names
@@ -91,14 +102,14 @@ class Logger(object):
                 self.figures[fig_id] = {}
                 self.figures[fig_id]["data"] = []
                 self.figures[fig_id]["layout"] = {"title": fig_id}
+
         self.file.write("\n")
         self.file.flush()
 
     def append(self, numbers):
+
         if not hasattr(self, "names") and getpass.getuser() == "albanie":
-            print(
-                f"{getpass.getuser()} applying wearily woeful and gloomily glum hack :("
-            )
+            print(f"{getpass.getuser()} applying wearily woeful and gloomily glum hack :(")
             names = ["Epoch", "LR", "train_loss", "val_loss"]
             guessed_nperf = (len(numbers) - len(names)) // 2
             for ii in range(guessed_nperf):
@@ -115,17 +126,15 @@ class Logger(object):
         self.file.flush()
 
         for index, num in enumerate(numbers):
+
             if len(self.names[index].split("_")) > 1:
-                plot_id = self.names[index].split("_")[
-                    0
-                ]  # take 'val' if it is 'val_loss'
-                fig_id = self.names[index].split("_")[
-                    1
-                ]  # take 'loss' if it is 'val_loss'
+                plot_id = self.names[index].split("_")[0]  # take 'val' if it is 'val_loss'
+                fig_id = self.names[index].split("_")[1]  # take 'loss' if it is 'val_loss'
             else:
                 plot_id = self.names[index]
                 fig_id = self.names[index]
             fig_data = self.figures[fig_id]["data"]
+
             plot = None
             for k, v in enumerate(fig_data):
                 if v["name"] == plot_id:
@@ -145,11 +154,13 @@ class Logger(object):
             self.json_file.close()
 
     def plot(self, names=None):
+
         names = self.names if names == None else names
         numbers = self.numbers
         for _, name in enumerate(names):
             x = np.arange(len(numbers[name]))
             plt.plot(x, np.asarray(numbers[name]))
+
         plt.legend([self.title + "(" + name + ")" for name in names])
         plt.grid(True)
 
@@ -159,12 +170,14 @@ class Logger(object):
 
 
 class TensorboardWriter:
-    """A second class for interfacing with tensorboard. Derived from the wrapper
-    provided with Pytorch-Template by Victor Huang.
+    """
+    A second class for interfacing with tensorboard. Derived from the wrapper provided with
+    Pytorch-Template by Victor Huang.
     (https://github.com/victoresque/pytorch-template)
     """
 
     def __init__(self, log_dir):
+
         self.writer = None
         self.selected_module = ""
         self.writer = SummaryWriter(str(log_dir))
@@ -185,8 +198,10 @@ class TensorboardWriter:
         self.timer = Timer()
 
     def set_step(self, step, mode="train"):
+
         self.mode = mode
         self.step = step
+
         if step == 0:
             self.timer.reset()
         else:
@@ -196,8 +211,7 @@ class TensorboardWriter:
     def __getattr__(self, name):
         """
         If visualization is configured to use:
-            return add_data() methods of tensorboard with additional information
-            (step, tag) added.
+            return add_data() methods of tensorboard with additional information (step, tag) added.
         Otherwise:
             return a blank function handle that does nothing
         """
@@ -212,6 +226,7 @@ class TensorboardWriter:
                     add_data(tag, data, self.step, *args, **kwargs)
 
             return wrapper
+
         else:
             # default action for returning methods defined in this class, set_step()
             # for instance.

@@ -26,7 +26,6 @@ def conv1x1(in_planes, out_planes, stride=1):
 
 
 class BasicBlock(nn.Module):
-
     expansion = 1
     __constants__ = ["downsample"]
 
@@ -41,7 +40,6 @@ class BasicBlock(nn.Module):
             dilation=1,
             norm_layer=None,
     ):
-
         super(BasicBlock, self).__init__()
 
         if norm_layer is None:
@@ -94,19 +92,17 @@ class ResNet(nn.Module):
             norm_layer=None,
             dropout_keep_prob=0.0,
     ):
-
         super(ResNet, self).__init__()
 
         if norm_layer is None:
             norm_layer = nn.BatchNorm2d
-
         self._norm_layer = norm_layer
-
         self.inplanes = 3
         self.dilation = 1
 
         if replace_stride_with_dilation is None:
-            # each element in the tuple indicates if we should replace the 2x2 stride with a dilated  convolution instead
+            # each element in the tuple indicates if we should replace the 2x2 stride with a dilated
+            # convolution instead
             replace_stride_with_dilation = [False, False, False]
 
         if len(replace_stride_with_dilation) != 3:
@@ -153,7 +149,6 @@ class ResNet(nn.Module):
         if dilate:
             self.dilation *= stride
             stride = 1
-
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
                 conv1x1(self.inplanes, planes * block.expansion, stride),
@@ -267,5 +262,4 @@ if __name__ == "__main__":
     # torch.Size([4, 1064])        # 1064
 
     import pdb
-
     pdb.set_trace()

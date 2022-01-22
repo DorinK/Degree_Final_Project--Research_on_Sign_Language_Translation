@@ -1,37 +1,3 @@
-"""A small utility to store video content as pickle files, rather than compressed
-mp4s to allow faster debugging.
-
-Sample usage:
-%run -i misc/pickle_frames.py --refresh --limit 10 --dataset wlasl
-
-Sample usage via yaspi:
-
-DATASET=bsl_signdict
-LIMIT=0
-PROCESSES=20
-CPUS_PER_TASK=$PROCESSES
-NUM_PARTITIONS=20
-MEMORY=64G
-JOB_ARRAY_SIZE=$NUM_PARTITIONS
-PARTITION=compute
-PREP="pushd ${HOME}/coding/libs/pt/bsltrain"
-CMD="python -u misc/pickle_frames.py --dataset=${DATASET} \
-         --num_partitions ${NUM_PARTITIONS} --limit ${LIMIT} --refresh --processes 4"
-python yaspi.py --job_name=pickle-frames \
-                --cmd="${CMD}" \
-                --job_array_size=${JOB_ARRAY_SIZE} \
-                --cpus_per_task=${CPUS_PER_TASK} \
-                --mem=${MEMORY} \
-                --recipe=cpu-proc \
-                --prep="${PREP}" \
-                --partition=${PARTITION} \
-                --refresh_logs \
-                --throttle_array 10
-
-Aggregation
-%run -i misc/pickle_frames.py --dataset=bsl_signdict \
-         --num_partitions 20 --refresh --aggregate
-"""
 import io
 import os
 import time
@@ -54,15 +20,53 @@ from zsvision.zs_multiproc import starmap_with_kwargs
 import cv2
 from utils.imutils import resize_generic
 
+"""
+    A small utility to store video content as pickle files, rather than compressed
+    mp4s to allow faster debugging.
+    
+    Sample usage:
+    %run -i misc/pickle_frames.py --refresh --limit 10 --dataset wlasl
+    
+    Sample usage via yaspi:
+    
+    DATASET=bsl_signdict
+    LIMIT=0
+    PROCESSES=20
+    CPUS_PER_TASK=$PROCESSES
+    NUM_PARTITIONS=20
+    MEMORY=64G
+    JOB_ARRAY_SIZE=$NUM_PARTITIONS
+    PARTITION=compute
+    PREP="pushd ${HOME}/coding/libs/pt/bsltrain"
+    CMD="python -u misc/pickle_frames.py --dataset=${DATASET} \
+             --num_partitions ${NUM_PARTITIONS} --limit ${LIMIT} --refresh --processes 4"
+    python yaspi.py --job_name=pickle-frames \
+                    --cmd="${CMD}" \
+                    --job_array_size=${JOB_ARRAY_SIZE} \
+                    --cpus_per_task=${CPUS_PER_TASK} \
+                    --mem=${MEMORY} \
+                    --recipe=cpu-proc \
+                    --prep="${PREP}" \
+                    --partition=${PARTITION} \
+                    --refresh_logs \
+                    --throttle_array 10
+    
+    Aggregation
+    %run -i misc/pickle_frames.py --dataset=bsl_signdict \
+             --num_partitions 20 --refresh --aggregate
+"""
+
 
 def parse_video_content(
-    video_idx, video_path, store_compressed, vis, resize_res, total_videos, processes
+        video_idx, video_path, store_compressed, vis, resize_res, total_videos, processes
 ):
     frames = []
     markers = 100
+
     if processes > 1 and video_idx % int(max(total_videos, markers) / markers) == 0:
         pct = 100 * video_idx / total_videos
         print(f"processing {video_idx}/{total_videos} [{pct:.1f}%] [{video_path}]")
+
     cap = cv2.VideoCapture(str(video_path))
     orig_dims = None
     while True:
@@ -93,6 +97,7 @@ def parse_video_content(
         else:
             break
     cap.release()
+
     if not store_compressed:
         frames = np.array(frames)
     store = {"data": frames, "orig_dims": orig_dims}
@@ -102,15 +107,15 @@ def parse_video_content(
 
 
 def store_as_pkl(
-    video_dir,
-    dest_path,
-    vis,
-    limit,
-    resize_res,
-    store_compressed,
-    processes,
-    num_partitions,
-    worker_id,
+        video_dir,
+        dest_path,
+        vis,
+        limit,
+        resize_res,
+        store_compressed,
+        processes,
+        num_partitions,
+        worker_id,
 ):
     video_paths = list(video_dir.glob("**/*.mp4"))
     print(f"Found {len(video_paths)} videos in {video_dir}")
@@ -146,9 +151,7 @@ def store_as_pkl(
             data[str(kwargs["video_path"])] = func(**kwargs)
 
     # if store_compressed:
-    num_bytes = [
-        sum(x.getbuffer().nbytes for x in vid["data"]) for vid in data.values()
-    ]
+    num_bytes = [sum(x.getbuffer().nbytes for x in vid["data"]) for vid in data.values()]
     print(
         (
             f"[Video size] >>> avg: {humanize.naturalsize(np.mean(num_bytes))}, "
@@ -166,14 +169,15 @@ def store_as_pkl(
 
 
 def aggregate_pkls(dest_path, dataset, partition_dir, num_partitions, limit):
+
     template = f"{dataset}*-of-{num_partitions:02d}.pkl"
     found = list(Path(partition_dir).glob(template))
+
     if limit:
         found = [x for x in found if f"limit-{limit}" in str(x)]
     print(f"Found {len(found)} pickles in {partition_dir} for {dataset}")
-    assert (
-        len(found) == num_partitions
-    ), f"Expected {num_partitions}, found {len(found)}"
+    assert (len(found) == num_partitions), f"Expected {num_partitions}, found {len(found)}"
+
     aggregate = {}
     for path in tqdm.tqdm(found):
         with open(path, "rb") as f:
@@ -182,11 +186,13 @@ def aggregate_pkls(dest_path, dataset, partition_dir, num_partitions, limit):
         assert not set(data.keys()).intersection(aggregate.keys()), msg
         aggregate.update(data)
     print(f"Writing aggregated data to {dest_path}")
+
     with open(dest_path, "wb") as f:
         pickle.dump(aggregate, f)
 
 
 def main():
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dataset",

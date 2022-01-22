@@ -20,7 +20,6 @@ from math import ceil
 from sys import stderr
 from time import time
 
-
 __version__ = "1.4"
 
 HIDE_CURSOR = "\x1b[?25l"
@@ -34,11 +33,13 @@ class Infinite(object):
     hide_cursor = True
 
     def __init__(self, message="", **kwargs):
+
         self.index = 0
         self.start_ts = time()
         self.avg = 0
         self._ts = self.start_ts
         self._xput = deque(maxlen=self.sma_window)
+
         for key, val in kwargs.items():
             setattr(self, key, val)
 
@@ -125,6 +126,7 @@ class Infinite(object):
 
 
 class Progress(Infinite):
+
     def __init__(self, *args, **kwargs):
         super(Progress, self).__init__(*args, **kwargs)
         self.max = kwargs.get("max", 100)

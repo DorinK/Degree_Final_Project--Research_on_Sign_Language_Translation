@@ -19,6 +19,7 @@ from . import Infinite
 
 
 class Spinner(Infinite):
+
     phases = ("-", "\\", "|", "/")
     hide_cursor = True
 

@@ -1,20 +1,20 @@
 import copy
-
 import mock
 import torch
-
 import datasets
 from beartype import beartype
 from datasets.videodataset import VideoDataset
 
 
 class MultiDataLoader:
+
     def __init__(self, train_datasets, val_datasets):
         self.datasets = {"train": train_datasets, "val": val_datasets}
         print("Data loading info:")
         print(self.datasets)
 
     def _get_loaders(self, args):
+
         common_kwargs = {
             "stride": args.stride,
             "inp_res": args.inp_res,
@@ -22,6 +22,7 @@ class MultiDataLoader:
             "num_in_frames": args.num_in_frames,
             "gpu_collation": args.gpu_collation,
         }
+
         loaders = {}
         for split, dataset_name in self.datasets.items():
             if not dataset_name:
@@ -79,6 +80,7 @@ class MultiDataLoader:
                         "evaluate_video": args.evaluate_video,
                     }
                 )
+
             if dataset_name == "bsl1k":
                 dataset = datasets.BSL1K(**kwargs)
             elif dataset_name == "wlasl":
@@ -104,9 +106,9 @@ class MultiDataLoader:
         loader_kwargs = {"pin_memory": True, "num_workers": args.workers}
 
         if not args.evaluate_video:
-            # Note: to avoid excessive monkey patching, we share a common collation
-            # function across all VideoDataset instances. It is therefore important to
-            # ensure that collation has no dependency on class attributes
+            # Note: to avoid excessive monkey patching, we share a common collation function across all
+            # VideoDataset instances. It is therefore important to ensure that collation has no dependency
+            # on class attributes
             if isinstance(dataloader_train, torch.utils.data.ConcatDataset):
                 train_collate = dataloader_train.datasets[0].collate_fn
             else:
@@ -133,10 +135,12 @@ class MultiDataLoader:
             collate_fn=dataloader_val.collate_fn,
             **loader_kwargs,
         )
+
         meanstd = [
             dataloader_train.mean,
             dataloader_train.std,
             dataloader_val.mean,
             dataloader_val.std,
         ]
+
         return train_loader, val_loader, meanstd

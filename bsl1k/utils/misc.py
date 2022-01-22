@@ -43,9 +43,8 @@ def to_torch(ndarray):
     return ndarray
 
 
-def save_checkpoint(
-    state, checkpoint="checkpoint", filename="checkpoint.pth.tar", snapshot=1
-):
+def save_checkpoint(state, checkpoint="checkpoint", filename="checkpoint.pth.tar", snapshot=1):
+
     filepath = os.path.join(checkpoint, filename)
     torch.save(state, filepath)
 
@@ -55,6 +54,7 @@ def save_checkpoint(
 
 
 def load_checkpoint_flexible(model, optimizer, args, plog):
+
     msg = f"no pretrained model found at {args.pretrained}"
     assert Path(args.pretrained).exists(), msg
     plog.info(f"=> loading checkpoint '{args.pretrained}'")
@@ -89,12 +89,11 @@ def load_checkpoint_flexible(model, optimizer, args, plog):
         # HACK: get the classifier weights before throwing them away
         from utils.cross_language import get_classification_params
 
-        pretrained_w, pretrained_b = get_classification_params(
-            pretrained_dict, arch=args.arch
-        )
+        pretrained_w, pretrained_b = get_classification_params(pretrained_dict, arch=args.arch)
 
     if partial_load:
         plog.info("Removing or not initializing some layers...")
+
         # 1. filter out unnecessary keys
         pretrained_dict = {
             k: v
@@ -104,6 +103,7 @@ def load_checkpoint_flexible(model, optimizer, args, plog):
 
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
+
         # 3. load the new state dict
         model.load_state_dict(model_dict)
         # CAUTION: Optimizer not initialized with the pretrained one
@@ -112,8 +112,7 @@ def load_checkpoint_flexible(model, optimizer, args, plog):
         if args.init_cross_language != "":
             from utils.cross_language import init_cross_language
 
-            # NOTE: Update from Samuel that preserves previous behaviour if asl_dataset
-            # is not set
+            # NOTE: Update from Samuel that preserves previous behaviour if asl_dataset is not set
             asl_dataset = getattr(args, "asl_dataset", args.datasetname)
 
             model = init_cross_language(
@@ -137,17 +136,21 @@ def load_checkpoint_flexible(model, optimizer, args, plog):
 
 
 def save_pred(preds, checkpoint="checkpoint", filename="preds_valid.mat", meta=None):
+
     preds = to_numpy(preds)
     filepath = os.path.join(checkpoint, filename)
     mdict = {"preds": preds}
+
     if meta is not None:
         mdict.update(meta)
+
     print(f"Saving to {filepath}")
     scipy.io.savemat(filepath, mdict=mdict, do_compression=False)
 
 
 def adjust_learning_rate(optimizer, epoch, lr, schedule, gamma, num_gpus=1, warmup=5):
-    """Sets the learning rate to the initial LR decayed by schedule.
+    """
+    Sets the learning rate to the initial LR decayed by schedule.
 
     Use linear warmup for multi-gpu training: https://arxiv.org/abs/1706.02677
     """
@@ -165,9 +168,11 @@ def adjust_learning_rate(optimizer, epoch, lr, schedule, gamma, num_gpus=1, warm
 # Show num_figs equi-distant images
 # If the epoch is too small, show all
 def is_show(num_figs, iter_no, epoch_len):
+
     if num_figs == 0:
         return 0
     show_freq = int(epoch_len / num_figs)
+
     if show_freq != 0:
         return iter_no % show_freq == 0
     else:
@@ -175,7 +180,9 @@ def is_show(num_figs, iter_no, epoch_len):
 
 
 class Timer:
-    """A simple timing utility."""
+    """
+    A simple timing utility.
+    """
 
     def __init__(self):
         self.cache = datetime.now()

@@ -1,7 +1,6 @@
 import math
 import os
 import pickle as pkl
-
 import cv2
 import numpy as np
 
@@ -14,7 +13,7 @@ class PHOENIX2014(VideoDataset):
 
     def __init__(
             self,
-            root_path="/home/nlp/dorink/project/bsl1k/data_phoenix",
+            root_path="/home/nlp/dorink/project/bsl1k/data_phoenix",  # TODO: Update root path accordingly. V
             inp_res=224,
             resize_res=256,
             setname="train",
@@ -39,8 +38,7 @@ class PHOENIX2014(VideoDataset):
         self.hflip = hflip
         self.stride = stride
         self.assign_labels = assign_labels
-
-        infofile = os.path.join(root_path, "info", "info_21.04.15.pkl")
+        infofile = os.path.join(root_path, "info", "info_21.04.15.pkl")  # TODO: Update default path accordingly.   V
         print(f"Loading {infofile}")
         data = pkl.load(open(infofile, "rb"))
         self.videos = [s.strip() for s in data["videos"]["name"]]
@@ -55,6 +53,7 @@ class PHOENIX2014(VideoDataset):
                     self.classes[i][j] = other_class_ix
         print(f"Replaced {replace_cnt} -1s with {other_class_ix}")
 
+        # TODO: Update default path accordingly.    V
         with open(os.path.join(self.root_path, "info", "words_21.04.15.txt"), "r") as f:
             self.class_names = f.read().splitlines()
 
@@ -75,7 +74,7 @@ class PHOENIX2014(VideoDataset):
         elif self.setname == "test":
             self.valid = list(np.where(np.asarray(data["videos"]["split"]) == 2)[0])
 
-        if self.assign_labels == "auto":
+        if self.assign_labels == "auto":  # TODO: Adjust it to fit the data structure.  V
             self.frame_level_glosses = data["videos"]["gloss_ids"]  # data["videos"]["alignments"]["gloss_id"]
 
         if evaluate_video:
@@ -128,20 +127,20 @@ class PHOENIX2014(VideoDataset):
                 for i in frame_ix
                 if i < lfg
             ]
-            #             clip_glosses = np.asarray(clip_glosses)
-            #             glss, cnts = np.unique(clip_glosses, return_counts=True)
-            #             if len(cnts)>0:
-            #                 # If there are multiple max, choose randomly.
-            #                 max_indices = np.where(cnts == cnts.max())[0]
-            #                 selected_max_index = np.random.choice(max_indices)
-            #                 return glss[selected_max_index]
+            # TODO: My attempts to fix the problem that caused the training process to crash.   V
+            # clip_glosses = np.asarray(clip_glosses)
+            # glss, cnts = np.unique(clip_glosses, return_counts=True)
+            # if len(cnts)>0:
+            #     # If there are multiple max, choose randomly.
+            #     max_indices = np.where(cnts == cnts.max())[0]
+            #     selected_max_index = np.random.choice(max_indices)
+            #     return glss[selected_max_index]
             clip_glosses = np.asarray(clip_glosses)
             glss, cnts = np.unique(clip_glosses, return_counts=True)
             # If there are multiple max, choose randomly.
             max_indices = np.where(cnts == cnts.max())[0]
             selected_max_index = np.random.choice(max_indices)
             return glss[selected_max_index]
-
         else:
             exit()
 

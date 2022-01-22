@@ -1,9 +1,3 @@
-"""A small utility to preprocess the videos to use square frames (this resize will
-break the aspect ratio for storage, but the op can be undone during training).
-
-Sample usage:
-python misc/preproc_videos.py --dataset BSLCP_raw --yaspify --num_partitions=10
-"""
 import socket
 import argparse
 import getpass
@@ -23,9 +17,18 @@ from beartype.cave import NoneType
 from zsvision.zs_iterm import zs_dispFig
 from zsvision.zs_multiproc import starmap_with_kwargs
 
+"""
+    A small utility to preprocess the videos to use square frames (this resize will break the aspect
+    ratio for storage, but the op can be undone during training).
+    
+    Sample usage:
+    python misc/preproc_videos.py --dataset BSLCP_raw --yaspify --num_partitions=10
+"""
+
 
 def video_path2id(video_path):
-    """Convert bbcsl format video paths into ids - these are keys of the form:
+    """
+    Convert bbcsl format video paths into ids - these are keys of the form:
     "<show>--<episode>".
 
     Args:
@@ -39,14 +42,14 @@ def video_path2id(video_path):
 
 
 def resize_video_content(
-    vis,
-    video_idx,
-    dest_path,
-    resize_res,
-    video_path,
-    total_videos,
-    processes,
-    progress_markers,
+        vis,
+        video_idx,
+        dest_path,
+        resize_res,
+        video_path,
+        total_videos,
+        processes,
+        progress_markers,
 ):
     progress_interval = int(max(total_videos, progress_markers) / progress_markers)
     dest_path.parent.mkdir(exist_ok=True, parents=True)
@@ -74,19 +77,19 @@ def resize_video_content(
 
 @beartype
 def resize_videos(
-    src_video_dir: Path,
-    dest_video_dir: Path,
-    relevant_ids_path: (Path, NoneType),
-    vis: bool,
-    limit: int,
-    suffix: str,
-    refresh: bool,
-    processes: int,
-    resize_res: int,
-    worker_id: int,
-    progress_markers: int,
-    num_partitions: int,
-    exclude_pattern: (str, NoneType),
+        src_video_dir: Path,
+        dest_video_dir: Path,
+        relevant_ids_path: (Path, NoneType),
+        vis: bool,
+        limit: int,
+        suffix: str,
+        refresh: bool,
+        processes: int,
+        resize_res: int,
+        worker_id: int,
+        progress_markers: int,
+        num_partitions: int,
+        exclude_pattern: (str, NoneType),
 ):
     video_paths = list(src_video_dir.glob(f"**/*{suffix}"))
     print(f"Found {len(video_paths)} videos in {src_video_dir}")
@@ -146,6 +149,7 @@ def resize_videos(
 
 
 def main():
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dataset",
