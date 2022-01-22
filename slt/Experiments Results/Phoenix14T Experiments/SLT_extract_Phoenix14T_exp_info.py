@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  Extracting information from SLT model experiment on Phoenix14T Dataset
+  Extracting information from SLT model experiment on Phoenix14T Dataset 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 EXP_PATH = 'Phoenix14T_experiment_09 - WER 28.06 & BLEU-4 21.36'
