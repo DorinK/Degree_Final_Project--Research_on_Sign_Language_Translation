@@ -163,11 +163,6 @@ def do_epoch(
 
     bar.finish()
 
-    # TODO: Mine - in the end these changes were not necessary.
-    # from sklearn.preprocessing import MultiLabelBinarizer
-    # mlb = MultiLabelBinarizer()
-    # mlb.fit_transform([(1, 2), (3,)])
-
     # save outputs
     if save_logits or save_features:
         meta = {

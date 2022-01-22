@@ -5,9 +5,6 @@ import pickle
 import gzip
 import torch
 
-# TODO: Mine - in the end this import was not necessary.
-import itertools
-
 """""""""""""""
   Data module
 """""""""""""""

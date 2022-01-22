@@ -9,11 +9,6 @@ import datasets
 
 plt.switch_backend("agg")
 
-# TODO: Mine - in the end these changes were not necessary.
-# from sklearn.preprocessing import MultiLabelBinarizer
-# mlb = MultiLabelBinarizer()
-
-
 """
     Example usage:
     source activate pytorch1.3_env
@@ -49,7 +44,6 @@ def aggregate_clips(dataloader_val, topk=[1], scores=None, features=None):
     N = len(video_ix)
     maxk = max(topk)
     gt = np.zeros(N, dtype=object)  # TODO: The dtype should be mentioned -> Fixed. V
-    # gt=mlb.fit_transform(dataloader_val.get_all_classes())    # TODO: Mine - in the end it was not necessary.
     pred = np.zeros((N, maxk))
 
     if scores is not None:
@@ -124,14 +118,8 @@ def get_acc(dataloader, gt, pred, topk=[1]):  # TODO: Add the dataloader as a pa
     assert 1 in topk
     num_all = len(gt)
     accuracy = []
-    # gt_lst= mlb.inverse_transform(gt) # TODO: Mine - in the end it was not necessary.
 
     for k in topk:
-        # TODO: Mine - in the end these changes were not necessary.
-        # a=[list(gt_lst[i]) in pred[i, :k] for i in range(5)]
-        # is_correct = [list(gt_lst[i]) in pred[i, :k] for i in range(num_all)]
-        # b=[gt_lst[i] in pred[i, :k] for i in range(5)]
-        # is_correct_b = [gt_lst[i] in pred[i, :k] for i in range(num_all)]
         is_correct = [gt[i] in pred[i, :k] for i in range(num_all)]
         num_correct = sum(is_correct)
         # num_correct = (gt == pred[:, k]).sum()
@@ -139,7 +127,6 @@ def get_acc(dataloader, gt, pred, topk=[1]):  # TODO: Add the dataloader as a pa
         accuracy.append(acc)
         if k == 1:
             num_correct1 = num_correct
-            # gt_mlb=mlb.fit_transform(dataloader.get_all_classes())    # TODO: Mine - in the end it was not necessary.
             # confmat = sklearn.metrics.confusion_matrix(gt, pred[:, 0])    # TODO: Uncomment.  V
 
     return accuracy, num_correct1, num_all  # TODO: Adjust the return statement accordingly.    V
