@@ -24,7 +24,6 @@ class PoseEstimator(nn.Module):
         """
         pred = self.conv(feat_map[::sample_rate])
         loss = get_pose_loss(pred, label_map, label_mask)
-
         return loss
 
 
@@ -36,5 +35,4 @@ def get_pose_loss(pred, label, label_mask):
     loss = ((pred - label).pow(2) * label_mask_)
     loss = loss.view(loss.size(0), loss.size(1), -1)
     loss = loss.mean(dim=-1).sum(dim=-1).mean()
-
     return loss

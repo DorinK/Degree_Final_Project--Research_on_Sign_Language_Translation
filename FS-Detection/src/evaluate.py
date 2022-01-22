@@ -107,7 +107,6 @@ def main():
     eval_loader = tud.DataLoader(eval_data, batch_sampler=BucketBatchSampler(shuffle=False, batch_size=args.batch_size,
                                     files=eval_data.rgb_videos, cycle=False), collate_fn=eval_data.collate_fn)
     print('Eval data: %d' % (len(eval_data)))
-
     print("Load checkpoint: %s" % (args.best_dev_path))
     encoder.load_state_dict(torch.load(args.best_dev_path))
 
@@ -115,7 +114,6 @@ def main():
         eval_pred(encoder, eval_loader, args.output_fn, args.top_k, stage=args.stage)
     elif args.eval_type == 'bbox':
         eval_bbox(encoder, eval_loader, args.output_fn)
-
     return
 
 

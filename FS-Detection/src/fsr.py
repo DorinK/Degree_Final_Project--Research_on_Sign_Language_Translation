@@ -32,8 +32,8 @@ class CTCLoss(nn.Module):
 class FSR(nn.Module):
 
     def __init__(self, hidden_size, attn_size, n_layers, char_list, prior_gamma=1.0, ctc_type='builtin', iou_thr=0.5, n_top=50):
-
         super(FSR, self).__init__()
+
         self.hidden_size, self.attn_size, self.n_layers = hidden_size, attn_size, n_layers
         self.encoder = AttnEncoder(hidden_size, attn_size, output_size=len(char_list), n_layers=n_layers,
                                    prior_gamma=prior_gamma, cell='LSTM')
@@ -180,7 +180,6 @@ class FSR(nn.Module):
         prop_probs = prop_scores / prop_scores.sum(dim=-1, keepdim=True).clamp(min=1e-5)
         scores = scores * torch.log(prop_probs.clamp(min=1e-5))
         acc_loss = -((scores * prop_probs).sum(dim=-1) / prop_probs.sum(dim=-1).clamp(min=1e-5)).mean()
-
         return acc_loss
 
 
@@ -290,14 +289,12 @@ class AttnEncoderCell(nn.Module):
             return output, (hx, cx), attn_weights
 
     def init_weight(self, *args):
-
         for w in args:
             hin, hout = w.size()[0], w.size()[1]
             w.data.uniform_(-math.sqrt(6.0 / (hin + hout)), math.sqrt(6.0 / (hin + hout)))
 
 
 def init_lstm_hidden(nlayer, batch_size, nhid, dtype=torch.float, device=torch.device('cuda')):
-
     return (torch.zeros((batch_size, nlayer, nhid), dtype=dtype, device=device),
             torch.zeros((batch_size, nlayer, nhid), dtype=dtype, device=device))
 
@@ -316,5 +313,4 @@ def get_iou(y_pred, y_true):
     union = max_end - min_start + 1
     iou = (intersection / union).view(n_pred, n_true).clamp(min=0)
     iou = iou.view(n_pred, n_true)
-
     return iou

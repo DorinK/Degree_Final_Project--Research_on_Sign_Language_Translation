@@ -100,11 +100,9 @@ dev_loader = tud.DataLoader(dev_data, batch_sampler=BucketBatchSampler(shuffle=F
 logging.info('Train: %d, dev: %d' % (len(train_data), len(dev_data)))
 
 optimizer = getattr(torch.optim, args.optim)(encoder.parameters(), lr=args.lr)
-scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=3, min_lr=1.0e-8,
-                                                       verbose=True)
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=3, min_lr=1.0e-8, verbose=True)
 
 if args.amp == 1:
-
     from apex import amp
     logging.info(f"AMP training, opt level: O1")
     encoder, optimizer = amp.initialize(encoder, optimizer, opt_level="O1")

@@ -13,12 +13,10 @@ def get_anchor_coords(anchor_scales, feat_stride, vol_len):
     anchors = torch.stack((roots + anchor_scales[:, 0].unsqueeze(dim=0), roots + anchor_scales[:, 1].unsqueeze(dim=0)),
                           dim=-1)  # [L, A, 2]
     anchors = anchors.transpose(0, 1)
-
     return anchors
 
 
 def generate_proposal(anchor_scales, prob_vol, delta_vol, feat_stride, nms_top_n, nms_thr):
-
     batch_size, vol_len = prob_vol.size(0), prob_vol.size(-1)
     anchors = get_anchor_coords(anchor_scales, feat_stride, vol_len)
     anchors = anchors.unsqueeze(dim=0).expand(batch_size, -1, -1, -1).contiguous()  # [B, A, L, 2]
@@ -121,8 +119,10 @@ def generate_label_roi(rois, video_len, gt_labels, high_iou_thr=0.5, low_iou_thr
 
         max_overlap, max_gt_id = torch.max(overlaps[b], dim=-1)
         pos_mask, neg_mask = (max_overlap >= high_iou_thr), (max_overlap < low_iou_thr) & (max_overlap >= 0)
-        pos_indexes, neg_indexes = roi_indexes[pos_mask & boundary_mask[b] & padding_mask[b]], roi_indexes[neg_mask & boundary_mask[b] & padding_mask[b]]
-        num_pos, num_neg = len(pos_indexes), int(len(pos_indexes) * neg_to_pos_ratio) if len(pos_indexes) > 0 else min_neg_num
+        pos_indexes, neg_indexes = roi_indexes[pos_mask & boundary_mask[b] & padding_mask[b]], roi_indexes[
+            neg_mask & boundary_mask[b] & padding_mask[b]]
+        num_pos, num_neg = len(pos_indexes), int(len(pos_indexes) * neg_to_pos_ratio) if len(
+            pos_indexes) > 0 else min_neg_num
 
         if len(neg_indexes) > num_neg:
             npm = torch.randperm(len(neg_indexes))[:num_neg]
@@ -142,8 +142,9 @@ def generate_label_roi(rois, video_len, gt_labels, high_iou_thr=0.5, low_iou_thr
 
 
 def log_loss(prob, label):
-    # prob: [B, N, C], label: [B, N]
-
+    """
+    prob: [B, N, C], label: [B, N]
+    """
     clamp_min = 1.0e-5
     log_prob = torch.log(prob.clamp(min=clamp_min, max=1 - clamp_min))
     B, N, C = prob.size(0), prob.size(1), prob.size(-1)
@@ -153,7 +154,6 @@ def log_loss(prob, label):
     mask = (label != -1).type_as(prob)
     loss = (-log_prob * label_onehot).sum(dim=-1)
     loss = (loss * mask).sum() / mask.sum()
-
     return loss
 
 

@@ -5,14 +5,13 @@ from collections import OrderedDict
 from tdcnn import _TDCNN
 
 # from torch.hub import load_state_dict_from_url
-try:  # TODO: Mine.
+try:  # TODO: Use try-catch to avoid Import error.  V
     from torch.hub import load_state_dict_from_url
 except ImportError:
     from torch.utils.model_zoo import load_url as load_state_dict_from_url
 
 
 def make_layers(block, no_relu_layers):
-
     layers = []
     for layer_name, v in block.items():
         if 'pool' in layer_name:
@@ -32,7 +31,6 @@ def make_layers(block, no_relu_layers):
 class ConvNet(_TDCNN):
 
     def __init__(self, char_list, num_class=2, ctc_type='warp', rd_iou_thr=0.5, num_concat=1):
-
         feat_dim = 512
         fsr_hidden_dim = 512
         anchor_scales = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 8, 12, 16, 24, 32, 40]

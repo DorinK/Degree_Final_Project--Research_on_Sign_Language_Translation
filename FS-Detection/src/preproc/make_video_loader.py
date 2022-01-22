@@ -11,20 +11,16 @@ from collections import OrderedDict
 
 
 def proc_raw(raw_dir, in_imnames, out_imnames, proc_dir):
-
     for i, _ in enumerate(in_imnames):
         raw_imname = os.path.join(raw_dir, in_imnames[i])
         proc_imname = os.path.join(proc_dir, out_imnames[i])
         shutil.copyfile(raw_imname, proc_imname)
-
     return
 
 
 def extract_frames(filename, outfile):
-
     command = ["ffmpeg", "-i", filename, outfile]
     print(" ".join(command))
-
     subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     return
 

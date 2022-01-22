@@ -77,7 +77,6 @@ class handpose_model(nn.Module):
 class ConvLstm(nn.Module):
 
     def __init__(self, hidden_size, output_size, n_layers, bid=False):
-
         super(ConvLstm, self).__init__()
 
         self.backbone = handpose_model()
@@ -106,7 +105,6 @@ class ConvLstm(nn.Module):
         return logits, log_probs
 
     def init_hidden(self, bsz):
-
         weight = next(self.parameters())
         return (weight.new_zeros(self.num_direction * self.n_layers, bsz, self.nhid),
                 weight.new_zeros(self.num_direction * self.n_layers, bsz, self.nhid))

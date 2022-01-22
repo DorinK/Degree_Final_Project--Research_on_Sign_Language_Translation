@@ -95,7 +95,6 @@ class BucketBatchSampler(Sampler):
         """
         self.state_dict_ = state_dict
         print("Loading sampler state dict, %d batches, %d seeds" % (
-
         len(self.state_dict_['batch_indexes']), len(self.state_dict_['seeds'])))
         return
 

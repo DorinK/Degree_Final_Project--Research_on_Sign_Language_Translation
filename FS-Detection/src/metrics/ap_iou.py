@@ -27,7 +27,6 @@ def get_precision_recall(y_pred, y_true, thr, ordering=False):
 
     if n_pred == 0:
         precision_tp, recall_tp = 0, 0
-
     else:
         iou = get_iou(y_pred, y_true)
         conf = (iou > thr).astype(np.int32)

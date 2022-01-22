@@ -74,7 +74,8 @@ class VideoData(tud.Dataset):
         if self.open_pose is not None:
             body_kps, hand_kps = self.bodypose_buffer[self.chunk_size * subid: self.chunk_size * (subid + 1)][
                                  ::self.det_sample_rate], self.handpose_buffer[
-                                 self.chunk_size * subid: self.chunk_size * (subid + 1)][::self.det_sample_rate]
+                                                          self.chunk_size * subid: self.chunk_size * (subid + 1)][
+                                                          ::self.det_sample_rate]
             heatmap_global, mask_global = self.get_heatmap(body_kps, hand_kps, w_img=self.openpose_origin_wh[0],
                                                            h_img=self.openpose_origin_wh[1], imgs=imgs_global)
             if bbox is None:
@@ -313,7 +314,8 @@ def crop(img, bbox, hw):
     right_expand = x1 - img.shape[1] + 1 if x1 > img.shape[1] - 1 else 0
     down_expand = y1 - img.shape[0] + 1 if y1 > img.shape[0] - 1 else 0
 
-    expand_img = cv2.copyMakeBorder(img, up_expand, down_expand, left_expand, right_expand, cv2.BORDER_CONSTANT,(0, 0, 0))
+    expand_img = cv2.copyMakeBorder(img, up_expand, down_expand, left_expand, right_expand, cv2.BORDER_CONSTANT,
+                                    (0, 0, 0))
     hand_patch = expand_img[y0 + up_expand: y1 + up_expand, x0 + left_expand: x1 + left_expand]
     hand_patch = cv2.resize(hand_patch, hw)
 

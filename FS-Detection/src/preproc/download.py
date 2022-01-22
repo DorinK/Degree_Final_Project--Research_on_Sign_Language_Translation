@@ -27,7 +27,7 @@ def download(csv_origin, csv_proc, output_dir, start=0, end=2 ** 31):
         stdout, stderr = Popen(cmd, stdout=PIPE, stderr=PIPE).communicate()
         stderr = stderr.decode('utf-8').strip()
         if 'ERROR' in stderr:
-            # print(f"Unable to download {url}")
+            print(f"Unable to download {url}")
             unsups.append(url)
         else:
             yid = stdout.decode('utf-8').strip()
@@ -36,10 +36,10 @@ def download(csv_origin, csv_proc, output_dir, start=0, end=2 ** 31):
             stdout, stderr = Popen(cmd, stdout=PIPE, stderr=PIPE).communicate()
             stderr = stderr.decode('utf-8').strip()
             if 'ERROR' in stderr:
-                # print(f"Unable to download {url}")
+                print(f"Unable to download {url}")
                 unsups.append(url)
             else:
-                # print(f"Downloaded {url} in {output_dir}")
+                print(f"Downloaded {url} in {output_dir}")
                 url2id[url] = yid
 
     open(log_failed, 'w').write('\n'.join(unsups))

@@ -1,7 +1,7 @@
 #! /bin/bash
 
-exp_dir=/home/nlp/dorink/project/FS-Detection/src/data/exp
-data_dir=/home/nlp/dorink/project/FS-Detection/src/data/fswild/loader
+exp_dir=/home/nlp/dorink/project/FS-Detection/src/data/exp  # TODO: Update the path accordingly.  V
+data_dir=/home/nlp/dorink/project/FS-Detection/src/data/fswild/loader # TODO: Update the path accordingly.  V
 step=1
 
 while test $# -gt 0;do

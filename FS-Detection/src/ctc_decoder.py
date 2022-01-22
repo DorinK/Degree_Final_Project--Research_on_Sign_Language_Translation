@@ -5,7 +5,6 @@ import numpy as np
 class Decoder(object):
 
     def __init__(self, labels, blank_index=0):
-
         self.labels = labels
         self.int_to_char = dict([(i, c) for (i, c) in enumerate(labels)])
         self.char_to_int = dict([(c, i) for (i, c) in enumerate(labels)])

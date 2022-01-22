@@ -23,5 +23,4 @@ def nms_cpu(dets, thresh):
         ovr = inter / (length[i] + length[order[1:]] - inter)
         inds = np.where(ovr < thresh)[0]
         order = order[inds + 1]
-
     return torch.IntTensor(keep)

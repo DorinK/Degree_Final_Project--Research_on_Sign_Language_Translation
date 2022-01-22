@@ -1,7 +1,7 @@
 #! /bin/bash
 
-exp_dir=/home/nlp/dorink/project/FS-Detection/src/data/exp
-data_dir=/home/nlp/dorink/project/FS-Detection/src/data/fswild/loader
+exp_dir=/home/nlp/dorink/project/FS-Detection/src/data/exp  # TODO: Update the path accordingly.  v
+data_dir=/home/nlp/dorink/project/FS-Detection/src/data/fswild/loader # TODO: Update the path accordingly.  V
 stage=1
 rec_path=/home/nlp/dorink/project/FS-Detection/src/data/eval_ckpt/fswild.pth # path of a trained recognizer
 
