@@ -3,13 +3,15 @@ import torch
 
 torch.backends.cudnn.deterministic = True
 
-import gc  # TODO: Mine.
-import itertools  # TODO: Mine.
-import sys  # TODO: Mine.
-import torchvision  # TODO: Mine.
-from sign_language_datasets.datasets import SignDatasetConfig  # TODO: Mine.
-from torch.nn.utils.rnn import pad_sequence  # TODO: Mine.
-from torchtext.data import Dataset  # TODO: Mine.
+# TODO: Add relevant imports.   V
+import gc
+import itertools
+import sys
+from sign_language_datasets.datasets import SignDatasetConfig
+from torch.nn.utils.rnn import pad_sequence
+from torchtext.data import Dataset
+from torch import Tensor
+import tensorflow_datasets as tfds
 
 import logging
 import numpy as np
@@ -30,15 +32,12 @@ from slt.signjoey.metrics import bleu, chrf, rouge, wer_list, wacc_list, sequenc
 from slt.signjoey.model import build_model, SignModel
 from slt.signjoey.batch import Batch
 from slt.signjoey.data import load_data, make_data_iter
-from slt.signjoey.helpers import DEVICE  # TODO: Mine.
+from slt.signjoey.helpers import DEVICE  # TODO: For use on a specific GPU device.  V
 from slt.signjoey.vocabulary import PAD_TOKEN, SIL_TOKEN, build_vocab, TextVocabulary, GlossVocabulary
 from slt.signjoey.phoenix_utils.phoenix_cleanup import (
     clean_phoenix_2014,
     clean_phoenix_2014_trans,
 )
-
-from torch import Tensor  # TODO: Mine.
-import tensorflow_datasets as tfds  # TODO: Mine.
 
 
 # pylint: disable=too-many-arguments,too-many-locals,no-member
@@ -114,8 +113,8 @@ def validate_on_data(
         - valid_attention_scores: attention scores for validation hypotheses
     """
 
-    # TODO: To update accordingly to AUTSL. Already done in the training.py.    VVV
-    if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
+    # TODO: Adapt accordingly to AUTSL dataset -> Already done in training.py.  VVV
+    if dataset_version == 'phoenix_2014_trans':
         valid_iter = make_data_iter(
             dataset=data,
             batch_size=batch_size,
@@ -129,8 +128,9 @@ def validate_on_data(
     if dataset_version != 'phoenix_2014_trans':
         model.image_encoder.eval()
 
+    # TODO: Collect the gloss and text references manually. V
     # Collect the gloss references of the AUTSL dev set and the text references of the ChicagoFSWild dev set,
-    # while evaluating the model on the development set.  # TODO: Mine.
+    # while evaluating the model on the development set.
     gls_refs = []
     txt_refs = []
 
@@ -145,12 +145,13 @@ def validate_on_data(
         total_num_gls_tokens = 0
         total_num_seqs = 0
 
-        if dataset_version == 'phoenix_2014_trans':  # TODO: Mine.
+        # TODO: Handle each dataset individually.   V
+
+        if dataset_version == 'phoenix_2014_trans':
 
             for valid_batch in iter(valid_iter):
-
                 batch = Batch(
-                    dataset_type=dataset_version,  # TODO: Mine.
+                    dataset_type=dataset_version,  # TODO: Add the dataset name as an argument. V
                     is_train=False,
                     torch_batch=valid_batch,
                     txt_pad_index=txt_pad_index,
@@ -158,7 +159,6 @@ def validate_on_data(
                     use_cuda=use_cuda,
                     frame_subsampling_ratio=frame_subsampling_ratio,
                 )
-
                 sort_reverse_index = batch.sort_by_sgn_lengths()
 
                 batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
@@ -198,10 +198,10 @@ def validate_on_data(
                     batch_attention_scores[sort_reverse_index] if batch_attention_scores is not None else []
                 )
 
-        elif dataset_version == 'autsl':  # TODO: Mine.
+        elif dataset_version == 'autsl':  # TODO: Adapt to AUTSL dataset.   V
 
             index = 0
-            while index < len(data):  # TODO: Handle last chunk of train_data.  V
+            while index < len(data):  # TODO: Handle the last chunk of train_data.  V
 
                 batch_size_upd = batch_size if len(data) - index >= batch_size else len(data) - index
 
@@ -234,10 +234,6 @@ def validate_on_data(
                 # print("total: ", total)
                 # print()
 
-                # if index + batch_size_upd >= len(data):  # TODO: handle no more examples and or valid examples to complete batch size.
-                # if valid < batch_size_upd:
-                #     gls_lengths = [int(1)] * valid
-
                 while valid < batch_size_upd:
                     for i, datum in enumerate(
                             itertools.islice(data, index + total, index + total + (batch_size_upd - valid))):
@@ -254,6 +250,7 @@ def validate_on_data(
                             valid += 1
                         total += 1
 
+                    # TODO: Handle a case where there are no more samples and/or valid samples to complete the batch.   V
                     if index + total + (batch_size_upd - valid) >= len(data):
                         if valid < batch_size_upd:
                             # print("index: ", index)
@@ -307,7 +304,6 @@ def validate_on_data(
                     use_cuda=use_cuda,
                     frame_subsampling_ratio=frame_subsampling_ratio,
                 )
-
                 sort_reverse_index = batch.sort_by_sgn_lengths()
 
                 batch_recognition_loss, batch_translation_loss = model.get_loss_for_batch(
@@ -346,11 +342,11 @@ def validate_on_data(
                     batch_attention_scores[sort_reverse_index] if batch_attention_scores is not None else []
                 )
 
-                batch.make_cpu()  # TODO: Mine.
-                del batch  # TODO: Mine.
-                gc.collect()  # TODO: Mine.
+                batch.make_cpu()  # TODO: Move batch back to CPU.   V
+                del batch  # TODO: Remove unnecessary variable. V
+                gc.collect()  # TODO: Call the garbage collector.   V
 
-        else:  # TODO: Mine.
+        else:  # TODO: Adapt to ChicagoFSWild dataset.  V
 
             index = 0
             while index < len(data):
@@ -389,13 +385,6 @@ def validate_on_data(
                 # print("total: ", total)
                 # print()
 
-                # if index + batch_size_upd >= len(data):  # TODO: handle no more examples and or valid examples to complete batch size.
-                #     if valid < batch_size_upd:
-                #         print(len(txt_lengths))
-                #         txt_lengths = [int(1)] * valid
-                #         print(len(txt_lengths))
-                #         print("1")
-
                 while valid < batch_size_upd:
                     for i, datum in enumerate(
                             itertools.islice(data, index + total, index + total + (batch_size_upd - valid))):
@@ -415,6 +404,7 @@ def validate_on_data(
                             valid += 1
                         total += 1
 
+                    # TODO: Handle a case where there are no more samples and/or valid samples to complete the batch.   V
                     if index + total + (batch_size_upd - valid) >= len(data):
                         if valid < batch_size_upd:
                             # print("index: ", index)
@@ -511,9 +501,9 @@ def validate_on_data(
                     batch_attention_scores[sort_reverse_index] if batch_attention_scores is not None else []
                 )
 
-                batch.make_cpu()  # TODO: Mine.
-                del batch  # TODO: Mine.
-                gc.collect()  # TODO: Mine.
+                batch.make_cpu()  # TODO: Move batch back to CPU.   V
+                del batch  # TODO: Remove unnecessary variable. V
+                gc.collect()  # TODO: Call the garbage collector.   V
 
         if do_recognition:
             # assert len(all_gls_outputs) == len(data)  # TODO: Uncomment.  V
@@ -534,32 +524,32 @@ def validate_on_data(
                 gls_cln_fn = clean_phoenix_2014_trans
             elif dataset_version == "phoenix_2014":
                 gls_cln_fn = clean_phoenix_2014
-            elif dataset_version == "autsl":  # TODO: I think I don't need it, because my glosses are ids.  V
-                pass  # TODO: Mine.
-            elif dataset_version == "ChicagoFSWild":  # No glosses in this dataset.
-                pass  # TODO: Mine.
+            elif dataset_version == "autsl":
+                pass  # TODO: Not relevant because my glosses are ids.  V
+            elif dataset_version == "ChicagoFSWild":
+                pass  # TODO: Not relevant because there are no glosses in ChicagoFSWild dataset.   V
             else:
                 raise ValueError("Unknown Dataset Version: " + dataset_version)
 
-            # TODO: Problem here.   Update: Fixed.  V
+            # TODO: Problem here -> Fixed.  V
             # Construct gloss sequences for metrics
-            if dataset_version == "phoenix_2014_trans":  # TODO: Mine.
+            if dataset_version == "phoenix_2014_trans":
                 gls_ref = [gls_cln_fn(" ".join(t)) for t in data.gls]
                 gls_hyp = [gls_cln_fn(" ".join(t)) for t in decoded_gls]
-            else:
-                # TODO: Changed here from len(data) to 32, for testing. V   Update: Changed back.   V
+            else:   # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets.  V
                 gls_ref = [" ".join([str(t['gloss_id'].numpy())])
                            for t in itertools.islice(data, len(data))
                            if t['video'].shape[0] <= 115]
                 gls_hyp = [" ".join(t) for t in decoded_gls]
-            # assert len(gls_ref) == len(gls_hyp) #TODO: Uncomment. V
+            # assert len(gls_ref) == len(gls_hyp) # TODO: Uncomment.    V
 
+            # TODO: Use the gloss references collected manually.    V
+            gls_ref = gls_ref if dataset_version == "phoenix_2014_trans" else gls_refs
             # GLS Metrics
-            gls_ref = gls_ref if dataset_version == "phoenix_2014_trans" else gls_refs  # TODO: Mine.
-
             gls_wer_score = wer_list(hypotheses=gls_hyp, references=gls_ref)
 
-        if do_translation:  # TODO: Check it for ChicagoFSWild dataset. VVV
+        # TODO: Adapt to ChicagoFSWild dataset. VVV
+        if do_translation:
             # assert len(all_txt_outputs) == len(data) # TODO: Uncomment.   V
             if (
                     translation_loss_function is not None
@@ -581,10 +571,10 @@ def validate_on_data(
             join_char = " " if level in ["word", "bpe"] else ""
 
             # Construct text sequences for metrics
-            if dataset_version == "phoenix_2014_trans":  # TODO: Mine.
+            if dataset_version == "phoenix_2014_trans":
                 txt_ref = [join_char.join(t) for t in data.txt]
                 txt_hyp = [join_char.join(t) for t in decoded_txt]
-            else:  # TODO: Mine.
+            else:  # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets.   V
                 txt_ref = [" ".join([t['text'].numpy().decode('utf-8')])
                            for t in itertools.islice(data, len(data))
                            if t['video'].shape[0] <= 131]
@@ -596,14 +586,15 @@ def validate_on_data(
                 txt_hyp = [bpe_postprocess(v) for v in txt_hyp]
             # assert len(txt_ref) == len(txt_hyp) # TODO: Uncomment.    V
 
-            txt_ref = txt_ref if dataset_version == "phoenix_2014_trans" else txt_refs  # TODO: Mine.
+            # TODO: Use the text references collected manually. V
+            txt_ref = txt_ref if dataset_version == "phoenix_2014_trans" else txt_refs
 
-            # TODO: Update evaluation metrics for the ChicagoFSWild dataset.    V
+            # TXT Metrics
+            # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset. V
             if dataset_version == "ChicagoFSWild":
                 wacc = wacc_list(hypotheses=txt_hyp, references=txt_ref)
                 seq_accuracy = sequence_accuracy(references=txt_ref, hypotheses=txt_hyp)
             else:
-                # TXT Metrics
                 txt_bleu = bleu(references=txt_ref, hypotheses=txt_hyp)
                 txt_chrf = chrf(references=txt_ref, hypotheses=txt_hyp)
                 txt_rouge = rouge(references=txt_ref, hypotheses=txt_hyp)
@@ -614,9 +605,8 @@ def validate_on_data(
             valid_scores["wer"] = gls_wer_score["wer"]
             valid_scores["wer_scores"] = gls_wer_score
 
-        if do_translation:  # TODO: Update evaluation metrics for the ChicagoFSWild dataset.    V
-
-            if dataset_version == "ChicagoFSWild":
+        if do_translation:
+            if dataset_version == "ChicagoFSWild":  # TODO: Adapt evaluation metrics to ChicagoFSWild dataset.  V
                 valid_scores["wacc"] = wacc["wacc"]
                 valid_scores["wer_scores"] = wacc
                 valid_scores["seq_accuracy"] = seq_accuracy
@@ -652,8 +642,8 @@ def test(
         cfg_file, ckpt: str, output_path: str = None, logger: logging.Logger = None
 ) -> None:
     """
-    Main test function. Handles loading a model from checkpoint, generating translations and storing them and
-    attention plots.
+    Main test function. Handles loading a model from checkpoint, generating translations and storing
+    them and attention plots.
 
     :param cfg_file: path to configuration file
     :param ckpt: path to checkpoint to load
@@ -687,15 +677,17 @@ def test(
     dataset_version = cfg["data"].get("version", "phoenix_2014_trans")
     translation_max_output_length = cfg["training"].get("translation_max_output_length", None)
 
+    # TODO: Handle each dataset individually.   V
+
     # load the data
-    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
+    if cfg["data"]["version"] == 'phoenix_2014_trans':
         # Load the dataset and create the corresponding vocabs
         _, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
 
-    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
+    elif cfg["data"]["version"] == 'autsl':  # TODO: Adapt to the asynchronous data structure of AUTSL. V
+
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config),
-                          shuffle_files=True)  # TODO: Check shuffle! 7/9   V
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config), shuffle_files=True) # TODO: Check shuffle! 7/9  V
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
@@ -706,6 +698,7 @@ def test(
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
         txt_vocab_file = cfg["data"].get("txt_vocab", None)
 
+        # TODO: Create vocabularies using the relevant classes. V
         # Build the gloss vocab based on the training set.
         gls_vocab = build_vocab(
             version=cfg["data"]["version"],
@@ -715,12 +708,11 @@ def test(
             dataset=train_data,
             vocab_file=gls_vocab_file,
         )
-
         # Next, build the text vocab based on the training set.
-        txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?    V
-        # TODO: Create vocabularies using the classes.  V
+        txt_vocab = TextVocabulary(tokens=txt_vocab_file)
 
-    else:  # TODO: Mine.
+    else:  # TODO: Adapt to the asynchronous data structure of ChicagoFSWild.   V
+
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
         chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=True)
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
@@ -762,7 +754,7 @@ def test(
 
     # build model load parameters into the model.
     model = build_model(
-        dataset=cfg["data"]["version"],  # TODO: Mine.
+        dataset=cfg["data"]["version"],  # TODO: Add the dataset name as an argument.   V
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -775,7 +767,7 @@ def test(
     model.load_state_dict(model_checkpoint["model_state"])
 
     if use_cuda:
-        model.cuda(DEVICE)
+        model.cuda(DEVICE)  # TODO: Use the relevant GPU device.    V
 
     # Data Augmentation Parameters
     frame_subsampling_ratio = cfg["data"].get("frame_subsampling_ratio", None)
@@ -800,12 +792,12 @@ def test(
     if do_recognition:
         recognition_loss_function = torch.nn.CTCLoss(blank=model.gls_vocab.stoi[SIL_TOKEN], zero_infinity=True)
         if use_cuda:
-            recognition_loss_function.cuda(DEVICE)
+            recognition_loss_function.cuda(DEVICE)  # TODO: Use the relevant GPU device.    V
 
     if do_translation:
         translation_loss_function = XentLoss(pad_index=txt_vocab.stoi[PAD_TOKEN], smoothing=0.0)
         if use_cuda:
-            translation_loss_function.cuda(DEVICE)
+            translation_loss_function.cuda(DEVICE)  # TODO: Use the relevant GPU device.    V
 
     # NOTE (Cihan): Currently Hardcoded to be 0 for TensorFlow decoding
     assert model.gls_vocab.stoi[SIL_TOKEN] == 0
@@ -866,7 +858,8 @@ def test(
     if do_translation:
         logger.info("=" * 60)
         dev_translation_results = {}
-        if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: For ChicagoFSWild dataset I want the best WAcc score.    V
+        # TODO: For ChicagoFSWild dataset, I want the best WAcc score.  V
+        if cfg["data"]["version"] == 'ChicagoFSWild':
             dev_best_wacc_score = float("-inf")
         else:
             dev_best_bleu_score = float("-inf")
@@ -900,7 +893,8 @@ def test(
                     frame_subsampling_ratio=frame_subsampling_ratio,
                 )
 
-                if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: Update evaluation metrics for ChicagoFSWild dataset. V
+                # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset. V
+                if cfg["data"]["version"] == 'ChicagoFSWild':
                     if (
                             dev_translation_results[tbw][ta]["valid_scores"]["wacc"] > dev_best_wacc_score
                     ):
@@ -949,7 +943,7 @@ def test(
                         logger.info("-" * 60)
 
     logger.info("*" * 60)
-    if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: Update evaluation metrics for ChicagoFSWild dataset. V
+    if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset.  V
         logger.info(
             "[DEV] partition [Recognition & Translation] results:\n\t"
             "Best CTC Decode Beam Size: %d\n\t"
@@ -1016,7 +1010,7 @@ def test(
         frame_subsampling_ratio=frame_subsampling_ratio,
     )
 
-    if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: Update evaluation metrics for ChicagoFSWild dataset. V
+    if cfg["data"]["version"] == 'ChicagoFSWild':  # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset.  V
         logger.info(
             "[TEST] partition [Recognition & Translation] results:\n\t"
             "Best CTC Decode Beam Size: %d\n\t"
@@ -1069,7 +1063,7 @@ def test(
 
             dev_gls_output_path_set = "{}.BW_{:03d}.{}.gls".format(output_path, dev_best_recognition_beam_size, "dev")
 
-            _write_to_file(  # TODO: adjust.    V
+            _write_to_file(  # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets. V
                 dev_gls_output_path_set,
                 [s for s in dev_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
@@ -1078,7 +1072,7 @@ def test(
                 dev_best_recognition_result["gls_hyp"],
             )
             test_gls_output_path_set = "{}.BW_{:03d}.{}.gls".format(output_path, dev_best_recognition_beam_size, "test")
-            _write_to_file(  # TODO: adjust.    V
+            _write_to_file(  # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets. V
                 test_gls_output_path_set,
                 [s for s in test_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
@@ -1110,7 +1104,7 @@ def test(
                     output_path, dev_best_translation_beam_size, "test"
                 )
 
-            _write_to_file(  # TODO: adjust.    V
+            _write_to_file(  # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets. V
                 dev_txt_output_path_set,
                 [s for s in dev_data.sequence]
                 if dataset_version == "phoenix_2014_trans"
@@ -1118,7 +1112,7 @@ def test(
                       for datum in itertools.islice(dev_data, len(dev_data))],
                 dev_best_translation_result["txt_hyp"],
             )
-            _write_to_file(  # TODO: adjust.    V
+            _write_to_file(  # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets. V
                 test_txt_output_path_set,
                 [s for s in test_data.sequence]
                 if dataset_version == "phoenix_2014_trans"

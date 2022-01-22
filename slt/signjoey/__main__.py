@@ -1,11 +1,13 @@
 import argparse
 import os
 
+import sys
 from slt.signjoey.training import train
 from slt.signjoey.prediction import test
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # TODO: Mine.
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO: Mine.
+# TODO: Use all GPU devices.    V
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
 
 
 def main():
@@ -20,7 +22,7 @@ def main():
 
     ap.add_argument("--output_path", type=str, help="path for saving translation output")
 
-    ap.add_argument("--gpu_id", type=str, default="0,1,2,3", help="gpu to run your job on")  # TODO: Mine.
+    ap.add_argument("--gpu_id", type=str, default="0,1,2,3", help="gpu to run your job on")  # TODO: Use all GPUs devices.  V
 
     args = ap.parse_args()
 
@@ -29,18 +31,18 @@ def main():
     if args.mode == "train":
         train(cfg_file=args.config_path)
     elif args.mode == "test":
-        from training import load_config
-        cfg = load_config(args.config_path)
-        ckpt = "{}/{}.ckpt".format(cfg["training"]["model_dir"], 2600)
-        output_name = "best.IT_{:08d}".format(2600)
-        output_path = os.path.join(cfg["training"]["model_dir"], output_name)
-        test(cfg_file=args.config_path, ckpt=ckpt, output_path=output_path)
+        # TODO: Temporary - I used this code to run the model with the ChicagoFSWild dataset on the test set.   V
+        # from training import load_config
+        # cfg = load_config(args.config_path)
+        # ckpt = "{}/{}.ckpt".format(cfg["training"]["model_dir"], 2600)
+        # output_name = "best.IT_{:08d}".format(2600)
+        # output_path = os.path.join(cfg["training"]["model_dir"], output_name)
+        # test(cfg_file=args.config_path, ckpt=ckpt, output_path=output_path)
+        test(cfg_file=args.config_path, ckpt=args.ckpt, output_path=args.output_path)
     else:
         raise ValueError("Unknown mode")
 
 
 if __name__ == "__main__":
-    # train(cfg_file='/home/nlp/dorink/project/slt/configs/sign.yaml')  TODO: Mine.
+    # train(cfg_file='/home/nlp/dorink/project/slt/configs/sign.yaml')  # TODO: Just checking.  V
     main()
-
-# --output_path ./output_slt train /home/nlp/dorink/project/slt/configs/sign.yaml    TODO: Mine.

@@ -118,17 +118,14 @@ def initialize_model(model: nn.Module, cfg: dict, txt_padding_idx: int) -> None:
     embed_init_fn_ = _parse_init(embed_init, embed_init_weight, embed_gain)
     bias_init_fn_ = _parse_init(bias_init, bias_init_weight, gain)
 
-    # TODO: Should check this.  Okay.   VVV
+    # TODO: Should check this code -> It's okay.    VVV
     with torch.no_grad():
         for name, p in model.named_parameters():
-
             if "txt_embed" in name:
                 if "lut" in name:
                     embed_init_fn_(p)
-
             elif "bias" in name:
                 bias_init_fn_(p)
-
             elif len(p.size()) > 1:
                 # RNNs combine multiple matrices is one, which messes up xavier initialization
                 if init == "xavier" and "rnn" in name:

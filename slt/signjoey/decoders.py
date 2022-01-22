@@ -18,6 +18,7 @@ class Decoder(nn.Module):
     """
     Base decoder class.
     """
+
     @property
     def output_size(self):
         """
@@ -169,10 +170,8 @@ class RecurrentDecoder(Decoder):
         assert src_mask.shape[0] == prev_embed.shape[0]
         assert src_mask.shape[1] == 1
         assert src_mask.shape[2] == encoder_output.shape[1]
-
         if isinstance(hidden, tuple):  # for lstm
             hidden = hidden[0]
-
         assert hidden.shape[0] == self.num_layers
         assert hidden.shape[1] == prev_embed.shape[0]
         assert hidden.shape[2] == self.hidden_size
@@ -205,13 +204,11 @@ class RecurrentDecoder(Decoder):
         assert src_mask.shape[2] == encoder_output.shape[1]
         assert trg_embed.shape[0] == encoder_output.shape[0]
         assert trg_embed.shape[2] == self.emb_size
-
         if hidden is not None:
             if isinstance(hidden, tuple):  # for lstm
                 hidden = hidden[0]
             assert hidden.shape[1] == encoder_output.shape[0]
             assert hidden.shape[2] == self.hidden_size
-
         if prev_att_vector is not None:
             assert prev_att_vector.shape[0] == encoder_output.shape[0]
             assert prev_att_vector.shape[2] == self.hidden_size
@@ -264,6 +261,7 @@ class RecurrentDecoder(Decoder):
             rnn_input = prev_embed
 
         rnn_input = self.emb_dropout(rnn_input)
+
         # rnn_input: batch x 1 x emb+2*enc_size
         _, hidden = self.rnn(rnn_input, hidden)
 
@@ -276,15 +274,15 @@ class RecurrentDecoder(Decoder):
         # compute context vector using attention mechanism only use last layer for attention mechanism
         # key projections are pre-computed
         context, att_probs = self.attention(query=query, values=encoder_output, mask=src_mask)
-
         # return attention vector (Luong)
         # combine context with decoder hidden state before prediction
         att_vector_input = torch.cat([query, context], dim=2)
         # batch x 1 x 2*enc_size+hidden_size
         att_vector_input = self.hidden_dropout(att_vector_input)
-        att_vector = torch.tanh(self.att_vector_layer(att_vector_input))
-        # output: batch x 1 x hidden_size
 
+        att_vector = torch.tanh(self.att_vector_layer(att_vector_input))
+
+        # output: batch x 1 x hidden_size
         return att_vector, hidden, att_probs
 
     def forward(
@@ -303,8 +301,7 @@ class RecurrentDecoder(Decoder):
          For every step, the `_forward_step` function is called internally.
 
          During training, the target inputs (`trg_embed') are already known for the full sequence, so the
-         full unrol is done.
-         In this case, `hidden` and `prev_att_vector` are None.
+         full unrol is done. In this case, `hidden` and `prev_att_vector` are None.
 
          For inference, this function is called with one step at a time since embedded targets are the
          predictions from the previous time step.
@@ -368,6 +365,7 @@ class RecurrentDecoder(Decoder):
         att_probs = []
 
         batch_size = encoder_output.size(0)
+
         if prev_att_vector is None:
             with torch.no_grad():
                 prev_att_vector = encoder_output.new_zeros([batch_size, 1, self.hidden_size])
@@ -446,6 +444,7 @@ class TransformerDecoder(Decoder):
     A transformer decoder with N masked layers.
     Decoder layers are masked so that an attention head cannot see the future.
     """
+
     def __init__(
             self,
             num_layers: int = 4,

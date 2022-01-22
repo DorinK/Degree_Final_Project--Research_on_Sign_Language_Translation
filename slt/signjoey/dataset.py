@@ -1,16 +1,15 @@
 from torchtext import data
-# from torchtext.data import Field, RawField
-from torchtext.data import Dataset, RawField, Field, Example  # TODO: Mine.
+from torchtext.data import Dataset, RawField, Field, Example
 from typing import List, Tuple
 import pickle
 import gzip
 import torch
 
-# TODO: Mine.
+# TODO: Mine - in the end this import was not necessary.
 import itertools
 
 """""""""""""""
- Data module
+  Data module
 """""""""""""""
 
 

@@ -31,11 +31,9 @@ def bleu(references, hypotheses):
     :return:
     """
     bleu_scores = sacrebleu.raw_corpus_bleu(sys_stream=hypotheses, ref_streams=[references]).scores
-
     scores = {}
     for n in range(len(bleu_scores)):
         scores["bleu" + str(n + 1)] = bleu_scores[n]
-
     return scores
 
 
@@ -52,7 +50,6 @@ def token_accuracy(references, hypotheses, level="word"):
     correct_tokens = 0
     all_tokens = 0
     split_char = " " if level in ["word", "bpe"] else ""
-
     assert len(hypotheses) == len(references)
 
     for hyp, ref in zip(hypotheses, references):
@@ -75,7 +72,6 @@ def sequence_accuracy(references, hypotheses):
     :return:
     """
     assert len(hypotheses) == len(references)
-
     correct_sequences = sum([1 for (hyp, ref) in zip(hypotheses, references) if hyp == ref])
     return (correct_sequences / len(hypotheses)) * 100 if hypotheses else 0.0
 
@@ -120,7 +116,6 @@ def wer_single(r, h):
 
     r = r.strip().split()
     h = h.strip().split()
-
     edit_distance_matrix = edit_distance(r=r, h=h)
     alignment, alignment_out = get_alignment(r=r, h=h, d=edit_distance_matrix)
 
@@ -271,7 +266,6 @@ def wacc_single(r, h):  # TODO: Create wacc_single function.    V
     """
     r = r.strip().split()
     h = h.strip().split()
-
     edit_distance_matrix = edit_distance_wacc(r=r, h=h)
     alignment, alignment_out = get_alignment_wacc(r=r, h=h, d=edit_distance_matrix)
 

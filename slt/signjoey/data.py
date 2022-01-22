@@ -14,7 +14,7 @@ from slt.signjoey.vocabulary import (
     PAD_TOKEN,
 )
 
-# TODO: Mine.
+# TODO: Mine - in the end these lines were not necessary.
 import tensorflow_datasets as tfds
 from sign_language_datasets.datasets.config import SignDatasetConfig
 
@@ -46,7 +46,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         - gls_vocab: gloss vocabulary extracted from training data
         - txt_vocab: spoken text vocabulary extracted from training data
     """
-    data_path = "/home/nlp/dorink/project/slt/data"
+    data_path = "/home/nlp/dorink/project/slt/data"  # TODO: Update the data path accordingly.  V
 
     # Get the datasets path.
     if isinstance(data_cfg["train"], list):
@@ -114,7 +114,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
 
     # Get the preprocessed training set.
     train_data = SignTranslationDataset(
-        dataset_type=data_cfg["version"],  # TODO: Mine.
+        dataset_type=data_cfg["version"],  # TODO: Add the dataset name as an argument. V
         path=train_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
         filter_pred=lambda x: len(vars(x)["sgn"]) <= max_sent_length and len(vars(x)["txt"]) <= max_sent_length,
@@ -132,7 +132,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
 
     # Build the gloss and text vocabs based on the training set.
     gls_vocab = build_vocab(
-        version=data_cfg["version"],  # TODO: Mine.
+        version=data_cfg["version"],  # TODO: Add the dataset name as an argument.  V
         field="gls",
         min_freq=gls_min_freq,
         max_size=gls_max_size,
@@ -140,7 +140,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         vocab_file=gls_vocab_file,
     )
     txt_vocab = build_vocab(
-        version=data_cfg["version"],  # TODO: Mine.
+        version=data_cfg["version"],  # TODO: Add the dataset name as an argument.  V
         field="txt",
         min_freq=txt_min_freq,
         max_size=txt_max_size,
@@ -157,7 +157,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
 
     # Get the preprocessed validation set.
     dev_data = SignTranslationDataset(
-        dataset_type=data_cfg["version"],  # TODO: Mine.
+        dataset_type=data_cfg["version"],  # TODO: Add the dataset name as an argument. V
         path=dev_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
     )
@@ -172,7 +172,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     # Get the preprocessed test set.
     # check if target exists
     test_data = SignTranslationDataset(
-        dataset_type=data_cfg["version"],  # TODO: Mine.
+        dataset_type=data_cfg["version"],  # TODO: Add the dataset name as an argument. V
         path=test_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
     )
@@ -199,15 +199,12 @@ def token_batch_size_fn(new, count, sofar):
         max_sgn_in_batch = 0
         max_gls_in_batch = 0
         max_txt_in_batch = 0
-
     max_sgn_in_batch = max(max_sgn_in_batch, len(new.sgn))
     max_gls_in_batch = max(max_gls_in_batch, len(new.gls))
     max_txt_in_batch = max(max_txt_in_batch, len(new.txt) + 2)
-
     sgn_elements = count * max_sgn_in_batch
     gls_elements = count * max_gls_in_batch
     txt_elements = count * max_txt_in_batch
-
     return max(sgn_elements, gls_elements, txt_elements)
 
 
@@ -224,12 +221,12 @@ def make_data_iter(
     :param dataset: torchtext dataset containing sgn and optionally txt
     :param batch_size: size of the batches the iterator prepares
     :param batch_type: measure batch size by sentence count or by token count
-    :param train: whether it's training time, when turned off,
-        bucketing, sorting within batches and shuffling is disabled
-    :param shuffle: whether to shuffle the data before each epoch
-        (no effect if set to True for testing)
+    :param train: whether it's training time, when turned off, bucketing, sorting within batches
+        and shuffling is disabled
+    :param shuffle: whether to shuffle the data before each epoch (no effect if set to True for testing)
     :return: torchtext iterator
     """
+
     batch_size_fn = token_batch_size_fn if batch_type == "token" else None
 
     if train:

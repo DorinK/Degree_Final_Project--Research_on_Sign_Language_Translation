@@ -10,7 +10,7 @@ from torch.optim import lr_scheduler
 from torch.optim import Optimizer
 
 """""""""""""""""""""""""""""""""
-Collection of builder functions
+ Collection of builder functions
 """""""""""""""""""""""""""""""""
 
 
@@ -36,7 +36,6 @@ def build_gradient_clipper(config: dict) -> Optional[Callable]:
     elif "clip_grad_norm" in config.keys():
         max_norm = config["clip_grad_norm"]
         clip_grad_fun = lambda params: nn.utils.clip_grad_norm_(parameters=params, max_norm=max_norm)
-
     if "clip_grad_val" in config.keys() and "clip_grad_norm" in config.keys():
         raise ValueError("You can only specify either clip_grad_val or clip_grad_norm.")
 
@@ -134,8 +133,8 @@ def build_scheduler(
         config: dict, optimizer: Optimizer, scheduler_mode: str, hidden_size: int = 0
 ) -> (Optional[lr_scheduler._LRScheduler], Optional[str]):
     """
-    Create a learning rate scheduler if specified in config and determine when a scheduler step should be
-    executed.
+    Create a learning rate scheduler if specified in config and determine when a scheduler step should
+    be executed.
 
     Current options:
         - "plateau": see `torch.optim.lr_scheduler.ReduceLROnPlateau`
@@ -268,11 +267,9 @@ class NoamScheduler:
         Update parameters and rate
         """
         self._step += 1
-
         rate = self._compute_rate()
         for p in self.optimizer.param_groups:
             p["lr"] = rate
-
         self._rate = rate
 
     def _compute_rate(self):
@@ -330,11 +327,9 @@ class WarmupExponentialDecayScheduler:
         Update parameters and rate
         """
         self._step += 1
-
         rate = self._compute_rate()
         for p in self.optimizer.param_groups:
             p["lr"] = rate
-
         self._rate = rate
 
     def _compute_rate(self):

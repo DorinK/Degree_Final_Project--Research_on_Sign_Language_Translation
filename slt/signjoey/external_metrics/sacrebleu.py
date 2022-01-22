@@ -1,27 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# Copyright 2017--2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"). You may not
-# use this file except in compliance with the License. A copy of the License
-# is located at
-#
-#     http://aws.amazon.com/apache2.0/
-#
-# or in the "license" file accompanying this file. This file is distributed on
-# an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-# express or implied. See the License for the specific language governing
-# permissions and limitations under the License.
-
-"""
-SacreBLEU provides hassle-free computation of shareable, comparable, and reproducible BLEU scores.
-Inspired by Rico Sennrich's `multi-bleu-detok.perl`, it produces the official WMT scores but works with plain text.
-It also knows all the standard test sets and handles downloading, processing, and tokenization for you.
-
-See the [README.md] file for more information.
-"""
-
 import argparse
 import functools
 import gzip
@@ -40,6 +16,32 @@ from collections import Counter, namedtuple
 from itertools import zip_longest
 from typing import List, Iterable, Tuple, Union
 
+# !/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+    Copyright 2017--2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+    Licensed under the Apache License, Version 2.0 (the "License"). You may not
+    use this file except in compliance with the License. A copy of the License
+    is located at
+
+        http://aws.amazon.com/apache2.0/
+
+    or in the "license" file accompanying this file. This file is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+    express or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+    
+    """"""
+    SacreBLEU provides hassle-free computation of shareable, comparable, and reproducible BLEU scores.
+    Inspired by Rico Sennrich's `multi-bleu-detok.perl`, it produces the official WMT scores but works with plain text.
+    It also knows all the standard test sets and handles downloading, processing, and tokenization for you.
+    
+    See the [README.md] file for more information.
+    """"""
+"""
+
 VERSION = "1.4.2"
 
 try:
@@ -52,9 +54,7 @@ try:
     signal(SIGPIPE, SIG_DFL)
 
 except ImportError:
-    logging.warning(
-        "Could not import signal.SIGPIPE (this is expected on Windows machines)"
-    )
+    logging.warning("Could not import signal.SIGPIPE (this is expected on Windows machines)")
 
 # Where to store downloaded test sets.
 # Define the environment variable $SACREBLEU, or use the default of ~/.sacrebleu.
@@ -79,7 +79,8 @@ SMOOTH_VALUE_DEFAULT = 0.0
 # This defines data locations.
 # At the top level are test sets.
 # Beneath each test set, we define the location to download the test data.
-# The other keys are each language pair contained in the tarball, and the respective locations of the source and reference data within each.
+# The other keys are each language pair contained in the tarball, and the respective locations of the
+# source and reference data within each.
 # Many of these are *.sgm files, which are processed to produced plain text that can be used by this script.
 # The canonical location of unpacked, processed data is $SACREBLEU_DIR/$TEST/$SOURCE-$TARGET.{$SOURCE,$TARGET}
 DATASETS = {
@@ -1198,12 +1199,12 @@ DOMAINS = sorted(list({v.split("-")[1] for v in SUBSETS["wmt19"].values()}))
 
 def tokenize_13a(line):
     """
-    Tokenizes an input line using a relatively minimal tokenization that is however equivalent to mteval-v13a, used by WMT.
+    Tokenizes an input line using a relatively minimal tokenization that is however equivalent to
+    mteval-v13a, used by WMT.
 
     :param line: a segment to tokenize
     :return: the tokenized line
     """
-
     norm = line
 
     # language-independent part:
@@ -1218,15 +1219,9 @@ def tokenize_13a(line):
     # language-dependent part (assuming Western languages):
     norm = " {} ".format(norm)
     norm = re.sub(r"([\{-\~\[-\` -\&\(-\+\:-\@\/])", " \\1 ", norm)
-    norm = re.sub(
-        r"([^0-9])([\.,])", "\\1 \\2 ", norm
-    )  # tokenize period and comma unless preceded by a digit
-    norm = re.sub(
-        r"([\.,])([^0-9])", " \\1 \\2", norm
-    )  # tokenize period and comma unless followed by a digit
-    norm = re.sub(
-        r"([0-9])(-)", "\\1 \\2 ", norm
-    )  # tokenize dash when preceded by a digit
+    norm = re.sub(r"([^0-9])([\.,])", "\\1 \\2 ", norm)  # tokenize period and comma unless preceded by a digit
+    norm = re.sub(r"([\.,])([^0-9])", " \\1 \\2", norm)  # tokenize period and comma unless followed by a digit
+    norm = re.sub(r"([0-9])(-)", "\\1 \\2 ", norm)  # tokenize dash when preceded by a digit
     norm = re.sub(r"\s+", " ", norm)  # one space only between words
     norm = re.sub(r"^\s+", "", norm)  # no leading space
     norm = re.sub(r"\s+$", "", norm)  # no trailing space
@@ -1235,7 +1230,8 @@ def tokenize_13a(line):
 
 
 class UnicodeRegex:
-    """Ad-hoc hack to recognize all punctuation and symbols.
+    """
+    Ad-hoc hack to recognize all punctuation and symbols.
 
     without depending on https://pypi.python.org/pypi/regex/."""
 
@@ -1269,7 +1265,8 @@ class UnicodeRegex:
 
 
 def tokenize_v14_international(string):
-    r"""Tokenize a string following the official BLEU implementation.
+    """
+    Tokenize a string following the official BLEU implementation.
 
     See https://github.com/moses-smt/mosesdecoder/blob/master/scripts/generic/mteval-v14.pl#L954-L983
     In our case, the input string is expected to be just one line
@@ -1296,7 +1293,8 @@ def tokenize_v14_international(string):
 
 
 def tokenize_zh(sentence):
-    """MIT License
+    """
+    MIT License
     Copyright (c) 2017 - Shujian Huang <huangsj@nju.edu.cn>
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1330,41 +1328,23 @@ def tokenize_zh(sentence):
         :param uchar: input char in unicode
         :return: whether the input char is a Chinese character.
         """
-        if (
-                uchar >= u"\u3400" and uchar <= u"\u4db5"
-        ):  # CJK Unified Ideographs Extension A, release 3.0
+        if ( uchar >= u"\u3400" and uchar <= u"\u4db5"):  # CJK Unified Ideographs Extension A, release 3.0
             return True
-        elif (
-                uchar >= u"\u4e00" and uchar <= u"\u9fa5"
-        ):  # CJK Unified Ideographs, release 1.1
+        elif ( uchar >= u"\u4e00" and uchar <= u"\u9fa5"):  # CJK Unified Ideographs, release 1.1
             return True
-        elif (
-                uchar >= u"\u9fa6" and uchar <= u"\u9fbb"
-        ):  # CJK Unified Ideographs, release 4.1
+        elif ( uchar >= u"\u9fa6" and uchar <= u"\u9fbb"):  # CJK Unified Ideographs, release 4.1
             return True
-        elif (
-                uchar >= u"\uf900" and uchar <= u"\ufa2d"
-        ):  # CJK Compatibility Ideographs, release 1.1
+        elif (uchar >= u"\uf900" and uchar <= u"\ufa2d"):  # CJK Compatibility Ideographs, release 1.1
             return True
-        elif (
-                uchar >= u"\ufa30" and uchar <= u"\ufa6a"
-        ):  # CJK Compatibility Ideographs, release 3.2
+        elif (uchar >= u"\ufa30" and uchar <= u"\ufa6a"):  # CJK Compatibility Ideographs, release 3.2
             return True
-        elif (
-                uchar >= u"\ufa70" and uchar <= u"\ufad9"
-        ):  # CJK Compatibility Ideographs, release 4.1
+        elif ( uchar >= u"\ufa70" and uchar <= u"\ufad9" ):  # CJK Compatibility Ideographs, release 4.1
             return True
-        elif (
-                uchar >= u"\u20000" and uchar <= u"\u2a6d6"
-        ):  # CJK Unified Ideographs Extension B, release 3.1
+        elif ( uchar >= u"\u20000" and uchar <= u"\u2a6d6"):  # CJK Unified Ideographs Extension B, release 3.1
             return True
-        elif (
-                uchar >= u"\u2f800" and uchar <= u"\u2fa1d"
-        ):  # CJK Compatibility Supplement, release 3.1
+        elif ( uchar >= u"\u2f800" and uchar <= u"\u2fa1d"):  # CJK Compatibility Supplement, release 3.1
             return True
-        elif (
-                uchar >= u"\uff00" and uchar <= u"\uffef"
-        ):  # Full width ASCII, full width of English punctuation, half width Katakana, half wide half width kana, Korean alphabet
+        elif (uchar >= u"\uff00" and uchar <= u"\uffef"):  # Full width ASCII, full width of English punctuation, half width Katakana, half wide half width kana, Korean alphabet
             return True
         elif uchar >= u"\u2e80" and uchar <= u"\u2eff":  # CJK Radicals Supplement
             return True
@@ -1378,9 +1358,7 @@ def tokenize_zh(sentence):
             return True
         elif uchar >= u"\u3100" and uchar <= u"\u312f":  # Phonetic symbols
             return True
-        elif (
-                uchar >= u"\u31a0" and uchar <= u"\u31bf"
-        ):  # Phonetic symbols (Taiwanese and Hakka expansion)
+        elif ( uchar >= u"\u31a0" and uchar <= u"\u31bf" ):  # Phonetic symbols (Taiwanese and Hakka expansion)
             return True
         elif uchar >= u"\ufe10" and uchar <= u"\ufe1f":
             return True
@@ -1443,7 +1421,8 @@ DEFAULT_TOKENIZER = "13a"
 
 
 def smart_open(file, mode="rt", encoding="utf-8"):
-    """Convenience function for reading compressed or plain text files.
+    """
+    Convenience function for reading compressed or plain text files.
     :param file: The file to read.
     :param mode: The file mode (read, write).
     :param encoding: The file encoding.
@@ -1460,7 +1439,6 @@ def my_log(num):
     :param num: the number
     :return: log(num) floored to a very low number
     """
-
     if num == 0.0:
         return -9999999999
     return math.log(num)
@@ -1565,7 +1543,8 @@ def chrf_signature(args, numrefs):
 
 
 def extract_ngrams(line, min_order=1, max_order=NGRAM_ORDER) -> Counter:
-    """Extracts all the ngrams (min_order <= n <= max_order) from a sequence of tokens.
+    """
+    Extracts all the ngrams (min_order <= n <= max_order) from a sequence of tokens.
 
     :param line: A segment containing a sequence of words.
     :param min_order: Minimum n-gram length (default: 1).
@@ -1587,13 +1566,15 @@ def extract_char_ngrams(s: str, n: int) -> Counter:
     """
     Yields counts of character n-grams from string s of order n.
     """
-    return Counter([s[i: i + n] for i in range(len(s) - n + 1)])
+    return Counter([s[i : i + n] for i in range(len(s) - n + 1)])
 
 
 def ref_stats(output, refs):
+
     ngrams = Counter()
     closest_diff = None
     closest_len = None
+
     for ref in refs:
         tokens = ref.split()
         reflen = len(tokens)
@@ -1604,7 +1585,6 @@ def ref_stats(output, refs):
         elif diff == closest_diff:
             if reflen < closest_len:
                 closest_len = reflen
-
         ngrams_ref = extract_ngrams(ref)
         for ngram in ngrams_ref.keys():
             ngrams[ngram] = max(ngrams[ngram], ngrams_ref[ngram])
@@ -1623,7 +1603,8 @@ def _clean(s):
 
 
 def process_to_text(rawfile, txtfile, field: int = None):
-    """Processes raw files to plain text files.
+    """
+    Processes raw files to plain text files.
     :param rawfile: the input file (possibly SGML)
     :param txtfile: the plaintext file
     :param field: For TSV files, which field to extract.
@@ -1635,18 +1616,12 @@ def process_to_text(rawfile, txtfile, field: int = None):
             with smart_open(rawfile) as fin, smart_open(txtfile, "wt") as fout:
                 for line in fin:
                     if line.startswith("<seg "):
-                        print(
-                            _clean(re.sub(r"<seg.*?>(.*)</seg>.*?", "\\1", line)),
-                            file=fout,
-                        )
+                        print(_clean(re.sub(r"<seg.*?>(.*)</seg>.*?", "\\1", line)),file=fout,)
         elif rawfile.endswith(".xml"):  # IWSLT
             with smart_open(rawfile) as fin, smart_open(txtfile, "wt") as fout:
                 for line in fin:
                     if line.startswith("<seg "):
-                        print(
-                            _clean(re.sub(r"<seg.*?>(.*)</seg>.*?", "\\1", line)),
-                            file=fout,
-                        )
+                        print(_clean(re.sub(r"<seg.*?>(.*)</seg>.*?", "\\1", line)),file=fout,)
         elif rawfile.endswith(".txt"):  # wmt17/ms
             with smart_open(rawfile) as fin, smart_open(txtfile, "wt") as fout:
                 for line in fin:
@@ -1658,11 +1633,13 @@ def process_to_text(rawfile, txtfile, field: int = None):
 
 
 def print_test_set(test_set, langpair, side, origlang=None, subset=None):
-    """Prints to STDOUT the specified side of the specified test set
+    """
+    Prints to STDOUT the specified side of the specified test set
     :param test_set: the test set to print
     :param langpair: the language pair
     :param side: 'src' for source, 'ref' for reference
-    :param origlang: print only sentences with a given original language (2-char ISO639-1 code), "non-" prefix means negation
+    :param origlang: print only sentences with a given original language (2-char ISO639-1 code),
+                    "non-" prefix means negation
     :param subset: print only sentences whose document annotation matches a given regex
     """
 
@@ -1679,29 +1656,29 @@ def print_test_set(test_set, langpair, side, origlang=None, subset=None):
 
 
 def download_test_set(test_set, langpair=None):
-    """Downloads the specified test to the system location specified by the SACREBLEU environment variable.
+    """
+    Downloads the specified test to the system location specified by the SACREBLEU environment variable.
 
     :param test_set: the test set to download
     :param langpair: the language pair (needed for some datasets)
     :return: the set of processed files
     """
-
     outdir = os.path.join(SACREBLEU_DIR, test_set)
     os.makedirs(outdir, exist_ok=True)
 
     expected_checksums = DATASETS[test_set].get("md5", [None] * len(DATASETS[test_set]))
     for dataset, expected_md5 in zip(DATASETS[test_set]["data"], expected_checksums):
+
         tarball = os.path.join(outdir, os.path.basename(dataset))
         rawdir = os.path.join(outdir, "raw")
 
         lockfile = "{}.lock".format(tarball)
         with portalocker.Lock(lockfile, "w", timeout=60):
+
             if not os.path.exists(tarball) or os.path.getsize(tarball) == 0:
                 logging.info("Downloading %s to %s", dataset, tarball)
                 try:
-                    with urllib.request.urlopen(dataset) as f, open(
-                            tarball, "wb"
-                    ) as out:
+                    with urllib.request.urlopen(dataset) as f, open(tarball, "wb") as out:
                         out.write(f.read())
                 except ssl.SSLError:
                     logging.warning(
@@ -1785,6 +1762,7 @@ def download_test_set(test_set, langpair=None):
 
 
 class Result:
+
     def __init__(self, score: float):
         self.score = score
 
@@ -1793,6 +1771,7 @@ class Result:
 
 
 class BLEU:
+
     def __init__(self, scores, counts, totals, precisions, bp, sys_len, ref_len):
         self.scores = scores
         self.counts = counts
@@ -1816,6 +1795,7 @@ class BLEU:
 
 
 class CHRF(Result):
+
     def __init__(self, score: float):
         super().__init__(score)
 
@@ -1832,7 +1812,8 @@ def compute_bleu(
         smooth_value=SMOOTH_VALUE_DEFAULT,
         use_effective_order=False,
 ) -> BLEU:
-    """Computes BLEU score from its sufficient statistics. Adds smoothing.
+    """
+    Computes BLEU score from its sufficient statistics. Adds smoothing.
 
     Smoothing methods (citing "A Systematic Comparison of Smoothing Techniques for Sentence-Level BLEU",
     Boxing Chen and Colin Cherry, WMT 2014: http://aclweb.org/anthology/W14-3346)
@@ -1851,7 +1832,6 @@ def compute_bleu(
     :param use_effective_order: If true, use the length of `correct` for the n-gram order instead of NGRAM_ORDER.
     :return: A BLEU object with the score (100-based) and other statistics.
     """
-
     precisions = [0 for x in range(NGRAM_ORDER)]
 
     smooth_mteval = 1.0
@@ -1933,7 +1913,8 @@ def corpus_bleu(
         tokenize=DEFAULT_TOKENIZER,
         use_effective_order=False,
 ) -> BLEU:
-    """Produces BLEU scores along with its sufficient statistics from a source against one or more references.
+    """
+    Produces BLEU scores along with its sufficient statistics from a source against one or more references.
 
     :param sys_stream: The system stream (a sequence of segments)
     :param ref_streams: A list of one or more reference streams (each a sequence of segments)
@@ -1963,8 +1944,9 @@ def corpus_bleu(
     fhs = [sys_stream] + ref_streams
     for lines in zip_longest(*fhs):
         if None in lines:
-            print(len(sys_stream))
-            print(len(ref_streams))
+            # TODO: Check.  V
+            # print(len(sys_stream))
+            # print(len(ref_streams))
             raise EOFError("Source and reference streams have different lengths!")
 
         if lowercase:
@@ -2007,7 +1989,8 @@ def corpus_bleu(
 
 
 def raw_corpus_bleu(sys_stream, ref_streams, smooth_value=SMOOTH_VALUE_DEFAULT) -> BLEU:
-    """Convenience function that wraps corpus_bleu().
+    """
+    Convenience function that wraps corpus_bleu().
     This is convenient if you're using sacrebleu as a library, say for scoring on dev.
     It uses no tokenization and 'floor' smoothing, with the floor default to 0 (no smoothing).
 
@@ -2038,9 +2021,11 @@ def get_sentence_statistics(
         order: int = CHRF_ORDER,
         remove_whitespace: bool = True,
 ) -> List[float]:
+
     hypothesis = delete_whitespace(hypothesis) if remove_whitespace else hypothesis
     reference = delete_whitespace(reference) if remove_whitespace else reference
     statistics = [0] * (order * 3)
+
     for i in range(order):
         n = i + 1
         hypothesis_ngrams = extract_char_ngrams(hypothesis, n)
@@ -2049,6 +2034,7 @@ def get_sentence_statistics(
         statistics[3 * i + 0] = sum(hypothesis_ngrams.values())
         statistics[3 * i + 1] = sum(reference_ngrams.values())
         statistics[3 * i + 2] = sum(common_ngrams.values())
+
     return statistics
 
 
@@ -2058,6 +2044,7 @@ def get_corpus_statistics(
         order: int = CHRF_ORDER,
         remove_whitespace: bool = True,
 ) -> List[float]:
+
     corpus_statistics = [0] * (order * 3)
     for hypothesis, reference in zip(hypotheses, references):
         statistics = get_sentence_statistics(
@@ -2065,15 +2052,16 @@ def get_corpus_statistics(
         )
         for i in range(len(statistics)):
             corpus_statistics[i] += statistics[i]
+
     return corpus_statistics
 
 
-def _avg_precision_and_recall(
-        statistics: List[float], order: int
-) -> Tuple[float, float]:
+def _avg_precision_and_recall(statistics: List[float], order: int) -> Tuple[float, float]:
+
     avg_precision = 0.0
     avg_recall = 0.0
     effective_order = 0
+
     for i in range(order):
         hypotheses_ngrams = statistics[3 * i + 0]
         references_ngrams = statistics[3 * i + 1]
@@ -2082,16 +2070,20 @@ def _avg_precision_and_recall(
             avg_precision += common_ngrams / hypotheses_ngrams
             avg_recall += common_ngrams / references_ngrams
             effective_order += 1
+
     if effective_order == 0:
         return 0.0, 0.0
+
     avg_precision /= effective_order
     avg_recall /= effective_order
     return avg_precision, avg_recall
 
 
 def _chrf(avg_precision, avg_recall, beta: int = CHRF_BETA) -> float:
+
     if avg_precision + avg_recall == 0:
         return 0.0
+
     beta_square = beta ** 2
     score = (
             (1 + beta_square)
@@ -2142,15 +2134,15 @@ def sentence_chrf(
     :param beta: Defines importance of recall w.r.t precision. If beta=1, same importance.
     :return: Chrf score.
     """
-    statistics = get_sentence_statistics(
-        hypothesis, reference, order=order, remove_whitespace=remove_whitespace
-    )
+    statistics = get_sentence_statistics(hypothesis, reference, order=order, remove_whitespace=remove_whitespace)
     avg_precision, avg_recall = _avg_precision_and_recall(statistics, order)
     return CHRF(_chrf(avg_precision, avg_recall, beta=beta))
 
 
 def get_a_list_of_testset_names():
-    """Return a string with a formatted list of available test sets plus their descriptions. """
+    """
+    Return a string with a formatted list of available test sets plus their descriptions.
+    """
     message = "The available test sets are:"
     for testset in sorted(DATASETS.keys(), reverse=True):
         message += "\n%20s: %s" % (testset, DATASETS[testset].get("description", ""))
@@ -2158,12 +2150,12 @@ def get_a_list_of_testset_names():
 
 
 def _available_origlangs(test_sets, langpair):
-    """Return a list of origlang values in according to the raw SGM files."""
+    """
+    Return a list of origlang values in according to the raw SGM files.
+    """
     origlangs = set()
     for test_set in test_sets.split(","):
-        rawfile = os.path.join(
-            SACREBLEU_DIR, test_set, "raw", DATASETS[test_set][langpair][0]
-        )
+        rawfile = os.path.join(SACREBLEU_DIR, test_set, "raw", DATASETS[test_set][langpair][0])
         if rawfile.endswith(".sgm"):
             with smart_open(rawfile) as fin:
                 for line in fin:
@@ -2174,29 +2166,25 @@ def _available_origlangs(test_sets, langpair):
 
 
 def _filter_subset(systems, test_sets, langpair, origlang, subset=None):
-    """Filter sentences with a given origlang (or subset) according to the raw SGM files."""
+    """
+    Filter sentences with a given origlang (or subset) according to the raw SGM files.
+    """
     if origlang is None and subset is None:
         return systems
     if test_sets is None or langpair is None:
-        raise ValueError(
-            "Filtering for --origlang or --subset needs a test (-t) and a language pair (-l)."
-        )
+        raise ValueError("Filtering for --origlang or --subset needs a test (-t) and a language pair (-l).")
 
     indices_to_keep = []
     for test_set in test_sets.split(","):
-        rawfile = os.path.join(
-            SACREBLEU_DIR, test_set, "raw", DATASETS[test_set][langpair][0]
-        )
+
+        rawfile = os.path.join(SACREBLEU_DIR, test_set, "raw", DATASETS[test_set][langpair][0])
         if not rawfile.endswith(".sgm"):
-            raise Exception(
-                "--origlang and --subset supports only *.sgm files, not %s", rawfile
-            )
+            raise Exception("--origlang and --subset supports only *.sgm files, not %s", rawfile)
         if subset is not None:
             if test_set not in SUBSETS:
-                raise Exception(
-                    "No subset annotation available for test set " + test_set
-                )
+                raise Exception("No subset annotation available for test set " + test_set)
             doc_to_tags = SUBSETS[test_set]
+
         number_sentences_included = 0
         with smart_open(rawfile) as fin:
             include_doc = False
@@ -2217,6 +2205,7 @@ def _filter_subset(systems, test_sets, langpair, origlang, subset=None):
                 if line.startswith("<seg "):
                     indices_to_keep.append(include_doc)
                     number_sentences_included += 1 if include_doc else 0
+
     return [
         [sentence for sentence, keep in zip(sys, indices_to_keep) if keep]
         for sys in systems
@@ -2224,6 +2213,7 @@ def _filter_subset(systems, test_sets, langpair, origlang, subset=None):
 
 
 def main():
+
     arg_parser = argparse.ArgumentParser(
         description="sacreBLEU: Hassle-free computation of shareable BLEU scores.\n"
                     "Quick usage: score your detokenized output against WMT'14 EN-DE:\n"
@@ -2413,9 +2403,7 @@ def main():
     args = arg_parser.parse_args()
 
     # Explicitly set the encoding
-    sys.stdin = open(
-        sys.stdin.fileno(), mode="r", encoding="utf-8", buffering=True, newline="\n"
-    )
+    sys.stdin = open(sys.stdin.fileno(), mode="r", encoding="utf-8", buffering=True, newline="\n")
     sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", buffering=True)
 
     if not args.quiet:
@@ -2448,31 +2436,23 @@ def main():
         logging.error(
             "The --num-refs argument allows you to provide any number of tab-delimited references in a single file."
         )
-        logging.error(
-            "You can only use it with externaly-provided references, however (i.e., not with `-t`),"
-        )
+        logging.error("You can only use it with externaly-provided references, however (i.e., not with `-t`),")
         logging.error("and you cannot then provide multiple reference files.")
         sys.exit(1)
 
     if args.test_set is not None:
         for test_set in args.test_set.split(","):
             if test_set not in DATASETS:
-                logging.error(
-                    'Unknown test set "%s"\n%s', test_set, get_a_list_of_testset_names()
-                )
+                logging.error('Unknown test set "%s"\n%s', test_set, get_a_list_of_testset_names())
                 sys.exit(1)
 
     if args.test_set is None:
         if len(args.refs) == 0:
-            logging.error(
-                "I need either a predefined test set (-t) or a list of references"
-            )
+            logging.error("I need either a predefined test set (-t) or a list of references")
             logging.error(get_a_list_of_testset_names())
             sys.exit(1)
     elif len(args.refs) > 0:
-        logging.error(
-            "I need exactly one of (a) a predefined test set (-t) or (b) a list of references"
-        )
+        logging.error("I need exactly one of (a) a predefined test set (-t) or (b) a list of references")
         sys.exit(1)
     elif args.langpair is None:
         logging.error("I need a language pair (-l).")
@@ -2493,9 +2473,7 @@ def main():
             logging.warning("--echo requires a test set (--t) and a language pair (-l)")
             sys.exit(1)
         for test_set in args.test_set.split(","):
-            print_test_set(
-                test_set, args.langpair, args.echo, args.origlang, args.subset
-            )
+            print_test_set(test_set, args.langpair, args.echo, args.origlang, args.subset)
         sys.exit(0)
 
     if args.test_set is not None and args.tokenize == "none":
@@ -2547,9 +2525,7 @@ def main():
     full_refs = [[] for x in range(max(len(concat_ref_files[0]), args.num_refs))]
     for ref_files in concat_ref_files:
         for refno, ref_file in enumerate(ref_files):
-            for lineno, line in enumerate(
-                    smart_open(ref_file, encoding=args.encoding), 1
-            ):
+            for lineno, line in enumerate(smart_open(ref_file, encoding=args.encoding), 1):
                 if args.num_refs != 1:
                     splits = line.rstrip().split(sep="\t", maxsplit=args.num_refs - 1)
                     if len(splits) != args.num_refs:
@@ -2728,6 +2704,7 @@ def display_metric(metrics_to_print, results, num_refs, args):
     a Result::signature() function.
     """
     for metric, result in zip(metrics_to_print, results):
+
         if metric == "bleu":
             if args.score_only:
                 print("{0:.{1}f}".format(result.score, args.width))

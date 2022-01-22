@@ -13,8 +13,7 @@ import numpy as np
 
 import torch
 from torch import nn, Tensor
-# from torchtext.data import Dataset
-from torchtext.data import Dataset  # TODO: Mine.
+from torchtext.data import Dataset
 import yaml
 from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
 
@@ -22,7 +21,7 @@ from slt.signjoey.vocabulary import GlossVocabulary, TextVocabulary
  Collection of helper functions
 """""""""""""""""""""""""""""""""
 
-DEVICE = 0
+DEVICE = 0  # TODO: Add an option to choose which GPU device to use.    V
 
 
 def make_model_dir(model_dir: str, overwrite: bool = False) -> str:
@@ -34,7 +33,6 @@ def make_model_dir(model_dir: str, overwrite: bool = False) -> str:
     :return: path to model directory
     """
     if os.path.isdir(model_dir):
-
         if not overwrite:
             raise FileExistsError("Model directory exists and overwriting is disabled.")
         # delete previous directory to start with empty dir again
@@ -55,21 +53,17 @@ def make_logger(model_dir: str, log_file: str = "train.log") -> Logger:
     logger = logging.getLogger(__name__)
 
     if not logger.handlers:
-
         logger.setLevel(level=logging.DEBUG)
         fh = logging.FileHandler("{}/{}".format(model_dir, log_file))
         fh.setLevel(level=logging.DEBUG)
         logger.addHandler(fh)
-
         formatter = logging.Formatter("%(asctime)s %(message)s")
         fh.setFormatter(formatter)
-
         if platform == "linux":
             sh = logging.StreamHandler()
             sh.setLevel(logging.INFO)
             sh.setFormatter(formatter)
             logging.getLogger("").addHandler(sh)
-
         logger.info("Hello! This is Joey-NMT.")
         return logger
 
@@ -217,7 +211,7 @@ def load_checkpoint(path: str, use_cuda: bool = True) -> dict:
     :return: checkpoint (dict)
     """
     assert os.path.isfile(path), "Checkpoint %s not found" % path
-    checkpoint = torch.load(path, map_location="cuda:{}".format(DEVICE) if use_cuda else "cpu")
+    checkpoint = torch.load(path, map_location="cuda:{}".format(DEVICE) if use_cuda else "cpu") # TODO: Use the relevant GPU device.    V
     return checkpoint
 
 
@@ -239,7 +233,6 @@ def tile(x: Tensor, count: int, dim=0) -> Tensor:
     if dim != 0:
         perm[0], perm[dim] = perm[dim], perm[0]
         x = x.permute(perm).contiguous()
-
     out_size = list(x.size())
     out_size[0] *= count
     batch = x.size(0)

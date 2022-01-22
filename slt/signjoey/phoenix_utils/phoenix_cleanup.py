@@ -3,6 +3,7 @@ import re
 
 
 def clean_phoenix_2014(prediction):
+
     # TODO (Cihan): Python version of the evaluation script provided
     #  by the phoenix2014 dataset (not phoenix2014t). This should work
     #  as intended but further tests are required to make sure it is
@@ -45,15 +46,14 @@ def clean_phoenix_2014(prediction):
     assert not re.search("__EMOTION__", prediction)
 
     # Remove white spaces and repetitions
-    prediction = " ".join(
-        " ".join(i[0] for i in groupby(prediction.split(" "))).split()
-    )
+    prediction = " ".join(" ".join(i[0] for i in groupby(prediction.split(" "))).split())
     prediction = prediction.strip()
 
     return prediction
 
 
 def clean_phoenix_2014_trans(prediction):
+
     prediction = prediction.strip()
     prediction = re.sub(r"__LEFTHAND__", "", prediction)
     prediction = re.sub(r"__EPENTHESIS__", "", prediction)
@@ -81,9 +81,7 @@ def clean_phoenix_2014_trans(prediction):
     prediction = re.sub(r" +", " ", prediction)
 
     # Remove white spaces and repetitions
-    prediction = " ".join(
-        " ".join(i[0] for i in groupby(prediction.split(" "))).split()
-    )
+    prediction = " ".join(" ".join(i[0] for i in groupby(prediction.split(" "))).split())
     prediction = prediction.strip()
 
     return prediction

@@ -35,6 +35,7 @@ def greedy(
     :param encoder_hidden: encoder last state for decoder initialization
     :return:
     """
+
     if isinstance(decoder, TransformerDecoder):
         # Transformer greedy decoding
         greedy_fun = transformer_greedy
@@ -161,6 +162,7 @@ def transformer_greedy(
     for _ in range(max_output_length):
 
         trg_embed = embed(ys)  # embed the previous tokens
+
         # pylint: disable=unused-variable
         with torch.no_grad():
             logits, out, _, _ = decoder(
@@ -172,6 +174,7 @@ def transformer_greedy(
                 hidden=None,
                 trg_mask=trg_mask,
             )
+
             logits = logits[:, -1]
             _, next_word = torch.max(logits, dim=1)
             next_word = next_word.data
@@ -348,12 +351,12 @@ def beam_search(
         select_indices = batch_index.view(-1)
 
         # append latest prediction
-        if select_indices.dtype != torch.float32:  # TODO: Mine.
+        if select_indices.dtype != torch.float32:  # TODO: Check the type of 'select_indices'.  V
             # print("wasn't float")
             alive_seq = torch.cat(
                 [alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1
             )  # batch_size*k x hyp_len
-        else:  # TODO: Mine.
+        else:  # TODO: If torch.float32, then convert 'select_indices' to torch.int.    V
             # print("was float")
             alive_seq = torch.cat(
                 [alive_seq.index_select(0, select_indices.to(torch.int)), topk_ids.view(-1, 1)], -1
@@ -362,7 +365,6 @@ def beam_search(
         is_finished = topk_ids.eq(eos_index)
         if step + 1 == max_output_length:
             is_finished.fill_(True)
-
         # end condition is whether the top beam is finished
         end_condition = is_finished[:, 0].eq(True)
 
@@ -414,17 +416,18 @@ def beam_search(
 
         # reorder indices, outputs and masks
         select_indices = batch_index.view(-1)
-        if select_indices.dtype != torch.float32:  # TODO: Mine.
+        if select_indices.dtype != torch.float32:  # TODO: Check the type of 'select_indices'.  V
             # print("wasn't float2")
             encoder_output = encoder_output.index_select(0, select_indices)
             src_mask = src_mask.index_select(0, select_indices)
-        else:  # TODO: Mine.
+        else:  # TODO: If torch.float32, then convert 'select_indices' to torch.int.    V
             # print("was float2")
             encoder_output = encoder_output.index_select(0, select_indices.to(torch.int))
             src_mask = src_mask.index_select(0, select_indices.to(torch.int))
 
         if hidden is not None and not transformer:
             if isinstance(hidden, tuple):
+                # for LSTMs, states are tuples of tensors
                 h, c = hidden
                 h = h.index_select(1, select_indices)
                 c = c.index_select(1, select_indices)
@@ -437,12 +440,10 @@ def beam_search(
             att_vectors = att_vectors.index_select(0, select_indices)
 
     def pad_and_stack_hyps(hyps, pad_value):
-
         filled = (np.ones((len(hyps), max([h.shape[0] for h in hyps])), dtype=int) * pad_value)
         for j, h in enumerate(hyps):
             for k, i in enumerate(h):
                 filled[j, k] = i
-
         return filled
 
     # from results to stacked outputs

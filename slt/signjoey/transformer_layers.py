@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import math
 import torch
 import torch.nn as nn
@@ -80,6 +81,7 @@ class MultiHeadedAttention(nn.Module):
         context = (context.transpose(1, 2).contiguous().view(batch_size, -1, num_heads * self.head_size))
 
         output = self.output_layer(context)
+
         return output
 
 
@@ -255,4 +257,5 @@ class TransformerDecoderLayer(nn.Module):
 
         # final position-wise feed-forward layer
         o = self.feed_forward(self.dropout(h2) + h1)
+
         return o

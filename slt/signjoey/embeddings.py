@@ -2,7 +2,7 @@ import math
 import torch
 
 from torch import nn, Tensor
-# import torch.nn.functional as F
+import torch.nn.functional as F
 from slt.signjoey.helpers import freeze_params
 
 
@@ -138,6 +138,7 @@ class Embeddings(nn.Module):
 
         if self.norm_type:
             x = self.norm(x, mask)
+
         if self.activation_type:
             x = self.activation(x)
 
@@ -216,6 +217,7 @@ class SpatialEmbeddings(nn.Module):
 
         if self.norm_type:
             x = self.norm(x, mask)
+
         if self.activation_type:
             x = self.activation(x)
 

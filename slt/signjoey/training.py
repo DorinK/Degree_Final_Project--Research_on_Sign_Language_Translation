@@ -3,10 +3,11 @@ import torch
 
 torch.backends.cudnn.deterministic = True
 
-import itertools  # TODO: Mine.
-import sys  # TODO: Mine.
-from torch.nn.utils.rnn import pad_sequence  # TODO: Mine.
-from torchtext.data import Dataset  # TODO: Mine.
+# TODO: Add relevant imports.   V
+import itertools
+import sys
+from torch.nn.utils.rnn import pad_sequence
+from torchtext.data import Dataset
 
 import argparse
 import numpy as np
@@ -37,16 +38,17 @@ from slt.signjoey.metrics import wer_single, wacc_single
 from slt.signjoey.vocabulary import SIL_TOKEN, TextVocabulary, build_vocab, GlossVocabulary
 from torch import Tensor
 from torch.utils.tensorboard import SummaryWriter
-from slt.signjoey.helpers import DEVICE
-
+from slt.signjoey.helpers import DEVICE  # TODO: Use the relevant GPU device.   V
 # from torchtext.data import Dataset
 from typing import List, Dict
-import tensorflow_datasets as tfds  # TODO: Mine.
-from sign_language_datasets.datasets.config import SignDatasetConfig  # TODO: Mine.
-import gc  # TODO: Mine.
+
+# TODO: Add relevant imports.   V
+import tensorflow_datasets as tfds
+from sign_language_datasets.datasets.config import SignDatasetConfig
+import gc
 
 
-# TODO: To Update.  VVV
+# TODO: Adapt to AUTSL and ChicagoFSWild datasets.  VVV
 # pylint: disable=too-many-instance-attributes
 class TrainManager:
     """
@@ -97,7 +99,7 @@ class TrainManager:
 
         # optimization
         self.last_best_lr = train_config.get("learning_rate", -1)
-        # self.last_best_lr = train_config.get("learning_rate", -1) * 4 # TODO: Tried to run on multiple JPUs - Failed.
+        # self.last_best_lr = train_config.get("learning_rate", -1) * 4 # TODO: Tried to run multi-GPU training and failed.
         self.learning_rate_min = train_config.get("learning_rate_min", 1.0e-8)
         self.clip_grad_fun = build_gradient_clipper(config=train_config)
         self.optimizer = build_optimizer(config=train_config, parameters=model.parameters())
@@ -107,16 +109,17 @@ class TrainManager:
         self.validation_freq = train_config.get("validation_freq", 100)
         self.num_valid_log = train_config.get("num_valid_log", 5)
         self.ckpt_queue = queue.Queue(maxsize=train_config.get("keep_last_ckpts", 5))
-        # TODO: Change the eval_metric in the autsl config file from bleu to wer, because bleu seams to be for
-        #  translation task and not recognition task.   V
-        # TODO: Change the eval_metric in the ChicagoFSWild config file from bleu to WAcc (Word Accuracy Rate). V
+        # TODO: Change eval_metric in the AUTSL config file from BLEU to WER, since bleu is used for translation
+        #  tasks and not for recognition tasks. V
+        # TODO: Change eval_metric in the ChicagoFSWild config file from BLEU to WAcc (Word Accuracy Rate). V
         self.eval_metric = train_config.get("eval_metric", "bleu")  # Get the evaluation metric.
-        if self.eval_metric not in ["bleu", "chrf", "wer", "rouge", "wacc"]:  # TODO: Add the eval metric of WAcc.  V
+        if self.eval_metric not in ["bleu", "chrf", "wer", "rouge", "wacc"]:  # TODO: Add WAcc to the list. V
             raise ValueError("Invalid setting for 'eval_metric': {}".format(self.eval_metric))
         self.early_stopping_metric = train_config.get("early_stopping_metric", "eval_metric")
 
-        # if we schedule after BLEU/chrf, we want to maximize it, else minimize early_stopping_metric decides
-        # on how to find the early stopping point: ckpts are written when there's a new high/low score for this metric
+        # if we schedule after BLEU/chrf, we want to maximize it, else minimize early_stopping_metric
+        # decides on how to find the early stopping point: ckpts are written when there's a new high/low
+        # score for this metric
         if self.early_stopping_metric in [
             "ppl",
             "translation_loss",
@@ -124,8 +127,8 @@ class TrainManager:
         ]:
             self.minimize_metric = True
         elif self.early_stopping_metric == "eval_metric":
-            if self.eval_metric in ["bleu", "chrf", "rouge", "wacc"]:
-                # assert self.do_translation  # TODO: issue here. XXX   commented out.  # TODO: Check this again.
+            if self.eval_metric in ["bleu", "chrf", "rouge", "wacc"]:   # TODO: Add WAcc too the list.  V
+                # assert self.do_translation  # TODO: Issue here -> Commented out.  V
                 self.minimize_metric = False
             else:  # eval metric that has to get minimized (not yet implemented)
                 self.minimize_metric = True
@@ -154,25 +157,25 @@ class TrainManager:
         self.shuffle = train_config.get("shuffle", True)
         self.epochs = train_config["epochs"]
         self.batch_size = train_config["batch_size"]
-        # self.batch_size = train_config["batch_size"] * 4  # TODO: Tried to run on multiple GPUs - Failed.
+        # self.batch_size = train_config["batch_size"] * 4  # TODO: Tried to run multi-GPU training and failed.
         self.batch_type = train_config.get("batch_type", "sentence")
         self.eval_batch_size = train_config.get("eval_batch_size", self.batch_size)
         self.eval_batch_type = train_config.get("eval_batch_type", self.batch_type)
 
-        # Using GPU
+        # Use GPU
         self.use_cuda = train_config["use_cuda"]
         if self.use_cuda:
-            # TODO: Tried to run on multiple GPUs - Failed.
+            # TODO: Tried to run multi-GPU training and failed.
             # num_gpus = torch.cuda.device_count()
             # device_ids = list(range(4))
             # device = "cuda" if torch.cuda.is_available() else "cpu"
             # self.model = torch.nn.DataParallel(model, device_ids=device_ids)
             # self.model = self.model.to(device)
-            self.model.cuda(DEVICE)
+            self.model.cuda(DEVICE)  # TODO: Use the relevant GPU device.   V
             if self.do_translation:
-                self.translation_loss_function.cuda(DEVICE)
+                self.translation_loss_function.cuda(DEVICE)  # TODO: Use the relevant GPU device.   V
             if self.do_recognition:
-                self.recognition_loss_function.cuda(DEVICE)
+                self.recognition_loss_function.cuda(DEVICE)  # TODO: Use the relevant GPU device.   V
 
         # initialize training statistics
         self.steps = 0
@@ -242,7 +245,6 @@ class TrainManager:
         the total number of training tokens,
         the best checkpoint score and iteration so far,
         and optimizer and scheduler states.
-
         """
         model_path = "{}/{}.ckpt".format(self.model_dir, self.steps)
         state = {
@@ -325,7 +327,7 @@ class TrainManager:
 
         # move parameters to cuda
         if self.use_cuda:
-            self.model.cuda(DEVICE)
+            self.model.cuda(DEVICE)  # TODO: Use the relevant GPU device.   V
 
     def train_and_validate_phoenix(self, train_data: Dataset, valid_data: Dataset) -> None:
         """
@@ -369,7 +371,7 @@ class TrainManager:
                 # reactivate training
                 # create a Batch object from torchtext batch
                 batch = Batch(
-                    dataset_type=self.dataset_version,
+                    dataset_type=self.dataset_version,  # TODO: Add the dataset name as an argument.    V
                     is_train=True,
                     torch_batch=batch,
                     txt_pad_index=self.txt_pad_index,
@@ -429,8 +431,7 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
-                #  when done.   V
+                # TODO: Changed validation_freq from 100 to 1 for testing - Change back at the end. V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -441,7 +442,6 @@ class TrainManager:
                     val_res = validate_on_data(
                         model=self.model,
                         data=valid_data,
-                        # image_encoder=self.image_encoder,
                         batch_size=self.eval_batch_size,
                         use_cuda=self.use_cuda,
                         batch_type=self.eval_batch_type,
@@ -586,14 +586,14 @@ class TrainManager:
                     valid_seq = [s for s in valid_data.sequence]
 
                     self._log_examples(
-                        sequences=valid_seq,  # TODO: Problem here. Update: Fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here -> Fixed.    V
                         gls_references=val_res["gls_ref"] if self.do_recognition else None,
                         gls_hypotheses=val_res["gls_hyp"] if self.do_recognition else None,
                         txt_references=val_res["txt_ref"] if self.do_translation else None,
                         txt_hypotheses=val_res["txt_hyp"] if self.do_translation else None,
                     )
 
-                    # valid_seq = [s for s in valid_data.sequence]  # moved up
+                    # valid_seq = [s for s in valid_data.sequence]  # TODO: Move up.    V
 
                     # store validation set outputs and references
                     if self.do_recognition:
@@ -644,7 +644,7 @@ class TrainManager:
 
         self.tb_writer.close()  # close Tensorboard writer
 
-    # TODO: Mine.
+    # TODO: Adapt the training procedure to AUTSL dataset.  V
     def train_and_validate_autsl(self, train_data, valid_data) -> None:
         """
         Train the model and validate it from time to time on the validation set.
@@ -652,7 +652,6 @@ class TrainManager:
         :param train_data: training data
         :param valid_data: validation data
         """
-
         epoch_no = None
         for epoch_no in range(self.epochs):
             self.logger.info("EPOCH %d", epoch_no + 1)
@@ -676,7 +675,7 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             index = 0
-            while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
+            while index < len(train_data):  # TODO: Handle the last chunk of train_data.    V
 
                 batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
 
@@ -701,10 +700,6 @@ class TrainManager:
                         valid += 1
                     total += 1
 
-                # if index + batch_size >= len(train_data):  # TODO: handle no more examples and or valid examples to complete batch size.
-                #     if valid < batch_size:
-                #         gls_lengths = [int(1)] * valid
-
                 while valid < batch_size:
                     for i, datum in enumerate(
                             itertools.islice(train_data, index + total, index + total + (batch_size - valid))):
@@ -719,6 +714,7 @@ class TrainManager:
                             valid += 1
                         total += 1
 
+                    # TODO: Handle a case where there are no more samples and/or valid samples to complete the batch.   V
                     if index + total + (batch_size - valid) >= len(train_data):
                         if valid < batch_size:
                             # print("index: ", index)
@@ -742,14 +738,12 @@ class TrainManager:
 
                 sgn = []
                 for k, sample in enumerate(samples, 1):
-
                     # print('index:', k)
                     # print('sequence:', sequence[k - 1])
                     # print('sgn_lengths:', sgn_lengths[k - 1])
                     # print('signer:', signer[k - 1])
                     # print('gls:', gls[k - 1])
                     # print()
-
                     out = self.model.image_encoder(sample.cuda(DEVICE))
                     sgn.append(out.detach().cpu())
                     sample.detach().cpu()
@@ -834,8 +828,7 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
-                #  when done.   V
+                # TODO: Changed validation_freq from 100 to 1 for testing - Change back at the end. V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -940,7 +933,7 @@ class TrainManager:
 
                     # append to validation report
                     self._add_report(
-                        dataset=self.dataset_version,
+                        dataset=self.dataset_version,   # Add the dataset name as an argument.  V
                         valid_scores=val_res["valid_scores"],
                         valid_recognition_loss=val_res["valid_recognition_loss"] if self.do_recognition else None,
                         valid_translation_loss=val_res["valid_translation_loss"] if self.do_translation else None,
@@ -989,11 +982,11 @@ class TrainManager:
                         val_res["valid_scores"]["rouge"] if self.do_translation else -1,
                     )
 
-                    # TODO: Adjust. V
+                    # TODO: Adapt to AUTSL dataset. V
                     valid_seq = [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
-                        sequences=valid_seq,  # TODO: Problem here. Update: Fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here -> Fixed.    V
                         gls_references=val_res["gls_ref"] if self.do_recognition else None,
                         gls_hypotheses=val_res["gls_hyp"] if self.do_recognition else None,
                         txt_references=val_res["txt_ref"] if self.do_translation else None,
@@ -1011,9 +1004,9 @@ class TrainManager:
                         self._store_outputs("dev.hyp.txt", valid_seq, val_res["txt_hyp"], "txt")
                         self._store_outputs("references.dev.txt", valid_seq, val_res["txt_ref"])
 
-                batch.make_cpu()  # TODO: Mine.
-                del batch  # TODO: Mine.
-                gc.collect()  # TODO: Mine.
+                batch.make_cpu()  # TODO: Move batch back to CPU.   V
+                del batch  # TODO: Remove unnecessary variable. V
+                gc.collect()  # TODO: Call the garbage collector.   V
 
                 if self.stop:
                     break
@@ -1054,16 +1047,14 @@ class TrainManager:
 
         self.tb_writer.close()  # close Tensorboard writer
 
+    # TODO: Adapt the training procedure to ChicagoFSWild dataset.  V
     def train_and_validate_chicago(self, train_data, valid_data) -> None:
-        # def train_and_validate(self, train_data, valid_data) -> None:
-
         """
         Train the model and validate it from time to time on the validation set.
 
         :param train_data: training data
         :param valid_data: validation data
         """
-
         epoch_no = None
         for epoch_no in range(self.epochs):
             self.logger.info("EPOCH %d", epoch_no + 1)
@@ -1087,7 +1078,7 @@ class TrainManager:
                 epoch_translation_loss = 0
 
             index = 0
-            while index < len(train_data):  # TODO: Handle last chunk of train_data.    V
+            while index < len(train_data):  # TODO: Handle the last chunk of train_data.    V
 
                 batch_size = self.batch_size if len(train_data) - index >= self.batch_size else len(train_data) - index
 
@@ -1116,10 +1107,6 @@ class TrainManager:
                         valid += 1
                     total += 1
 
-                # if index + batch_size >= len(train_data):  # TODO: handle no more examples and or valid examples to complete batch size
-                #     if valid < batch_size:
-                #         txt_lengths = [int(1)] * valid
-
                 while valid < batch_size:
                     for i, datum in enumerate(
                             itertools.islice(train_data, index + total, index + total + (batch_size - valid))):
@@ -1138,8 +1125,8 @@ class TrainManager:
                             txt_lengths.append(len(sample_txt))
                             valid += 1
                         total += 1
-                    # txt.append([2,int(self.model.txt_vocab.stoi[datum['text'].numpy().decode('utf-8')]),1])   #???.decode('utf-8')
 
+                    # TODO: Handle a case where there are no more samples and/or valid samples to complete the batch.   V
                     if index + total + (batch_size - valid) >= len(train_data):
                         if valid < batch_size:
                             # print("index: ", index)
@@ -1254,8 +1241,7 @@ class TrainManager:
                     start = time.time()
                     total_valid_duration = 0
 
-                # TODO: Changed validation_freq in both phoenix and autsl from 100 to 1 for a checkup - change back
-                #  when done.   V
+                # TODO: Changed validation_freq from 100 to 1 for testing - Change back at the end. V
                 # validate on the entire dev set
                 if self.steps % self.validation_freq == 0 and update:
                     valid_start_time = time.time()
@@ -1313,7 +1299,7 @@ class TrainManager:
                         )
                         self.tb_writer.add_scalar("valid/valid_ppl", val_res["valid_ppl"], self.steps)
 
-                        # TODO: Update the eval metrics.    V
+                        # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset. V
                         self.tb_writer.add_scalar(
                             "valid/wacc", val_res["valid_scores"]["wacc"], self.steps
                         )
@@ -1371,7 +1357,7 @@ class TrainManager:
                     )
                     valid_duration = time.time() - valid_start_time
                     total_valid_duration += valid_duration
-                    self.logger.info(  # TODO: Update evaluation metrics for ChicagoFSWild dataset. V
+                    self.logger.info(  # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset.  V
                         "Validation result at epoch %3d, step %8d: duration: %.4fs\n\t"
                         "Recognition Beam Size: %d\t"
                         "Translation Beam Size: %d\t"
@@ -1400,18 +1386,18 @@ class TrainManager:
                         val_res["valid_scores"]["seq_accuracy"] if self.do_translation else -1,
                     )
 
-                    # TODO: Adjusted.   V
+                    # TODO: Adapt to ChicagoFSWild dataset. V
                     valid_seq = [datum['id'].numpy().decode('utf-8') for datum in itertools.islice(valid_data, len(valid_data))]
 
                     self._log_examples(
-                        sequences=valid_seq,  # TODO: Problem here. Update: Fixed.  V
+                        sequences=valid_seq,  # TODO: Problem here -> Fixed.    V
                         gls_references=val_res["gls_ref"] if self.do_recognition else None,
                         gls_hypotheses=val_res["gls_hyp"] if self.do_recognition else None,
                         txt_references=val_res["txt_ref"] if self.do_translation else None,
                         txt_hypotheses=val_res["txt_hyp"] if self.do_translation else None,
                     )
 
-                    # valid_seq = [s for s in valid_data.sequence]  # moved up
+                    # valid_seq = [s for s in valid_data.sequence]  # TODO: Move up.    V
 
                     # store validation set outputs and references
                     if self.do_recognition:
@@ -1422,9 +1408,9 @@ class TrainManager:
                         self._store_outputs("dev.hyp.txt", valid_seq, val_res["txt_hyp"], "txt")
                         self._store_outputs("references.dev.txt", valid_seq, val_res["txt_ref"])
 
-                batch.make_cpu()  # TODO: Mine.
-                del batch  # TODO: Mine.
-                gc.collect()  # TODO: Mine.
+                batch.make_cpu()  # TODO: Move batch back to CPU.   V
+                del batch  # TODO: Remove unnecessary variable. V
+                gc.collect()  # TODO: Call the garbage collector.   V
 
                 if self.stop:
                     break
@@ -1534,7 +1520,7 @@ class TrainManager:
 
     def _add_report(  # TODO: Check this function.  V
             self,
-            dataset: str,
+            dataset: str,   # Add the dataset name as a parameter.  V
             valid_scores: Dict,
             valid_recognition_loss: float,
             valid_translation_loss: float,
@@ -1563,9 +1549,9 @@ class TrainManager:
         if current_lr < self.learning_rate_min:
             self.stop = True
 
-        if dataset == 'ChicagoFSWild':
+        if dataset == 'ChicagoFSWild':  # TODO: Adjust the evaluation metrics to ChicagoFSWild dataset. V
             with open(self.valid_report_file, "a", encoding="utf-8") as opened_file:
-                opened_file.write(  # TODO: Update evaluation metrics for ChicagoFSWild dataset.    V
+                opened_file.write(
                     "Steps: {}\t"
                     "Recognition Loss: {:.5f}\t"
                     "Translation Loss: {:.5f}\t"
@@ -1663,10 +1649,10 @@ class TrainManager:
         """
 
         if self.do_recognition:
-            # assert len(gls_references) == len(gls_hypotheses) #TODO: Uncomment.   V
+            # assert len(gls_references) == len(gls_hypotheses) # TODO: Uncomment.  V
             num_sequences = len(gls_hypotheses)
         if self.do_translation:
-            # assert len(txt_references) == len(txt_hypotheses) #TODO: Uncomment.   V
+            # assert len(txt_references) == len(txt_hypotheses) # TODO: Uncomment.  V
             num_sequences = len(txt_hypotheses)
 
         rand_idx = np.sort(np.random.permutation(num_sequences)[: self.num_valid_log])
@@ -1687,7 +1673,7 @@ class TrainManager:
                 self.logger.info("\t" + "-" * 116)
 
             if self.do_translation:
-                if self.dataset_version == "ChicagoFSWild":  # TODO: Using WAcc instead of WER. V
+                if self.dataset_version == "ChicagoFSWild":  # TODO: Use WAcc instead of WER.   V
                     txt_res = wacc_single(r=txt_references[ri], h=txt_hypotheses[ri])
                 else:
                     txt_res = wer_single(r=txt_references[ri], h=txt_hypotheses[ri])
@@ -1732,19 +1718,21 @@ def train(cfg_file: str) -> None:
     # set the random seed
     set_seed(seed=cfg["training"].get("random_seed", 42))
 
-    # TODO: Tried to run on multiple JPUs - Failed.
+    # TODO: Tried to run on multiple GPUs in parallel and failed.
     # torch.backends.cudnn.deterministic = True
     # torch.backends.cudnn.benchmark = True
 
-    # TODO: Update to asynchronous data loader.     ~ ~ ~   (Check in data.py that I didn't miss anything)
-    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
+    # TODO: Handle each dataset individually.   V
+
+    if cfg["data"]["version"] == 'phoenix_2014_trans':
         # Load the dataset and create the corresponding vocabs
         train_data, dev_data, test_data, gls_vocab, txt_vocab = load_data(data_cfg=cfg["data"])
 
-    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
+    # TODO: Adapt to the asynchronous dataset structure of AUTSL ~ ~ (Check in data.py that I didn't miss anything) V
+    elif cfg["data"]["version"] == 'autsl':
+
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl',
-                          builder_kwargs=dict(config=config), shuffle_files=True)  # TODO: Check shuffle! 7/9   V
+        autsl = tfds.load(name='autsl',  builder_kwargs=dict(config=config), shuffle_files=True)  # TODO: Check shuffle! 7/9    V
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
@@ -1755,6 +1743,7 @@ def train(cfg_file: str) -> None:
         gls_vocab_file = cfg["data"].get("gls_vocab", None)
         txt_vocab_file = cfg["data"].get("txt_vocab", None)
 
+        # TODO: Create vocabularies using the relevant classes. V
         # Build the gloss vocab based on the training set.
         gls_vocab = build_vocab(
             version=cfg["data"]["version"],
@@ -1764,12 +1753,11 @@ def train(cfg_file: str) -> None:
             dataset=train_data,
             vocab_file=gls_vocab_file,
         )
-
         # Next, build the text vocab based on the training set.
-        txt_vocab = TextVocabulary(tokens=txt_vocab_file)  # TODO: Remove parameter?    V
-        # TODO: Create vocabularies using the classes.  V
+        txt_vocab = TextVocabulary(tokens=txt_vocab_file)
 
-    else:  # TODO: Mine.
+    else:  # TODO: Adapt to the asynchronous dataset structure of ChicagoFSWild.    V
+
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
         chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=True)
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
@@ -1808,11 +1796,12 @@ def train(cfg_file: str) -> None:
     do_recognition = cfg["training"].get("recognition_loss_weight", 1.0) > 0.0
     do_translation = cfg["training"].get("translation_loss_weight", 1.0) > 0.0
 
-    # TODO: Should update the features size, in phoenix it was (frames,features) and here it's a video rep, so the
-    #  tensor has 4 dimensions. For example, (58,512,512,3).    V
+    # TODO: Update features_size.   V
+    #  In Phoenix it's (frames, features) and in AUTSL it's a video rep, so tensor has 4 dimensions.
+    #  For example, (58,512,512,3).
     # build model and load parameters into it
     model = build_model(
-        dataset=cfg["data"]["version"],  # TODO: Mine.
+        dataset=cfg["data"]["version"],  # TODO: Add the dataset name as an argument.   V
         cfg=cfg["model"],
         gls_vocab=gls_vocab,
         txt_vocab=txt_vocab,
@@ -1823,20 +1812,19 @@ def train(cfg_file: str) -> None:
         do_translation=do_translation,
     )
 
-    # TODO: Update as needed.   VVV
+    # TODO: Adapt to AUTSL and ChicagoFSWild datasets.  VVV
     # for training management, e.g. early stopping and model selection
     trainer = TrainManager(model=model, config=cfg)
 
-    # TODO: Maybe should be updated according to the changes in trainer.    Update: Not needed. V
+    # TODO: It may be necessary to adjust according to changes made in the trainer -> No need.  V
     # store copy of original training config in model dir
     shutil.copy2(cfg_file, trainer.model_dir + "/config.yaml")
 
-    # TODO: Maybe should be updated according to the changes in trainer.    Update: Not needed. V
+    # TODO: It may be necessary to adjust according to changes made in the trainer -> No need.  V
     # log all entries of config
     log_cfg(cfg, trainer.logger)
 
-    # TODO: Update according to the asynchronous data loader.   V
-    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
+    if cfg["data"]["version"] == 'phoenix_2014_trans':
         log_data_info(
             train_data=train_data,
             valid_data=dev_data,
@@ -1854,48 +1842,45 @@ def train(cfg_file: str) -> None:
     txt_vocab_file = "{}/txt.vocab".format(cfg["training"]["model_dir"])
     txt_vocab.to_file(txt_vocab_file)
 
+    # TODO: Calculate the number of parameters of the model.    V
     pytorch_total_params = sum(p.numel() for p in model.parameters())
     pytorch_total_trained_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print('SLT_total_params:', pytorch_total_params)
     print('SLT_total_trained_params:', pytorch_total_trained_params)
 
-    # TODO: Update the train_and_validate function. V
+    # TODO: Adapt the 'train_and_validate' function to AUTSL and ChicagoFSWild datasets.    V
+    #  Handle each dataset individually.    V
     # train the model
-    if cfg["data"]["version"] == 'phoenix_2014_trans':  # TODO: Mine.
+    if cfg["data"]["version"] == 'phoenix_2014_trans':
         trainer.train_and_validate_phoenix(train_data=train_data, valid_data=dev_data)
-    elif cfg["data"]["version"] == 'autsl':  # TODO: Mine.
+    elif cfg["data"]["version"] == 'autsl':
         trainer.train_and_validate_autsl(train_data=train_data, valid_data=dev_data)
-    else:  # TODO: Mine.
+    else:
         trainer.train_and_validate_chicago(train_data=train_data, valid_data=dev_data)
 
     # Delete to speed things up as we don't need training data anymore
     del train_data, dev_data, test_data
 
-    # TODO: Maybe should be updated according to the changes in trainer.    V
+    # TODO: It may be necessary to adjust according to changes made in the trainer -> No need.  V
     # predict with the best model on validation and test (if test data is available)
     ckpt = "{}/{}.ckpt".format(trainer.model_dir, trainer.best_ckpt_iteration)
     output_name = "best.IT_{:08d}".format(trainer.best_ckpt_iteration)
     output_path = os.path.join(trainer.model_dir, output_name)
     logger = trainer.logger
     del trainer
-    test(cfg_file, ckpt=ckpt, output_path=output_path, logger=logger)  # TODO: To update!   VVV
+    test(cfg_file, ckpt=ckpt, output_path=output_path, logger=logger)  # TODO: Update!  VVV
 
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser("Joey-NMT")
-
     parser.add_argument(
         "config",
         default="configs/default.yaml",
         type=str,
         help="Training configuration file (yaml).",
     )
-    parser.add_argument(
-        "--gpu_id", type=str, default="0", help="gpu to run your job on"
-    )
-
+    parser.add_argument("--gpu_id", type=str, default="0", help="gpu to run your job on")
     args = parser.parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
-
     train(cfg_file=args.config)

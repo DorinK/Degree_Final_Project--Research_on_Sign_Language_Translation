@@ -3,9 +3,9 @@ from torch import Tensor
 import torch.nn as nn
 import torch.nn.functional as F
 
-"""""""""""""""""
-Attention modules
-"""""""""""""""""
+"""""""""""""""""""""
+  Attention modules
+"""""""""""""""""""""
 
 
 class AttentionMechanism(nn.Module):
@@ -69,13 +69,16 @@ class BahdanauAttention(AttentionMechanism):
         # proj_query: batch x 1 x hidden_size
         scores = self.energy_layer(torch.tanh(self.proj_query + self.proj_keys))
         # scores: batch x sgn_len x 1
+
         scores = scores.squeeze(2).unsqueeze(1)
         # scores: batch x 1 x time
+
         # mask out invalid positions by filling the masked out parts with -inf
         scores = torch.where(mask, scores, scores.new_full([1], float("-inf")))
 
         # turn scores to probabilities
         alphas = F.softmax(scores, dim=-1)  # batch x 1 x time
+
         # the context vector is the weighted sum of the values
         context = alphas @ values  # batch x 1 x value_size
 
@@ -149,7 +152,8 @@ class LuongAttention(AttentionMechanism):
     ):
         """
         Luong (multiplicative / bilinear) attention forward pass.
-        Computes context vectors and attention scores for a given query and all masked values and returns them.
+        Computes context vectors and attention scores for a given query and all masked values and
+        returns them.
 
         :param query: the item (decoder state) to compare with the keys/memory,
             shape (batch_size, 1, decoder.hidden_size)
@@ -167,11 +171,13 @@ class LuongAttention(AttentionMechanism):
 
         # scores: batch_size x 1 x sgn_length
         scores = query @ self.proj_keys.transpose(1, 2)
+
         # mask out invalid positions by filling the masked out parts with -inf
         scores = torch.where(mask, scores, scores.new_full([1], float("-inf")))
 
         # turn scores to probabilities
         alphas = F.softmax(scores, dim=-1)  # batch x 1 x sgn_len
+
         # the context vector is the weighted sum of the values
         context = alphas @ values  # batch x 1 x values_size
 
@@ -187,9 +193,7 @@ class LuongAttention(AttentionMechanism):
         # proj_keys: batch x sgn_len x hidden_size
         self.proj_keys = self.key_layer(keys)
 
-    def _check_input_shapes_forward(
-            self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor
-    ):
+    def _check_input_shapes_forward(self, query: torch.Tensor, mask: torch.Tensor, values: torch.Tensor):
         """
         Make sure that inputs to `self.forward` are of correct shape.
         Same input semantics as for `self.forward`.

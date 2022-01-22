@@ -3,7 +3,7 @@ import random
 import torch
 import numpy as np
 
-from slt.signjoey.helpers import DEVICE
+from slt.signjoey.helpers import DEVICE  # TODO: For use on a specific GPU device.  V
 
 
 class Batch:
@@ -14,7 +14,7 @@ class Batch:
 
     def __init__(
             self,
-            dataset_type,  # TODO: Mine.
+            dataset_type,  # TODO: Add the dataset name as a parameter. V
             torch_batch,
             txt_pad_index,
             sgn_dim,
@@ -39,38 +39,34 @@ class Batch:
         """
 
         # Sequence Information
-        if dataset_type == 'phoenix_2014_trans':  # TODO: Mine.
+        if dataset_type == 'phoenix_2014_trans':
             self.sequence = torch_batch.sequence
             self.signer = torch_batch.signer
             # Sign
             self.sgn, self.sgn_lengths = torch_batch.sgn
 
-        else:  # TODO: Mine.
+        else:  # TODO: Adapt to the batch structure used for AUTSL and ChicagoFSWild datasets.  V
             self.sequence = torch_batch["sequence"]
             self.signer = torch_batch["signer"]
 
             # Sign
-            # TODO: Check with the phoenix dataset to which dimension the sgn_lengths are referring to. V
-            #  Ans: sgn_lengts is a tensor containing the number of frames in each video of the batch.
-            #  and how sgn and sgn_lengths should look like.    V
-            #  Ans: sgn is a padded batch of videos
+            # TODO: Check with the Phoenix dataset to which dimension the sgn_lengths are referring to. V
+            #  Ans: sgn_lengths is a tensor containing the number of frames in each video of the batch.
+            #  How sgn and sgn_lengths should look like?    V
+            #  Ans: sgn is a padded batch of videos.
             self.sgn, self.sgn_lengths = torch_batch["sgn"]
 
         # TODO: Conditional expression: False.  V
         # Here be dragons
         if frame_subsampling_ratio:
-
             tmp_sgn = torch.zeros_like(self.sgn)
             tmp_sgn_lengths = torch.zeros_like(self.sgn_lengths)
-
             for idx, (features, length) in enumerate(zip(self.sgn, self.sgn_lengths)):
-
                 features = features.clone()
                 if random_frame_subsampling and is_train:
                     init_frame = random.randint(0, (frame_subsampling_ratio - 1))
                 else:
                     init_frame = math.floor((frame_subsampling_ratio - 1) / 2)
-
                 tmp_data = features[: length.long(), :]
                 tmp_data = tmp_data[init_frame::frame_subsampling_ratio]
                 tmp_sgn[idx, 0: tmp_data.shape[0]] = tmp_data
@@ -81,17 +77,14 @@ class Batch:
 
         # TODO: Conditional expression: False.  V
         if random_frame_masking_ratio and is_train:
-
             tmp_sgn = torch.zeros_like(self.sgn)
             num_mask_frames = ((self.sgn_lengths * random_frame_masking_ratio).floor().long())
-
             for idx, features in enumerate(self.sgn):
                 features = features.clone()
                 mask_frame_idx = np.random.permutation(int(self.sgn_lengths[idx].long().numpy()))[
                                  : num_mask_frames[idx]]
                 features[mask_frame_idx, :] = 1e-8
                 tmp_sgn[idx] = features
-
             self.sgn = tmp_sgn
 
         self.sgn_dim = sgn_dim
@@ -113,13 +106,13 @@ class Batch:
         self.use_cuda = use_cuda
         self.num_seqs = self.sgn.size(0)
 
-        # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name. VVV
-        # hasattr returns whether the object has an attribute with the given name.
-        if hasattr(torch_batch, "txt") or "txt" in torch_batch:  # TODO: Addition for asynchronous dataset. V
+        # TODO: Conditional expression: False.  ~~  Should be True!
+        #  Adjust the attribute name as it appears in the batch structure used for AUTSL and ChicagoFSWild datasets.    V
+        #  Note, hasattr returns whether the object has an attribute with the given name.
+        if hasattr(torch_batch, "txt") or "txt" in torch_batch:
             if dataset_type == 'phoenix_2014_trans':
                 txt, txt_lengths = torch_batch.txt
-            else:  # TODO: Mine.
+            else:
                 txt, txt_lengths = torch_batch["txt"]
             # txt_input is used for teacher forcing, last one is cut off
             self.txt_input = txt[:, :-1]
@@ -130,13 +123,13 @@ class Batch:
             self.txt_mask = (self.txt_input != txt_pad_index).unsqueeze(1)
             self.num_txt_tokens = (self.txt != txt_pad_index).data.sum().item()
 
-        # TODO: Conditional expression: False.  V   ~ should be True
-        #  to match it to the AUTSL attribute name. VVV
-        # hasattr returns whether the object has an attribute with the given name.
-        if hasattr(torch_batch, "gls") or "gls" in torch_batch:  # TODO: Addition for asynchronous dataset. V
+        # TODO: Conditional expression: False.  ~~  Should be True
+        #  Adjust the attribute name as it appears in the batch structure used for AUTSL and ChicagoFSWild datasets.    V
+        #  Note, hasattr returns whether the object has an attribute with the given name.
+        if hasattr(torch_batch, "gls") or "gls" in torch_batch:
             if dataset_type == 'phoenix_2014_trans':
                 self.gls, self.gls_lengths = torch_batch.gls
-            else:  # TODO: Mine.
+            else:
                 self.gls, self.gls_lengths = torch_batch["gls"]
             self.num_gls_tokens = self.gls_lengths.sum().detach().clone().numpy()
 
@@ -157,7 +150,8 @@ class Batch:
             self.txt_mask = self.txt_mask.cuda(DEVICE)
             self.txt_input = self.txt_input.cuda(DEVICE)
 
-    def make_cpu(self):  # TODO: Mine.
+    # TODO: Add a function that moves the batch back to the CPU, hoping it will solve the GPU problem.  V
+    def make_cpu(self):
         """
         Move the batch back to CPU.
 
@@ -171,7 +165,7 @@ class Batch:
             self.txt_mask = self.txt_mask.detach().cpu()
             self.txt_input = self.txt_input.detach().cpu()
 
-    def sort_by_sgn_lengths(self):  # TODO: Check if there is something to update here. Not needed. VVV
+    def sort_by_sgn_lengths(self):  # TODO: Check if this function should be updated -> Nope.   VVV
         """
         Sort by sgn length (descending) and return index to revert sort.
 

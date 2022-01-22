@@ -1,5 +1,5 @@
 import tensorflow as tf
-import torchvision  # TODO: Mine.
+import torchvision  # TODO: Use torchvision to access the image encoder model.  V
 
 tf.config.set_visible_devices([], "GPU")
 
@@ -33,7 +33,7 @@ class SignModel(nn.Module):
 
     def __init__(
             self,
-            dataset: str,
+            dataset: str,   # TODO: Add the dataset name as a parameter.    V
             encoder: Encoder,
             gloss_output_layer: nn.Module,
             decoder: Decoder,
@@ -66,6 +66,7 @@ class SignModel(nn.Module):
 
         self.gls_vocab = gls_vocab
         self.txt_vocab = txt_vocab
+
         self.txt_bos_index = self.txt_vocab.stoi[BOS_TOKEN]
         self.txt_pad_index = self.txt_vocab.stoi[PAD_TOKEN]
         self.txt_eos_index = self.txt_vocab.stoi[EOS_TOKEN]
@@ -74,7 +75,8 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        if dataset != 'phoenix_2014_trans':  # TODO: Adding the image encoder for AUTSL and ChicagoFSWild datasets. V
+        # TODO: Add the image encoder for preprocessing AUTSL and ChicagoFSWild video samples.  V
+        if dataset != 'phoenix_2014_trans':
             self.image_encoder = torchvision.models.mobilenet_v3_small(pretrained=True)
             self.image_encoder.train()
 
@@ -206,6 +208,7 @@ class SignModel(nn.Module):
         if self.do_recognition:
             assert gloss_probabilities is not None
 
+            # TODO: Just checking.  V
             # print(gloss_probabilities)
             # print(batch.gls)
             # print(batch.sgn_lengths.long())
@@ -260,7 +263,6 @@ class SignModel(nn.Module):
         :return: stacked_output: hypotheses for batch,
             stacked_attention_scores: attention scores for batch
         """
-
         encoder_output, encoder_hidden = self.encode(sgn=batch.sgn, sgn_mask=batch.sgn_mask,
                                                      sgn_length=batch.sgn_lengths)
 
@@ -353,7 +355,7 @@ class SignModel(nn.Module):
 
 
 def build_model(  # TODO: Update in process.    VVV
-        dataset: str,  # TODO: Mine.
+        dataset: str,  # TODO: Add the dataset name as a parameter. V
         cfg: dict,
         sgn_dim: int,
         gls_vocab: GlossVocabulary,
@@ -373,16 +375,16 @@ def build_model(  # TODO: Update in process.    VVV
     :param do_translation: flag to build the model with translation decoder.
     """
 
-    # Not relevant if we only do recognition.
+    # TODO: Not relevant if we only do recognition. V
     txt_padding_idx = txt_vocab.stoi[PAD_TOKEN]
 
     sgn_embed: SpatialEmbeddings = SpatialEmbeddings(
         **cfg["encoder"]["embeddings"],
         num_heads=cfg["encoder"]["num_heads"],
-        input_size=sgn_dim,  # TODO: update sgn_dim.    V
+        input_size=sgn_dim,  # TODO: update sgn_dim accordingly.    V
     )
 
-    # TODO: Don't think it should change, but check the yaml to be sure.    VVV
+    # TODO: Don't think it should be updated, but check the yaml file to be sure.   VVV
     # build encoder
     enc_dropout = cfg["encoder"].get("dropout", 0.0)
     enc_emb_dropout = cfg["encoder"]["embeddings"].get("dropout", enc_dropout)
@@ -404,7 +406,7 @@ def build_model(  # TODO: Update in process.    VVV
             emb_dropout=enc_emb_dropout,
         )
 
-    if do_recognition:  # TODO: Update according to yaml and gls_vocab. Update: Should be okay. VVV
+    if do_recognition:  # TODO: Update according to the yaml and gls_vocab -> Should be okay.   VVV
         gloss_output_layer = nn.Linear(encoder.output_size, len(gls_vocab))
         if cfg["encoder"].get("freeze", False):
             freeze_params(gloss_output_layer)
@@ -445,9 +447,9 @@ def build_model(  # TODO: Update in process.    VVV
         txt_embed = None
         decoder = None
 
-    # TODO: Update if needed.   Update: seams good. V
+    # TODO: Update if necessary -> Looks good.  V
     model: SignModel = SignModel(
-        dataset=dataset,
+        dataset=dataset,    # TODO: Add the dataset name as a parameter.    V
         encoder=encoder,
         gloss_output_layer=gloss_output_layer,
         decoder=decoder,
@@ -460,10 +462,8 @@ def build_model(  # TODO: Update in process.    VVV
     )
 
     if do_translation:
-
         # tie softmax layer with txt embeddings
         if cfg.get("tied_softmax", False):
-
             # noinspection PyUnresolvedReferences
             if txt_embed.lut.weight.shape == model.decoder.output_layer.weight.shape:
                 # (also) share txt embeddings and softmax layer:
@@ -476,7 +476,7 @@ def build_model(  # TODO: Update in process.    VVV
                     "The decoder must be a Transformer."
                 )
 
-    # TODO: Update. Not needed. V
+    # TODO: Update accordingly -> Not needed.   V
     # custom initialization of model parameters
     initialize_model(model, cfg, txt_padding_idx)
 

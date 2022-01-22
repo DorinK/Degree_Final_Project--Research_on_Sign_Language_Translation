@@ -1,8 +1,9 @@
 import numpy as np
+
 from collections import defaultdict, Counter
 from typing import List
 # from torchtext.data import Dataset
-import itertools  # TODO: Mine.
+import itertools  # TODO: Add relevant import.  V
 
 SIL_TOKEN = "<si>"
 UNK_TOKEN = "<unk>"
@@ -11,7 +12,7 @@ BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
 
-class Vocabulary:  # TODO: Update accordingly.  VVV
+class Vocabulary:  # TODO: Adapt to AUTSL and ChicagoFSWild datasets.   VVV
     """
     Vocabulary represents mapping between tokens and indices.
     """
@@ -24,7 +25,7 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
         self.stoi = None
         self.DEFAULT_UNK_ID = None
 
-    # TODO: Change if it is in the way. VVV
+    # TODO: Change if necessary -> No need. V
     def _from_list(self, tokens: List[str] = None):
         """
         Make vocabulary from list of tokens.
@@ -36,7 +37,7 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
         self.add_tokens(tokens=self.specials + tokens)
         assert len(self.stoi) == len(self.itos)
 
-    # TODO: Should check it.    VVV
+    # TODO: Check.  VVV
     def _from_file(self, file: str):
         """
         Make vocabulary from contents of file.
@@ -53,7 +54,7 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
     def __str__(self) -> str:
         return self.stoi.__str__()
 
-    # TODO: Should check it.    VVV
+    # TODO: Check.  VVV
     def to_file(self, file: str):
         """
         Save the vocabulary to a file, by writing token with index i in line i.
@@ -64,8 +65,8 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
             for t in self.itos:
                 open_file.write("{}\n".format(t))
 
-    # TODO: Should check it.    VVV
-    #  Update: This func gives a number to each label. Should not be used.
+    # TODO: Check.  VVV
+    #  Update: This func gives a number to each label.
     def add_tokens(self, tokens: List[str]):
         """
         Add list of tokens to vocabulary.
@@ -79,7 +80,7 @@ class Vocabulary:  # TODO: Update accordingly.  VVV
                 self.itos.append(t)
                 self.stoi[t] = new_index
 
-    # TODO: Should check it.    VVV
+    # TODO: Check.  VVV
     def is_unk(self, token: str) -> bool:
         """
         Check whether a token is covered by the vocabulary.
@@ -147,7 +148,7 @@ class TextVocabulary(Vocabulary):
         return sentences
 
 
-class GlossVocabulary(Vocabulary):  # TODO: Update to suite to a gloss ids format.  VVV
+class GlossVocabulary(Vocabulary):
 
     def __init__(self, tokens: List[str] = None, file: str = None):
         """
@@ -199,16 +200,14 @@ def sort_and_cut(counter: Counter, limit: int):
     """
     Cut counter to most frequent, sorted numerically and alphabetically
     """
-
     # sort by frequency, then alphabetically
     tokens_and_frequencies = sorted(counter.items(), key=lambda tup: tup[0])
     tokens_and_frequencies.sort(key=lambda tup: tup[1], reverse=True)
-
     vocab_tokens = [i[0] for i in tokens_and_frequencies[:limit]]
     return vocab_tokens
 
 
-def build_vocab(
+def build_vocab(    # TODO: Add the dataset name as a parameter.    V
         version: str, field: str, max_size: int, min_freq: int, dataset, vocab_file: str = None
 ) -> Vocabulary:
     """
@@ -223,6 +222,7 @@ def build_vocab(
         if not None, load vocabulary from here
     :return: Vocabulary created from either `dataset` or `vocab_file`
     """
+
     if vocab_file is not None:  # TODO: Okay.   V
         # load it from file
         if field == "gls":
@@ -234,7 +234,7 @@ def build_vocab(
 
     else:
         tokens = []
-        if version == 'phoenix_2014_trans':  # TODO: Match to the asynchronous loader.  V
+        if version == 'phoenix_2014_trans':
             for i in dataset.examples:
                 if field == "gls":
                     tokens.extend(i.gls)
@@ -242,17 +242,18 @@ def build_vocab(
                     tokens.extend(i.txt)
                 else:
                     raise ValueError("Unknown field type")
-        elif version == 'autsl':  # TODO: Mine - Check it is working.  VVV
+        # TODO: Adapt to the asynchronous dataset structure used for the AUTSL and ChicagoFSWild datasets.  V
+        elif version == 'autsl':  # TODO: Check if it's working.   VVV
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     tokens.append(i['gloss_id'].numpy())
-                else:  # TODO: Mine.
+                else:
                     raise ValueError("Unknown field type")
-        else:  # TODO: Mine.
+        else:  # TODO: Adapt to ChicagoFSWild.  V
             for idx, i in enumerate(itertools.islice(dataset, 0, len(dataset))):
                 if field == "gls":
                     break
-                if field == "txt":  # TODO: Break the text reference into word tokens.  V
+                if field == "txt":  # TODO: Split the text reference into word tokens.  V
                     words = i['text'].numpy().decode('utf-8').split()
                     tokens += words
                 else:
@@ -261,7 +262,7 @@ def build_vocab(
         counter = Counter(tokens)
         if min_freq > -1:
             counter = filter_min(counter, min_freq)
-        vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if needed.   VVV
+        vocab_tokens = sort_and_cut(counter, max_size)  # TODO: Change if necessary -> No need. V
         assert len(vocab_tokens) <= max_size
 
         if field == "gls":  # TODO: Okay.   V
@@ -271,11 +272,11 @@ def build_vocab(
         else:
             raise ValueError("Unknown vocabulary type")
 
-        # TODO: Change if needed.   VVV
+        # TODO: Change if necessary -> No need. V
         assert len(vocab) <= max_size + len(vocab.specials)
         assert vocab.itos[vocab.DEFAULT_UNK_ID()] == UNK_TOKEN
 
-    # TODO: Change if needed. Update: I think it's harmless.    VVV
+    # TODO: Change if necessary -> No need. V
     for i, s in enumerate(vocab.specials):
         if i != vocab.DEFAULT_UNK_ID():
             assert not vocab.is_unk(s)
