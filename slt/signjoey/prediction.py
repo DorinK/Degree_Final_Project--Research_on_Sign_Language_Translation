@@ -687,7 +687,7 @@ def test(
     elif cfg["data"]["version"] == 'autsl':  # TODO: Adapt to the asynchronous data structure of AUTSL. V
 
         config = SignDatasetConfig(name="include-videos", version="1.0.0", include_video=True, fps=30)
-        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config), shuffle_files=True) # TODO: Check shuffle! 7/9  V
+        autsl = tfds.load(name='autsl', builder_kwargs=dict(config=config), shuffle_files=False) # TODO: Check shuffle! 7/9  V
         train_data, dev_data, test_data = autsl['train'], autsl['validation'], autsl['test']
 
         # Set the maximal size of the gloss vocab and the minimum frequency to each item in it.
@@ -714,7 +714,7 @@ def test(
     else:  # TODO: Adapt to the asynchronous data structure of ChicagoFSWild.   V
 
         config = SignDatasetConfig(name="new-setup", version="1.0.0", include_video=True, resolution=(640, 360))
-        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=True)
+        chicagofswild = tfds.load(name='chicago_fs_wild', builder_kwargs=dict(config=config), shuffle_files=False)
         train_data, dev_data, test_data = chicagofswild['train'], chicagofswild['validation'], chicagofswild['test']
 
         # Set the maximal size of the gloss vocab and text vocab and the minimum frequency to each item in them.
