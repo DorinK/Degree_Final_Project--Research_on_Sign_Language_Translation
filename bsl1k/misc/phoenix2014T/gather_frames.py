@@ -45,7 +45,7 @@ if __name__ == "__main__":
         "--data_path",
         type=str,
         default="/home/nlp/dorink/project/bsl1k/data",
-        # data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T", # TODO: Update path accordingly.  V
+        # data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T", # TODO: Update path accordingly.      V
         help="Path to Phoenix data.",
     )
     main(**vars(p.parse_args()))

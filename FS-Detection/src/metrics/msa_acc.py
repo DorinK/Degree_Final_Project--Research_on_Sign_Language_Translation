@@ -85,11 +85,14 @@ class Evaluator(object):
                 img_tensor = (img_tensor / 256 - self.immean) / self.imstd
                 feat = self.model.backbone.model1_0(img_tensor)
                 feat = functional.adaptive_avg_pool2d(feat, (1, 1)).view(self.chunk_size, -1)
-                preds.sort(key=lambda x: min(self.chunk_size, x[1]) - max(x[0], 0), reverse=True)   # TODO: Adjust that.    V
+                # TODO: Added this line to solve conflict below.  V
+                preds.sort(key=lambda x: min(self.chunk_size, x[1]) - max(x[0], 0), reverse=True)
                 frame_sizes = torch.LongTensor([min(self.chunk_size, end) - max(start, 0) for start, end in preds])
                 batch_feat = feat.new_zeros(len(preds), frame_sizes.max().item(), feat.size(-1))
                 for j, (start, end) in enumerate(preds):
                     batch_feat[j, :frame_sizes[j]] = feat[int(start): int(end)]
+                # TODO: Conflict with library version - using 'enforce_sorted' is not supported.
+                #  Error: pack_padded_sequence() got an unexpected keyword argument 'enforce_sorted'.
                 batch_feat = pack_padded_sequence(batch_feat, frame_sizes, batch_first=True)  # , enforce_sorted=False
                 batch_output, _ = self.model.lstm(batch_feat)
                 batch_output, _ = pad_packed_sequence(batch_output, batch_first=True)
